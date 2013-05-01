@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+
+	<!-- Configures support for @Controllers -->
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="org.springframework.data.web.PageableArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+	
+	<!-- Interceptor -->
+	<!--
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/users/*" />
+        	<bean class="com.....UserControllerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+	-->
+	<context:component-scan base-package="com.infoc" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:include-filter>
+	</context:component-scan>
+	
+	<bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="customArgumentResolvers">
+			<array>
+				<bean class="org.springframework.data.web.PageableArgumentResolver" />
+			</array>
+		</property>
+		<property name="order" value="-1"/>
+	</bean>	
+	
+	
+	<!-- 
+	<security:global-method-security pre-post-annotations="enabled" proxy-target-class="true"/>
+	
+	<bean id="springSecurityUserRequestAttributeFactory" class="com.nhncorp.lucy.spring.security.SpringSecurityUserRequestAttributeFactory">
+		<property name="userFactory" ref="userFactory"/>
+	</bean>
+	 -->
+	 
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- bean 형태로 Inject받아서 사용할경우,-->
+	<!--<bean class="com.nhncorp.lucy.spring.core.web.helper.PagerInfoFactoryBean" />-->
+
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<property name="proxyTargetClass" value="true"></property>
+		<property name="usePrefix" value="true"/>
+		<property name="advisorBeanNamePrefix" value="board"/>
+	</bean>
+	
+</beans>

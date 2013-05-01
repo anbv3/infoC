@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- Properties Files -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:properties/jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 아래는 설정 암호화를 사용하는 경우 -->
+    <!--
+	<bean id="SimplePropertyEncryptor" class="com.nhncorp.lucy.spring.beans.factory.config.SimplePropertyEncryptor"></bean>
+	<bean id="propertyConfigurer" class="com.nhncorp.lucy.spring.beans.factory.config.PropertyEncryptConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:properties/jdbc.properties</value>
+			</list>
+		</property>
+		<property name="propertyEncryptor" ref="SimplePropertyEncryptor"/>
+	</bean>
+    -->
+
+
+    <!-- DataSource Configuration -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+
+        <!-- 아래 4개의 설정은 가능한 동일하게 설정하는 것이 장애상황시의 예외 케이스를 줄일수 있다.. -->
+        <property name="initialSize" value="20"/>
+        <property name="maxActive" value="20"/>
+        <property name="maxIdle" value="20"/>
+        <property name="minIdle" value="20"/>
+
+        <!-- pool이 고갈되었을 경우 최대 대기 타임 ms -->
+        <property name="maxWait" value="1000"/>
+
+        <!-- evictor 설정 샘플 -->
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+
+        <!-- testWhileIdle 샘플 설정 5분마다 5개의 connection 꺼내 validation query를 날려 확인 -->
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+        <property name="numTestsPerEvictionRun" value="5"/>
+        <property name="minEvictableIdleTimeMillis" value="-1"/>
+        <property name="validationQuery" value="SELECT 1"/>
+
+        <!-- preparedStatement cache 사용여부 -->
+        <property name="poolPreparedStatements" value="true"/>
+        <!-- preparedStatement cache 를 얼마나할지 설정.-->
+        <property name="maxOpenPreparedStatements" value="50"/>
+
+    </bean>
+
+</beans>
