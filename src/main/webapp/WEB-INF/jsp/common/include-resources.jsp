@@ -6,4 +6,5 @@
 
 <script type='text/javascript' src='<c:url value="/js/jquery/jquery-1.9.1.min.js"/>'></script>
 <script type='text/javascript' src='<c:url value="/js/jquery/jquery-ui.min.js"/>'></script>
+<script type='text/javascript' src='<c:url value="/js/jquery/jquery.masonry.min.js"/>'></script>
 <script type='text/javascript' src='<c:url value="/js/bootstrap.min.js"/>'></script>
