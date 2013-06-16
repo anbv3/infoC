@@ -13,6 +13,17 @@
 
 <style type="text/css">
 .item {
+	width: 450px; 
+	padding: 10px 10px 10px 10px;
+	margin:0;
+	float: left;
+	border: solid 1px #B4BBCD;
+	min-height: 50px;
+	text-align: justify;
+	word-wrap: break-word;
+}
+
+.item2 {
 	width: 450px;
 	padding: 10px 10px 10px 10px;
 	margin:0;
@@ -22,6 +33,7 @@
 	text-align: justify;
 	word-wrap: break-word;
 }
+
 
 .color-strip {
 background: #ccc url('img/color-strip.png') no-repeat 20% top;
@@ -55,12 +67,18 @@ padding: 20px 0 20px 0;
 <!--
 
 	$(function() {
-
-		$('.stroy').imagesLoaded(function() {
-			$('.stroy').masonry({
+		
+		var $container = $('.stroy');
+		$container.imagesLoaded(function() {
+			$container.masonry({
+				itemSelector: '.item',
+				columnWidth: function( containerWidth ) {
+					return containerWidth / 2;
+				}
 			});
 		});
-
+		
+		
 	});
 //-->
 </script>
@@ -122,6 +140,9 @@ padding: 20px 0 20px 0;
 	</div>
 	<!-- header -->
 
+<!-- ************************************************************************************************************************************ -->
+
+	<!-- body -->
     <div id="top-section" class="well well-large">
       <div class="container-fluid">
         <div class="row-fluid">
