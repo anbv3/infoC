@@ -13,23 +13,19 @@
 
 <style type="text/css">
 .item {
-	width: 450px; 
-	padding: 10px 10px 10px 10px;
-	margin:0;
+	width: 450px;
+	margin: 5px; 
+	padding: 10px;
 	float: left;
-	border: solid 1px #B4BBCD;
-	min-height: 50px;
 	text-align: justify;
 	word-wrap: break-word;
 }
 
 .item2 {
-	width: 450px;
-	padding: 10px 10px 10px 10px;
-	margin:0;
+	width: 210px;
+	margin: 5px;
+	padding: 10px;
 	float: left;
-	border: solid 1px #B4BBCD;
-	min-height: 50px;
 	text-align: justify;
 	word-wrap: break-word;
 }
@@ -72,9 +68,7 @@ padding: 20px 0 20px 0;
 		$container.imagesLoaded(function() {
 			$container.masonry({
 				itemSelector: '.item',
-				columnWidth: function( containerWidth ) {
-					return containerWidth / 2;
-				}
+				columnWidth:'210'
 			});
 		});
 		
@@ -169,19 +163,24 @@ padding: 20px 0 20px 0;
 						<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg"/>
 						</div>
 						
-						<div class="item">2
+						<div class="item2">2
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
 								aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
 								elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
 								vel sodales lectus. Nulla in pellentesque eros. Donec ultricies, enim vitae varius cursus, risus mauris iaculis
 								neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
 						</div>
-						<div class="item">3
+						<div class="item2">3
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
 								aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
 								neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
 						</div>
-						<div class="item">4</div>
+						<div class="item2">4
+						 eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
+								elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
+								vel sodales lectus. Nulla in pellentesque eros. Donec ultricies, enim vitae varius cursus, risus mauris iaculis
+								neque, euismod sollicitudin metus erat vitae sapien. Sed p
+								</div>
 						</div>
 					</div>
 				</div>
@@ -201,11 +200,11 @@ padding: 20px 0 20px 0;
 
 					<div class="span9">
 					<div class="stroy">
-						<div class="item">1</div>
+						<div class="item2">1</div>
 						<div class="item">
 						<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg"/>
 						</div>
-						<div class="item">3
+						<div class="item2">3
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
 								aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
 								elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
@@ -213,7 +212,9 @@ padding: 20px 0 20px 0;
 								neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
 						</div>
 						
-						<div class="item">4</div>
+						<div class="item2">4m eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
+								elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
+								vel sodales le</div>
 						</div>
 					</div>
 				</div>
@@ -234,20 +235,20 @@ padding: 20px 0 20px 0;
 
 					<div class="span9">
 						<div class="stroy">
-							<div class="item">1</div>
-							<div class="item">2
+							<div class="item2">1</div>
+							<div class="item2">2
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
 									aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
 									elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
 									vel sodales lectus. Nulla in pellentesque eros. Donec ultricies, enim vitae varius cursus, risus mauris iaculis
 									neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
 							</div>
-							<div class="item">3
+							<div class="item2">3
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
 									aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
 									neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
 							</div>
-							<div class="item">1</div>
+							<div class="item"><img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg"/></div>
 						</div>
 					</div>
 				</div>
