@@ -13,67 +13,61 @@
 
 <style type="text/css">
 .item {
-	width: 450px;
-	margin: 5px; 
-	padding: 10px;
-	float: left;
+	width: 25%;
+	margin-bottom: 5px;
 	text-align: justify;
 	word-wrap: break-word;
 }
 
-.item2 {
-	width: 210px;
-	margin: 5px;
-	padding: 10px;
-	float: left;
-	text-align: justify;
-	word-wrap: break-word;
+.item.w2 {
+	width: 25%;
 }
-
 
 .color-strip {
-background: #ccc url('img/color-strip.png') no-repeat 20% top;
-height: 5px;
+	background: #ccc url('img/color-strip.png') no-repeat 20% top;
+	height: 5px;
 }
 
 #top-section {
-margin-top: 40px;
-margin-bottom:0;
+	margin-top: 40px;
+	margin-bottom: 0;
 }
 
 .one {
-margin: 0 auto;
-padding: 20px 0 20px 0;
-color:#000;
+	margin: 0 auto;
+	padding: 20px 0 20px 0;
+	color: #000;
 }
-
 
 .two {
-color:#fff;
-background: #333;
-margin: 0 auto;
-padding: 20px 0 20px 0;
+	color: #fff;
+	background: #333;
+	margin: 0 auto;
+	padding: 20px 0 20px 0;
 }
-
-
-
 </style>
 
 <script type="text/javascript">
 <!--
 
-	$(function() {
-		
-		var $container = $('.stroy');
+$(function() {
+	
+	$("#ttt").on("click", function() {
+		test();
+       });
+	
+	$('.story').each(function() {
+		var $container = $(this);
 		$container.imagesLoaded(function() {
-			$container.masonry({
+			//$container.packery({
+			$container.packery({
 				itemSelector: '.item',
-				columnWidth:'210'
+				gutter: 15
 			});
 		});
-		
-		
 	});
+	
+});
 //-->
 </script>
 
@@ -86,17 +80,14 @@ padding: 20px 0 20px 0;
 		<div class="navbar-inner">
 			<div class="container">
 				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span>
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
 				<a class="brand" href="index.html">InfoC</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li class="active"><a href="index.html">Home</a></li>
-						<li class="dropdown">
-						<a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">IT 
-						<b class="caret"></b>
+						<li class="dropdown"><a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">IT
+								<b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
 								<li class="nav-header">General</li>
@@ -110,12 +101,10 @@ padding: 20px 0 20px 0;
 								<li><a href="portfolio2.html">Two Columns</a></li>
 								<li><a href="portfolio3.html">Three Columns</a></li>
 								<li><a href="portfolio4.html">Four Columns</a></li>
-							</ul>
-						</li>
-						
-						<li class="dropdown">
-						<a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">Econ 
-						<b class="caret"></b>
+							</ul></li>
+
+						<li class="dropdown"><a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">Econ
+								<b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="columns.html">Columns</a></li>
@@ -124,7 +113,7 @@ padding: 20px 0 20px 0;
 								<li><a href="icons.html">Icons</a></li>
 							</ul></li>
 						<li><a href="#">Contact</a></li>
-						
+
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -134,53 +123,60 @@ padding: 20px 0 20px 0;
 	</div>
 	<!-- header -->
 
-<!-- ************************************************************************************************************************************ -->
+	<!-- ************************************************************************************************************************************ -->
 
 	<!-- body -->
-    <div id="top-section" class="well well-large">
-      <div class="container-fluid">
-        <div class="row-fluid">
-          <div class="span12 text-center">
-            <h3><strong>LOREM IPSUM DOLOR</strong> - <span><em>Curabitur viverra nulla non tellus suscipit condimentum eget.</em></span></h3>
-          </div>
-        </div>
-      </div>
-    </div>
+	
+	<div id="top-section" class="well well-large">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12 text-center">
+					<h3>
+						<strong>LOREM IPSUM DOLOR</strong> - <span><em>Curabitur viverra nulla non tellus suscipit
+								condimentum eget.</em></span>
+								
+								<button id="ttt">tttttt</button>
+					</h3>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="one">
 		<div class="container-fluid">
-			<div class="story">
-				<div class="row-fluid">
+			<div class="row-fluid">
 
-					<div class="span2 section-title text-left">
-						<h3>13:00 ~ 14:00</h3>
-					</div>
+				<div class="span2 section-title text-left">
+					<h3>13:00 ~ 14:00</h3>
+				</div>
 
-					<div class="span9">
-					<div class="stroy">
-						
+				<div class="span10">
+					<div class="story">
+
+						<div class="item w2">
+							<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg" />
+						</div>
+
 						<div class="item">
-						<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg"/>
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
 						</div>
-						
-						<div class="item2">2
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
-								aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
-								elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
-								vel sodales lectus. Nulla in pellentesque eros. Donec ultricies, enim vitae varius cursus, risus mauris iaculis
-								neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
 						</div>
-						<div class="item2">3
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
-								aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
-								neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
+
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
 						</div>
-						<div class="item2">4
-						 eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
-								elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
-								vel sodales lectus. Nulla in pellentesque eros. Donec ultricies, enim vitae varius cursus, risus mauris iaculis
-								neque, euismod sollicitudin metus erat vitae sapien. Sed p
-								</div>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
 						</div>
 					</div>
 				</div>
@@ -188,34 +184,44 @@ padding: 20px 0 20px 0;
 			<!--.story-->
 		</div>
 	</div>
-	
+
 	<div class="two">
 		<div class="container-fluid">
-			<div class="story">
-				<div class="row-fluid">
+			<div class="row-fluid">
 
-					<div class="span2 section-title text-left">
-						<h3>13:00 ~ 14:00</h3>
-					</div>
+				<div class="span2 section-title text-left">
+					<h3>13:00 ~ 14:00</h3>
+				</div>
 
-					<div class="span9">
-					<div class="stroy">
-						<div class="item2">1</div>
-						<div class="item">
-						<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg"/>
+				<div class="span10">
+					<div class="story">
+						<div class="item">뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…김재훈씨 `더 클래스 효성` 투자 특혜 의혹도</div>
+						<div class="item w2">
+							<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg" />
 						</div>
-						<div class="item2">3
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
-								aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
-								elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
-								vel sodales lectus. Nulla in pellentesque eros. Donec ultricies, enim vitae varius cursus, risus mauris iaculis
-								neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장
+						</div>
+
+						<div class="item">뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…김재훈씨 `더 클래스 효성` 투자 특혜 의혹도</div>
+						
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
+
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
 						</div>
 						
-						<div class="item2">4m eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
-								elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
-								vel sodales le</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -224,31 +230,35 @@ padding: 20px 0 20px 0;
 	</div>
 
 
-<div class="one">
+	<div class="one">
 		<div class="container-fluid">
-			<div class="story">
-				<div class="row-fluid">
+			<div class="row-fluid">
 
-					<div class="span2 section-title text-left">
-						<h3>13:00 ~ 14:00</h3>
-					</div>
+				<div class="span2 section-title text-left">
+					<h3>13:00 ~ 14:00</h3>
+				</div>
 
-					<div class="span9">
-						<div class="stroy">
-							<div class="item2">1</div>
-							<div class="item2">2
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
-									aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
-									elementum enim urna eget odio. Donec egestas aliquet facilisis. Nunc eu nunc eget neque ornare fringilla. Nam
-									vel sodales lectus. Nulla in pellentesque eros. Donec ultricies, enim vitae varius cursus, risus mauris iaculis
-									neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
-							</div>
-							<div class="item2">3
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at,
-									aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris, volutpat
-									neque, euismod sollicitudin metus erat vitae sapien. Sed pulvinar.</p>
-							</div>
-							<div class="item"><img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg"/></div>
+				<div class="span10">
+					<div id="ccc" class="story">
+						<div class="item">뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서</div>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
+						<div class="item w2">
+							<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg" />
+						</div>
+						<div class="item">뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서</div>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
+						<div class="item w2">
+							<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg" />
 						</div>
 					</div>
 				</div>
@@ -256,8 +266,8 @@ padding: 20px 0 20px 0;
 			<!--.story-->
 		</div>
 	</div>
-	
-	
+
+
 </body>
 
 </html>
