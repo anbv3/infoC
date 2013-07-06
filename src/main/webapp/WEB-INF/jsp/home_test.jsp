@@ -13,14 +13,14 @@
 
 <style type="text/css">
 .item {
-	width: 30%;
+	width: 25%;
 	margin-bottom: 5px;
 	text-align: justify;
 	word-wrap: break-word;
 }
 
 .item.w2 {
-	width: 60%;
+	width: 25%;
 }
 
 .color-strip {
@@ -151,27 +151,31 @@ $(function() {
 				<div class="span10">
 					<div class="story">
 
-					<c:forEach var="row" items="${articleList}" varStatus="cnt">
-						<c:if test="${(cnt.count % 4) == 0}">
 						<div class="item w2">
-						<p>${cnt.count}</p>
-							<p>${row.getTitle()}</p>
-							<p>${row.getDescription().getValue()}</p>
-							<p>${row.getLink()}</p>
+							<img src="http://sccdn.chosun.com/news/html/2013/05/19/2013051901001461700122841.jpg" />
 						</div>
-						
-						</c:if>
-						<c:if test="${not ((cnt.count % 4) == 0)}">
+
 						<div class="item">
-						<p>${cnt.count}</p>
-							<p>${row.getTitle()}</p>
-							<p>${row.getDescription().getValue()}</p>
-							<p>${row.getLink()}</p>
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
 						</div>
-						</c:if>
-					
-					</c:forEach>
-						
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
+
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
+						<div class="item">
+							뉴스타파 "김병진 전 대림산업 회장 등 4명 조세피난처 법인 설립"(종합) 김병진 전 회장 벤처 운영하면서 동시 설립…
+							김재훈씨 `더 클래스 효성` 투자 특혜 의혹도
+						</div>
 					</div>
 				</div>
 			</div>

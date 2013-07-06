@@ -216,6 +216,12 @@
             <version>1.8.1</version>
         </dependency>
 
+		<dependency>
+			<groupId>rome</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.0</version>
+		</dependency>
+
         <!--JDBC Driver -->
         <dependency>
             <groupId>mysql</groupId>
