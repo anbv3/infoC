@@ -25,7 +25,7 @@ public class BaseController {
 		
 		return new ModelAndView("common/exception")
 			.addObject("exception", e.getClass().getName())
-			.addObject("ERR_MSG", Throwables.getRootCause(e).getMessage());
+			.addObject("errMsg", Throwables.getRootCause(e).getMessage());
 	}
 	
 }

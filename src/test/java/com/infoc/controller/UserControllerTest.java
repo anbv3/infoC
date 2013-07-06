@@ -5,11 +5,9 @@
 
 package com.infoc.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +19,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -52,4 +49,5 @@ public class UserControllerTest {
 			.andExpect(model().attributeHasNoErrors("user"))
 			.andExpect(forwardedUrl("users/form"));
 	}
+
 }

@@ -55,7 +55,7 @@ body {
 
 					<h2>${exception}</h2>
 
-					<div class="error-details">${ERR_MSG}</div>
+					<div class="error-details">${errMsg}</div>
 					<!-- /error-details -->
 
 					<div class="error-actions">
