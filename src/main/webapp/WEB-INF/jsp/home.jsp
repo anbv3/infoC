@@ -132,10 +132,8 @@ $(function() {
 			<div class="row-fluid">
 				<div class="span12 text-center">
 					<h3>
-						<strong>LOREM IPSUM DOLOR</strong> - <span><em>Curabitur viverra nulla non tellus suscipit
-								condimentum eget.</em></span>
-								
-								<button id="ttt">tttttt</button>
+						<strong>LOREM IPSUM DOLOR</strong> - 
+						<span><em>Curabitur viverra nulla non tellus suscipit condimentum eget.</em></span>
 					</h3>
 				</div>
 			</div>
