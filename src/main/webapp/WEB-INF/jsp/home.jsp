@@ -17,11 +17,33 @@
 	margin-bottom: 5px;
 	text-align: justify;
 	word-wrap: break-word;
+	
+	border-width: 1px;
+	border-style: solid;
+	border-color: #a0a0a0 #e0e4e6 #e0e4e6;
 }
 
 .item.w2 {
-	width: 60%;
+	width: 30%;
 }
+
+.item_title {
+padding: 7px 12px 7px 20px;
+border-bottom: 1px solid #e1e1e1;
+background-color: #f4f6f7;
+}
+
+.item_content {
+padding: 11px 18px 20px 20px;
+background-color: #fbfbfb;
+}
+
+.item_link {
+padding: 7px 12px 7px 20px;
+border-bottom: 1px solid #e1e1e1;
+background-color: #f3f6fb;
+}
+
 
 .color-strip {
 	background: #ccc url('img/color-strip.png') no-repeat 20% top;
@@ -154,19 +176,17 @@ $(function() {
 					<c:forEach var="row" items="${articleList}" varStatus="cnt">
 						<c:if test="${(cnt.count % 4) == 0}">
 						<div class="item w2">
-						<p>${cnt.count}</p>
-							<p>${row.getTitle()}</p>
-							<p>${row.getDescription().getValue()}</p>
-							<p>${row.getLink()}</p>
+							<div class="item_title">${row.getTitle()}</div>
+							<div class="item_content">${row.getDescription().getValue()}</div>
+							<div class="item_link">${row.getLink()}</div>
 						</div>
-						
 						</c:if>
+						
 						<c:if test="${not ((cnt.count % 4) == 0)}">
 						<div class="item">
-						<p>${cnt.count}</p>
-							<p>${row.getTitle()}</p>
-							<p>${row.getDescription().getValue()}</p>
-							<p>${row.getLink()}</p>
+							<div class="item_title">${row.getTitle()}</div>
+							<div class="item_content">${row.getDescription().getValue()}</div>
+							<div class="item_link">${row.getLink()}</div>
 						</div>
 						</c:if>
 					
