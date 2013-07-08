@@ -18,9 +18,17 @@ public class HomeController extends BaseController {
 		
 		String testURL = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=3";
 		List<SyndEntry> articleList = RSSReader.getArticleList(testURL);
-		
-		
+		articleList.remove(articleList.size()-1);
 		model.addAttribute("articleList", articleList);
+		
+		
+		String testURL2 = "http://news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=p&output=rss";
+		List<SyndEntry> articleList2 = RSSReader.getArticleList(testURL2);
+		articleList2.remove(articleList2.size()-1);
+		model.addAttribute("articleList2", articleList2);
+		
+		
+		
 		return "/home";
 	}
 	
