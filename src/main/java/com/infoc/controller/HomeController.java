@@ -28,7 +28,6 @@ public class HomeController extends BaseController {
 		model.addAttribute("articleList2", articleList2);
 		
 		
-		
 		return "/home";
 	}
 	
