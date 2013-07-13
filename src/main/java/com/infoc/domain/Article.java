@@ -14,6 +14,8 @@ import java.util.Date;
  */
 public class Article {
 
+	private String hashId;
+	
 	private String title;
 	
 	private String link;
@@ -25,6 +27,15 @@ public class Article {
 	private Date pubDate;
 	
 	private String author;
+
+	
+	public String getHashId() {
+		return hashId;
+	}
+
+	public void setHashId(String hashId) {
+		this.hashId = hashId;
+	}
 
 	public String getTitle() {
 		return title;

@@ -7,6 +7,9 @@
 
 package com.infoc.rss;
 
+import com.infoc.domain.Article;
+import com.sun.syndication.feed.synd.SyndEntry;
+
 /**
  * @author NBP
  */
@@ -64,4 +67,50 @@ http://news.google.com/news/url?sa=t&fd=R&usg=AFQjCNGfFwHBY32XbTQxcFLVmY06pQAomA
 </description>
 	 */
 
+	public Article parseItem(SyndEntry rssItem) {
+		Article article = new Article();
+		
+		article.setPubDate(rssItem.getPublishedDate());
+		article.setContents(rssItem.getDescription().getValue());
+		
+		parseTitleAuthor(rssItem.getTitle(), article);
+		parseLink(rssItem.getLink(), article);
+		parseDescrption(rssItem.getDescription().getValue(), article);
+		
+		return article;
+	}
+	
+	public void parseTitleAuthor(String title, Article article) {
+		int idx = title.lastIndexOf("-");
+		article.setTitle(title.substring(0, idx).trim());
+		article.setAuthor(title.substring(idx+1, title.length()).trim());
+	}
+	
+	public void parseLink(String link, Article article) {
+		int idx = link.lastIndexOf("http");
+		article.setLink(link.substring(idx+7));
+	}
+	
+	public void parseDescrption(String desc, Article article) {
+		StringBuffer sb = new StringBuffer();
+		
+		boolean appendFlag = false;
+		for (int i = 0; i < desc.length(); i++){
+		    char c = desc.charAt(i);   
+		    if(c == '<') {
+		    	appendFlag = false;
+		    	continue;
+		    }
+		    if(c == '>') {
+		    	appendFlag = true;
+		    	continue;
+		    }
+		    
+		    if(appendFlag) {
+		    	sb.append(c);
+		    }
+		}
+		
+		article.setContents(sb.toString());
+	}
 }
