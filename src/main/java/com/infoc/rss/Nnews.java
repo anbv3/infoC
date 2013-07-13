@@ -7,6 +7,9 @@
 
 package com.infoc.rss;
 
+import com.infoc.domain.Article;
+import com.sun.syndication.feed.synd.SyndEntry;
+
 /**
  * @author NBP
  */
@@ -29,6 +32,15 @@ public class Nnews {
 		<pubDate>Sat, 13 Jul 13 17:01:00 +0900</pubDate>
 	 */
 	
-	
+	public Article parseItem(SyndEntry rssItem) {
+		Article article = new Article();
+		article.setAuthor(rssItem.getAuthor());
+		article.setContents(rssItem.getDescription().getValue());
+		article.setLink(rssItem.getLink());
+		article.setPubDate(rssItem.getPublishedDate());
+		article.setTitle(rssItem.getTitle());
+		
+		return null;
+	}
 	
 }
