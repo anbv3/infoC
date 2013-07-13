@@ -106,32 +106,8 @@ $(function() {
 				<a class="brand" href="index.html">InfoC</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li class="active"><a href="index.html">Home</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">IT<b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li class="nav-header">General</li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="services.html">Services</a></li>
-								<li><a href="singleproject.html">Single Project</a></li>
-								<li><a href="faq.html">FAQ</a></li>
-								<li><a href="testimonials.html">Testimonials</a></li>
-								<li class="divider"></li>
-								<li class="nav-header">Portfolio Fixed</li>
-								<li><a href="portfolio2.html">Two Columns</a></li>
-								<li><a href="portfolio3.html">Three Columns</a></li>
-								<li><a href="portfolio4.html">Four Columns</a></li>
-							</ul>
-						</li>
-
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">Econ<b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="columns.html">Columns</a></li>
-								<li><a href="team.html">Team Styles</a></li>
-								<li><a href="elements.html">More Elements</a></li>
-								<li><a href="icons.html">Icons</a></li>
-							</ul></li>
+						<li class="active"><a href="#">Home</a></li>
+						<li class="active"><a href="#">IT</a></li>
 						<li><a href="#">Contact</a></li>
 
 					</ul>

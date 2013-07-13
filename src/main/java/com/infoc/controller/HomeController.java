@@ -13,6 +13,10 @@ import com.sun.syndication.feed.synd.SyndEntry;
 @Controller
 public class HomeController extends BaseController {
 	
+	
+	private static String G_NEWS = "https://news.google.co.kr/nwshp?hl=ko&output=rss";
+	private static String N_NEWS = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=2";
+	
 	@RequestMapping(value={"/", "/home"})
 	public String home(Model model) {
 		
