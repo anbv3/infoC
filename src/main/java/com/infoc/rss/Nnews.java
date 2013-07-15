@@ -7,30 +7,30 @@
 
 package com.infoc.rss;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.infoc.domain.Article;
+import com.infoc.util.RSSReader;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 /**
- * @author NBP
+ * @author anbv3
  */
 public class Nnews {
 
-	/*
-		<author>OSEN</author>
-		<title>
-		<![CDATA[ [사진]황우슬혜, '권민-윤지민 결혼 축하해요~' ]]>
-		</title>
-		<link>
-		http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=106&oid=109&aid=0002574668
-		</link>
-		<category>연예</category>
-		<description>
-		<![CDATA[
-		배우 황우슬혜가 13일 오후 서울 역삼동 라움
-		]]>
-		</description>
-		<pubDate>Sat, 13 Jul 13 17:01:00 +0900</pubDate>
-	 */
+	private static String N_NEWS = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=2";
+	
+	public List<Article> getNews() {
+		List<SyndEntry> rssList = RSSReader.getArticleList(N_NEWS);
+		
+		List<Article> articleList = new ArrayList<>();
+		for(SyndEntry item : rssList) {
+			articleList.add(parseItem(item));
+		}
+		
+		return articleList;
+	}
 	
 	public Article parseItem(SyndEntry rssItem) {
 		Article article = new Article();
@@ -39,8 +39,7 @@ public class Nnews {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(rssItem.getPublishedDate());
 		article.setTitle(rssItem.getTitle());
-		
-		return null;
+		return article;
 	}
 	
 }

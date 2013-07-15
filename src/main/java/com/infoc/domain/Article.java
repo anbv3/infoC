@@ -10,7 +10,7 @@ package com.infoc.domain;
 import java.util.Date;
 
 /**
- * @author NBP
+ * @author anbv3
  */
 public class Article {
 
