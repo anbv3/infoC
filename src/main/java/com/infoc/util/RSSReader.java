@@ -29,17 +29,10 @@ public class RSSReader {
 			SyndFeedInput input = new SyndFeedInput();
 			SyndFeed feed = input.build(new XmlReader(feedUrl));
 
-			System.out.println("RSS title: " + feed.getTitle());
-			System.out.println("RSS author: " + feed.getAuthor());
-
 			List<SyndEntry> entries = (List<SyndEntry>)feed.getEntries();
 
 			for (int i = 0; i < entries.size(); i++) {
 				SyndEntry entry = entries.get(i);
-				System.out.println("--- Entry " + i);
-				System.out.println(entry.getTitle());
-				System.out.println(entry.getDescription().getValue());
-				System.out.println(entry.getLink());
 			}
 			return entries;
 		} catch (IllegalArgumentException e) {

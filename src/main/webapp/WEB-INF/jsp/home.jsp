@@ -148,22 +148,11 @@ $(function() {
 					<div class="story">
 
 					<c:forEach var="row" items="${articleList}" varStatus="cnt">
-						<c:if test="${(cnt.count % 4) == 0}">
 						<div class="item w2">
-							<div class="item_title">${row.getTitle()}</div>
-							<div class="item_content">${row.getDescription().getValue()}</div>
-							<div class="item_link">${row.getLink()}</div>
+							<div class="item_title">${row.title}</div>
+							<div class="item_content">${row.contents}</div>
+							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
 						</div>
-						</c:if>
-						
-						<c:if test="${not ((cnt.count % 4) == 0)}">
-						<div class="item">
-							<div class="item_title">${row.getTitle()}</div>
-							<div class="item_content">${row.getDescription().getValue()}</div>
-							<div class="item_link">${row.getLink()}</div>
-						</div>
-						</c:if>
-					
 					</c:forEach>
 						
 					</div>
