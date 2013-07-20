@@ -15,7 +15,6 @@ infoC
 
 
 
-
 [기본 개발 진행 방법] 
 for(각 page : 전체 web page) {
 

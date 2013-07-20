@@ -7,12 +7,14 @@
 
 package com.infoc.rss;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.infoc.domain.Article;
+import com.infoc.domain.Collector;
 import com.infoc.util.RSSReader;
 import com.sun.syndication.feed.synd.SyndEntry;
 
@@ -23,21 +25,22 @@ public class Gnews {
 	
 	private static String G_NEWS = "https://news.google.co.kr/nwshp?hl=ko&output=rss";
 
-	public List<Article> getNews() {
+	public Gnews getNews() {
 		List<SyndEntry> rssList = RSSReader.getArticleList(G_NEWS);
 		
-		List<Article> articleList = new ArrayList<>();
 		for(SyndEntry item : rssList) {
-			articleList.add(parseItem(item));
+			Article article = parseItem(item);
+			int hour = article.getPubDate().getHourOfDay();
+			Collector.CACHE.get(hour).add(article);
 		}
 		
-		return articleList;
+		return this;
 	}
 	
 	public Article parseItem(SyndEntry rssItem) {
 		Article article = new Article();
 
-		article.setPubDate(rssItem.getPublishedDate());
+		article.setPubDate(new DateTime(rssItem.getPublishedDate()));
 		article.setContents(rssItem.getDescription().getValue());
 
 		parseTitleAuthor(rssItem.getTitle(), article);

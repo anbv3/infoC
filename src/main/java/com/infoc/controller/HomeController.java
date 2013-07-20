@@ -1,12 +1,10 @@
 package com.infoc.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.infoc.domain.Article;
+import com.infoc.domain.Collector;
 import com.infoc.rss.Gnews;
 import com.infoc.rss.Nnews;
 
@@ -18,8 +16,11 @@ public class HomeController extends BaseController {
 
 //		List<Article> articleList = (new Gnews()).getNews();
 //		articleList.addAll((new Nnews()).getNews());
-		model.addAttribute("articleList", (new Gnews()).getNews());
-		model.addAttribute("articleList2", (new Nnews()).getNews());
+		new Gnews().getNews();
+		new Nnews().getNews();
+		
+		model.addAttribute("articleMap", Collector.CACHE);
+		
 		return "/home";
 	}
 

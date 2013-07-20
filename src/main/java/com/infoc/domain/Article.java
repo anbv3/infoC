@@ -7,7 +7,9 @@
 
 package com.infoc.domain;
 
-import java.util.Date;
+import org.joda.time.DateTime;
+
+import com.google.common.collect.Ordering;
 
 /**
  * @author anbv3
@@ -24,10 +26,17 @@ public class Article {
 	
 	private String contents;
 	
-	private Date pubDate;
+	private DateTime pubDate;
 	
 	private String author;
 
+	public static final Ordering<Article> dateOrdering = new Ordering<Article>() {
+        @Override
+        public int compare(Article left, Article right) {
+            return left.getPubDate().compareTo(right.getPubDate());
+        }
+    };
+	
 	
 	public String getHashId() {
 		return hashId;
@@ -69,11 +78,11 @@ public class Article {
 		this.contents = contents;
 	}
 
-	public Date getPubDate() {
+	public DateTime getPubDate() {
 		return pubDate;
 	}
 
-	public void setPubDate(Date pubDate) {
+	public void setPubDate(DateTime pubDate) {
 		this.pubDate = pubDate;
 	}
 
