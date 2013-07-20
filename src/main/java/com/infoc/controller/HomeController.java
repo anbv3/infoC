@@ -16,10 +16,10 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = { "/", "/home" })
 	public String home(Model model) {
 
-		List<Article> articleList = (new Gnews()).getNews();
-		articleList.addAll((new Nnews()).getNews());
-		model.addAttribute("articleList", articleList);
-
+//		List<Article> articleList = (new Gnews()).getNews();
+//		articleList.addAll((new Nnews()).getNews());
+		model.addAttribute("articleList", (new Gnews()).getNews());
+		model.addAttribute("articleList2", (new Nnews()).getNews());
 		return "/home";
 	}
 
