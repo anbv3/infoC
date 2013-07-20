@@ -11,89 +11,6 @@
 <jsp:include page="./common/include-resources.jsp" />
 
 
-<style type="text/css">
-
-body {
-line-height: 25px;
-}
-.color-strip {
-	background: #ccc url('img/color-strip.png') no-repeat 20% top;
-	height: 5px;
-}
-
-
-.item {
-	width: 270px;
-	margin-bottom: 5px;
-	text-align: justify;
-	word-wrap: break-word;
-	
-	border-width: 1px;
-	border-style: solid;
-	border-color: #a0a0a0 #e0e4e6 #e0e4e6;
-}
-
-.one {
-	margin: 0 auto;
-	padding: 20px 0 20px 0;
-}
-
-.two {
-	background: #555152;
-	margin: 0 auto;
-	padding: 20px 0 20px 0;
-}
-
-.item_title {
-padding: 8px;
-border-bottom: 1px solid #e1e1e1;
-background-color: #f4f6f7;;
-}
-
-.item_content {
-padding: 8px;
-background-color: #FCFCEE;
-}
-
-.item_link {
-padding: 8px;
-border-bottom: 1px solid #e1e1e1;
-background-color: #f3f6fb;;
-}
-
-.two .item {
-border: none;
-}
-
-.two .section-title {
-color:#fff;
-}
-
-.two .item_title {
-background-color: #EFFFCD;
-border-top: 1px solid #99173C;
-}
-
-.two .item_content {
-background-color: #FCFCEE;
-}
-
-.two .item_link {
-background-color: #E6FCF4;
-}
-
-
-#top-section {
-	margin-top: 40px;
-	margin-bottom: 0;
-}
-
-.article-section {
-margin-left: 15px;
-}
-
-</style>
-
 <script type="text/javascript">
 <!--
 
@@ -162,21 +79,30 @@ $(function() {
 		</div>
 	</div>
 
-	<div class="one">
+
+<c:forEach var="entry" items="${articleMap}">
+<c:if test="${(entry.key % 2) == 0}">
+    <c:set var="rowColor" value="one"/>
+</c:if>    
+<c:if test="${(entry.key % 2) != 0}">
+	<c:set var="rowColor" value="two"/>
+</c:if>
+	<div class="${rowColor}">
 		<div class="container-fluid">
 			<div class="row-fluid article-section">
 
 				<div class="span2 section-title text-left">
-					<h3>13:00 ~ 14:00</h3>
+					<h3>${entry.key}</h3>
 				</div>
 
 				<div class="span10">
 					<div class="story">
 
-					<c:forEach var="row" items="${articleList}" varStatus="cnt">
+					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item w2">
 							<div class="item_title">${row.title}</div>
 							<div class="item_content">${row.contents}</div>
+							<div class="item_content">${row.pubDate}</div>
 							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
 						</div>
 					</c:forEach>
@@ -187,30 +113,10 @@ $(function() {
 			</div>
 		</div>
 	</div>
+    
+</c:forEach>
 
-	<div class="two">
-		<div class="container-fluid">
-			<div class="row-fluid article-section">
-
-				<div class="span2 section-title text-left">
-					<h3>13:00 ~ 14:00</h3>
-				</div>
-
-				<div class="span10">
-					<div class="story">
-					
-					<c:forEach var="row" items="${articleList2}" varStatus="cnt">
-						<div class="item w2">
-							<div class="item_title">${row.title}</div>
-							<div class="item_content">${row.contents}</div>
-							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
-						</div>
-					</c:forEach>
-					
-					</div>
-				</div>
-				
-				
+	
 			</div>
 		</div>
 	</div>
