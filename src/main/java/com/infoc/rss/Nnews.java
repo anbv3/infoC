@@ -10,6 +10,8 @@ package com.infoc.rss;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.infoc.domain.Article;
 import com.infoc.domain.Collector;
@@ -20,11 +22,13 @@ import com.sun.syndication.feed.synd.SyndEntry;
  * @author anbv3
  */
 public class Nnews {
-
+	private static final Logger LOG = LoggerFactory.getLogger(Nnews.class);
+	
 	private static String N_NEWS = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=2";
 	
 	public Nnews getNews() {
 		List<SyndEntry> rssList = RSSReader.getArticleList(N_NEWS);
+		LOG.debug("news size: {}", rssList.size());
 		
 		for(SyndEntry item : rssList) {
 		

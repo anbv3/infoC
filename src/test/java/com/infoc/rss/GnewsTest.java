@@ -1,5 +1,6 @@
 package com.infoc.rss;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import com.infoc.domain.Article;
@@ -26,5 +27,10 @@ public class GnewsTest {
 		
 		System.out.println(article.getContents());
 		
+	}
+	
+	@Test
+	public void testCurrentTime() {
+		System.out.println(new DateTime().getHourOfDay());
 	}
 }
