@@ -1,5 +1,6 @@
 package com.infoc.controller;
 
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,8 @@ public class HomeController extends BaseController {
 		new Nnews().getNews();
 		
 		model.addAttribute("articleMap", Collector.CACHE);
+		model.addAttribute("currentHour", new DateTime().getHourOfDay());
+		
 		
 		return "/home";
 	}

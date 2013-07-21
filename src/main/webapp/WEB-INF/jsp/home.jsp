@@ -79,20 +79,67 @@ $(function() {
 		</div>
 	</div>
 
-
+<!-- From now to past -->
 <c:forEach var="entry" items="${articleMap}">
-<c:if test="${(entry.key % 2) == 0}">
-    <c:set var="rowColor" value="one"/>
-</c:if>    
-<c:if test="${(entry.key % 2) != 0}">
-	<c:set var="rowColor" value="two"/>
-</c:if>
+
+	<c:if test="${(entry.key % 2) == 0}">
+	    <c:set var="rowColor" value="one"/>
+	</c:if>    
+	<c:if test="${(entry.key % 2) != 0}">
+		<c:set var="rowColor" value="two"/>
+	</c:if>
+	
+	<c:if test="${entry.key <= currentHour}">
+
 	<div class="${rowColor}">
 		<div class="container-fluid">
 			<div class="row-fluid article-section">
 
 				<div class="span2 section-title text-left">
-					<h3>${entry.key}</h3>
+					<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
+				</div>
+
+				<div class="span10">
+					<div class="story">
+
+					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
+						<div class="item w2">
+							<div class="item_title">${row.title}</div>
+							<div class="item_content">${row.contents}</div>
+							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
+						</div>
+					</c:forEach>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	</c:if>
+    
+</c:forEach>
+
+
+<!-- From the rest -->
+<c:forEach var="entry" items="${articleMap}">
+
+	<c:if test="${(entry.key % 2) == 0}">
+	    <c:set var="rowColor" value="one"/>
+	</c:if>    
+	<c:if test="${(entry.key % 2) != 0}">
+		<c:set var="rowColor" value="two"/>
+	</c:if>
+	
+	<c:if test="${entry.key > currentHour}">
+
+	<div class="${rowColor}">
+		<div class="container-fluid">
+			<div class="row-fluid article-section">
+
+				<div class="span2 section-title text-left">
+					<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
 				</div>
 
 				<div class="span10">
@@ -113,14 +160,11 @@ $(function() {
 			</div>
 		</div>
 	</div>
+	
+	</c:if>
     
 </c:forEach>
-
 	
-			</div>
-		</div>
-	</div>
-
 
 </body>
 

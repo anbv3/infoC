@@ -10,6 +10,10 @@ package com.infoc.rss;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -22,21 +26,23 @@ import com.sun.syndication.feed.synd.SyndEntry;
  * @author anbv3
  */
 public class Gnews {
+	private static final Logger LOG = LoggerFactory.getLogger(Gnews.class);
 	
 	private static String G_NEWS = "https://news.google.co.kr/nwshp?hl=ko&output=rss";
 
 	public Gnews getNews() {
 		List<SyndEntry> rssList = RSSReader.getArticleList(G_NEWS);
+		LOG.debug("news size: {}", rssList.size());
 		
-		for(SyndEntry item : rssList) {
+		for (SyndEntry item : rssList) {
 			Article article = parseItem(item);
 			int hour = article.getPubDate().getHourOfDay();
 			Collector.CACHE.get(hour).add(article);
 		}
-		
+
 		return this;
 	}
-	
+
 	public Article parseItem(SyndEntry rssItem) {
 		Article article = new Article();
 
@@ -81,15 +87,13 @@ public class Gnews {
 			}
 		}
 
-		List<String> cList = Lists.newArrayList(Splitter.on(';')
-				.trimResults()
-				.omitEmptyStrings()
-				.split(sb.toString()));
+		List<String> cList = Lists.newArrayList(Splitter.on(';').trimResults()
+				.omitEmptyStrings().split(sb.toString()));
 
 		int maxLength = 0;
 		int maxIdx = 0;
-		for (int i = 0 ; i<cList.size() ; i++) {
-			if(maxLength < cList.get(i).length()) {
+		for (int i = 0; i < cList.size(); i++) {
+			if (maxLength < cList.get(i).length()) {
 				maxLength = cList.get(i).length();
 				maxIdx = i;
 			}
