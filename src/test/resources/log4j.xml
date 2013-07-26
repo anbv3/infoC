@@ -41,7 +41,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="console" />
 	</root>
 	
