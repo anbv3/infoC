@@ -61,6 +61,9 @@ public class Gnews {
 		article.setLink(link.substring(idx));
 	}
 
+	/**
+	 * extract only texts except the html tags, and pick up the longest one.
+	 */
 	public void parseDescrption(String desc, Article article) {
 		
 		StringBuffer sb = new StringBuffer();
