@@ -1,5 +1,9 @@
 package com.infoc.rss;
 
+import java.io.UnsupportedEncodingException;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
@@ -17,6 +21,17 @@ public class GnewsTest {
 				"의원의 이른바 &#39;귀태(鬼胎) 발언&#39; 논란으로 중단됐던 국회 운영을 정상화하기로" +
 				"새누리당이 강력 반발하면서 빚어졌던 국회 일정 중단은 이틀 만에 일단락됐다. 새누리당"+
 				"원내대표와&nbsp;<b>...";
+	
+	
+	@Test 
+	public void ttt() throws UnsupportedEncodingException {
+		String aa = ".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*";
+		
+		System.err.println("Spain Train Derailment".matches(aa));
+		System.err.println("Spain Train가나 Derailment".matches(aa));
+		
+//		System.out.println(StringEscapeUtils.unescapeHtml(DESC));
+	}
 	
 	@Test
 	public void parse() {

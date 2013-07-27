@@ -1,14 +1,9 @@
-/*
- * @(#)Gnews.java $version 2013. 7. 13.
- *
- * Copyright 2007 NHN Corp. All rights Reserved. 
- * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package com.infoc.rss;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -32,12 +27,11 @@ public class Gnews {
 
 	public Gnews getNews() {
 		List<SyndEntry> rssList = RSSReader.getArticleList(G_NEWS);
-		LOG.debug("news size: {}", rssList.size());
+		LOG.debug("G news size: {}", rssList.size());
 		
 		for (SyndEntry item : rssList) {
 			Article article = parseItem(item);
-			int hour = article.getPubDate().getHourOfDay();
-			Collector.CACHE.get(hour).add(article);
+			Collector.add(article);
 		}
 
 		return this;
@@ -68,17 +62,21 @@ public class Gnews {
 	}
 
 	public void parseDescrption(String desc, Article article) {
+		
 		StringBuffer sb = new StringBuffer();
-
+		
+		List<String> descList = new ArrayList<>();
 		boolean appendFlag = false;
 		for (int i = 0; i < desc.length(); i++) {
 			char c = desc.charAt(i);
 			if (c == '<') {
 				appendFlag = false;
+				descList.add(sb.toString());
 				continue;
 			}
 			if (c == '>') {
 				appendFlag = true;
+				sb = new StringBuffer();
 				continue;
 			}
 
@@ -86,19 +84,17 @@ public class Gnews {
 				sb.append(c);
 			}
 		}
-
-		List<String> cList = Lists.newArrayList(Splitter.on(';').trimResults()
-				.omitEmptyStrings().split(sb.toString()));
+		descList.add(sb.toString());
 
 		int maxLength = 0;
 		int maxIdx = 0;
-		for (int i = 0; i < cList.size(); i++) {
-			if (maxLength < cList.get(i).length()) {
-				maxLength = cList.get(i).length();
+		for (int i = 0; i < descList.size(); i++) {
+			if (maxLength < descList.get(i).length()) {
+				maxLength = descList.get(i).length();
 				maxIdx = i;
 			}
 		}
 
-		article.setContents(cList.get(maxIdx));
+		article.setContents(StringEscapeUtils.unescapeHtml(descList.get(maxIdx)) + "...");
 	}
 }

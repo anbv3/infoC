@@ -1,11 +1,7 @@
-/*
- * @(#)Article.java $version 2013. 7. 13.
- *
- * Copyright 2007 NHN Corp. All rights Reserved. 
- * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package com.infoc.domain;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 
@@ -30,6 +26,8 @@ public class Article {
 	
 	private String author;
 
+	private Set<String> keyWordList = new HashSet<>();
+	
 	public static final Ordering<Article> dateOrdering = new Ordering<Article>() {
         @Override
         public int compare(Article left, Article right) {
@@ -92,6 +90,14 @@ public class Article {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public Set<String> getKeyWordList() {
+		return keyWordList;
+	}
+
+	public void setKeyWordList(Set<String> keyWordList) {
+		this.keyWordList = keyWordList;
 	}
 	
 }

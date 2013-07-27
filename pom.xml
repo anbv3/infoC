@@ -228,7 +228,13 @@
 			<version>2.2</version>
 		</dependency>
             
+        <dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.2</version>
+		</dependency>
             
+                
         <!--JDBC Driver -->
         <dependency>
             <groupId>mysql</groupId>
