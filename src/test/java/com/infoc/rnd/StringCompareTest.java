@@ -1,5 +1,7 @@
 package com.infoc.rnd;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.CharMatcher;
@@ -57,18 +59,26 @@ public class StringCompareTest {
         Splitter splitter = Splitter.onPattern("\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”").trimResults().omitEmptyStrings();
 
 
-        for(String ss : Sets.newHashSet(splitter.split(s1))) {
-            LOG.debug("{}",ss);
+//        for(String ss : Sets.newHashSet(splitter.split(s1))) {
+//            LOG.debug("{}",ss);
+//        }
+//
+//        for(String ss : Sets.newHashSet(splitter.split(s2))) {
+//            LOG.debug("{}",ss);
+//        }
+        
+        
+        List<String> dupWorkList = new ArrayList<>();
+        for(String oriWord : Sets.newHashSet(splitter.split(s1))) {
+        	for(String tarWord : Sets.newHashSet(splitter.split(s2))) {
+            	
+        		if(oriWord.contains(tarWord) || tarWord.contains(oriWord) ) {
+        			String keyWord = oriWord.length() < tarWord.length() ? oriWord : tarWord;
+        			dupWorkList.add(keyWord);
+        		}
+        		
+            }	
         }
-
-        for(String ss : Sets.newHashSet(splitter.split(s2))) {
-            LOG.debug("{}",ss);
-        }
-
-        Set<String> intersection = Sets.intersection(
-                Sets.newHashSet(splitter.split(s1)),
-                Sets.newHashSet(splitter.split(s2)));
-
-        System.out.println(intersection);
+        System.out.println(dupWorkList);
     }
 }

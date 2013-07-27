@@ -1,8 +1,3 @@
-/*
- * @(#)UserControllerTest.java $version 2013. 5. 1.
- *
- */
-
 package com.infoc.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

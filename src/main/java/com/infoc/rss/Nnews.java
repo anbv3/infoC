@@ -1,10 +1,3 @@
-/*
- * @(#)Nnews.java $version 2013. 7. 13.
- *
- * Copyright 2007 NHN Corp. All rights Reserved. 
- * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package com.infoc.rss;
 
 import java.util.List;
@@ -28,14 +21,16 @@ public class Nnews {
 	
 	public Nnews getNews() {
 		List<SyndEntry> rssList = RSSReader.getArticleList(N_NEWS);
-		LOG.debug("news size: {}", rssList.size());
+		LOG.debug("N news size: {}", rssList.size());
 		
 		for(SyndEntry item : rssList) {
-		
 			Article article = parseItem(item);
-			int hour = article.getPubDate().getHourOfDay();
-			Collector.CACHE.get(hour).add(article);
 			
+			if(!article.getTitle().matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+				continue;
+			}
+			
+			Collector.add(article);
 		}
 		
 		return this;
