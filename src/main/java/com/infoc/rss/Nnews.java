@@ -26,6 +26,7 @@ public class Nnews {
 		for(SyndEntry item : rssList) {
 			Article article = parseItem(item);
 			
+			// Skip the news written in only English.
 			if(!article.getTitle().matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
 				continue;
 			}
