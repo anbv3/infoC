@@ -14,7 +14,7 @@
 <style type="text/css">
 
 body {
-line-height: 25px;
+
 }
 .color-strip {
 	background: #ccc url('img/color-strip.png') no-repeat 20% top;
@@ -23,7 +23,7 @@ line-height: 25px;
 
 
 .item {
-	width: 270px;
+	width: 330px;
 	margin-bottom: 5px;
 	text-align: justify;
 	word-wrap: break-word;
@@ -45,20 +45,23 @@ line-height: 25px;
 }
 
 .item_title {
-padding: 8px;
+padding: 8px 18px;
 border-bottom: 1px solid #e1e1e1;
-background-color: #f4f6f7;;
+background-color: #EEF1DF;;
+font-weight: bold;
 }
 
 .item_content {
-padding: 8px;
-background-color: #FCFCEE;
+padding: 28px;
+border-bottom: 1px solid #e1e1e1;
+background-color: #fff;
+line-height: 28px;
 }
 
 .item_link {
 padding: 8px;
 border-bottom: 1px solid #e1e1e1;
-background-color: #E6FCF4;;
+background-color: #fff;;
 }
 
 .two .item {
@@ -70,16 +73,12 @@ color:#fff;
 }
 
 .two .item_title {
-background-color: #EFFFCD;
-border-top: 1px solid #99173C;
 }
 
 .two .item_content {
-background-color: #fff;
 }
 
 .two .item_link {
-background-color: #E6FCF4;
 }
 
 

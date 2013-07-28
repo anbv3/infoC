@@ -71,8 +71,8 @@ $(function() {
 			<div class="row-fluid">
 				<div class="span12 text-center">
 					<h3>
-						<strong>LOREM IPSUM DOLOR</strong> - 
-						<span><em>Curabitur viverra nulla non tellus suscipit condimentum eget.</em></span>
+						<strong>여러 기사 타이틀</strong> - 
+						<span><em>흘러가는 영역</em></span>
 					</h3>
 				</div>
 			</div>
@@ -149,7 +149,6 @@ $(function() {
 						<div class="item w2">
 							<div class="item_title">${row.title}</div>
 							<div class="item_content">${row.contents}</div>
-							<div class="item_content">${row.pubDate}</div>
 							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
 						</div>
 					</c:forEach>
