@@ -66,14 +66,21 @@ $(function() {
 
 	<!-- body -->
 	
-	<div id="top-section" class="well well-large">
+	<div id="top-section">
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span12 text-center">
-					<h3>
-						<strong>여러 기사 타이틀</strong> - 
-						<span><em>흘러가는 영역</em></span>
-					</h3>
+				<div class="span2">
+				</div>
+				<div class="span3 stock-section">
+					<h5>코스피</h5>
+					<h1>1,914.03</h1>
+				</div>
+				<div class="span2 stock-section">
+					<h5>코스닥</h5>
+					<h1>554.31</h1>
+				</div>
+				<div class="span2">
+				 <h1>554.31</h1>
 				</div>
 			</div>
 		</div>

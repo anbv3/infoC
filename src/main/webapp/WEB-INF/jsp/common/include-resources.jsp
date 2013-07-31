@@ -39,7 +39,7 @@ body {
 }
 
 .two {
-	background: #555152;
+	background: #3c4b61;
 	margin: 0 auto;
 	padding: 20px 0 20px 0;
 }
@@ -47,7 +47,7 @@ body {
 .item_title {
 padding: 8px 18px;
 border-bottom: 1px solid #e1e1e1;
-background-color: #EEF1DF;;
+background-color: #EEF1DF;
 font-weight: bold;
 }
 
@@ -83,12 +83,27 @@ color:#fff;
 
 
 #top-section {
-	margin-top: 40px;
-	margin-bottom: 0;
+	margin: 40px 0 0 0;
 }
 
 .article-section {
 margin-left: 15px;
 }
+
+#top-section .container-fluid {
+padding:0;
+}
+
+.row-fluid .stock-section {
+margin:0;
+}
+.stock-section {
+color:#fff;
+background-color: #3a71c9;
+text-align:center;
+padding: 20px 0;
+border-right: 1px solid #fff;
+}
+
 
 </style>
