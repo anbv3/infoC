@@ -6,7 +6,6 @@
 <title>Home</title>
 
 <link rel="stylesheet" type="text/css" media="screen" href='./css/bootstrap.css' />
-<link rel="stylesheet" type="text/css" media="screen" href='./css/bootstrap-responsive.css' />
 
 <script type='text/javascript' src='./js/jquery/jquery-1.9.1.min.js'></script>
 <script type='text/javascript' src='./js/jquery/jquery-ui.min.js'></script>
@@ -27,7 +26,6 @@ body {
 
 .item {
 	width: 330px;
-	margin-bottom: 5px;
 	text-align: justify;
 	word-wrap: break-word;
 	border-width: 1px;
@@ -37,13 +35,13 @@ body {
 
 .one {
 	margin: 0 auto;
-	padding: 20px 0 20px 0;
+	padding: 1px 0 5px 0;
 }
 
 .two {
 	background: #3c4b61;
 	margin: 0 auto;
-	padding: 20px 0 20px 0;
+	padding: 1px 0 5px 0;
 }
 
 .item_title {
@@ -64,6 +62,10 @@ body {
 	padding: 8px;
 	border-bottom: 1px solid #e1e1e1;
 	background-color: #fff;;
+}
+
+.section-title {
+	text-align:center;
 }
 
 .two .item {
@@ -90,16 +92,40 @@ body {
 	margin: 40px 0 0 0;
 }
 
-.article-section {
-	margin-left: 15px;
+.row-fluid  .article-section {
+margin:0;
 }
 
-#top-section .container-fluid {
+.container-fluid {
 	padding: 0;
 }
 
 .row-fluid .stock-section {
 	margin: 0;
+}
+
+
+.weather-section {
+	background-color: #04d69e;
+	height:130px;
+	border-right: 1px solid #fff;
+	text-align:center;
+	padding-top:33px;
+	color:#fff;
+}
+.row-fluid  .weather-section2 {
+	background-color: #67859c;
+	height:130px;
+	margin:0;
+	padding:0;
+	border-right: 1px solid #fff;
+}
+.row-fluid  .weather-section3 {
+	background-color: #67859c;
+	height:130px;
+	margin:0;
+	padding:0;
+	border-right: 1px solid #fff;
 }
 
 .stock-section {
@@ -126,7 +152,7 @@ body {
 				//$container.packery({
 				$container.packery({
 					itemSelector : '.item',
-					gutter : 15
+					gutter : 1
 				});
 			});
 		});
@@ -169,7 +195,10 @@ body {
 	<div id="top-section">
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span2"></div>
+				<div class="span2 weather-section">
+				<h3>2013. 7. 13</h3>
+				</div>
+				
 				<div class="span3 stock-section">
 					<h5>코스피</h5>
 					<h1>1,914.03</h1>
@@ -178,8 +207,9 @@ body {
 					<h5>코스닥</h5>
 					<h1>554.31</h1>
 				</div>
-				<div class="span2">
-					<h1>554.31</h1>
+				<div class="span3 weather-section2">
+				</div>
+				<div class="span3 weather-section3">
 				</div>
 			</div>
 		</div>
@@ -189,13 +219,13 @@ body {
 
 	<div class="one">
 		<div class="container-fluid">
-			<div class="row-fluid article-section">
+			<div class="row-fluid ">
 
 				<div class="span2 section-title text-left">
 					<h3>11:00 ~ 12:00</h3>
 				</div>
 
-				<div class="span10">
+				<div class="span10 article-section">
 					<div class="story">
 
 
@@ -310,13 +340,13 @@ body {
 
 	<div class="two">
 		<div class="container-fluid">
-			<div class="row-fluid article-section">
+			<div class="row-fluid ">
 
 				<div class="span2 section-title text-left">
 					<h3>11:00 ~ 12:00</h3>
 				</div>
 
-				<div class="span10">
+				<div class="span10 article-section">
 					<div class="story">
 
 
