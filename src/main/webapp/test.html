@@ -24,42 +24,51 @@ body {
 	height: 5px;
 }
 
-.item {
+.item, .titem {
 	width: 330px;
 	text-align: justify;
 	word-wrap: break-word;
+	margin-bottom: 10px;
+	
 	border-width: 1px;
 	border-style: solid;
 	border-color: #a0a0a0 #e0e4e6 #e0e4e6;
 }
 
+.titem {
+}
+
 .one {
 	margin: 0 auto;
-	padding: 1px 0 5px 0;
 }
 
 .two {
 	background: #3c4b61;
 	margin: 0 auto;
-	padding: 1px 0 5px 0;
+	margin-bottom: 10px;
+	padding: 10px 0;
 }
 
 .item_title {
-	padding: 8px 18px;
+	padding: 8px 28px;
 	border-bottom: 1px solid #e1e1e1;
 	background-color: #EEF1DF;
 	font-weight: bold;
+	height:40px;
+	width:330px;
+	display:table-cell;
+	vertical-align:middle;
 }
 
 .item_content {
-	padding: 28px;
+	padding: 18px 28px;
 	border-bottom: 1px solid #e1e1e1;
 	background-color: #fff;
 	line-height: 28px;
 }
 
 .item_link {
-	padding: 8px;
+	padding: 8px 28px;
 	border-bottom: 1px solid #e1e1e1;
 	background-color: #fff;;
 }
@@ -68,72 +77,35 @@ body {
 	text-align:center;
 }
 
-.two .item {
-	border: none;
-}
-
 .two .section-title {
 	color: #fff;
 }
 
-.two .item_title {
-	
-}
-
-.two .item_content {
-	
-}
-
-.two .item_link {
-	
-}
-
 #top-section {
-	margin: 40px 0 0 0;
+	margin: 40px 0 0px 0;
 }
 
 .row-fluid  .article-section {
-margin:0;
+margin-left:5px;
 }
 
 .container-fluid {
 	padding: 0;
 }
 
-.row-fluid .stock-section {
-	margin: 0;
-}
 
-
-.weather-section {
-	background-color: #04d69e;
-	height:130px;
-	border-right: 1px solid #fff;
+.day-section {
+	background-color: #67859c;
+	height:131px;
 	text-align:center;
 	padding-top:33px;
 	color:#fff;
 }
-.row-fluid  .weather-section2 {
-	background-color: #67859c;
-	height:130px;
-	margin:0;
-	padding:0;
-	border-right: 1px solid #fff;
-}
-.row-fluid  .weather-section3 {
-	background-color: #67859c;
-	height:130px;
-	margin:0;
-	padding:0;
-	border-right: 1px solid #fff;
-}
-
 .stock-section {
 	color: #fff;
 	background-color: #3a71c9;
 	text-align: center;
 	padding: 20px 0;
-	border-right: 1px solid #fff;
 }
 </style>
 
@@ -149,11 +121,18 @@ margin:0;
 		$('.story').each(function() {
 			var $container = $(this);
 			$container.imagesLoaded(function() {
-				//$container.packery({
 				$container.packery({
 					itemSelector : '.item',
-					gutter : 1
+					gutter : 5
 				});
+			});
+		});
+		
+		var $titSection = $('#title-section');
+		$titSection.imagesLoaded(function() {
+			$titSection.packery({
+				itemSelector : '.titem',
+				gutter : 5
 			});
 		});
 
@@ -195,22 +174,28 @@ margin:0;
 	<div id="top-section">
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span2 weather-section">
-				<h3>2013. 7. 13</h3>
+				<div class="span2 day-section">
+					<h3>2013.07.13 (화)</h3>
 				</div>
+
+				<div class="span10 article-section">
+					<div id="title-section">
+						<div class="titem stock-section">
+							<h5>코스피</h5>
+							<h1>1,914.03</h1>
+						</div>
+						<div class="titem stock-section">
+							<h5>코스닥</h5>
+							<h1>554.31</h1>
+						</div>
+						<div class="titem stock-section">
+							<h5>환율</h5>
+							<h1>1115.50</h1>
+						</div>
+					</div>
+				</div>
+					
 				
-				<div class="span3 stock-section">
-					<h5>코스피</h5>
-					<h1>1,914.03</h1>
-				</div>
-				<div class="span2 stock-section">
-					<h5>코스닥</h5>
-					<h1>554.31</h1>
-				</div>
-				<div class="span3 weather-section2">
-				</div>
-				<div class="span3 weather-section3">
-				</div>
 			</div>
 		</div>
 	</div>
@@ -455,6 +440,125 @@ margin:0;
 			</div>
 		</div>
 	</div>
+	
+	
+	<div class="one">
+		<div class="container-fluid">
+			<div class="row-fluid ">
+
+				<div class="span2 section-title text-left">
+					<h3>11:00 ~ 12:00</h3>
+				</div>
+
+				<div class="span10 article-section">
+					<div class="story">
+
+
+						<div class="item w2">
+							<div class="item_title">민주 장외투쟁, 약일까 독일까</div>
+							<div class="item_content">민주당이 1일 서울 시청 광장에 국민운동본부를 설치하는 등 본격적인 장외 투쟁에 나서 국민적 관심을 불러일으킬 수 있을지
+								주목된다. 장외 투쟁은 야당에게는 함정이 분명하다. 역대를 보면 새누리당과 민주당을 가리지 않고 야당은 중대 정국에서 국민을 직접 상대해 왔지만 성과를 크게 거두지 못한 경우가
+								많았다. 무엇보다 한번 장외로 나가면 마땅한 명분이 있을 때까지 돌아오기 어렵다는 점에서 선택이 쉽지 않다. 더욱이 지금은 국회 선진화법으로 예산 및 핵심 법안을 야당이 무조건
+								미루기도 어렵다. 야당의 장외투쟁의 날이 예전보다 더 무뎌딜 수 있다는 얘기다. 그럼에도 민주당은 장외 투쟁을 선택했다. 김한길 대표가 원내외 ...</div>
+							<div class="item_link">
+								<a href="http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=100&oid=031&aid=0000298139"
+									target="_blank">http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=100&oid=031&aid=0000298139</a>
+							</div>
+						</div>
+
+						<div class="item w2">
+							<div class="item_title">차영 전 대변인, '친자 소송' 제기한 조희준은 누구인가?</div>
+							<div class="item_content">차영(51&#183;여) 전 민주통합당 대변인이 조희준(47) 전 국민일보 회장을 상대로 친자 확인소송을 낸 사실이 알려지면서
+								조희준 전 국민일보 회장에 대한 관심이 높아지고 있다. 조희준 전 국민일보 회장은 조용기 여의도순복음교회 원로목사와 김성혜 한세대 총장 사이의 장남으로 지난 1997년 32세의 나이로
+								국민일보 사장에 취임했고 이듬해 회장이 됐다. 조희준은 전 회장은 활동할 당시 스포츠투데이, 파이낸셜뉴스를 창간하고 현대방송을 인수하는 등 계열사를 확장하는 공격적인 경영을 펼쳤다.
+								하지만 조희준 전 회장은 2001년 6월 국세청 세무조사 때 세금포탈 혐의가 드러나 검찰에 고발됐으며 이어 같은 해 8월 조세포탈 및 횡령 등 ...</div>
+							<div class="item_link">
+								<a
+									href="http://www.sportsworldi.com/Articles/SWIssue/Article.asp?aid=20130801021154&subctg1=05&subctg2=00?OutUrl=naver"
+									target="_blank">http://www.sportsworldi.com/Articles/SWIssue/Article.asp?aid=20130801021154&subctg1=05&subctg2=00?OutUrl=naver</a>
+							</div>
+						</div>
+
+						<div class="item w2">
+							<div class="item_title">송중기, 27일 현역 입대</div>
+							<div class="item_content">[뉴시스] 탤런트 송중기(28)가 27일 강원도 춘천 102 보충대로 현역 입대한다. 1일 소속사 블러썸 엔터테인먼트에 따르면
+								송중기는 17일 공식팬클럽 '키엘'과의 세 번째 팬미팅 '우리들의 이야기'를 마친 후 27일 입대한다. 송중기는 소속사를 통해 &#34;남은 기간 활동을 잘 마무리 하고 훈련소에
+								입소할 계획이다. 그동안 응원해주고 사랑해준 모든 분께 감사드린다&#34;고 전했다. 2008년 영화 '쌍화점'으로 데뷔한 뒤 KBS 2TV '성균관 스캔들', SBS TV '뿌리
+								깊은 나무', KBS 2TV '착한남자' 등에 출연했다. 지난해 개봉한 영화 '늑대 소년'에서 700만의 관객을 동원하며 인기를 증명했다.</div>
+							<div class="item_link">
+								<a href="http://www.jejudomin.co.kr/news/articleView.html?idxno=40750" target="_blank">http://www.jejudomin.co.kr/news/articleView.html?idxno=40750</a>
+							</div>
+						</div>
+
+						<div class="item w2">
+							<div class="item_title">[이슈 들여다보기] 거리의 정치사</div>
+							<div class="item_content">김한길 민주당 대표가 1일 시청앞 서울광장에서 열린 현장최고위원회의에서 모두발언을 하고 있다. 연합뉴스 민주 &#34;국조 더
+								못 참아&#34;… 20개월 만에 장외로 '거리의 정치'가 다시 시작됐다. 민주당이 1일 장외투쟁에 나선 것이다. 박근혜 정부 들어 처음이자 2011년 한&#183;미
+								자유무역협정(FTA) 강행처리에 반대한 장외투쟁 이후 1년 8개월만이다. 이에 맞서 새누리당은 &#34;협상이 아니라 협박&#34;이라며 민주당을 강력비판하면서 여름 정국은 정면충돌의
+								길로 들어서고 있다. 장외투쟁은 야당이 쓸 수 있는 '벼랑 끝 전술'이다. 한국 정치사에서 장외투쟁은 익숙한 정치 풍경 중의 하나이다. 과거 김영삼&#183;김대중 전 대통령이
+								그랬고, 박근혜 대...</div>
+							<div class="item_link">
+								<a href="http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=100&oid=082&aid=0000402233"
+									target="_blank">http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=100&oid=082&aid=0000402233</a>
+							</div>
+						</div>
+
+						<div class="item w2">
+							<div class="item_title">후쿠시마 원전 수증기 우리 나라 방사능 영향 없어</div>
+							<div class="item_content">후쿠시마 원전 수증기 우리나라 방사능 영향없어 - 전국 122개소 환경방사선 측정치 평소 수준 확인 - □
+								원자력안전위원회(위원장 이은철)는 지난 7월 18일 이후 후쿠시마 원전 3호기 원자로건물에서 수증기가 발생한 것과 관련하여 7월 31일 현재까지 인공방사성물질이 검출되지 않는
+								등우리나라에는 영향이 없다고 밝혔다. ○ 전국 14개 지방방사능측정소에서 분석한 대기중의 부유먼지에서 인공방사성물질이 검출되지 않았으며, ○ 전국 122개 무인자동감시망의 실시간
+								환경방사선 측정결과도 모두평상 수준을 유지하고 있다. ※ 참고로 전국 환경방사선 측정 결과는 인터넷을 통해 실시간으로 공개(http://iernet.kins.re.kr)하고 있습니다.
+								○ ...</div>
+							<div class="item_link">
+								<a href="http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=104&oid=298&aid=0000111402"
+									target="_blank">http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=104&oid=298&aid=0000111402</a>
+							</div>
+						</div>
+
+						<div class="item w2">
+							<div class="item_title">최경환 "민주당 강경파에 밀려 국조 파탄"</div>
+							<div class="item_content">새누리당 최경환 원내대표는 민주당이 장외투쟁을 선언한 것에 대해 강한 유감을 표하고 민주당 지도부와 만나 증인채택 문제 등을
+								놓고 대화할 수 있다는 뜻을 밝혔습니다. 최 원내대표는 국회에서 열린 원내대책회의에서 민주당과 증인채택 문제를 놓고 물밑 ...</div>
+							<div class="item_link">
+								<a href="http://imnews.imbc.com/news/2013/politic/article/3318413_11199.html" target="_blank">http://imnews.imbc.com/news/2013/politic/article/3318413_11199.html</a>
+							</div>
+						</div>
+
+						<div class="item w2">
+							<div class="item_title">윤영미, 차영 언급 "아나운서 시절 예쁘고 당찼는데…"</div>
+							<div class="item_content">[스포츠서울닷컴 | e뉴스팀] 윤영미 전 SBS 아나운서가 차영 전 민주통합당 대변인을 언급했다. 윤영미는 1일 자신의 트위터에
+								"차영 씨 옛날 지방 MBC 아나운서 시절 예쁘고 당차보여 눈에 띄었는데 참..."이라며 의미심장 글을 게재했다. 차영 전 대변인은 ...</div>
+							<div class="item_link">
+								<a href="http://news.sportsseoul.com/read/entertain/1217734.htm" target="_blank">http://news.sportsseoul.com/read/entertain/1217734.htm</a>
+							</div>
+						</div>
+
+						<div class="item w2">
+							<div class="item_title">4일간 억울하게 감금·방치된 美한인 대학생, 46억 배상</div>
+							<div class="item_content">죄 없이 나흘간 구치소에 감금돼 자신의 소변을 받아먹으며 가까스로 살아남은 한인 대학생이 배상금 410만 달러(약 46억원)를
+								받게 됐다. 미국 CNN 방송에 따르면 미국 마약수사국(DEA)은 캘리포니아주립대 샌디에이고 캠퍼스 대학원생 대니얼 정(25)과의 ...</div>
+							<div class="item_link">
+								<a href="http://www.seoul.co.kr/news/newsView.php?id%3D20130801500029" target="_blank">http://www.seoul.co.kr/news/newsView.php?id%3D20130801500029</a>
+							</div>
+						</div>
+
+						<div class="item w2">
+							<div class="item_title">박지원, 北에 공개서한…"통큰 결단 내려달라"</div>
+							<div class="item_content">국회 남북관계발전특별위원회 위원장인 민주당 박지원 의원은 오늘 북한에 공개서한을 보내고 "개성공단 정상화를 위해 북한이 통 큰
+								결단을 내릴 것"을 촉구했습니다. 박 의원은 북한 김기남, 김양건 노동당 비서 앞으로 보낸 서한에서 이같이 밝히고, 개성공단은 ...</div>
+							<div class="item_link">
+								<a href="http://imnews.imbc.com/news/2013/politic/article/3318422_11199.html" target="_blank">http://imnews.imbc.com/news/2013/politic/article/3318422_11199.html</a>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div> <!-- //one -->
 
 </body>
 
