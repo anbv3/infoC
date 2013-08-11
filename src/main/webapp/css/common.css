@@ -1,0 +1,120 @@
+.color-strip {
+	background: #ccc url('../img/color-strip.png') no-repeat 20% top;
+	height: 5px;
+}
+
+.item {
+	width: 330px;
+	text-align: justify;
+	word-wrap: break-word;
+	margin-bottom: 10px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #a0a0a0 #e0e4e6 #e0e4e6;
+}
+
+.titem {
+	width: 330px;
+	text-align: justify;
+	word-wrap: break-word;
+	margin-bottom: 10px;
+	
+	border-width: 1px;
+	border-style: solid;
+}
+
+.one {
+	margin: 0 auto;
+}
+
+.two {
+	background: #3c4b61;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	padding: 10px 0;
+}
+
+.item_title {
+	padding: 8px 28px;
+	border-bottom: 1px solid #e1e1e1;
+	background-color: #EEF1DF;
+	color:#fff;
+	
+	font-weight: bold;
+	height: 40px;
+	width: 330px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.item_content {
+	padding: 18px 28px;
+	border-bottom: 1px solid #e1e1e1;
+	background-color: #fff;
+	line-height: 28px;
+}
+
+.item_link {
+	padding: 8px 28px;
+	border-bottom: 1px solid #e1e1e1;
+	background-color: #fff;;
+}
+
+.section-title {
+	text-align: center;
+}
+
+.two .section-title {
+	color: #fff;
+}
+
+#top-section {
+	margin: 40px 0 0 0;
+}
+
+.row-fluid  .article-section {
+	margin: 20px 0 0 0;
+	padding: 0;
+}
+
+.container-fluid {
+	padding: 0;
+}
+
+.bkg1 {
+	background-color: rgb(255, 137, 31);
+}
+
+.bkg2 {
+	background-color: rgb(1, 199, 0);
+}
+
+.bkg3 {
+	background-color: #67859c;
+}
+
+.bkg4 {
+	background-color: #3a71c9;
+}
+
+.bkg5 {
+	background-color: rgb(61, 153, 254);
+}
+
+.day-section {
+	text-align: center;
+	padding-top: 43px;
+	color:#fff;
+}
+
+.stock-section {
+	color: #fff;
+	text-align: center;
+	padding: 20px 0;
+}
+
+.currency-section {
+	color: #fff;
+	text-align: center;
+	padding: 20px 0;
+}
