@@ -1,8 +1,29 @@
+@font-face {
+	font-family: NG;
+	src: url(NanumGothic.eot);
+	src: local(¡Ø), url(NanumGothic.woff) format('woff')
+}
+
+body,table,input,textarea,select,button {
+	font-family: ³ª´®°íµñ, NanumGothic, ngwoff, ngeot;
+}
+
 .color-strip {
 	background: #ccc url('../img/color-strip.png') no-repeat 20% top;
 	height: 5px;
 }
 
+.navbar .brand {
+	font-size: 25px;
+	font-family: Century Gothic, sans-serif;;
+}
+
+.navbar-inverse .nav>li>a {
+	font-size: 16px;
+	font-weight: bold;
+	font-family: ¡®Times New Roman¡¯, Times, serif;
+}
+/* ***************************************************************** */
 .item {
 	width: 330px;
 	text-align: justify;
@@ -18,7 +39,6 @@
 	text-align: justify;
 	word-wrap: break-word;
 	margin-bottom: 10px;
-	
 	border-width: 1px;
 	border-style: solid;
 }
@@ -38,13 +58,16 @@
 	padding: 8px 28px;
 	border-bottom: 1px solid #e1e1e1;
 	background-color: #EEF1DF;
-	color:#fff;
-	
+	color: #fff;
 	font-weight: bold;
 	height: 40px;
 	width: 330px;
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.item_title a {
+	color: #fff;
 }
 
 .item_content {
@@ -101,10 +124,14 @@
 	background-color: rgb(61, 153, 254);
 }
 
+.bkg6 {
+	background-color: rgb(57, 180, 73);
+}
+
 .day-section {
 	text-align: center;
 	padding-top: 43px;
-	color:#fff;
+	color: #fff;
 }
 
 .stock-section {
