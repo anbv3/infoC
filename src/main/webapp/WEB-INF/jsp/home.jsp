@@ -8,7 +8,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Home</title>
 
-<jsp:include page="./common/include-resources.jsp" />
+<jsp:include page="./common/resources.jsp" />
+
+
+
+<style type="text/css" media="only screen and (max-width: 1620px)">
+.titem {
+width: 244px;
+}
+</style>
+
+<style type="text/css" media="only screen and (max-width: 1220px)">
+.titem {
+font-size: 12px;
+width: 330px;
+}
+</style>
+
+
 
 
 <script type="text/javascript">
@@ -16,20 +33,26 @@
 
 $(function() {
 	
-	$("#ttt").on("click", function() {
-		test();
-       });
+	var $titSection = $('#title-section');
+	$titSection.imagesLoaded(function() {
+		$titSection.packery({
+			itemSelector : '.titem',
+			gutter : 5
+		});
+	});
+	
 	
 	$('.story').each(function() {
 		var $container = $(this);
 		$container.imagesLoaded(function() {
-			//$container.packery({
 			$container.packery({
-				itemSelector: '.item',
-				gutter: 15
+				itemSelector : '.item',
+				gutter : 5
 			});
 		});
 	});
+	
+	
 	
 });
 //-->
@@ -67,21 +90,33 @@ $(function() {
 	<!-- body -->
 	
 	<div id="top-section">
-		<div class="container-fluid">
+		<div class="container-fluid bkg3">
 			<div class="row-fluid">
-				<div class="span2">
+				<div class="span2 section-title day-section">
+					<h3>2013. 07. 13</h3>
 				</div>
-				<div class="span3 stock-section">
-					<h5>코스피</h5>
-					<h1>1,914.03</h1>
+				
+				<div class="span10 article-section">
+					<div id="title-section">
+						<div class="titem stock-section bkg2">
+							<h5>코스피</h5>
+							<h2>1,914.03</h2>
+						</div>
+						<div class="titem currency-section bkg2">
+							<h5>코스닥</h5>
+							<h2>554.31</h2>
+						</div>
+						<div class="titem stock-section bkg5">
+							<h5>환율</h5>
+							<h2>1115.50</h2>
+						</div>
+						<div class="titem stock-section bkg5">
+							<h5>환율</h5>
+							<h2>1115.50</h2>
+						</div>
+					</div>
 				</div>
-				<div class="span2 stock-section">
-					<h5>코스닥</h5>
-					<h1>554.31</h1>
-				</div>
-				<div class="span2">
-				 <h1>554.31</h1>
-				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -100,18 +135,18 @@ $(function() {
 
 	<div class="${rowColor}">
 		<div class="container-fluid">
-			<div class="row-fluid article-section">
+			<div class="row-fluid">
 
 				<div class="span2 section-title text-left">
 					<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
 				</div>
 
-				<div class="span10">
+				<div class="span10 article-section">
 					<div class="story">
 
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
-						<div class="item w2">
-							<div class="item_title">${row.title}</div>
+						<div class="item">
+							<div class="item_title bkg4">${row.title}</div>
 							<div class="item_content">${row.contents}</div>
 							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
 						</div>
@@ -143,18 +178,18 @@ $(function() {
 
 	<div class="${rowColor}">
 		<div class="container-fluid">
-			<div class="row-fluid article-section">
+			<div class="row-fluid">
 
 				<div class="span2 section-title text-left">
 					<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
 				</div>
 
-				<div class="span10">
+				<div class="span10 article-section">
 					<div class="story">
 
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
-						<div class="item w2">
-							<div class="item_title">${row.title}</div>
+						<div class="item">
+							<div class="item_title bkg4">${row.title}</div>
 							<div class="item_content">${row.contents}</div>
 							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
 						</div>
