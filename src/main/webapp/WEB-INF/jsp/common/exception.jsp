@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ERROR</title>
 
-<jsp:include page="../common/include-resources.jsp" />
+<jsp:include page="../common/resources.jsp" />
 
 <style type="text/css">
 body {
