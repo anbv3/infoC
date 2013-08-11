@@ -90,7 +90,7 @@ $(function() {
 	<!-- body -->
 	
 	<div id="top-section">
-		<div class="container-fluid bkg3">
+		<div class="container-fluid bkg2">
 			<div class="row-fluid">
 				<div class="span2 section-title day-section">
 					<h3>2013. 07. 13</h3>
@@ -98,19 +98,19 @@ $(function() {
 				
 				<div class="span10 article-section">
 					<div id="title-section">
-						<div class="titem stock-section bkg2">
+						<div class="titem stock-section bkg4">
 							<h5>코스피</h5>
 							<h2>1,914.03</h2>
 						</div>
-						<div class="titem currency-section bkg2">
+						<div class="titem currency-section bkg4">
 							<h5>코스닥</h5>
 							<h2>554.31</h2>
 						</div>
-						<div class="titem stock-section bkg5">
+						<div class="titem stock-section bkg4">
 							<h5>환율</h5>
 							<h2>1115.50</h2>
 						</div>
-						<div class="titem stock-section bkg5">
+						<div class="titem stock-section bkg4">
 							<h5>환율</h5>
 							<h2>1115.50</h2>
 						</div>
@@ -146,9 +146,8 @@ $(function() {
 
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item">
-							<div class="item_title bkg4">${row.title}</div>
+							<div class="item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
 							<div class="item_content">${row.contents}</div>
-							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
 						</div>
 					</c:forEach>
 						
@@ -189,9 +188,8 @@ $(function() {
 
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item">
-							<div class="item_title bkg4">${row.title}</div>
+							<div class="item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
 							<div class="item_content">${row.contents}</div>
-							<div class="item_link"><a href="${row.link}" target="_blank">${row.link}</a></div>
 						</div>
 					</c:forEach>
 						
