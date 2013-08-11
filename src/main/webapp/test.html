@@ -36,6 +36,7 @@ body {
 }
 
 .titem {
+width: 246px;
 }
 
 .one {
@@ -93,17 +94,38 @@ margin-left:5px;
 	padding: 0;
 }
 
+.bkg1 {
+background-color: rgb(255,137,31);
+}
+
+.bkg2 {
+background-color: rgb(1, 199, 0);
+}
+
+.bkg3 {
+background-color: #67859c;
+}
+
+.bkg4 {
+background-color: #3a71c9;
+}
+
+.bkg5 {
+background-color: rgb(61, 153, 254);
+}
 
 .day-section {
-	background-color: #67859c;
-	height:131px;
+	inline-height:131px;
 	text-align:center;
 	padding-top:33px;
-	color:#fff;
 }
 .stock-section {
 	color: #fff;
-	background-color: #3a71c9;
+	text-align: center;
+	padding: 20px 0;
+}
+.currency-section {
+	color: #fff;
 	text-align: center;
 	padding: 20px 0;
 }
@@ -174,21 +196,26 @@ margin-left:5px;
 	<div id="top-section">
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span2 day-section">
-					<h3>2013.07.13 (화)</h3>
+				<div class="span2 section-title day-section">
+					<h3>2013. 07. 13</h3>
 				</div>
-
+				
+				
 				<div class="span10 article-section">
 					<div id="title-section">
-						<div class="titem stock-section">
+						<div class="titem stock-section bkg2">
 							<h5>코스피</h5>
 							<h1>1,914.03</h1>
 						</div>
-						<div class="titem stock-section">
+						<div class="titem currency-section bkg5">
 							<h5>코스닥</h5>
 							<h1>554.31</h1>
 						</div>
-						<div class="titem stock-section">
+						<div class="titem stock-section bkg3">
+							<h5>환율</h5>
+							<h1>1115.50</h1>
+						</div>
+						<div class="titem currency-section bkg1">
 							<h5>환율</h5>
 							<h1>1115.50</h1>
 						</div>
