@@ -57,8 +57,7 @@ public class Gnews {
 	}
 
 	public void parseLink(String link, Article article) {
-		int idx = link.lastIndexOf("http");
-		article.setLink(link.substring(idx));
+		article.setLink(link);
 	}
 
 	/**
