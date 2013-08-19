@@ -30,26 +30,30 @@ public class Collector {
 			.trimResults().omitEmptyStrings();
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
-
+		
+		// 기본 키워드 리스트를 만들고
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
 		if (curKeyWordList.isEmpty()) {
-			curKeyWordList = Sets.newHashSet(SPLITTER.split(curArticle
-					.getTitle()));
+			curKeyWordList = Sets.newHashSet(SPLITTER.split(curArticle.getTitle()));
 		}
 
+		// 타겟의 키워드 리스트와 기본 리스트간 크로스 따블 비교 수행하여
 		List<String> dupWorkList = new ArrayList<>();
 		for (String oriWord : curKeyWordList) {
-			for (String tarWord : Sets.newHashSet(SPLITTER.split(newArticle
-					.getTitle()))) {
+			for (String tarWord : Sets.newHashSet(SPLITTER.split(newArticle.getTitle()))) {
 				if (oriWord.contains(tarWord) || tarWord.contains(oriWord)) {
-					String keyWord = oriWord.length() < tarWord.length() ? oriWord
-							: tarWord;
+					String keyWord = oriWord.length() < tarWord.length() ? oriWord : tarWord;
+					
+					// 중복된 키워드 리스트를 만든다.
 					dupWorkList.add(keyWord);
 				}
 			}
 		}
 
+		// 두 기사의 제목간 중복 키워드가 MAX이상이면 중복 기사다
 		if (dupWorkList.size() >= MAX_DUP_NUM) {
+			
+			// 기본 키워드 리스트 업데이트
 			curKeyWordList.addAll(dupWorkList);
 			return true;
 		}
