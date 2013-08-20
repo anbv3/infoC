@@ -1,4 +1,4 @@
-package com.infoc.domain;
+package com.infoc.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,10 +12,11 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Sets;
+import com.infoc.domain.Article;
 
-public class Collector {
+public class CollectionService {
 	public static Map<Integer, List<Article>> CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
+		Collections.reverseOrder());
 
 	static {
 		for (int i = 0; i < 24; i++) {
@@ -27,23 +28,20 @@ public class Collector {
 	private static Integer MAX_DUP_NUM = 2;
 	private static String DUP_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”";
 	private static Splitter SPLITTER = Splitter.onPattern(DUP_PATTERN)
-			.trimResults().omitEmptyStrings();
+		.trimResults().omitEmptyStrings();
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
 
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
 		if (curKeyWordList.isEmpty()) {
-			curKeyWordList = Sets.newHashSet(SPLITTER.split(curArticle
-					.getTitle()));
+			curKeyWordList = Sets.newHashSet(SPLITTER.split(curArticle.getTitle()));
 		}
 
 		List<String> dupWorkList = new ArrayList<>();
 		for (String oriWord : curKeyWordList) {
-			for (String tarWord : Sets.newHashSet(SPLITTER.split(newArticle
-					.getTitle()))) {
+			for (String tarWord : Sets.newHashSet(SPLITTER.split(newArticle.getTitle()))) {
 				if (oriWord.contains(tarWord) || tarWord.contains(oriWord)) {
-					String keyWord = oriWord.length() < tarWord.length() ? oriWord
-							: tarWord;
+					String keyWord = oriWord.length() < tarWord.length() ? oriWord : tarWord;
 					dupWorkList.add(keyWord);
 				}
 			}
@@ -76,8 +74,8 @@ public class Collector {
 
 		if (isNew) {
 			int hour = newArticle.getPubDate().getHourOfDay();
-			if (Collector.CACHE.get(hour).size() < MAX_NUM_IN_HOUR) {
-				Collector.CACHE.get(hour).add(newArticle);
+			if (CollectionService.CACHE.get(hour).size() < MAX_NUM_IN_HOUR) {
+				CollectionService.CACHE.get(hour).add(newArticle);
 			}
 		}
 	}

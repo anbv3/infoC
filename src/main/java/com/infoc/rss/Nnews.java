@@ -2,12 +2,12 @@ package com.infoc.rss;
 
 import java.util.List;
 
+import com.infoc.service.CollectionService;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.infoc.domain.Article;
-import com.infoc.domain.Collector;
 import com.infoc.util.RSSReader;
 import com.sun.syndication.feed.synd.SyndEntry;
 
@@ -31,7 +31,7 @@ public class Nnews {
 				continue;
 			}
 			
-			Collector.add(article);
+			CollectionService.add(article);
 		}
 		
 		return this;
