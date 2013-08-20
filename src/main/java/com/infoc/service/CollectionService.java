@@ -1,4 +1,4 @@
-package com.infoc.domain;
+package com.infoc.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,11 +8,11 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListMap;
 
+import com.infoc.domain.Article;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Sets;
-import com.infoc.domain.Article;
 
 public class CollectionService {
 	public static Map<Integer, List<Article>> CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
@@ -31,7 +31,7 @@ public class CollectionService {
 		.trimResults().omitEmptyStrings();
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
-		
+
 		// 기본 키워드 리스트를 만들고
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
 		if (curKeyWordList.isEmpty()) {
@@ -44,7 +44,7 @@ public class CollectionService {
 			for (String tarWord : Sets.newHashSet(SPLITTER.split(newArticle.getTitle()))) {
 				if (oriWord.contains(tarWord) || tarWord.contains(oriWord)) {
 					String keyWord = oriWord.length() < tarWord.length() ? oriWord : tarWord;
-					
+
 					// 중복된 키워드 리스트를 만든다.
 					dupWorkList.add(keyWord);
 				}
@@ -53,7 +53,7 @@ public class CollectionService {
 
 		// 두 기사의 제목간 중복 키워드가 MAX이상이면 중복 기사다
 		if (dupWorkList.size() >= MAX_DUP_NUM) {
-			
+
 			// 기본 키워드 리스트 업데이트
 			curKeyWordList.addAll(dupWorkList);
 			return true;
