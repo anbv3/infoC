@@ -3,17 +3,13 @@ package com.infoc.rss;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.infoc.service.CollectionService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 import com.infoc.domain.Article;
-import com.infoc.domain.Collector;
 import com.infoc.util.RSSReader;
 import com.sun.syndication.feed.synd.SyndEntry;
 
@@ -31,7 +27,7 @@ public class Gnews {
 		
 		for (SyndEntry item : rssList) {
 			Article article = parseItem(item);
-			Collector.add(article);
+			CollectionService.add(article);
 		}
 
 		return this;

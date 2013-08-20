@@ -1,11 +1,11 @@
 package com.infoc.controller;
 
+import com.infoc.service.CollectionService;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.infoc.domain.Collector;
 import com.infoc.rss.Dnews;
 import com.infoc.rss.Gnews;
 import com.infoc.rss.Nnews;
@@ -20,7 +20,7 @@ public class HomeController extends BaseController {
 		new Gnews().getNews();
 		new Dnews().getNews();
 
-		model.addAttribute("articleMap", Collector.CACHE);
+		model.addAttribute("articleMap", CollectionService.CACHE);
 		model.addAttribute("currentHour", new DateTime().getHourOfDay());
 
 		return "/home";
