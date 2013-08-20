@@ -15,8 +15,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Sets;
 
 public class CollectionService {
-	public static Map<Integer, List<Article>> CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-		Collections.reverseOrder());
+	public static Map<Integer, List<Article>> CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 
 	static {
 		for (int i = 0; i < 24; i++) {
@@ -24,37 +23,42 @@ public class CollectionService {
 		}
 	}
 
-	private static Integer MAX_NUM_IN_HOUR = 9;
-	private static Integer MAX_DUP_NUM = 2;
-	private static String DUP_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”";
-	private static Splitter SPLITTER = Splitter.onPattern(DUP_PATTERN)
-		.trimResults().omitEmptyStrings();
+	private static final Integer MAX_NUM_IN_HOUR = 9;
+	private static final Integer MAX_DUP_NUM = 2;
+	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”";
+	private static Splitter SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
 
-		// 기본 키워드 리스트를 만들고
+		// Make the basis keyword list to compare with another title of the article
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
 		if (curKeyWordList.isEmpty()) {
 			curKeyWordList = Sets.newHashSet(SPLITTER.split(curArticle.getTitle()));
 		}
 
-		// 타겟의 키워드 리스트와 기본 리스트간 크로스 따블 비교 수행하여
+		// Compare the basis list with the target's keyword list and compare again backward
 		List<String> dupWorkList = new ArrayList<>();
+		List<String> clearWorkList = new ArrayList<>();
 		for (String oriWord : curKeyWordList) {
 			for (String tarWord : Sets.newHashSet(SPLITTER.split(newArticle.getTitle()))) {
 				if (oriWord.contains(tarWord) || tarWord.contains(oriWord)) {
-					String keyWord = oriWord.length() < tarWord.length() ? oriWord : tarWord;
 
-					// 중복된 키워드 리스트를 만든다.
-					dupWorkList.add(keyWord);
+                    // store the dup keyword
+                    if(oriWord.length() < tarWord.length()) {
+                        dupWorkList.add(oriWord);
+                        clearWorkList.add(oriWord);
+                    } else {
+                        dupWorkList.add(tarWord);
+                    }
 				}
 			}
 		}
 
-		// 두 기사의 제목간 중복 키워드가 MAX이상이면 중복 기사다
+		// determine the new article is duplicated one or not by the number of the dup. keyword list.
 		if (dupWorkList.size() >= MAX_DUP_NUM) {
 
-			// 기본 키워드 리스트 업데이트
+            // update the basis list
+			curKeyWordList.remove(clearWorkList);
 			curKeyWordList.addAll(dupWorkList);
 			return true;
 		}
