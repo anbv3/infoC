@@ -1,6 +1,8 @@
 package com.infoc.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
@@ -13,29 +15,30 @@ import com.google.common.collect.Ordering;
 public class Article {
 
 	private String hashId;
-	
+
 	private String title;
-	
+
 	private String link;
-	
+
 	private String img;
-	
+
 	private String contents;
-	
+
 	private DateTime pubDate;
-	
+
 	private String author;
 
 	private Set<String> keyWordList = new HashSet<>();
-	
+
+	private List<SentenceInfo> sentenceList = new ArrayList<>();
+
 	public static final Ordering<Article> dateOrdering = new Ordering<Article>() {
-        @Override
-        public int compare(Article left, Article right) {
-            return left.getPubDate().compareTo(right.getPubDate());
-        }
-    };
-	
-	
+		@Override
+		public int compare(Article left, Article right) {
+			return left.getPubDate().compareTo(right.getPubDate());
+		}
+	};
+
 	public String getHashId() {
 		return hashId;
 	}
@@ -99,5 +102,13 @@ public class Article {
 	public void setKeyWordList(Set<String> keyWordList) {
 		this.keyWordList = keyWordList;
 	}
-	
+
+	public List<SentenceInfo> getSentenceList() {
+		return sentenceList;
+	}
+
+	public void setSentenceList(List<SentenceInfo> sentenceList) {
+		this.sentenceList = sentenceList;
+	}
+
 }
