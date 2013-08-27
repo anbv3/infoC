@@ -77,6 +77,9 @@ public class CollectionService {
 		for (Entry<Integer, List<Article>> entry : CACHE.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 				if (isDuplicate(curArticle, newArticle)) {
+					
+					// update the main sentence list of the curArticle
+					
 					isNew = false;
 					break;
 				}
@@ -86,6 +89,8 @@ public class CollectionService {
 		if (isNew) {
 			int hour = newArticle.getPubDate().getHourOfDay();
 			if (CollectionService.CACHE.get(hour).size() < MAX_NUM_IN_HOUR) {
+				// find and update the main sentence list in the article
+				
 				CollectionService.CACHE.get(hour).add(newArticle);
 			}
 		}
