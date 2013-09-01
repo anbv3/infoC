@@ -39,6 +39,17 @@ public class Article {
 		}
 	};
 
+	private void omitSpecialChar(String str) {
+		char c;
+		int cint;
+		for (int n = 0; n < str.length(); n++) {
+			c = str.charAt(n);
+			cint = (int)c;
+			if (cint < 48 || (cint > 57 && cint < 65) || (cint > 90 && cint < 97) || cint > 122) {
+			}
+		}
+	}
+
 	public String getHashId() {
 		return hashId;
 	}
