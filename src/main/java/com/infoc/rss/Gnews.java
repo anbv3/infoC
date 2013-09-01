@@ -3,6 +3,7 @@ package com.infoc.rss;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Sets;
 import com.infoc.service.CollectionService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.joda.time.DateTime;
@@ -43,6 +44,7 @@ public class Gnews {
 		parseLink(rssItem.getLink(), article);
 		parseDescrption(rssItem.getDescription().getValue(), article);
 
+		article.setKeyWordList(Sets.newHashSet(CollectionService.SPLITTER.split(article.getTitle())));
 		return article;
 	}
 

@@ -1,10 +1,54 @@
 package com.infoc.domain;
 
+import java.util.List;
+import java.util.Set;
+
+import com.google.common.base.Objects;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
+
 public class SentenceInfo {
 	private Integer index;
-	private Integer matchedWord;
-	private Integer length;
 	private String sentance;
+	private Integer length;
+
+	// num of matched words in the sentence from the keyword list
+	private Integer matchedWord;
+
+	public void checkKeyword(Set<String> keywordList) {
+		int matchedCnt = 0;
+		if (keywordList.isEmpty()) {
+			this.matchedWord = matchedCnt;
+		}
+
+		List<String> wList = Lists.newArrayList(
+			Splitter.on(" ")
+				.trimResults()
+				.omitEmptyStrings()
+				.trimResults()
+				.split(this.sentance)
+			);
+
+		for (String word : wList) {
+			for (String keyword : keywordList) {
+				if (word.contains(keyword) || keyword.contains(word)) {
+					matchedCnt++;
+				}
+			}
+		}
+
+		this.matchedWord = matchedCnt;
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("index", this.index)
+			.add("matchedWord", this.matchedWord)
+			.add("sentance", this.sentance)
+			.add("length", this.length)
+			.toString();
+	}
 
 	public Integer getIndex() {
 		return index;

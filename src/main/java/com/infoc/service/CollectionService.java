@@ -9,12 +9,18 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import com.infoc.domain.Article;
+import com.infoc.rss.DnewsTest;
+
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Sets;
 
 public class CollectionService {
+	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
+	
 	public static Map<Integer, List<Article>> CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 
 	static {
@@ -25,8 +31,8 @@ public class CollectionService {
 
 	private static final Integer MAX_NUM_IN_HOUR = 9;
 	private static final Integer MAX_DUP_NUM = 2;
-	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”";
-	private static Splitter SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
+	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
+	public static Splitter SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
 
