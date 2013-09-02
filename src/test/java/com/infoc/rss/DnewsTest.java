@@ -36,6 +36,7 @@ public class DnewsTest {
 		for (Entry<Integer, List<Article>> entry : CollectionService.get().entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 				
+				LOG.debug("{}", curArticle.getTitle());
 				LOG.debug("{}", curArticle.getKeyWordList());
 				LOG.debug("{}", curArticle.getSentenceList());
 				LOG.debug("-----------------------------------------");
