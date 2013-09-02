@@ -81,4 +81,11 @@ public class StringCompareTest {
         }
         System.out.println(dupWorkList);
     }
+    
+    @Test
+    public void parse4() {
+    	String a = "공";
+    	LOG.debug("{}", a.length());
+    	LOG.debug("{}", a.getBytes().length);
+    }
 }
