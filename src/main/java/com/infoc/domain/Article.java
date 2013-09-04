@@ -7,7 +7,10 @@ import java.util.Set;
 
 import org.joda.time.DateTime;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
+import com.infoc.service.CollectionService;
 
 /**
  * @author anbv3
@@ -31,6 +34,16 @@ public class Article {
 	private Set<String> keyWordList = new HashSet<>();
 
 	private List<SentenceInfo> sentenceList = new ArrayList<>();
+
+	public void createKeyWorkList() {
+		if (Strings.isNullOrEmpty(this.title)) {
+			return;
+		}
+		
+		this.keyWordList = Sets.newHashSet(CollectionService.SPLITTER.split(this.title));
+		
+		
+	}
 
 	public static final Ordering<Article> dateOrdering = new Ordering<Article>() {
 		@Override
@@ -63,7 +76,7 @@ public class Article {
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = title.replaceAll("[^\\p{L}\\p{Z}]", "");
 	}
 
 	public String getLink() {

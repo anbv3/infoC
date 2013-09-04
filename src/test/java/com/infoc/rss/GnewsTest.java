@@ -2,17 +2,23 @@ package com.infoc.rss;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.infoc.domain.Article;
+import com.infoc.domain.SentenceInfo;
+import com.infoc.service.CollectionService;
 
 public class GnewsTest {
+	private static final Logger LOG = LoggerFactory.getLogger(GnewsTest.class);
 
 	private String DESC = "<table style=\"vertical-align: top;\">" +
 		"<font size=\"-2\">데일리안</font>" +
@@ -65,5 +71,32 @@ public class GnewsTest {
 			.split(article.getContents()));
 
 		System.out.println(sList);
+	}
+
+	@Test
+	public void parseContents() {
+		Nnews gnews = new Nnews();
+		gnews.getNews();
+
+		for (Entry<Integer, List<Article>> entry : CollectionService.get().entrySet()) {
+			for (Article curArticle : entry.getValue()) {
+
+				LOG.debug("{}", curArticle.getTitle());
+				LOG.debug("{}", curArticle.getKeyWordList());
+				LOG.debug("{}", curArticle.getContents());
+
+				for (SentenceInfo sc : curArticle.getSentenceList()) {
+					LOG.debug("{}", sc.toString());
+				}
+				LOG.debug("-----------------------------------------");
+			}
+		}
+
+	}
+
+	@Test
+	public void removeSP() {
+		String a = "박희순, `관상 기대되요~` [MBN포토]";
+		LOG.debug("{}", a.replaceAll("[^\\p{L}\\p{Z}]", ""));
 	}
 }
