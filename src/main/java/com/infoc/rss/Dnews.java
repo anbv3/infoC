@@ -2,6 +2,7 @@ package com.infoc.rss;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class Dnews {
 
 		for (SyndEntry item : rssList) {
 			Article article = parseItem(item);
-			
+
 			CollectionService.add(article);
 		}
 
@@ -43,12 +44,12 @@ public class Dnews {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate()));
 		article.setTitle(rssItem.getTitle());
-		
-		article.setKeyWordList(Sets.newHashSet(CollectionService.SPLITTER.split(article.getTitle())));
-		
+
 		parseDescrption(rssItem.getDescription().getValue(), article);
+
+		parseKeywords(article);
 		parseContents(article);
-		
+
 		return article;
 	}
 
@@ -78,27 +79,40 @@ public class Dnews {
 		article.setContents(sb.append("...").toString());
 	}
 
+	public void parseKeywords(Article article) {
+		Set<String> titleList = Sets.newHashSet(CollectionService.SPLITTER.split(article.getTitle()));
+
+		Set<String> keywordList = Sets.newHashSet();
+		for (String word : titleList) {
+			if (word.length() > 1) {
+				keywordList.add(word);
+			}
+		}
+
+		article.setKeyWordList(keywordList);
+	}
+
 	public void parseContents(Article article) {
 
 		List<String> sList = Lists.newArrayList(
-			Splitter.on(".")
+			Splitter.on(". ")
 				.trimResults()
 				.omitEmptyStrings()
 				.split(article.getContents())
 			);
 
 		List<SentenceInfo> sentenceList = new ArrayList<>();
-		for (int i=0 ; i<sList.size() ; i++) {
+		for (int i = 0; i < sList.size(); i++) {
 			String sentence = sList.get(i);
 			SentenceInfo scInfo = new SentenceInfo();
 			scInfo.setIndex(i);
 			scInfo.setLength(sentence.length());
 			scInfo.setSentance(sentence);
 			scInfo.checkKeyword(article.getKeyWordList());
-			
+
 			sentenceList.add(scInfo);
 		}
-		
+
 		article.setSentenceList(sentenceList);
 	}
 }
