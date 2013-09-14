@@ -2,6 +2,7 @@ package com.infoc.rss;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -22,15 +23,17 @@ import com.sun.syndication.feed.synd.SyndEntry;
  */
 public class Gnews {
 	private static final Logger LOG = LoggerFactory.getLogger(Gnews.class);
-	
+
 	private static String G_NEWS = "https://news.google.co.kr/nwshp?hl=ko&output=rss";
 
 	public Gnews getNews() {
 		List<SyndEntry> rssList = RSSReader.getArticleList(G_NEWS);
 		LOG.debug("G news size: {}", rssList.size());
-		
+
 		for (SyndEntry item : rssList) {
 			Article article = parseItem(item);
+			
+			// TODO: 핵심 문장 리스트가 있는것만 추가
 			CollectionService.add(article);
 		}
 
@@ -47,10 +50,8 @@ public class Gnews {
 		parseLink(rssItem.getLink(), article);
 		parseDescrption(rssItem.getDescription().getValue(), article);
 
-		article.setKeyWordList(Sets.newHashSet(CollectionService.SPLITTER.split(article.getTitle())));
-		
+		parseKeywords(article);
 		parseContents(article);
-		
 		return article;
 	}
 
@@ -68,9 +69,9 @@ public class Gnews {
 	 * extract only texts except the html tags, and pick up the longest one.
 	 */
 	public void parseDescrption(String desc, Article article) {
-		
+
 		StringBuffer sb = new StringBuffer();
-		
+
 		List<String> descList = new ArrayList<>();
 		boolean appendFlag = false;
 		for (int i = 0; i < desc.length(); i++) {
@@ -103,29 +104,41 @@ public class Gnews {
 
 		article.setContents(StringEscapeUtils.unescapeHtml(descList.get(maxIdx)) + "...");
 	}
-	
-	
+
+	public void parseKeywords(Article article) {
+		Set<String> titleList = Sets.newHashSet(CollectionService.SPLITTER.split(article.getTitle()));
+
+		Set<String> keywordList = Sets.newHashSet();
+		for (String word : titleList) {
+			if (word.length() > 1) {
+				keywordList.add(word);
+			}
+		}
+
+		article.setKeyWordList(keywordList);
+	}
+
 	public void parseContents(Article article) {
 
 		List<String> sList = Lists.newArrayList(
-			Splitter.on(".")
+			Splitter.on(". ")
 				.trimResults()
 				.omitEmptyStrings()
 				.split(article.getContents())
 			);
 
 		List<SentenceInfo> sentenceList = new ArrayList<>();
-		for (int i=0 ; i<sList.size() ; i++) {
+		for (int i = 0; i < sList.size(); i++) {
 			String sentence = sList.get(i);
 			SentenceInfo scInfo = new SentenceInfo();
 			scInfo.setIndex(i);
 			scInfo.setLength(sentence.length());
 			scInfo.setSentance(sentence);
 			scInfo.checkKeyword(article.getKeyWordList());
-			
+
 			sentenceList.add(scInfo);
 		}
-		
+
 		article.setSentenceList(sentenceList);
 	}
 }
