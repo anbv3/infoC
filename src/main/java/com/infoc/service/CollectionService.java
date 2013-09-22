@@ -36,15 +36,11 @@ public class CollectionService {
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
 
-		// Make the basis keyword list to compare with another title of the article
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
-		if (curKeyWordList.isEmpty()) {
-			curKeyWordList = Sets.newHashSet(SPLITTER.split(curArticle.getTitle()));
-		}
 
 		// Compare the basis list with the target's keyword list and compare again backward
-		List<String> dupWorkList = new ArrayList<>();
-		List<String> clearWorkList = new ArrayList<>();
+		List<String> dupWordList = new ArrayList<>();
+		List<String> clearWordList = new ArrayList<>();
 		for (String oriWord : curKeyWordList) {
 			for (String tarWord : Sets.newHashSet(SPLITTER.split(newArticle.getTitle()))) {
 
@@ -56,21 +52,21 @@ public class CollectionService {
 
 					// store the dup keyword
 					if (oriWord.length() < tarWord.length()) {
-						dupWorkList.add(oriWord);
-						clearWorkList.add(oriWord);
+						dupWordList.add(oriWord);
+						clearWordList.add(oriWord);
 					} else {
-						dupWorkList.add(tarWord);
+						dupWordList.add(tarWord);
 					}
 				}
 			}
 		}
 
 		// determine the new article is duplicated one or not by the number of the dup. keyword list.
-		if (dupWorkList.size() >= MAX_DUP_NUM) {
+		if (dupWordList.size() >= MAX_DUP_NUM) {
 
 			// update the basis list
-			curKeyWordList.remove(clearWorkList);
-			curKeyWordList.addAll(dupWorkList);
+			curKeyWordList.remove(clearWordList);
+			curKeyWordList.addAll(dupWordList);
 			return true;
 		}
 
@@ -89,8 +85,8 @@ public class CollectionService {
 			for (Article curArticle : entry.getValue()) {
 				if (isDuplicate(curArticle, newArticle)) {
 
-					// update the main sentence list of the curArticle
-
+					// update the key sentence list of the curArticle
+					// 새 문장만 먼저 구현
 					isNew = false;
 					break;
 				}
@@ -100,7 +96,7 @@ public class CollectionService {
 		if (isNew) {
 			int hour = newArticle.getPubDate().getHourOfDay();
 			if (CollectionService.CACHE.get(hour).size() < MAX_NUM_IN_HOUR) {
-				// find and update the main sentence list in the article
+				// find and update the key sentence list in the article
 
 				CollectionService.CACHE.get(hour).add(newArticle);
 			}
