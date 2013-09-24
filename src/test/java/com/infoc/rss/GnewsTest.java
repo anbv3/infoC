@@ -1,11 +1,10 @@
 package com.infoc.rss;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
 import com.infoc.service.CollectionService;
@@ -86,6 +86,11 @@ public class GnewsTest {
 				LOG.debug("{}", curArticle.getContents());
 
 				for (SentenceInfo sc : curArticle.getSentenceList()) {
+					LOG.debug("{}", sc.toString());
+				}
+				LOG.debug("-----------------------------------------");
+				
+				for (SentenceInfo sc : curArticle.getKeySentenceList()) {
 					LOG.debug("{}", sc.toString());
 				}
 				LOG.debug("-----------------------------------------");

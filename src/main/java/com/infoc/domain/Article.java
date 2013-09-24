@@ -1,6 +1,7 @@
 package com.infoc.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,20 +37,27 @@ public class Article {
 	private Set<String> keyWordList = new HashSet<>();
 
 	private List<SentenceInfo> sentenceList = new ArrayList<>();
-	
+
 	private List<SentenceInfo> keySentenceList = new ArrayList<>();
 
-	public static final Ordering<Article> dateOrdering = new Ordering<Article>() {
+	public static final Ordering<Article> dateOrder = new Ordering<Article>() {
 		@Override
 		public int compare(Article left, Article right) {
 			return left.getPubDate().compareTo(right.getPubDate());
 		}
 	};
-	
-	public static final Ordering<SentenceInfo> matchSentenceOrdering = new Ordering<SentenceInfo>() {
+
+	public static final Ordering<SentenceInfo> matchedOrder = new Ordering<SentenceInfo>() {
 		@Override
 		public int compare(SentenceInfo left, SentenceInfo right) {
 			return left.getMatchedWord().compareTo(right.getMatchedWord());
+		}
+	};
+
+	public static final Ordering<SentenceInfo> indexOrder = new Ordering<SentenceInfo>() {
+		@Override
+		public int compare(SentenceInfo left, SentenceInfo right) {
+			return left.getIndex().compareTo(right.getIndex());
 		}
 	};
 
@@ -57,15 +65,16 @@ public class Article {
 		if (Strings.isNullOrEmpty(this.title)) {
 			return;
 		}
-		
-		Set<String> titleList = Sets.newHashSet(CollectionService.SPLITTER.split(this.title));
+
+		Set<String> titleList = Sets.newHashSet(CollectionService.SPLITTER
+				.split(this.title));
 		for (String word : titleList) {
 			if (word.length() > 1 && !isSpecialChar(word)) {
 				this.keyWordList.add(word);
 			}
 		}
 	}
-	
+
 	/**
 	 * TODO: 테스트 필요
 	 */
@@ -74,27 +83,24 @@ public class Article {
 		int cint;
 		for (int n = 0; n < str.length(); n++) {
 			c = str.charAt(n);
-			cint = (int)c;
-			if (cint < 48 || (cint > 57 && cint < 65) || (cint > 90 && cint < 97) || cint > 122) {
+			cint = (int) c;
+			if (cint < 48 || (cint > 57 && cint < 65)
+					|| (cint > 90 && cint < 97) || cint > 122) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	public void createSentenceList() {
 
-		List<String> sList = Lists.newArrayList(
-			Splitter.on(". ")
-				.trimResults()
-				.omitEmptyStrings()
-				.split(getContents())
-			);
+		List<String> sList = Lists.newArrayList(Splitter.on(". ").trimResults()
+				.omitEmptyStrings().split(getContents()));
 
 		for (int i = 0; i < sList.size(); i++) {
 			String sentence = sList.get(i);
-			
+
 			SentenceInfo scInfo = new SentenceInfo();
 			scInfo.setIndex(i);
 			scInfo.setLength(sentence.length());
@@ -103,10 +109,19 @@ public class Article {
 
 			this.sentenceList.add(scInfo);
 		}
-	}
-	
-	public void createKeySentenceList() {
 		
+		createKeySentenceList();
+	}
+
+	public void createKeySentenceList() {
+
+		List<SentenceInfo> matchedOrderList = Article.matchedOrder.nullsLast().reverse().sortedCopy(this.sentenceList);
+		int maxKeySentence = matchedOrderList.size() <= 3 ? matchedOrderList.size() : 3; 
+		for (int i = 0; i < maxKeySentence; i++) {
+			this.keySentenceList.add(matchedOrderList.get(i));
+		}
+		
+		Collections.sort(this.keySentenceList, Article.indexOrder.nullsFirst());
 	}
 
 	public String getHashId() {
