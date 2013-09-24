@@ -45,6 +45,13 @@ public class Article {
 			return left.getPubDate().compareTo(right.getPubDate());
 		}
 	};
+	
+	public static final Ordering<SentenceInfo> matchSentenceOrdering = new Ordering<SentenceInfo>() {
+		@Override
+		public int compare(SentenceInfo left, SentenceInfo right) {
+			return left.getMatchedWord().compareTo(right.getMatchedWord());
+		}
+	};
 
 	public void createKeyWorkList() {
 		if (Strings.isNullOrEmpty(this.title)) {
@@ -96,6 +103,10 @@ public class Article {
 
 			this.sentenceList.add(scInfo);
 		}
+	}
+	
+	public void createKeySentenceList() {
+		
 	}
 
 	public String getHashId() {
