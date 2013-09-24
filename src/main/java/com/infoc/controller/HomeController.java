@@ -17,8 +17,8 @@ public class HomeController extends BaseController {
 	public String home(Model model) {
 
 		new Nnews().getNews();
-		new Gnews().getNews();
-		new Dnews().getNews();
+		//new Gnews().getNews();
+		//new Dnews().getNews();
 
 		model.addAttribute("articleMap", CollectionService.CACHE);
 		model.addAttribute("currentHour", new DateTime().getHourOfDay());

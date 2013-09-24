@@ -11,9 +11,7 @@ public class SentenceInfo {
 	private Integer index;
 	private String sentance;
 	private Integer length;
-
-	// num of matched words in the sentence from the keyword list
-	private Integer matchedWord;
+	private Integer matchedWord; // the number of matched words with the keyword list
 
 	public void checkKeyword(Set<String> keywordList) {
 		int matchedCnt = 0;

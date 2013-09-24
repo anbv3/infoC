@@ -97,7 +97,7 @@ public class CollectionService {
 			int hour = newArticle.getPubDate().getHourOfDay();
 			if (CollectionService.CACHE.get(hour).size() < MAX_NUM_IN_HOUR) {
 				// find and update the key sentence list in the article
-
+				
 				CollectionService.CACHE.get(hour).add(newArticle);
 			}
 		}
