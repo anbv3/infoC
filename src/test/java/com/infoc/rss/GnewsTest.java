@@ -78,7 +78,7 @@ public class GnewsTest {
 		Nnews gnews = new Nnews();
 		gnews.getNews();
 
-		for (Entry<Integer, List<Article>> entry : CollectionService.get().entrySet()) {
+		for (Entry<Integer, List<Article>> entry : CollectionService.CACHE.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 
 				LOG.debug("{}", curArticle.getTitle());
