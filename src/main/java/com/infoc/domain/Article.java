@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
@@ -19,7 +21,8 @@ import com.infoc.service.CollectionService;
  * @author anbv3
  */
 public class Article {
-
+	private static final Logger LOG = LoggerFactory.getLogger(Article.class);
+	
 	private String hashId;
 
 	private String title;
@@ -122,6 +125,18 @@ public class Article {
 		}
 		
 		Collections.sort(this.keySentenceList, Article.indexOrder.nullsFirst());
+		
+		StringBuilder sb = new StringBuilder();
+		
+		LOG.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		for(SentenceInfo sentence : this.keySentenceList) {
+			LOG.debug(sentence.getSentance());
+			sb.append(sentence.getSentance()).append(". ");
+			
+		}
+		LOG.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		
+		this.contents = sb.toString();
 	}
 
 	public String getHashId() {
