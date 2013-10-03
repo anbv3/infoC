@@ -69,8 +69,10 @@ public class Article {
 			return;
 		}
 
+		// eliminate special characters from title and split it
 		Set<String> titleList = Sets.newHashSet(CollectionService.SPLITTER
-				.split(this.title));
+				.split(this.title.replaceAll("[^\\p{L}\\p{Z}]", "")));
+		
 		for (String word : titleList) {
 			if (word.length() > 1 && !isSpecialChar(word)) {
 				this.keyWordList.add(word);
@@ -96,6 +98,11 @@ public class Article {
 		return true;
 	}
 
+	public void extractMainContents() {
+		createSentenceList();
+		createKeySentenceList();
+	}
+
 	public void createSentenceList() {
 
 		List<String> sList = Lists.newArrayList(Splitter.on(". ").trimResults()
@@ -112,14 +119,13 @@ public class Article {
 
 			this.sentenceList.add(scInfo);
 		}
-		
-		createKeySentenceList();
 	}
-
+	
 	public void createKeySentenceList() {
 
 		List<SentenceInfo> matchedOrderList = Article.matchedOrder.nullsLast().reverse().sortedCopy(this.sentenceList);
 		int maxKeySentence = matchedOrderList.size() <= 3 ? matchedOrderList.size() : 3; 
+		
 		for (int i = 0; i < maxKeySentence; i++) {
 			this.keySentenceList.add(matchedOrderList.get(i));
 		}
@@ -127,14 +133,9 @@ public class Article {
 		Collections.sort(this.keySentenceList, Article.indexOrder.nullsFirst());
 		
 		StringBuilder sb = new StringBuilder();
-		
-		LOG.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		for(SentenceInfo sentence : this.keySentenceList) {
-			LOG.debug(sentence.getSentance());
 			sb.append(sentence.getSentance()).append(". ");
-			
 		}
-		LOG.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		
 		this.contents = sb.toString();
 	}
@@ -152,7 +153,7 @@ public class Article {
 	}
 
 	public void setTitle(String title) {
-		this.title = title.replaceAll("[^\\p{L}\\p{Z}]", "");
+		this.title = title;
 	}
 
 	public String getLink() {
