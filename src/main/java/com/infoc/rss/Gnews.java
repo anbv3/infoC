@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.infoc.domain.Article;
 import com.infoc.service.CollectionService;
-import com.infoc.util.RSSReader;
+import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 /**
@@ -22,13 +22,12 @@ public class Gnews {
 	private static String G_NEWS = "https://news.google.co.kr/nwshp?hl=ko&output=rss";
 
 	public Gnews getNews() {
-		List<SyndEntry> rssList = RSSReader.getArticleList(G_NEWS);
+		List<SyndEntry> rssList = RSSCrawler.getArticleList(G_NEWS);
 		LOG.debug("G news size: {}", rssList.size());
 
 		for (SyndEntry item : rssList) {
 			Article article = parseItem(item);
 			
-			// TODO: 핵심 문장 리스트가 있는것만 추가
 			CollectionService.add(article);
 		}
 
@@ -47,7 +46,7 @@ public class Gnews {
 		parseLink(rssItem.getLink(), article);
 		parseDescrption(rssItem.getDescription().getValue(), article);
 
-		article.createSentenceList();
+		article.extractMainContents();
 		return article;
 	}
 
@@ -62,7 +61,8 @@ public class Gnews {
 	}
 
 	/**
-	 * extract only texts except the html tags, and pick up the longest one.
+	 * extract only texts of tags from html and make the list, 
+	 * and pick up the longest text from the list which assume the main contents of the article.
 	 */
 	public void parseDescrption(String desc, Article article) {
 

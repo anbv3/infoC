@@ -1,18 +1,20 @@
 package com.infoc.rss;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
 import org.joda.time.DateTime;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
 import com.infoc.service.CollectionService;
@@ -59,7 +61,6 @@ public class GnewsTest {
 
 	@Test
 	public void testParseContents() {
-
 		Gnews gnews = new Gnews();
 		Article article = new Article();
 		gnews.parseDescrption(DESC, article);
@@ -72,7 +73,7 @@ public class GnewsTest {
 
 		System.out.println(sList);
 	}
-
+	
 	@Test
 	public void parseContents() {
 		Nnews gnews = new Nnews();
