@@ -71,6 +71,10 @@ public class Nnews {
 				contentId = "#articleBody"; 
 			} else if (article.getLink().contains("interview365.com")) {
 				contentId = "#IDContents"; 
+			} else if (article.getLink().contains("www.ittoday.co.kr")) {
+				contentId = "#articleBody"; 
+			} else if (article.getLink().contains("www.sportsworldi.com")) {
+				contentId = "#article_content"; 
 			} else if (article.getLink().contains("tvdaily.mk.co.kr") || 
 				article.getLink().contains("etoday.co.kr") ||
 				article.getLink().contains("vop.co.kr") ) {
@@ -91,7 +95,7 @@ public class Nnews {
 	}
 
 	public void parseDescrption(Article article) {
-		String desc = getOriginalContents(article);
+		String desc = getOriginalContents(article).replaceAll("&nbsp;", "");
 		
 		
 		StringBuffer sb = new StringBuffer();
