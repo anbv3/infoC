@@ -101,11 +101,19 @@ public class Article {
 	public void extractMainContents() {
 		createSentenceList();
 		createKeySentenceList();
+		
+		StringBuilder sb = new StringBuilder();
+		for(SentenceInfo sentence : this.keySentenceList) {
+			
+			sb.append(sentence.getSentance()).append(". ");
+		}
+		
+		this.contents = sb.toString();
 	}
 
 	public void createSentenceList() {
 
-		List<String> sList = Lists.newArrayList(Splitter.on(". ").trimResults()
+		List<String> sList = Lists.newArrayList(Splitter.onPattern("\\.\\s").trimResults()
 				.omitEmptyStrings().split(getContents()));
 
 		for (int i = 0; i < sList.size(); i++) {
@@ -131,13 +139,6 @@ public class Article {
 		}
 		
 		Collections.sort(this.keySentenceList, Article.indexOrder.nullsFirst());
-		
-		StringBuilder sb = new StringBuilder();
-		for(SentenceInfo sentence : this.keySentenceList) {
-			sb.append(sentence.getSentance()).append(". ");
-		}
-		
-		this.contents = sb.toString();
 	}
 
 	public String getHashId() {
