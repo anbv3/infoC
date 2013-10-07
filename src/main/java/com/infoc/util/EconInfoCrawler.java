@@ -7,31 +7,49 @@
 
 package com.infoc.util;
 
-import org.jdom.Document;
-import org.jdom.Element;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.jdom.input.SAXBuilder;
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author NBP
  */
-public class CurrencyCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(CurrencyCrawler.class);
+public class EconInfoCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(EconInfoCrawler.class);
 
 	private static final String USD_CURRENCY = "http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=USD&ToCurrency=KRW";
 	private static final String CNY_CURRENCY = "http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=CNY&ToCurrency=KRW";
 
 	public static String getUSD() throws Exception {
-		Document doc = new SAXBuilder().build(USD_CURRENCY);
-		Element root = doc.getRootElement();
+		org.jdom.Document doc = new SAXBuilder().build(USD_CURRENCY);
+		org.jdom.Element root = doc.getRootElement();
 		return root.getText();
 	}
 	
 	public static String getCNY() throws Exception {
-		Document doc = new SAXBuilder().build(CNY_CURRENCY);
-		Element root = doc.getRootElement();
+		org.jdom.Document doc = new SAXBuilder().build(CNY_CURRENCY);
+		org.jdom.Element root = doc.getRootElement();
 		return root.getText();
+	}
+	
+	
+	public static Map<String, String> getStock() throws Exception {
+		org.jsoup.nodes.Document doc = Jsoup.connect("http://finance.naver.com/sise").get();
+		org.jsoup.select.Elements kospi = doc.select("#KOSPI_now");
+		org.jsoup.select.Elements kospi_change = doc.select("#KOSPI_change");
+		org.jsoup.select.Elements kosdaq = doc.select("#KOSDAQ_now");
+		org.jsoup.select.Elements kosdaq_change = doc.select("#KOSDAQ_change");
+		
+		Map<String, String> stockInfo = new HashMap<>();
+		stockInfo.put("kospi", kospi.text());
+		stockInfo.put("kospi_change", kospi_change.html());
+		stockInfo.put("kosdaq", kosdaq.text());
+		stockInfo.put("kosdaq_change", kosdaq_change.html());
+		return stockInfo;
 	}
 	
 /* sample code for later
