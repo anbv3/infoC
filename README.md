@@ -5,6 +5,9 @@ infoC
 [Hot TODO]
 refactoring getOriginalContents 
 
+각 신문사별 크롤러 및 인터페이스 생성 <== 이 인터페이스를 컨트롤에서 주기적으로 실행
+
+
 /////////////////////////////////////////////////////////////////////////
 
 [TODO]
@@ -47,6 +50,9 @@ refactoring getOriginalContents
 
 
 4. web tts
+
+
+5. 수동 기사 편집(DB 연동)
 
 
 
