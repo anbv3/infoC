@@ -1,5 +1,6 @@
 package com.infoc.domain;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -7,6 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,13 +40,19 @@ public class Article {
 	private DateTime pubDate;
 
 	private String author;
-
+	
+	
+	///////////////////////////////////////////////////////////////////////////////
 	private Set<String> keyWordList = new HashSet<>();
 
 	private List<SentenceInfo> sentenceList = new ArrayList<>();
 
 	private List<SentenceInfo> keySentenceList = new ArrayList<>();
-
+	
+	private String mainContents;
+	///////////////////////////////////////////////////////////////////////////////
+	
+	
 	public static final Ordering<Article> dateOrder = new Ordering<Article>() {
 		@Override
 		public int compare(Article left, Article right) {
@@ -63,6 +73,49 @@ public class Article {
 			return left.getIndex().compareTo(right.getIndex());
 		}
 	};
+	
+	
+	public void createContentsFromLink() {
+		try {
+			String contentId = "";
+			if(this.link.contains("news.naver.com")) {
+				
+				contentId = "#articleBody"; 
+				
+			} else if (this.link.contains("media.daum.net")) {
+				
+				contentId = "#newsBodyShadow";
+				
+			} else if (this.link.contains("interview365.com")) {
+				
+				contentId = "#IDContents";
+				
+			} else if (this.link.contains("www.ittoday.co.kr")) {
+				
+				contentId = "#articleBody";
+				
+			} else if (this.link.contains("www.sportsworldi.com")) {
+				
+				contentId = "#article_content";
+				
+			} else if (this.link.contains("tvdaily.mk.co.kr") || 
+				this.link.contains("etoday.co.kr") ||
+				this.link.contains("vop.co.kr") ) {
+				
+				contentId = "#CmAdContent";
+				
+			} else {
+				return;
+			}
+			
+			Document doc = Jsoup.connect(this.link).get();
+			Elements newsHeadlines = doc.select(contentId);
+			
+			this.contents = newsHeadlines.text();
+		} catch (IOException e) {
+			LOG.error("", e);
+		}
+	}
 
 	public void createKeyWorkList() {
 		if (Strings.isNullOrEmpty(this.title)) {
@@ -221,4 +274,11 @@ public class Article {
 		this.keySentenceList = keySentenceList;
 	}
 
+	public String getMainContents() {
+		return mainContents;
+	}
+
+	public void setMainContents(String mainContents) {
+		this.mainContents = mainContents;
+	}
 }
