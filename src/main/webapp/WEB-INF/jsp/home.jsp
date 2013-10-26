@@ -147,7 +147,7 @@ $(function() {
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item">
 							<div class="item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
-							<div class="item_content">${row.contents}</div>
+							<div class="item_content">${row.mainContents}</div>
 						</div>
 					</c:forEach>
 						
@@ -189,7 +189,7 @@ $(function() {
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item">
 							<div class="item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
-							<div class="item_content">${row.contents}</div>
+							<div class="item_content">${row.mainContents}</div>
 						</div>
 					</c:forEach>
 						
