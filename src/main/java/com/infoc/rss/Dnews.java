@@ -42,11 +42,11 @@ public class Dnews {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate()));
 		article.setTitle(rssItem.getTitle());
-		article.createKeyWorkList();
+//		article.createKeyWorkList();
 
 		parseDescrption(article);
 
-		article.extractMainContents();
+//		article.extractMainContents();
 
 		return article;
 	}

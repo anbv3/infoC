@@ -86,15 +86,15 @@ public class GnewsTest {
 				LOG.debug("{}", curArticle.getKeyWordList());
 				LOG.debug("{}", curArticle.getContents());
 
-				for (SentenceInfo sc : curArticle.getSentenceList()) {
-					LOG.debug("{}", sc.toString());
-				}
-				LOG.debug("-----------------------------------------");
-				
-				for (SentenceInfo sc : curArticle.getKeySentenceList()) {
-					LOG.debug("{}", sc.toString());
-				}
-				LOG.debug("-----------------------------------------");
+//				for (SentenceInfo sc : curArticle.getSentenceList()) {
+//					LOG.debug("{}", sc.toString());
+//				}
+//				LOG.debug("-----------------------------------------");
+//				
+//				for (SentenceInfo sc : curArticle.getKeySentenceList()) {
+//					LOG.debug("{}", sc.toString());
+//				}
+//				LOG.debug("-----------------------------------------");
 			}
 		}
 

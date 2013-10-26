@@ -41,12 +41,12 @@ public class Gnews {
 		article.setContents(rssItem.getDescription().getValue());
 
 		parseTitleAuthor(rssItem.getTitle(), article);
-		article.createKeyWorkList();
+//		article.createKeyWorkList();
 		
 		parseLink(rssItem.getLink(), article);
 		parseDescrption(rssItem.getDescription().getValue(), article);
 
-		article.extractMainContents();
+//		article.extractMainContents();
 		return article;
 	}
 
