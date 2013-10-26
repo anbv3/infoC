@@ -31,18 +31,17 @@ public class CollectionService {
 
 	private static final Integer MAX_NUM_IN_HOUR = 9;
 	private static final Integer MAX_DUP_NUM = 2;
-	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
-	public static Splitter SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
 
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
+		Set<String> newKeyWordList = newArticle.getKeyWordList();
 
 		// Compare the basis list with the target's keyword list and compare again backward
 		List<String> dupWordList = new ArrayList<>();
 		List<String> clearWordList = new ArrayList<>();
 		for (String oriWord : curKeyWordList) {
-			for (String tarWord : Sets.newHashSet(SPLITTER.split(newArticle.getTitle()))) {
+			for (String tarWord : newKeyWordList) {
 
 				if (oriWord.length() <= 1 || tarWord.length() <= 1) {
 					continue;

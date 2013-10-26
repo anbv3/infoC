@@ -1,8 +1,6 @@
 package com.infoc.domain;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,12 +12,8 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
+import com.google.common.base.Objects;
 import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
-import com.infoc.service.CollectionService;
 
 /**
  * @author anbv3
@@ -27,7 +21,7 @@ import com.infoc.service.CollectionService;
 public class Article {
 	private static final Logger LOG = LoggerFactory.getLogger(Article.class);
 	
-	private String hashId;
+	private String hashId; // for later
 
 	private String title;
 
@@ -43,12 +37,8 @@ public class Article {
 	
 	
 	///////////////////////////////////////////////////////////////////////////////
-	private Set<String> keyWordList = new HashSet<>();
+	private Set<String> keyWordList = new HashSet<>(); // use for summarization and duplication check
 
-	private List<SentenceInfo> sentenceList = new ArrayList<>();
-
-	private List<SentenceInfo> keySentenceList = new ArrayList<>();
-	
 	private String mainContents;
 	///////////////////////////////////////////////////////////////////////////////
 	
@@ -117,83 +107,96 @@ public class Article {
 		}
 	}
 
-	public void createKeyWorkList() {
-		if (Strings.isNullOrEmpty(this.title)) {
-			return;
-		}
+//	public void createKeyWorkList() {
+//		if (Strings.isNullOrEmpty(this.title)) {
+//			return;
+//		}
+//
+//		// eliminate special characters from title and split it
+//		Set<String> titleList = Sets.newHashSet(CollectionService.SPLITTER
+//				.split(this.title.replaceAll("[^\\p{L}\\p{Z}]", "")));
+//		
+//		for (String word : titleList) {
+//			if (word.length() > 1 && !isSpecialChar(word)) {
+//				this.keyWordList.add(word);
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * TODO: 테스트 필요
+//	 */
+//	private boolean isSpecialChar(String str) {
+//		char c;
+//		int cint;
+//		for (int n = 0; n < str.length(); n++) {
+//			c = str.charAt(n);
+//			cint = (int) c;
+//			if (cint < 48 || (cint > 57 && cint < 65)
+//					|| (cint > 90 && cint < 97) || cint > 122) {
+//				return false;
+//			}
+//		}
+//
+//		return true;
+//	}
+//
+//	public void extractMainContents() {
+//		createSentenceList();
+//		createKeySentenceList();
+//		
+//		StringBuilder sb = new StringBuilder();
+//		for(SentenceInfo sentence : this.keySentenceList) {
+//			
+//			sb.append(sentence.getSentance()).append(". ");
+//		}
+//		
+//		this.contents = sb.toString();
+//	}
+//
+//	public void createSentenceList() {
+//
+//		List<String> sList = Lists.newArrayList(Splitter.onPattern("\\.\\s").trimResults()
+//				.omitEmptyStrings().split(getContents()));
+//
+//		for (int i = 0; i < sList.size(); i++) {
+//			String sentence = sList.get(i);
+//
+//			SentenceInfo scInfo = new SentenceInfo();
+//			scInfo.setIndex(i);
+//			scInfo.setLength(sentence.length());
+//			scInfo.setSentance(sentence);
+//			scInfo.checkKeyword(this.keyWordList);
+//
+//			this.sentenceList.add(scInfo);
+//		}
+//	}
+//	
+//	public void createKeySentenceList() {
+//
+//		List<SentenceInfo> matchedOrderList = Article.matchedOrder.nullsLast().reverse().sortedCopy(this.sentenceList);
+//		int maxKeySentence = matchedOrderList.size() <= 3 ? matchedOrderList.size() : 3; 
+//		
+//		for (int i = 0; i < maxKeySentence; i++) {
+//			this.keySentenceList.add(matchedOrderList.get(i));
+//		}
+//		
+//		Collections.sort(this.keySentenceList, Article.indexOrder.nullsFirst());
+//	}
 
-		// eliminate special characters from title and split it
-		Set<String> titleList = Sets.newHashSet(CollectionService.SPLITTER
-				.split(this.title.replaceAll("[^\\p{L}\\p{Z}]", "")));
-		
-		for (String word : titleList) {
-			if (word.length() > 1 && !isSpecialChar(word)) {
-				this.keyWordList.add(word);
-			}
-		}
-	}
-
-	/**
-	 * TODO: 테스트 필요
-	 */
-	private boolean isSpecialChar(String str) {
-		char c;
-		int cint;
-		for (int n = 0; n < str.length(); n++) {
-			c = str.charAt(n);
-			cint = (int) c;
-			if (cint < 48 || (cint > 57 && cint < 65)
-					|| (cint > 90 && cint < 97) || cint > 122) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	public void extractMainContents() {
-		createSentenceList();
-		createKeySentenceList();
-		
-		StringBuilder sb = new StringBuilder();
-		for(SentenceInfo sentence : this.keySentenceList) {
-			
-			sb.append(sentence.getSentance()).append(". ");
-		}
-		
-		this.contents = sb.toString();
-	}
-
-	public void createSentenceList() {
-
-		List<String> sList = Lists.newArrayList(Splitter.onPattern("\\.\\s").trimResults()
-				.omitEmptyStrings().split(getContents()));
-
-		for (int i = 0; i < sList.size(); i++) {
-			String sentence = sList.get(i);
-
-			SentenceInfo scInfo = new SentenceInfo();
-			scInfo.setIndex(i);
-			scInfo.setLength(sentence.length());
-			scInfo.setSentance(sentence);
-			scInfo.checkKeyword(this.keyWordList);
-
-			this.sentenceList.add(scInfo);
-		}
+	
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("title", this.title)
+			.add("link", this.link)
+			.add("pubDate", this.pubDate)
+			.add("mainContents", this.mainContents)
+			.add("keyWordList", this.keyWordList)
+			.toString();
 	}
 	
-	public void createKeySentenceList() {
-
-		List<SentenceInfo> matchedOrderList = Article.matchedOrder.nullsLast().reverse().sortedCopy(this.sentenceList);
-		int maxKeySentence = matchedOrderList.size() <= 3 ? matchedOrderList.size() : 3; 
-		
-		for (int i = 0; i < maxKeySentence; i++) {
-			this.keySentenceList.add(matchedOrderList.get(i));
-		}
-		
-		Collections.sort(this.keySentenceList, Article.indexOrder.nullsFirst());
-	}
-
+	
 	public String getHashId() {
 		return hashId;
 	}
@@ -258,21 +261,21 @@ public class Article {
 		this.keyWordList = keyWordList;
 	}
 
-	public List<SentenceInfo> getSentenceList() {
-		return sentenceList;
-	}
-
-	public void setSentenceList(List<SentenceInfo> sentenceList) {
-		this.sentenceList = sentenceList;
-	}
-
-	public List<SentenceInfo> getKeySentenceList() {
-		return keySentenceList;
-	}
-
-	public void setKeySentenceList(List<SentenceInfo> keySentenceList) {
-		this.keySentenceList = keySentenceList;
-	}
+//	public List<SentenceInfo> getSentenceList() {
+//		return sentenceList;
+//	}
+//
+//	public void setSentenceList(List<SentenceInfo> sentenceList) {
+//		this.sentenceList = sentenceList;
+//	}
+//
+//	public List<SentenceInfo> getKeySentenceList() {
+//		return keySentenceList;
+//	}
+//
+//	public void setKeySentenceList(List<SentenceInfo> keySentenceList) {
+//		this.keySentenceList = keySentenceList;
+//	}
 
 	public String getMainContents() {
 		return mainContents;

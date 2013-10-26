@@ -1,25 +1,39 @@
 package com.infoc.controller;
 
-import com.infoc.service.CollectionService;
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.infoc.rss.Dnews;
-import com.infoc.rss.Gnews;
-import com.infoc.rss.Nnews;
+import com.infoc.crawler.DaumNewsCrawler;
+import com.infoc.domain.Article;
+import com.infoc.service.CollectionService;
+import com.infoc.service.ContentsAnalysisService;
 
 @Controller
 public class HomeController extends BaseController {
 
-	@RequestMapping(value = { "/", "/home" })
+	@RequestMapping(value = {"/", "/home"})
 	public String home(Model model) {
 
-		//new Gnews().getNews();
-		new Nnews().getNews();
-		new Dnews().getNews();
+		// TODO: need to run by timer ///////////////////////////////
+		DaumNewsCrawler d = new DaumNewsCrawler();
+		List<Article> list = d.createArticlList();
 
+		for (Article article : list) {
+			
+			// get the main contents
+			ContentsAnalysisService.createMainSentence(article);
+			
+			// add to the store
+			CollectionService.add(article);
+			
+		}
+		/////////////////////////////////////////////////////////////
+		
+		
 		model.addAttribute("articleMap", CollectionService.CACHE);
 		model.addAttribute("currentHour", new DateTime().getHourOfDay());
 

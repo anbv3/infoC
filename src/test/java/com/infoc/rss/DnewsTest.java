@@ -43,9 +43,9 @@ public class DnewsTest {
 				LOG.debug("{}", curArticle.getTitle());
 				LOG.debug("{}", curArticle.getKeyWordList());
 
-				for (SentenceInfo sc : curArticle.getSentenceList()) {
-					LOG.debug("{}", sc.toString());
-				}
+//				for (SentenceInfo sc : curArticle.getSentenceList()) {
+//					LOG.debug("{}", sc.toString());
+//				}
 				LOG.debug("-----------------------------------------");
 			}
 		}
