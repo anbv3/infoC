@@ -23,7 +23,6 @@ public class HomeController extends BaseController {
 		List<Article> list = d.createArticlList();
 
 		for (Article article : list) {
-			
 			// create the main contents
 			ContentsAnalysisService.createMainSentence(article);
 			
