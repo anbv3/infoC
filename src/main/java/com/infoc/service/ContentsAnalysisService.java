@@ -28,8 +28,11 @@ public class ContentsAnalysisService {
 	public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
 	public static void createMainSentence(Article article) {
+		// create key words first
 		Set<String> keyWordList = createKeyWorkList(article.getTitle());
+		article.setKeyWordList(keyWordList);
 		
+		// create key sentences
 		List<SentenceInfo> sentenceList = createSentenceList(keyWordList, article.getContents());
 		List<SentenceInfo> keySentenceList = createKeySentenceList(sentenceList);
 
@@ -38,7 +41,6 @@ public class ContentsAnalysisService {
 			sb.append(sentence.getSentance()).append(". ");
 		}
 		
-		article.setKeyWordList(keyWordList);
 		article.setMainContents(sb.toString());
 	}
 
