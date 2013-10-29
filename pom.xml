@@ -227,12 +227,6 @@
 			<version>2.2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.7.2</version>
-		</dependency>
-
 		<!-- HTTP Client -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -263,9 +257,9 @@
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
-			<version>1.4-p2</version>
+			<version>1.4</version>
 		</dependency>
-
+ 
 		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework</groupId>
