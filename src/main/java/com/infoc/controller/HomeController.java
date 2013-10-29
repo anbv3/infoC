@@ -18,13 +18,12 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = {"/", "/home"})
 	public String home(Model model) {
 
-		// TODO: need to run by timer ///////////////////////////////
+		// TODO: need to run by timer separately ///////////////////////////////
 		DaumNewsCrawler d = new DaumNewsCrawler();
 		List<Article> list = d.createArticlList();
 
 		for (Article article : list) {
-			
-			// get the main contents
+			// create the main contents
 			ContentsAnalysisService.createMainSentence(article);
 			
 			// add to the store
