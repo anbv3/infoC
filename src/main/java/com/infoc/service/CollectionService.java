@@ -8,19 +8,14 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-import com.infoc.domain.Article;
-import com.infoc.rss.DnewsTest;
-
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Sets;
+import com.infoc.domain.Article;
 
 public class CollectionService {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(CollectionService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
 
 	public static Map<Integer, List<Article>> CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
 			Collections.reverseOrder());
