@@ -3,6 +3,7 @@ package com.infoc.controller;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class HomeController extends BaseController {
 		
 		
 		model.addAttribute("articleMap", CollectionService.CACHE);
-		model.addAttribute("currentHour", new DateTime().getHourOfDay());
+		model.addAttribute("currentHour", DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
 
 		return "/home";
 	}
