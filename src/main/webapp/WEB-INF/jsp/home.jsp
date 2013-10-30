@@ -10,18 +10,27 @@
 
 <jsp:include page="./common/resources.jsp" />
 
-
-
-<style type="text/css" media="only screen and (max-width: 1620px)">
+<style type="text/css" media="only screen and (max-device-width : 720px)">
 .titem {
-width: 244px;
+font-size: 12px;
+width: 261px;
+}
+
+.item {
+width: 261px;
 }
 </style>
 
-<style type="text/css" media="only screen and (max-width: 1220px)">
+<style type="text/css" media="only screen and (min-device-width : 721px) and (max-device-width: 1220px)">
 .titem {
 font-size: 12px;
 width: 330px;
+}
+</style>
+
+<style type="text/css" media="only screen and (min-device-width : 1221px) and (max-device-width: 1620px)">
+.titem {
+width: 244px;
 }
 </style>
 
