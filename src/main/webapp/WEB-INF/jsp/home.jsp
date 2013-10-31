@@ -15,19 +15,23 @@
 <style type="text/css" media="only screen and (max-width : 720px)">
 .titem {
 font-size: 12px;
-width: 262px;
+width: 100%;
+border-left: none;
+border-right: none;
 }
 
 .item {
-width: 262px;
+width: 100%;
+border-left: none;
+border-right: none;
 }
 
 </style>
 
 <style type="text/css" media="only screen and (min-width : 721px) and (max-width: 1220px)">
-.titem {
+.titem,.item {
 font-size: 12px;
-width: 330px;
+width: 244px;
 }
 </style>
 
@@ -35,7 +39,6 @@ width: 330px;
 .titem {
 width: 244px;
 }
-
 </style>
 
 
@@ -155,7 +158,7 @@ $(function() {
 
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item">
-							<div class="item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
+							<div class="span12 item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
 							<div class="item_content">${row.mainContents}</div>
 						</div>
 					</c:forEach>
@@ -197,7 +200,7 @@ $(function() {
 
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item">
-							<div class="item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
+							<div class="span12 item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
 							<div class="item_content">${row.mainContents}</div>
 						</div>
 					</c:forEach>
