@@ -26,7 +26,7 @@ public class CollectionService {
 		}
 	}
 
-	private static final Integer MAX_NUM_IN_HOUR = 9;
+	private static final Integer MAX_NUM_IN_HOUR = 16;
 	private static final Integer MAX_DUP_NUM = 2;
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
@@ -58,11 +58,10 @@ public class CollectionService {
 			}
 		}
 
-		// determine the new article is duplicated one or not by the number of
-		// the dup. keyword list.
+		// determine the new article is duplicated or not by the number of the dup. keyword list.
 		if (dupWordList.size() >= MAX_DUP_NUM) {
 
-			// update the basis list
+			// update the keyword list
 			curKeyWordList.remove(clearWordList);
 			curKeyWordList.addAll(dupWordList);
 			return true;
