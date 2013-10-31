@@ -66,24 +66,39 @@ public class Article {
 
 	public void createContentsFromLink() {
 		try {
-			String contentId = null;
-			if (this.link.contains("news.naver.com")) {
-
+			String contentId = null; 
+			
+			// for naver news, remove the last link section from the contents
+			if (this.link.contains("naver")) {
 				contentId = "#articleBody";
-
-			} else if (this.link.contains("media.daum.net")) {
+				
+				Document doc = Jsoup.connect(this.link).get();
+				Elements contentsArea = doc.select(contentId);
+				Elements linkArea = doc.select(".link_news");
+				
+				int linkIdx = contentsArea.text().indexOf(linkArea.text());
+				this.contents = contentsArea.text().substring(0, linkIdx);
+				
+				return;
+			} 
+			
+			if (this.link.contains("daum")) {
 
 				contentId = "#newsBodyShadow";
 
-			} else if (this.link.contains("interview365.com")) {
+			} else if (this.link.contains("interview365")) {
 
 				contentId = "#IDContents";
 
-			} else if (this.link.contains("www.ittoday.co.kr")) {
+			} else if (this.link.contains("ittoday") || this.link.contains("unionpress")) {
 
 				contentId = "#articleBody";
+				
+			} else if (this.link.contains("hankyung") || this.link.contains("ahatv")) {
+				
+				contentId = "#sstvarticle";
 
-			} else if (this.link.contains("www.sportsworldi.com")) {
+			} else if (this.link.contains("sportsworldi")) {
 
 				contentId = "#article_content";
 
@@ -98,8 +113,8 @@ public class Article {
 			}
 
 			Document doc = Jsoup.connect(this.link).get();
-			Elements newsHeadlines = doc.select(contentId);
-			this.contents = newsHeadlines.text();
+			Elements contentsArea = doc.select(contentId);
+			this.contents = contentsArea.text();
 
 		} catch (IOException e) {
 			LOG.error("", e);
