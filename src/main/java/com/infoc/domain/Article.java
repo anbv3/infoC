@@ -79,6 +79,8 @@ public class Article {
 				int linkIdx = contentsArea.text().indexOf(linkArea.text());
 				if (linkIdx != -1) {
 					this.contents = contentsArea.text().substring(0, linkIdx);
+				} else {
+					this.contents = contentsArea.text();
 				}
 				return;
 			}
