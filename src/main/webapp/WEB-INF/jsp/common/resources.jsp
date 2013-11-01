@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/css/bootstrap-responsive.css"/>'/>
 <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/css/common.css"/>'/>
 
-<script type='text/javascript' src='<c:url value="/js/jquery/jquery-1.9.1.min.js"/>'></script>
+<script type='text/javascript' src='<c:url value="/js/jquery/jquery-2.0.3.min.js"/>'></script>
 <script type='text/javascript' src='<c:url value="/js/jquery/jquery-ui.min.js"/>'></script>
 <script type='text/javascript' src='<c:url value="/js/jquery/imagesloaded.pkgd.min.js"/>'></script>
 <script type='text/javascript' src='<c:url value="/js/jquery/jquery.masonry.min.js"/>'></script>
