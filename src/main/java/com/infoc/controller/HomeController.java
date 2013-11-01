@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.infoc.crawler.CrawlScheduler;
 import com.infoc.crawler.DaumNewsCrawler;
 import com.infoc.crawler.NaverNewsCrawler;
 import com.infoc.domain.Article;
@@ -49,6 +50,16 @@ public class HomeController extends BaseController {
 			CollectionService.add(article);
 		}
 
+		return "success";
+	}
+	
+	@RequestMapping(value = "/run")
+	@ResponseBody
+	public String runScheduler() {
+		LOG.info("{}", DateTime.now(DateTimeZone.forID("Asia/Seoul")));
+		
+		CrawlScheduler.runShcedule();
+		
 		return "success";
 	}
 }

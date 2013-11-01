@@ -31,6 +31,27 @@ public class DnewsTest {
 
 		LOG.debug("{}", Sets.newHashSet(SPLITTER.split(t)));
 	}
+	
+	@Test
+	public void parseSentence() {
+		String contents = " 시구를 위해 마운드로 이동하고 있다.hany@media.sportsseoul.com";
+		
+		List<String> sList = Lists.newArrayList(
+			Splitter.onPattern("\\.\\s|다\\.")
+				.trimResults()
+				.omitEmptyStrings()
+				.split(contents)
+			);
+		
+
+		LOG.debug("{}", sList);
+		
+		
+		String a = "알려졌다.2013.11.1/뉴스1";
+		
+		
+		LOG.debug("{}", a.replaceAll("다\\.","다\\. "));
+	}
 
 	@Test
 	public void parseSentenceList() {

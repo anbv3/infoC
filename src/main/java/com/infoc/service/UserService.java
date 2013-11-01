@@ -13,24 +13,24 @@ import com.infoc.repository.UserRepository;
 @Transactional(readOnly=true)
 public class UserService {
 	
-	@Autowired
-	UserRepository userRepository;
-
-	public Page<User> getUsers(Pageable pageable) {
-		return userRepository.findAll(pageable);
-	}
-
-	public User getUser(Long id) {
-		return userRepository.findOne(id);
-	}
-
-	@Transactional
-	public void delete(Long id) {
-		userRepository.delete(id);		
-	}
-
-	@Transactional
-	public void save(User user) {
-		userRepository.save(user);
-	}
+//	@Autowired
+//	UserRepository userRepository;
+//
+//	public Page<User> getUsers(Pageable pageable) {
+//		return userRepository.findAll(pageable);
+//	}
+//
+//	public User getUser(Long id) {
+//		return userRepository.findOne(id);
+//	}
+//
+//	@Transactional
+//	public void delete(Long id) {
+//		userRepository.delete(id);		
+//	}
+//
+//	@Transactional
+//	public void save(User user) {
+//		userRepository.save(user);
+//	}
 }

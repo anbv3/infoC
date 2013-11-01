@@ -72,7 +72,7 @@ public class NaverNewsCrawler implements NewsCrawler {
 	 * different extraction rules.
 	 */
 	public void clearInvalidWords(Article article) {
-		String desc = article.getContents().replaceAll("&nbsp;", "");
+		String desc = article.getContents().replaceAll("&nbsp;", "").replaceAll("다\\.","다\\. ");
 
 		StringBuffer sb = new StringBuffer();
 		boolean appendFlag = true;

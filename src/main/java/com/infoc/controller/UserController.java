@@ -25,36 +25,36 @@ public class UserController extends BaseController {
     @Autowired
     UserService userService;
 
-    @RequestMapping
-    public void getUsers(Pageable pageable, Model model) {
-        logger.debug("{}", ToStringBuilder.reflectionToString(pageable));
-        Page<User> page = userService.getUsers(pageable);
-        model.addAttribute("page", page);
-    }
-
-    @RequestMapping("{id}")
-    public String getUser(@PathVariable Long id, Model model) {
-        model.addAttribute(userService.getUser(id));
-        return "users/view";
-    }
-
-    @RequestMapping(value = "form", method = RequestMethod.GET)
-    public void getForm(@ModelAttribute User user, Model model) {
-        if (!user.isNew()) {
-            user = userService.getUser(user.getId());
-            model.addAttribute(user);
-        }
-    }
-
-    @RequestMapping(value = "form", method = RequestMethod.POST)
-    public String save(@ModelAttribute User user) {
-        userService.save(user);
-        return "redirect:" + user.getId();
-    }
-
-    @RequestMapping("delete")
-    public String delete(@RequestParam Long id) {
-        userService.delete(id);
-        return "redirect:/users";
-    }
+//    @RequestMapping
+//    public void getUsers(Pageable pageable, Model model) {
+//        logger.debug("{}", ToStringBuilder.reflectionToString(pageable));
+//        Page<User> page = userService.getUsers(pageable);
+//        model.addAttribute("page", page);
+//    }
+//
+//    @RequestMapping("{id}")
+//    public String getUser(@PathVariable Long id, Model model) {
+//        model.addAttribute(userService.getUser(id));
+//        return "users/view";
+//    }
+//
+//    @RequestMapping(value = "form", method = RequestMethod.GET)
+//    public void getForm(@ModelAttribute User user, Model model) {
+//        if (!user.isNew()) {
+//            user = userService.getUser(user.getId());
+//            model.addAttribute(user);
+//        }
+//    }
+//
+//    @RequestMapping(value = "form", method = RequestMethod.POST)
+//    public String save(@ModelAttribute User user) {
+//        userService.save(user);
+//        return "redirect:" + user.getId();
+//    }
+//
+//    @RequestMapping("delete")
+//    public String delete(@RequestParam Long id) {
+//        userService.delete(id);
+//        return "redirect:/users";
+//    }
 }
