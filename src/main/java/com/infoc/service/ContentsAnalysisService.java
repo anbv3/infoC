@@ -31,7 +31,7 @@ public class ContentsAnalysisService {
 		// create key words first
 		Set<String> keyWordList = createKeyWorkList(article.getTitle());
 		article.setKeyWordList(keyWordList);
-		
+
 		// create key sentences
 		List<SentenceInfo> sentenceList = createSentenceList(keyWordList, article.getContents());
 		List<SentenceInfo> keySentenceList = createKeySentenceList(sentenceList);
@@ -40,7 +40,7 @@ public class ContentsAnalysisService {
 		for (SentenceInfo sentence : keySentenceList) {
 			sb.append(sentence.getSentance()).append(". ");
 		}
-		
+
 		article.setMainContents(sb.toString());
 	}
 
@@ -52,16 +52,16 @@ public class ContentsAnalysisService {
 
 		// eliminate special characters from title and split it
 		Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.split(title.replaceAll("[^\\p{L}\\p{Z}]", " ")));
-		
+
 		for (String word : titleList) {
 			if (word.length() > 1 && !isSpecialChar(word)) {
 				keyWordList.add(word);
 			}
 		}
-		
+
 		return keyWordList;
 	}
-	
+
 	/**
 	 * TODO: 테스트 필요
 	 */
@@ -70,21 +70,25 @@ public class ContentsAnalysisService {
 		int cint;
 		for (int n = 0; n < str.length(); n++) {
 			c = str.charAt(n);
-			cint = (int) c;
+			cint = (int)c;
 			if (cint < 48 || (cint > 57 && cint < 65)
-					|| (cint > 90 && cint < 97) || cint > 122) {
+				|| (cint > 90 && cint < 97) || cint > 122) {
 				return false;
 			}
 		}
 
 		return true;
 	}
-	
+
 	private static List<SentenceInfo> createSentenceList(Set<String> keyWordList, String contents) {
 		List<SentenceInfo> sentenceList = new ArrayList<>();
 
-		List<String> sList = Lists.newArrayList(Splitter.onPattern("\\.\\s").trimResults()
-			.omitEmptyStrings().split(contents));
+		List<String> sList = Lists.newArrayList(
+			Splitter.onPattern("\\.\\s")
+				.trimResults()
+				.omitEmptyStrings()
+				.split(contents)
+			);
 
 		for (int i = 0; i < sList.size(); i++) {
 			String sentence = sList.get(i);
@@ -101,7 +105,7 @@ public class ContentsAnalysisService {
 		return sentenceList;
 	}
 
-	private static  List<SentenceInfo> createKeySentenceList(List<SentenceInfo> sentenceList) {
+	private static List<SentenceInfo> createKeySentenceList(List<SentenceInfo> sentenceList) {
 		List<SentenceInfo> keySentenceList = new ArrayList<>();
 
 		List<SentenceInfo> matchedOrderList = Article.matchedOrder.nullsLast().reverse().sortedCopy(sentenceList);

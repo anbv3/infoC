@@ -29,7 +29,7 @@ public class DaumNewsCrawler implements NewsCrawler {
 		List<Article> articleList = new ArrayList<>();
 		List<SyndEntry> rssList = RSSCrawler.getArticleList(RSS_URL);
 
-		LOG.debug("D News size: {}", rssList.size());
+		LOG.debug("Daum News size: {}", rssList.size());
 
 		for (SyndEntry item : rssList) {
 			articleList.add(parseRSSItem(item));

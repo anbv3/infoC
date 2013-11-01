@@ -17,9 +17,11 @@
     <import resource="applicationContext-datasource.xml"/>
 
     <!-- 아래 설정 파일 순서 변경 금지 -->
+    <!-- 
     <import resource="applicationContext-dao-jpa.xml"/>
+	 -->
 	<import resource="applicationContext-service.xml"/>
-	
+	 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000" />
 	</bean>

@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.infoc.domain.Article;
 import com.infoc.service.CollectionService;
 import com.infoc.service.ContentsAnalysisService;
@@ -19,6 +22,7 @@ import com.infoc.service.ContentsAnalysisService;
  * @author NBP
  */
 public class CrawlScheduler {
+	private static final Logger LOG = LoggerFactory.getLogger(CrawlScheduler.class);
 
 	private static class CrawlTask extends TimerTask
 	{
@@ -37,12 +41,24 @@ public class CrawlScheduler {
 				// add to the store
 				CollectionService.add(article);
 			}
+			
+			CollectionService.clearYesterDay();
+		}
+	}
+	
+	private static class CrawlClearTask extends TimerTask
+	{
+		@Override
+		public void run() {
+			LOG.info("Clear articles one day before!");
+			CollectionService.clearYesterDay();
 		}
 	}
 
 	public static void runShcedule() {
 		Timer timer = new Timer();
-		timer.schedule(new CrawlTask(), 300 * 1000);
+		timer.schedule(new CrawlTask(), 1000, 1*60*1000);
+		timer.schedule(new CrawlClearTask(), 1000, 1*60*1000);
 	}
 
 }

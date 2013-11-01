@@ -2,6 +2,7 @@ package com.infoc.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,6 +10,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +74,7 @@ public class CollectionService {
 
 	public static void add(Article newArticle) {
 		// skip the old article before today
-		if (newArticle.getPubDate().isBefore(DateTime.now().minusDays(1))) {
+		if (newArticle.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
 			return;
 		}
 
@@ -95,7 +97,19 @@ public class CollectionService {
 			// 가장 오래된에 하나 제거
 		}
 	}
-
+	
+	public static void clearYesterDay() {
+		for (Entry<Integer, List<Article>> entry : CACHE.entrySet()) {
+			
+			Iterator<Article> article = entry.getValue().iterator();
+			while (article.hasNext()) {
+				if(article.next().getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
+					article.remove();
+				}
+			}
+		}
+	}
+	
 	public static Map<Integer, List<Article>> get() {
 		return CACHE;
 	}
