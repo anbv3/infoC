@@ -57,8 +57,8 @@ public class CrawlScheduler {
 
 	public static void runShcedule() {
 		Timer timer = new Timer();
-		timer.schedule(new CrawlTask(), 1000, 1*60*1000);
-		timer.schedule(new CrawlClearTask(), 1000, 1*60*1000);
+		timer.schedule(new CrawlTask(), 1000, 10*60*1000);
+		timer.schedule(new CrawlClearTask(), 1000, 60*60*1000);
 	}
 
 }
