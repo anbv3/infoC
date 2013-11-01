@@ -66,22 +66,23 @@ public class Article {
 
 	public void createContentsFromLink() {
 		try {
-			String contentId = null; 
-			
+			String contentId = null;
+
 			// for naver news, remove the last link section from the contents
 			if (this.link.contains("naver")) {
 				contentId = "#articleBody";
-				
+
 				Document doc = Jsoup.connect(this.link).get();
 				Elements contentsArea = doc.select(contentId);
 				Elements linkArea = doc.select(".link_news");
-				
+
 				int linkIdx = contentsArea.text().indexOf(linkArea.text());
-				this.contents = contentsArea.text().substring(0, linkIdx);
-				
+				if (linkIdx != -1) {
+					this.contents = contentsArea.text().substring(0, linkIdx);
+				}
 				return;
-			} 
-			
+			}
+
 			if (this.link.contains("daum")) {
 
 				contentId = "#newsBodyShadow";
@@ -93,9 +94,9 @@ public class Article {
 			} else if (this.link.contains("ittoday") || this.link.contains("unionpress")) {
 
 				contentId = "#articleBody";
-				
+
 			} else if (this.link.contains("hankyung") || this.link.contains("ahatv")) {
-				
+
 				contentId = "#sstvarticle";
 
 			} else if (this.link.contains("sportsworldi")) {
@@ -103,8 +104,8 @@ public class Article {
 				contentId = "#article_content";
 
 			} else if (this.link.contains("tvdaily.mk.co.kr")
-					|| this.link.contains("etoday.co.kr")
-					|| this.link.contains("vop.co.kr")) {
+				|| this.link.contains("etoday.co.kr")
+				|| this.link.contains("vop.co.kr")) {
 
 				contentId = "#CmAdContent";
 
@@ -204,9 +205,9 @@ public class Article {
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this).add("title", this.title)
-				.add("link", this.link).add("pubDate", this.pubDate)
-				.add("mainContents", this.mainContents)
-				.add("keyWordList", this.keyWordList).toString();
+			.add("link", this.link).add("pubDate", this.pubDate)
+			.add("mainContents", this.mainContents)
+			.add("keyWordList", this.keyWordList).toString();
 	}
 
 	public String getHashId() {
