@@ -7,6 +7,7 @@
 
 package com.infoc.crawler;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,17 +25,24 @@ import com.infoc.service.ContentsAnalysisService;
 public class CrawlScheduler {
 	private static final Logger LOG = LoggerFactory.getLogger(CrawlScheduler.class);
 
+	private static List<NewsCrawler> newsCrawlerList = new ArrayList<>();
+	static {
+		newsCrawlerList.add(new DaumNewsCrawler());
+		newsCrawlerList.add(new NaverNewsCrawler());
+		newsCrawlerList.add(new GoogleNewsCrawler());
+	}
+	
 	private static class CrawlTask extends TimerTask
 	{
 		@Override
 		public void run() {
-			DaumNewsCrawler d = new DaumNewsCrawler();
-			List<Article> list = d.createArticlList();
+			 
+			List<Article> articleList = new ArrayList<>();
+			for (NewsCrawler crawler : newsCrawlerList) {
+				articleList.addAll(crawler.createArticlList());
+			}
 
-			NaverNewsCrawler n = new NaverNewsCrawler();
-			list.addAll(n.createArticlList());
-
-			for (Article article : list) {
+			for (Article article : articleList) {
 				// create the main contents
 				ContentsAnalysisService.createMainSentence(article);
 

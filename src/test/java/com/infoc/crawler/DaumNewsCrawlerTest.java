@@ -27,7 +27,7 @@ public class DaumNewsCrawlerTest {
 	
 	@Test
 	public void test1() {
-		DaumNewsCrawler d = new DaumNewsCrawler();
+		GoogleNewsCrawler d = new GoogleNewsCrawler();
 		List<Article> list = d.createArticlList();
 
 		LOG.debug("{}", list.size());

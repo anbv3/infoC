@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.infoc.crawler.CrawlScheduler;
 import com.infoc.crawler.DaumNewsCrawler;
+import com.infoc.crawler.GoogleNewsCrawler;
 import com.infoc.crawler.NaverNewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.service.CollectionService;
@@ -41,6 +42,9 @@ public class HomeController extends BaseController {
 
 		NaverNewsCrawler n = new NaverNewsCrawler();
 		list.addAll(n.createArticlList());
+		
+		GoogleNewsCrawler g = new GoogleNewsCrawler();
+		list.addAll(g.createArticlList());
 
 		for (Article article : list) {
 			// create the main contents
