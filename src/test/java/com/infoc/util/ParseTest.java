@@ -1,4 +1,4 @@
-package com.infoc.rss;
+package com.infoc.util;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,13 +14,21 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.infoc.crawler.DaumNewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
 import com.infoc.service.CollectionService;
+import com.infoc.service.ContentsAnalysisService;
 
-public class DnewsTest {
-	private static final Logger LOG = LoggerFactory.getLogger(DnewsTest.class);
-
+public class ParseTest {
+	private static final Logger LOG = LoggerFactory.getLogger(ParseTest.class);
+	
+	@Test
+	public void parseTitleSP() {
+		String t = "[단독] 무상 학자금도 .. 모자라 저리융자 '이중지원'";
+		LOG.debug("-{}", t.replaceAll("\\[.*\\]", ""));
+	}
+	
 	@Test
 	public void parseTitle() {
 
@@ -55,18 +63,22 @@ public class DnewsTest {
 
 	@Test
 	public void parseSentenceList() {
-		Dnews dnews = new Dnews();
-		dnews.getNews();
+		DaumNewsCrawler d = new DaumNewsCrawler();
+		List<Article> list = d.createArticlList();
+		for (Article article : list) {
+			// create the main contents
+			ContentsAnalysisService.createMainSentence(article);
 
+			// add to the store
+			CollectionService.add(article);
+		}
+		
 		for (Entry<Integer, List<Article>> entry : CollectionService.get().entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 
 				LOG.debug("{}", curArticle.getTitle());
 				LOG.debug("{}", curArticle.getKeyWordList());
 
-//				for (SentenceInfo sc : curArticle.getSentenceList()) {
-//					LOG.debug("{}", sc.toString());
-//				}
 				LOG.debug("-----------------------------------------");
 			}
 		}

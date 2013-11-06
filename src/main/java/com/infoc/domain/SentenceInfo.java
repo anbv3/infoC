@@ -21,7 +21,6 @@ public class SentenceInfo {
 
 		List<String> wList = Lists.newArrayList(
 			Splitter.on(" ")
-				.trimResults()
 				.omitEmptyStrings()
 				.trimResults()
 				.split(this.sentance)
