@@ -13,17 +13,23 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
+import com.infoc.util.ParseTest;
 
 /**
  * @author NBP
  */
 public class ContentsAnalysisService {
+	private static final Logger LOG = LoggerFactory.getLogger(ContentsAnalysisService.class);
+
 	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
 	public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
@@ -44,14 +50,21 @@ public class ContentsAnalysisService {
 		article.setMainContents(sb.toString());
 	}
 
-	private static Set<String> createKeyWorkList(String title) {
+	public static Set<String> createKeyWorkList(String title) {
 		Set<String> keyWordList = new HashSet<>();
 		if (Strings.isNullOrEmpty(title)) {
 			return keyWordList;
 		}
 
 		// eliminate special characters from title and split it
-		Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.split(title.replaceAll("[^\\p{L}\\p{Z}]", " ")));
+		Set<String> titleList = Sets.newHashSet(
+			TITLE_SPLITTER
+				.omitEmptyStrings()
+				.trimResults()
+				.split(
+					title.replaceAll("[^\\p{L}\\p{Z}]", " ").replaceAll("\\[.*\\]", "")
+				)
+			);
 
 		for (String word : titleList) {
 			if (word.length() > 1 && !isSpecialChar(word)) {
@@ -65,7 +78,7 @@ public class ContentsAnalysisService {
 	/**
 	 * TODO: 테스트 필요
 	 */
-	private static boolean isSpecialChar(String str) {
+	public static boolean isSpecialChar(String str) {
 		char c;
 		int cint;
 		for (int n = 0; n < str.length(); n++) {
@@ -80,7 +93,7 @@ public class ContentsAnalysisService {
 		return true;
 	}
 
-	private static List<SentenceInfo> createSentenceList(Set<String> keyWordList, String contents) {
+	public static List<SentenceInfo> createSentenceList(Set<String> keyWordList, String contents) {
 		List<SentenceInfo> sentenceList = new ArrayList<>();
 
 		List<String> sList = Lists.newArrayList(
@@ -105,7 +118,7 @@ public class ContentsAnalysisService {
 		return sentenceList;
 	}
 
-	private static List<SentenceInfo> createKeySentenceList(List<SentenceInfo> sentenceList) {
+	public static List<SentenceInfo> createKeySentenceList(List<SentenceInfo> sentenceList) {
 		List<SentenceInfo> keySentenceList = new ArrayList<>();
 
 		List<SentenceInfo> matchedOrderList = Article.matchedOrder.nullsLast().reverse().sortedCopy(sentenceList);
@@ -118,5 +131,30 @@ public class ContentsAnalysisService {
 		Collections.sort(keySentenceList, Article.indexOrder.nullsFirst());
 
 		return keySentenceList;
+	}
+
+	public static void clearInvalidWords(Article article) {
+		// ". "를 기준으로 문장을 자르는데 "다.XX"인 경우가 있어 미리 변경해준다..ㅜㅜ
+		String desc = article.getContents().replaceAll("&nbsp;", "").replaceAll("다\\.", "다\\. ");
+
+		StringBuffer sb = new StringBuffer();
+		boolean appendFlag = true;
+		for (int i = 0; i < desc.length(); i++) {
+			char c = desc.charAt(i);
+			if (c == '【' || c == '[' || c == '(' || c == '<') {
+				appendFlag = false;
+				continue;
+			}
+			if (c == '】' || c == ']' || c == ')' || c == '>') {
+				appendFlag = true;
+				continue;
+			}
+
+			if (appendFlag) {
+				sb.append(c);
+			}
+		}
+
+		article.setContents(sb.toString());
 	}
 }

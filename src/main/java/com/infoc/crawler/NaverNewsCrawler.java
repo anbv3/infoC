@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
+import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
@@ -62,36 +63,9 @@ public class NaverNewsCrawler implements NewsCrawler {
 			article.setContents(rssItem.getDescription().getValue());
 		}
 
-		clearInvalidWords(article);
+		ContentsAnalysisService.clearInvalidWords(article);
 
 		return article;
 	}
-
-	/**
-	 * extract some text enclosed by special characters each article has
-	 * different extraction rules.
-	 */
-	public void clearInvalidWords(Article article) {
-		String desc = article.getContents().replaceAll("&nbsp;", "").replaceAll("다\\.","다\\. ");
-
-		StringBuffer sb = new StringBuffer();
-		boolean appendFlag = true;
-		for (int i = 0; i < desc.length(); i++) {
-			char c = desc.charAt(i);
-			if (c == '【') {
-				appendFlag = false;
-				continue;
-			}
-			if (c == '】') {
-				appendFlag = true;
-				continue;
-			}
-
-			if (appendFlag) {
-				sb.append(c);
-			}
-		}
-
-		article.setContents(sb.toString());
-	}
+	
 }

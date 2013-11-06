@@ -75,32 +75,6 @@ public class GnewsTest {
 	}
 	
 	@Test
-	public void parseContents() {
-		Nnews gnews = new Nnews();
-		gnews.getNews();
-
-		for (Entry<Integer, List<Article>> entry : CollectionService.CACHE.entrySet()) {
-			for (Article curArticle : entry.getValue()) {
-
-				LOG.debug("{}", curArticle.getTitle());
-				LOG.debug("{}", curArticle.getKeyWordList());
-				LOG.debug("{}", curArticle.getContents());
-
-//				for (SentenceInfo sc : curArticle.getSentenceList()) {
-//					LOG.debug("{}", sc.toString());
-//				}
-//				LOG.debug("-----------------------------------------");
-//				
-//				for (SentenceInfo sc : curArticle.getKeySentenceList()) {
-//					LOG.debug("{}", sc.toString());
-//				}
-//				LOG.debug("-----------------------------------------");
-			}
-		}
-
-	}
-
-	@Test
 	public void removeSP() {
 		String a = "박희순, `관상 기대되요~` [MBN포토]";
 		LOG.debug("{}", a.replaceAll("[^\\p{L}\\p{Z}]", ""));
