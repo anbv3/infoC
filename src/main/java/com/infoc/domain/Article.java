@@ -2,10 +2,8 @@ package com.infoc.domain;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import org.aspectj.apache.bcel.generic.IINC;
 import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -92,8 +90,18 @@ public class Article {
 			} else if (this.link.contains("interview365")) {
 
 				contentId = "#IDContents";
+				
+			} else if (this.link.contains("khan")) {
+				
+				contentId = "#_article";
+			} else if (this.link.contains("hankooki")) {
+				
+				contentId = "#GS_Content";
 
-			} else if (this.link.contains("ittoday") || this.link.contains("unionpress")) {
+			} else if (this.link.contains("ittoday") 
+					|| this.link.contains("unionpress") 
+					|| this.link.contains("yonhapnews") 
+					|| this.link.contains("newsis")) {
 
 				contentId = "#articleBody";
 
@@ -105,9 +113,10 @@ public class Article {
 
 				contentId = "#article_content";
 
-			} else if (this.link.contains("tvdaily.mk.co.kr")
-				|| this.link.contains("etoday.co.kr")
-				|| this.link.contains("vop.co.kr")) {
+			} else if (this.link.contains("tvdaily")
+				|| this.link.contains("etoday")
+				|| this.link.contains("ytn")
+				|| this.link.contains("vop")) {
 
 				contentId = "#CmAdContent";
 
