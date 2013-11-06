@@ -54,8 +54,7 @@ public class NaverNewsCrawler implements NewsCrawler {
 		Article article = new Article();
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(),
-				DateTimeZone.forID("Asia/Seoul")));
+		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")));
 		article.setTitle(rssItem.getTitle());
 
 		article.createContentsFromLink();
