@@ -51,7 +51,14 @@ public class Article {
 	public static final Ordering<SentenceInfo> matchedOrder = new Ordering<SentenceInfo>() {
 		@Override
 		public int compare(SentenceInfo left, SentenceInfo right) {
-			return left.getMatchedWord().compareTo(right.getMatchedWord());
+			// 1. determine by match word
+			int match = left.getMatchedWord().compareTo(right.getMatchedWord());
+			if (match != 0) {
+				return match;
+			}
+			
+			// 2. pick the longer sentence among the same matched sentences
+			return left.getLength().compareTo(right.getLength());
 		}
 	};
 
@@ -90,39 +97,39 @@ public class Article {
 			} else if (this.link.contains("interview365")) {
 
 				contentId = "#IDContents";
-				
+
 			} else if (this.link.contains("khan")) {
-				
+
 				contentId = "#_article";
-				
+
 			} else if (this.link.contains("segye")) {
-				
+
 				contentId = "#article_txt";
-				
+
 			} else if (this.link.contains("asiae")) {
-				
+
 				contentId = ".article";
-				
+
 			} else if (this.link.contains("chosun")) {
-				
+
 				contentId = ".par";
-				
+
 			} else if (this.link.contains("dailian")) {
-				
+
 				contentId = "#view_con";
-				
+
 			} else if (this.link.contains("newsen")) {
-				
+
 				contentId = "#CLtag";
-				
+
 			} else if (this.link.contains("hankooki")) {
-				
+
 				contentId = "#GS_Content";
 
-			} else if (this.link.contains("ittoday") 
-					|| this.link.contains("unionpress") 
-					|| this.link.contains("yonhapnews") 
-					|| this.link.contains("newsis")) {
+			} else if (this.link.contains("ittoday")
+				|| this.link.contains("unionpress")
+				|| this.link.contains("yonhapnews")
+				|| this.link.contains("newsis")) {
 
 				contentId = "#articleBody";
 
