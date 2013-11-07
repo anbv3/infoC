@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.infoc.domain.Article;
 import com.infoc.service.CollectionService;
@@ -22,6 +25,7 @@ import com.infoc.service.ContentsAnalysisService;
 /**
  * @author NBP
  */
+@Component
 public class CrawlScheduler {
 	private static final Logger LOG = LoggerFactory.getLogger(CrawlScheduler.class);
 
@@ -63,6 +67,7 @@ public class CrawlScheduler {
 		}
 	}
 
+	@PostConstruct
 	public static void runShcedule() {
 		Timer timer = new Timer();
 		timer.schedule(new CrawlTask(), 1000, 10*60*1000);
