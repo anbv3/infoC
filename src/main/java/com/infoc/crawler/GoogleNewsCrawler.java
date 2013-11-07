@@ -43,14 +43,14 @@ public class GoogleNewsCrawler implements NewsCrawler {
 			article.setContents(rssItem.getDescription().getValue());
 		}
 		
-		ContentsAnalysisService.clearInvalidWords(article);
+		article.setContents(ContentsAnalysisService.clearInvalidWords(article.getContents()));
 		
 		return article;
 	}
 
 	private void parseTitleAuthor(String title, Article article) {
 		int idx = title.lastIndexOf("-");
-		article.setTitle(title.substring(0, idx).trim());
+		article.setTitle(ContentsAnalysisService.clearInvalidWords(title.substring(0, idx).trim()));
 		article.setAuthor(title.substring(idx + 1, title.length()).trim());
 	}
 }
