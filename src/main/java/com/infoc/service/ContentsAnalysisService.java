@@ -56,7 +56,7 @@ public class ContentsAnalysisService {
 				.omitEmptyStrings()
 				.trimResults()
 				.split(
-					title.replaceAll("[^\\p{L}\\p{Z}]", " ").replaceAll("\\[.*\\]", "")
+					title.replaceAll("[^\\p{L}\\p{Z}]", " ").replaceAll("\\[단독\\]", "")
 				)
 			);
 

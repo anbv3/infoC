@@ -94,6 +94,27 @@ public class Article {
 			} else if (this.link.contains("khan")) {
 				
 				contentId = "#_article";
+				
+			} else if (this.link.contains("segye")) {
+				
+				contentId = "#article_txt";
+				
+			} else if (this.link.contains("asiae")) {
+				
+				contentId = ".article";
+				
+			} else if (this.link.contains("chosun")) {
+				
+				contentId = ".par";
+				
+			} else if (this.link.contains("dailian")) {
+				
+				contentId = "#view_con";
+				
+			} else if (this.link.contains("newsen")) {
+				
+				contentId = "#CLtag";
+				
 			} else if (this.link.contains("hankooki")) {
 				
 				contentId = "#GS_Content";
