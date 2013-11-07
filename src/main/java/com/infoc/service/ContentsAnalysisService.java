@@ -56,7 +56,7 @@ public class ContentsAnalysisService {
 				.omitEmptyStrings()
 				.trimResults()
 				.split(
-					title.replaceAll("[^\\p{L}\\p{Z}]", " ").replaceAll("\\[단독\\]", "")
+					title.replaceAll("[^\\p{L}\\p{Z}]", " ")
 				)
 			);
 
@@ -127,28 +127,17 @@ public class ContentsAnalysisService {
 		return keySentenceList;
 	}
 
-	public static void clearInvalidWords(Article article) {
-		// ". "를 기준으로 문장을 자르는데 "다.XX"인 경우가 있어 미리 변경해준다..ㅜㅜ
-		String desc = article.getContents().replaceAll("&nbsp;", "").replaceAll("다\\.", "다\\. ");
-
-		StringBuffer sb = new StringBuffer();
-		boolean appendFlag = true;
-		for (int i = 0; i < desc.length(); i++) {
-			char c = desc.charAt(i);
-			if (c == '【' || c == '[' || c == '(' || c == '<') {
-				appendFlag = false;
-				continue;
-			}
-			if (c == '】' || c == ']' || c == ')' || c == '>') {
-				appendFlag = true;
-				continue;
-			}
-
-			if (appendFlag) {
-				sb.append(c);
-			}
-		}
-
-		article.setContents(sb.toString());
+	/**
+	 * ". "를 기준으로 문장을 자르는데 "다.XX"인 경우가 있어 미리 변경
+	 * 기타 잡스런 단어 제거
+	 */
+	public static String clearInvalidWords(String some) {
+		return some.replaceAll("&nbsp;", "")
+			.replaceAll("다\\.", "다\\. ")
+			.replaceAll("(?i)\\【.*?\\】", "")
+			.replaceAll("(?i)\\[.*?\\]", "")
+			.replaceAll("(?i)\\<.*?\\>", "")
+			.replaceAll("(?i)\\(.*?\\)", "");
 	}
+
 }

@@ -44,14 +44,14 @@ public class DaumNewsCrawler implements NewsCrawler {
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));
-		article.setTitle(rssItem.getTitle());
+		article.setTitle(ContentsAnalysisService.clearInvalidWords(rssItem.getTitle()));
 
 		article.createContentsFromLink();
 		if (Strings.isNullOrEmpty(article.getContents())) {
 			article.setContents(rssItem.getDescription().getValue());
 		}
 		
-		ContentsAnalysisService.clearInvalidWords(article);
+		article.setContents(ContentsAnalysisService.clearInvalidWords(article.getContents()));
 		
 		return article;
 	}

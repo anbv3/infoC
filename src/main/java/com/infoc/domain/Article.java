@@ -148,7 +148,6 @@ public class Article {
 			Document doc = Jsoup.connect(this.link).get();
 			Elements contentsArea = doc.select(contentId);
 			this.contents = contentsArea.text();
-
 		} catch (IOException e) {
 			LOG.error("", e);
 		}
