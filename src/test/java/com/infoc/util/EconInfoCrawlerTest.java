@@ -7,9 +7,6 @@
 
 package com.infoc.util;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,27 +21,30 @@ public class EconInfoCrawlerTest {
 	public void testGetUSD() {
 		
 		try {
-			LOG.debug("{}", EconInfoCrawler.getUSD());
-			LOG.debug("{}", EconInfoCrawler.getCNY());
+			LOG.debug("{}", EconInfoCrawler.getCurrency());
 		} catch (Exception e) {
 		}
 	}
-
+	
 	
 	@Test
 	public void testGetStock() {
 		
 		try {
-			Document doc = Jsoup.connect("http://finance.naver.com/sise").get();
-			Elements kospi = doc.select("#KOSPI_now");
-			Elements kospi_change = doc.select("#KOSPI_change");
-			Elements kosdaq = doc.select("#KOSDAQ_now");
-			Elements kosdaq_change = doc.select("#KOSDAQ_change");
+			LOG.debug("{}", EconInfoCrawler.getStock());
 			
-			LOG.debug("{}", kospi.text());
-			LOG.debug("{}", kospi_change.html());
-			LOG.debug("{}", kosdaq.text());
-			LOG.debug("{}", kosdaq_change.html());
+		} catch (Exception e) {
+		}
+	}
+	
+
+	@Test
+	public void testGetStockChange() {
+		
+		try {
+			String a = "4.04 -0.79%상승";
+			
+			LOG.debug("{}", a.replaceAll(".*[ ]", "").replaceAll("%.*", ""));
 		} catch (Exception e) {
 		}
 	}

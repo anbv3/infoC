@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import org.joda.time.DateTime;
@@ -19,6 +20,7 @@ import com.infoc.domain.Article;
 public class CollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
 
+	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 	public static Map<Integer, List<Article>> CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
 			Collections.reverseOrder());
 
