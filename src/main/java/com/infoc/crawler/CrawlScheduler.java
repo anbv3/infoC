@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import com.infoc.domain.Article;
 import com.infoc.service.CollectionService;
 import com.infoc.service.ContentsAnalysisService;
+import com.infoc.util.EconInfoCrawler;
 
 /**
  * @author NBP
@@ -35,12 +36,12 @@ public class CrawlScheduler {
 		newsCrawlerList.add(new NaverNewsCrawler());
 		newsCrawlerList.add(new GoogleNewsCrawler());
 	}
-	
+
 	private static class CrawlTask extends TimerTask
 	{
 		@Override
 		public void run() {
-			 
+
 			List<Article> articleList = new ArrayList<>();
 			for (NewsCrawler crawler : newsCrawlerList) {
 				articleList.addAll(crawler.createArticlList());
@@ -53,11 +54,19 @@ public class CrawlScheduler {
 				// add to the store
 				CollectionService.add(article);
 			}
-			
+
 			CollectionService.clearYesterDay();
+
+			try {
+				LOG.info("collect the info for econ indicator");
+				CollectionService.ECON_INFO.putAll(EconInfoCrawler.getStock());
+				CollectionService.ECON_INFO.putAll(EconInfoCrawler.getCurrency());
+			} catch (Exception e) {
+				LOG.error("", e);
+			}
 		}
 	}
-	
+
 	private static class CrawlClearTask extends TimerTask
 	{
 		@Override
@@ -70,8 +79,8 @@ public class CrawlScheduler {
 	@PostConstruct
 	public static void runShcedule() {
 		Timer timer = new Timer();
-		timer.schedule(new CrawlTask(), 1000, 10*60*1000);
-		timer.schedule(new CrawlClearTask(), 1000, 60*60*1000);
+		timer.schedule(new CrawlTask(), 1000, 10 * 60 * 1000);
+		timer.schedule(new CrawlClearTask(), 1000, 60 * 60 * 1000);
 	}
 
 }

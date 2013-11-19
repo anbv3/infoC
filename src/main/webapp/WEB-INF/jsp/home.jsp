@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi"/>
 
-<title>Home</title>
+<title>NewsYaa</title>
 
 <jsp:include page="./common/resources.jsp" />
 
@@ -81,13 +81,14 @@ $(function() {
 				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<a class="brand" href="index.html">InfoC</a>
+				<a class="brand" href="index.html">NewsYaa</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li class="active"><a href="#">Home</a></li>
+						<!-- 
 						<li class="active"><a href="#">IT</a></li>
 						<li><a href="#">Contact</a></li>
-
+ 						-->
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -105,26 +106,27 @@ $(function() {
 		<div class="container-fluid bkg2">
 			<div class="row-fluid">
 				<div class="span2 section-title day-section">
-					<h3>2013. 07. 13</h3>
+					<h3><fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}"/></h3>
+					
 				</div>
 				
 				<div class="span10 article-section">
 					<div id="title-section">
 						<div class="titem stock-section bkg4">
-							<h5>코스피</h5>
-							<h2>1,914.03</h2>
+							<h5>코스피 ${econ.kospiChange}</h5>
+							<h2>${econ.kospi}</h2>
 						</div>
 						<div class="titem currency-section bkg4">
-							<h5>코스닥</h5>
-							<h2>554.31</h2>
+							<h5>코스닥 ${econ.kosdaqChange}</h5>
+							<h2>${econ.kosdaq}</h2>
 						</div>
 						<div class="titem stock-section bkg4">
-							<h5>환율</h5>
-							<h2>1115.50</h2>
+							<h5>미국 환율</h5>
+							<h2>${econ.usd}원</h2>
 						</div>
 						<div class="titem stock-section bkg4">
-							<h5>환율</h5>
-							<h2>1115.50</h2>
+							<h5>중국 환율</h5>
+							<h2>${econ.cny}원</h2>
 						</div>
 					</div>
 				</div>

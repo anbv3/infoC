@@ -24,11 +24,14 @@ public class HomeController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = {"/", "/home"})
-	public String home(Model model) {
+	public String home(Model model) throws Exception {
 
 		model.addAttribute("articleMap", CollectionService.CACHE);
 		model.addAttribute("currentHour", DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
-
+		model.addAttribute("currentDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
+		
+		model.addAttribute("econ", CollectionService.ECON_INFO);
+		
 		return "/home";
 	}
 
