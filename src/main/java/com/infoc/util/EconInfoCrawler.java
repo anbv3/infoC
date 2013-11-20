@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 
 /**
  * @author NBP
@@ -18,14 +19,32 @@ import org.jsoup.Jsoup;
 public class EconInfoCrawler {
 	public static Map<String, String> getCurrency() throws Exception {
 		org.jsoup.nodes.Document doc = Jsoup.connect("http://info.finance.naver.com/marketindex/").get();
-		org.jsoup.select.Elements usd = doc.select(".usd > .head_info > .value");
-		org.jsoup.select.Elements cny = doc.select(".cny > .head_info > .value");
-		
+		Elements usd = doc.select(".usd > .head_info > .value");
+		Elements usdChange = doc.select(".usd > .head_info > .change");
+		Elements usdDirection = doc.select(".usd > .head_info > .blind");
+
+		Elements cny = doc.select(".cny > .head_info > .value");
+		Elements cnyChange = doc.select(".cny > .head_info > .change");
+		Elements cnyDirection = doc.select(".cny > .head_info > .blind");
+
 		Map<String, String> currencyInfo = new HashMap<>();
 		currencyInfo.put("usd", usd.text());
+		currencyInfo.put("usdChange", checkDirectionText(usdDirection.text()) +  usdChange.text());
+
+		// //////////////////////////////////////////////////////////////
+
 		currencyInfo.put("cny", cny.text());
-		
+		currencyInfo.put("cnyChange", checkDirectionText(cnyDirection.text()) +  cnyChange.text());
+
 		return currencyInfo;
+	}
+
+	private static String checkDirectionText(String str) {
+		if (str.equals("상승")) {
+			return "+";
+		} else {
+			return "-";
+		}
 	}
 
 	public static Map<String, String> getStock() throws Exception {
