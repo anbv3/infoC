@@ -121,11 +121,11 @@ $(function() {
 							<h2>${econ.kosdaq}</h2>
 						</div>
 						<div class="titem stock-section bkg4">
-							<h5>미국 환율</h5>
+							<h5>미국 USD ${econ.usdChange}</h5>
 							<h2>${econ.usd}원</h2>
 						</div>
 						<div class="titem stock-section bkg4">
-							<h5>중국 환율</h5>
+							<h5>중국 CNY ${econ.cnyChange}</h5>
 							<h2>${econ.cny}원</h2>
 						</div>
 					</div>
