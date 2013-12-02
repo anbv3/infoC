@@ -5,6 +5,7 @@ infoC
 [Hot TODO]
 
 기사 분류 추가 => 종합, IT, 경제, 스포츠, 연예, 쇼핑(?)
+http://mirejiki.tistory.com/95
 
 구글기사 본문은 html이고 사진 링크있으니 활용하자
 

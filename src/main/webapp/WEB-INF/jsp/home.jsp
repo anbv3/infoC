@@ -43,33 +43,6 @@ width: 244px;
 
 
 
-
-<script type="text/javascript">
-
-$(function() {
-	
-	var $titSection = $('#title-section');
-	$titSection.imagesLoaded(function() {
-		$titSection.packery({
-			itemSelector : '.titem',
-			gutter : 5
-		});
-	});
-	
-	
-	$('.story').each(function() {
-		var $container = $(this);
-		$container.imagesLoaded(function() {
-			$container.packery({
-				itemSelector : '.item',
-				gutter : 5
-			});
-		});
-	});
-	
-});
-</script>
-
 </head>
 
 
@@ -81,14 +54,25 @@ $(function() {
 				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<a class="brand" href="index.html">NewsYaa</a>
+				<a class="brand" href="index.html" style="color:#FFF7BD">NewsYaa</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li class="active"><a href="#">Home</a></li>
+						<li><a href="#">정치</a></li>
+						<li><a href="#">경제</a></li>
+						<li><a href="#">사회</a></li>
+						<li><a href="#">문화/생활</a></li>
+						<li><a href="#">연예</a></li>
+						<li><a href="#">스포츠</a></li>
+						<li><a href="#">IT</a></li>
+						
 						<!-- 
 						<li class="active"><a href="#">IT</a></li>
 						<li><a href="#">Contact</a></li>
  						-->
+					</ul>
+					<ul class="nav pull-right">
+					<li><a href="#" style="color:#FF823A">- 프리미엄 -</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -220,5 +204,32 @@ $(function() {
 	
 
 </body>
+
+<script type="text/javascript">
+
+$(function() {
+	
+	var $titSection = $('#title-section');
+	$titSection.imagesLoaded(function() {
+		$titSection.packery({
+			itemSelector : '.titem',
+			gutter : 5
+		});
+	});
+	
+	
+	$('.story').each(function() {
+		var $container = $(this);
+		$container.imagesLoaded(function() {
+			$container.packery({
+				itemSelector : '.item',
+				gutter : 5
+			});
+		});
+	});
+	
+});
+</script>
+
 
 </html>
