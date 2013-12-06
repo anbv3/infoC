@@ -37,11 +37,11 @@ public class CrawlScheduler {
 		newsCrawlerList.add(new GoogleNewsCrawler());
 	}
 
-	private static class CrawlTask extends TimerTask
-	{
+	private static class CrawlTask extends TimerTask {
 		@Override
 		public void run() {
-
+			LOG.info("collect the aritcles from RSS.");
+			
 			List<Article> articleList = new ArrayList<>();
 			for (NewsCrawler crawler : newsCrawlerList) {
 				articleList.addAll(crawler.createArticlList());
@@ -54,11 +54,14 @@ public class CrawlScheduler {
 				// add to the store
 				CollectionService.add(article);
 			}
+		}
+	}
 
-			CollectionService.clearYesterDay();
-
+	private static class EconCrawlTask extends TimerTask {
+		@Override
+		public void run() {
 			try {
-				LOG.info("collect the info for econ indicator");
+				LOG.info("collect the info for econ indicator.");
 				CollectionService.ECON_INFO.putAll(EconInfoCrawler.getStock());
 				CollectionService.ECON_INFO.putAll(EconInfoCrawler.getCurrency());
 			} catch (Exception e) {
@@ -67,8 +70,7 @@ public class CrawlScheduler {
 		}
 	}
 
-	private static class CrawlClearTask extends TimerTask
-	{
+	private static class CrawlClearTask extends TimerTask {
 		@Override
 		public void run() {
 			LOG.info("Clear articles one day before!");
@@ -79,8 +81,9 @@ public class CrawlScheduler {
 	@PostConstruct
 	public static void runShcedule() {
 		Timer timer = new Timer();
-		timer.schedule(new CrawlTask(), 1000, 10 * 60 * 1000);
-		timer.schedule(new CrawlClearTask(), 1000, 60 * 60 * 1000);
+		timer.schedule(new EconCrawlTask(), 1000, 5 * 60 * 1000);
+		timer.schedule(new CrawlTask(), 2000, 10 * 60 * 1000);
+		timer.schedule(new CrawlClearTask(), 3000, 60 * 60 * 1000);
 	}
 
 }

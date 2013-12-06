@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -23,24 +24,30 @@ import com.sun.syndication.feed.synd.SyndEntry;
  */
 public class DaumNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(DaumNewsCrawler.class);
-	private static String RSS_URL = "http://media.daum.net/syndication/today_sisa.rss"; // 주요기사
+	private static String TODAY_URL = "http://media.daum.net/syndication/today_sisa.rss"; 
+	private static String POLITICS_URL = "http://media.daum.net/rss/part/primary/politics/rss2.xml"; 
+	private static String ECON_URL = "http://media.daum.net/rss/part/primary/economic/rss2.xml"; 
+	private static String SOCIETY_URL = "http://media.daum.net/rss/part/primary/society/rss2.xml"; 
+	private static String CULTURE_URL = "http://media.daum.net/rss/part/primary/culture/rss2.xml"; 
+	private static String ENT_URL = "http://media.daum.net/rss/part/primary/entertain/rss2.xml"; 
+	private static String SPORT_URL = "http://media.daum.net/rss/today/primary/sports/rss2.xml"; 
+	private static String IT_URL = "http://media.daum.net/rss/part/primary/digital/rss2.xml"; 
 
 	@Override
 	public List<Article> createArticlList() {
 		List<Article> articleList = new ArrayList<>();
-		List<SyndEntry> rssList = RSSCrawler.getArticleList(RSS_URL);
-
-		LOG.debug("Daum News size: {}", rssList.size());
-
-		for (SyndEntry item : rssList) {
-			articleList.add(parseRSSItem(item));
+		
+		List<SyndEntry> todayRSSList = RSSCrawler.getArticleList(TODAY_URL);
+		for (SyndEntry item : todayRSSList) {
+			articleList.add(parseRSSItem(item, ArticleSection.TODAY));
 		}
 
 		return articleList;
 	}
 
-	private Article parseRSSItem(SyndEntry rssItem) {
+	private Article parseRSSItem(SyndEntry rssItem, ArticleSection section) {
 		Article article = new Article();
+		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));

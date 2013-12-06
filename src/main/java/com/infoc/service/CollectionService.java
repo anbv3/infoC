@@ -19,19 +19,37 @@ import com.infoc.domain.Article;
 
 public class CollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
+	private static final Integer MAX_DUP_NUM = 2;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
-	public static Map<Integer, List<Article>> CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
+
+	public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
+	public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> POLITICS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> ECON_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> SOCIETY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> CULTURE_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> ENT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> SPORT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> IT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 
 	static {
-		for (int i = 0; i < 24; i++) {
-			CACHE.put(i, new ArrayList<Article>());
+		CACHE_LIST.add(TODAY_CACHE);
+		CACHE_LIST.add(POLITICS_CACHE);
+		CACHE_LIST.add(ECON_CACHE);
+		CACHE_LIST.add(SOCIETY_CACHE);
+		CACHE_LIST.add(SOCIETY_CACHE);
+		CACHE_LIST.add(SOCIETY_CACHE);
+		CACHE_LIST.add(ENT_CACHE);
+		CACHE_LIST.add(SPORT_CACHE);
+		CACHE_LIST.add(IT_CACHE);
+
+		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
+			for (int i = 0; i < 24; i++) {
+				cache.put(i, new ArrayList<Article>());
+			}
 		}
 	}
-
-	private static final Integer MAX_NUM_IN_HOUR = 16;
-	private static final Integer MAX_DUP_NUM = 2;
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
 
@@ -80,39 +98,44 @@ public class CollectionService {
 			return;
 		}
 
+		// get cache for each type
+
+		addNew(newArticle, TODAY_CACHE);
+	}
+
+	private static void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
 		// check the duplicated articles from the stored article.
-		for (Entry<Integer, List<Article>> entry : CACHE.entrySet()) {
+		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 				if (isDuplicate(curArticle, newArticle)) {
 					// update the key sentence list of the curArticle
-					
+
 					// create the main contents again..?
-					
+
 					return;
 				}
 			}
 		}
 
 		int hour = newArticle.getPubDate().getHourOfDay();
-		CollectionService.CACHE.get(hour).add(newArticle);
-		if (CollectionService.CACHE.get(hour).size() > MAX_NUM_IN_HOUR) {
-			// 가장 오래된에 하나 제거
-		}
+		cache.get(hour).add(newArticle);
 	}
-	
+
 	public static void clearYesterDay() {
-		for (Entry<Integer, List<Article>> entry : CACHE.entrySet()) {
-			
-			Iterator<Article> article = entry.getValue().iterator();
-			while (article.hasNext()) {
-				if(article.next().getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
-					article.remove();
+		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
+			for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
+				Iterator<Article> article = entry.getValue().iterator();
+				while (article.hasNext()) {
+					if (article.next().getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
+						article.remove();
+					}
 				}
 			}
 		}
+
 	}
-	
-	public static Map<Integer, List<Article>> get() {
-		return CACHE;
+
+	public static Map<Integer, List<Article>> getToday() {
+		return TODAY_CACHE;
 	}
 }

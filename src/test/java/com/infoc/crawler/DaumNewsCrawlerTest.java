@@ -42,7 +42,7 @@ public class DaumNewsCrawlerTest {
 			CollectionService.add(article);
 		}
 		
-		for (Entry<Integer, List<Article>> entry : CollectionService.CACHE.entrySet()) {
+		for (Entry<Integer, List<Article>> entry : CollectionService.TODAY_CACHE.entrySet()) {
 			LOG.debug("{}", entry.getValue().size());
 			for (Article curArticle : entry.getValue()) {
 				

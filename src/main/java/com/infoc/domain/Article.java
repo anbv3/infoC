@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Ordering;
+import com.infoc.enumeration.ArticleSection;
 
 /**
  * @author anbv3
@@ -33,6 +34,8 @@ public class Article {
 	private DateTime pubDate;
 
 	private String author;
+	
+	private ArticleSection section;
 
 	// /////////////////////////////////////////////////////////////////////////////
 	private Set<String> keyWordList = new HashSet<>(); // use for summarization
@@ -223,6 +226,14 @@ public class Article {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+	
+	public ArticleSection getSection() {
+		return section;
+	}
+
+	public void setSection(ArticleSection section) {
+		this.section = section;
+	}
 
 	public Set<String> getKeyWordList() {
 		return keyWordList;
@@ -231,22 +242,6 @@ public class Article {
 	public void setKeyWordList(Set<String> keyWordList) {
 		this.keyWordList = keyWordList;
 	}
-
-	// public List<SentenceInfo> getSentenceList() {
-	// return sentenceList;
-	// }
-	//
-	// public void setSentenceList(List<SentenceInfo> sentenceList) {
-	// this.sentenceList = sentenceList;
-	// }
-	//
-	// public List<SentenceInfo> getKeySentenceList() {
-	// return keySentenceList;
-	// }
-	//
-	// public void setKeySentenceList(List<SentenceInfo> keySentenceList) {
-	// this.keySentenceList = keySentenceList;
-	// }
 
 	public String getMainContents() {
 		return mainContents;
