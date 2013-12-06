@@ -26,7 +26,7 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = {"/", "/home"})
 	public String home(Model model) throws Exception {
 
-		model.addAttribute("articleMap", CollectionService.CACHE);
+		model.addAttribute("articleMap", CollectionService.TODAY_CACHE);
 		model.addAttribute("currentHour", DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
 		model.addAttribute("currentDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
 		

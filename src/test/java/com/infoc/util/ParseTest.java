@@ -106,7 +106,7 @@ public class ParseTest {
 			CollectionService.add(article);
 		}
 		
-		for (Entry<Integer, List<Article>> entry : CollectionService.get().entrySet()) {
+		for (Entry<Integer, List<Article>> entry : CollectionService.getToday().entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 
 				LOG.debug("{}", curArticle.getTitle());
