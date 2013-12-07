@@ -26,7 +26,12 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		LOG.debug("GoogleNews size: {}", rssList.size());
 
 		for (SyndEntry item : rssList) {
-			articleList.add(parseRSSItem(item));
+			Article article = parseRSSItem(item);
+			if (article == null) {
+				continue;
+			}
+
+			articleList.add(article);
 		}
 
 		return articleList;
@@ -37,6 +42,9 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));
 		parseTitleAuthor(rssItem.getTitle(), article);
+		if (Strings.isNullOrEmpty(article.getTitle())) {
+			return null;
+		}
 		
 		article.createContentsFromLink();
 		if (Strings.isNullOrEmpty(article.getContents())) {

@@ -13,9 +13,6 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
-/**
- * @author NBP
- */
 public class EconInfoCrawler {
 	public static Map<String, String> getCurrency() throws Exception {
 		org.jsoup.nodes.Document doc = Jsoup.connect("http://info.finance.naver.com/marketindex/").get();

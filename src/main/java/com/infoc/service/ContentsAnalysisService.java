@@ -20,9 +20,6 @@ import com.google.common.collect.Sets;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
 
-/**
- * @author NBP
- */
 public class ContentsAnalysisService {
 	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
 	public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();

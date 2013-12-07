@@ -8,9 +8,6 @@ import java.util.List;
 
 import com.infoc.domain.Article;
 
-/**
- * @author NBP
- */
 public interface NewsCrawler {
 	public List<Article> createArticlList();
 }
