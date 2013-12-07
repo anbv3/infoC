@@ -19,9 +19,6 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 
-/**
- * @author NBP
- */
 public class NaverNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(NaverNewsCrawler.class);
 	private static String RSS_URL = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=2";
@@ -56,7 +53,10 @@ public class NaverNewsCrawler implements NewsCrawler {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")));
 		article.setTitle(ContentsAnalysisService.clearInvalidWords(rssItem.getTitle()));
-
+		if (Strings.isNullOrEmpty(article.getTitle())) {
+			return null;
+		}
+		
 		article.createContentsFromLink();
 		if (Strings.isNullOrEmpty(article.getContents())) {
 			article.setContents(rssItem.getDescription().getValue());

@@ -19,9 +19,6 @@ import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
-/**
- * @author NBP
- */
 public class DaumNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(DaumNewsCrawler.class);
 	private static String TODAY_URL = "http://media.daum.net/syndication/today_sisa.rss"; 
@@ -39,7 +36,12 @@ public class DaumNewsCrawler implements NewsCrawler {
 		
 		List<SyndEntry> todayRSSList = RSSCrawler.getArticleList(TODAY_URL);
 		for (SyndEntry item : todayRSSList) {
-			articleList.add(parseRSSItem(item, ArticleSection.TODAY));
+			Article article = parseRSSItem(item, ArticleSection.TODAY);
+			if (article == null) {
+				continue;
+			}
+			
+			articleList.add(article);
 		}
 
 		return articleList;
@@ -52,7 +54,10 @@ public class DaumNewsCrawler implements NewsCrawler {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));
 		article.setTitle(ContentsAnalysisService.clearInvalidWords(rssItem.getTitle()));
-
+		if (Strings.isNullOrEmpty(article.getTitle())) {
+			return null;
+		}
+		
 		article.createContentsFromLink();
 		if (Strings.isNullOrEmpty(article.getContents())) {
 			article.setContents(rssItem.getDescription().getValue());

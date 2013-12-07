@@ -23,9 +23,6 @@ import com.infoc.service.CollectionService;
 import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.EconInfoCrawler;
 
-/**
- * @author NBP
- */
 @Component
 public class CrawlScheduler {
 	private static final Logger LOG = LoggerFactory.getLogger(CrawlScheduler.class);
