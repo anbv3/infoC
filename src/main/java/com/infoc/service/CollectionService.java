@@ -38,8 +38,7 @@ public class CollectionService {
 		CACHE_LIST.add(POLITICS_CACHE);
 		CACHE_LIST.add(ECON_CACHE);
 		CACHE_LIST.add(SOCIETY_CACHE);
-		CACHE_LIST.add(SOCIETY_CACHE);
-		CACHE_LIST.add(SOCIETY_CACHE);
+		CACHE_LIST.add(CULTURE_CACHE);
 		CACHE_LIST.add(ENT_CACHE);
 		CACHE_LIST.add(SPORT_CACHE);
 		CACHE_LIST.add(IT_CACHE);
@@ -99,8 +98,37 @@ public class CollectionService {
 		}
 
 		// get cache for each type
-
-		addNew(newArticle, TODAY_CACHE);
+		Map<Integer, List<Article>> cache = null;
+		switch (newArticle.getSection()) {
+		case TODAY:
+			cache = TODAY_CACHE;
+			break;
+		case POLITICS:
+			cache = POLITICS_CACHE;
+			break;
+		case ECON:
+			cache = ECON_CACHE;
+			break;
+		case SOCIETY:
+			cache = CULTURE_CACHE;
+			break;
+		case CULTURE:
+			cache = SOCIETY_CACHE;
+			break;
+		case ENT:
+			cache = ENT_CACHE;
+			break;
+		case SPORT:
+			cache = SPORT_CACHE;
+			break;
+		case IT:
+			cache = IT_CACHE;
+			break;
+		default:
+			return;
+		}
+		
+		addNew(newArticle, cache);
 	}
 
 	private static void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
