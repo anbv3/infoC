@@ -21,6 +21,7 @@ import com.sun.syndication.feed.synd.SyndEntry;
 
 public class DaumNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(DaumNewsCrawler.class);
+	
 	private static String TODAY_URL = "http://media.daum.net/syndication/today_sisa.rss"; 
 	private static String POLITICS_URL = "http://media.daum.net/rss/part/primary/politics/rss2.xml"; 
 	private static String ECON_URL = "http://media.daum.net/rss/part/primary/economic/rss2.xml"; 
@@ -32,11 +33,20 @@ public class DaumNewsCrawler implements NewsCrawler {
 
 	@Override
 	public List<Article> createArticlList() {
+		LOG.debug("get RSS from Daum.");
+		
 		List<Article> articleList = new ArrayList<>();
 		
-		List<SyndEntry> todayRSSList = RSSCrawler.getArticleList(TODAY_URL);
-		for (SyndEntry item : todayRSSList) {
+		for (SyndEntry item : RSSCrawler.getArticleList(TODAY_URL)) {
 			Article article = parseRSSItem(item, ArticleSection.TODAY);
+			if (article == null) {
+				continue;
+			}
+			
+			articleList.add(article);
+		}
+		for (SyndEntry item : RSSCrawler.getArticleList(POLITICS_URL)) {
+			Article article = parseRSSItem(item, ArticleSection.POLITICS);
 			if (article == null) {
 				continue;
 			}

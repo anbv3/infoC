@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -20,13 +21,13 @@ public class GoogleNewsCrawler implements NewsCrawler {
 
 	@Override
 	public List<Article> createArticlList() {
+		LOG.debug("get RSS from Google.");
+		
 		List<Article> articleList = new ArrayList<>();
 		List<SyndEntry> rssList = RSSCrawler.getArticleList(RSS_URL);
 
-		LOG.debug("GoogleNews size: {}", rssList.size());
-
 		for (SyndEntry item : rssList) {
-			Article article = parseRSSItem(item);
+			Article article = parseRSSItem(item, ArticleSection.TODAY);
 			if (article == null) {
 				continue;
 			}
@@ -37,8 +38,9 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		return articleList;
 	}
 
-	private Article parseRSSItem(SyndEntry rssItem) {
+	private Article parseRSSItem(SyndEntry rssItem, ArticleSection section) {
 		Article article = new Article();
+		article.setSection(section);
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));
 		parseTitleAuthor(rssItem.getTitle(), article);

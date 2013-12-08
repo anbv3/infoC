@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -25,13 +26,13 @@ public class NaverNewsCrawler implements NewsCrawler {
 
 	@Override
 	public List<Article> createArticlList() {
+		LOG.debug("get RSS from Naver.");
+		
 		List<Article> articleList = new ArrayList<>();
 		List<SyndEntry> rssList = RSSCrawler.getArticleList(RSS_URL);
 
-		LOG.debug("Naver News size: {}", rssList.size());
-
 		for (SyndEntry item : rssList) {
-			Article article = parseRSSItem(item);
+			Article article = parseRSSItem(item, ArticleSection.TODAY);
 			if (article == null) {
 				continue;
 			}
@@ -42,13 +43,14 @@ public class NaverNewsCrawler implements NewsCrawler {
 		return articleList;
 	}
 
-	private Article parseRSSItem(SyndEntry rssItem) {
+	private Article parseRSSItem(SyndEntry rssItem, ArticleSection section) {
 		// Skip the news written in only English.
 		if (!rssItem.getTitle().matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
 			return null;
 		}
 
 		Article article = new Article();
+		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")));
