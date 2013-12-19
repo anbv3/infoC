@@ -6,6 +6,7 @@ infoC
 
 기사 분류 추가 => 종합, IT, 경제, 스포츠, 연예, 쇼핑(?)
 http://mirejiki.tistory.com/95
+http://www.hanrss.com
 
 구글기사 본문은 html이고 사진 링크있으니 활용하자
 
@@ -13,6 +14,7 @@ http://mirejiki.tistory.com/95
  
 가장 중요한 기사 순으로 재정렬하고 최대 개수 이상 기사는 제외
 
+형태소 분석 => https://bitbucket.org/bibreen/mecab-ko
 /////////////////////////////////////////////////////////////////////////
 
 [계획]

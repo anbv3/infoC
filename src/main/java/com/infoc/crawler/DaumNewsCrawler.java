@@ -21,40 +21,42 @@ import com.sun.syndication.feed.synd.SyndEntry;
 
 public class DaumNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(DaumNewsCrawler.class);
-	
-	private static String TODAY_URL = "http://media.daum.net/syndication/today_sisa.rss"; 
-	private static String POLITICS_URL = "http://media.daum.net/rss/part/primary/politics/rss2.xml"; 
-	private static String ECON_URL = "http://media.daum.net/rss/part/primary/economic/rss2.xml"; 
-	private static String SOCIETY_URL = "http://media.daum.net/rss/part/primary/society/rss2.xml"; 
-	private static String CULTURE_URL = "http://media.daum.net/rss/part/primary/culture/rss2.xml"; 
-	private static String ENT_URL = "http://media.daum.net/rss/part/primary/entertain/rss2.xml"; 
-	private static String SPORT_URL = "http://media.daum.net/rss/today/primary/sports/rss2.xml"; 
-	private static String IT_URL = "http://media.daum.net/rss/part/primary/digital/rss2.xml"; 
+
+	private static String TODAY = "http://media.daum.net/syndication/today_sisa.rss";
+	private static String POLITICS = "http://media.daum.net/syndication/politics.rss";
+	private static String ECON = "http://media.daum.net/syndication/economic.rss";
+	private static String SOCIETY = "http://media.daum.net/syndication/society.rss";
+	private static String CULTURE = "http://media.daum.net/syndication/culture.rss";
+	private static String ENT = "http://media.daum.net/syndication/today_entertain.rss";
+	private static String SPORT = "http://media.daum.net/syndication/today_sports.rss";
+	private static String IT = "http://media.daum.net/syndication/digital.rss";
+
+	private List<Article> articleList = new ArrayList<>();
 
 	@Override
 	public List<Article> createArticlList() {
 		LOG.debug("get RSS from Daum.");
-		
-		List<Article> articleList = new ArrayList<>();
-		
-		for (SyndEntry item : RSSCrawler.getArticleList(TODAY_URL)) {
-			Article article = parseRSSItem(item, ArticleSection.TODAY);
-			if (article == null) {
-				continue;
-			}
-			
-			articleList.add(article);
-		}
-		for (SyndEntry item : RSSCrawler.getArticleList(POLITICS_URL)) {
-			Article article = parseRSSItem(item, ArticleSection.POLITICS);
-			if (article == null) {
-				continue;
-			}
-			
-			articleList.add(article);
-		}
 
-		return articleList;
+		createListBySection(TODAY, ArticleSection.TODAY);
+		createListBySection(POLITICS, ArticleSection.POLITICS);
+		createListBySection(ECON, ArticleSection.ECON);
+		createListBySection(SOCIETY, ArticleSection.SOCIETY);
+		createListBySection(CULTURE, ArticleSection.CULTURE);
+		createListBySection(ENT, ArticleSection.ENT);
+		createListBySection(SPORT, ArticleSection.SPORT);
+		createListBySection(IT, ArticleSection.IT);
+
+		return this.articleList;
+	}
+
+	private void createListBySection(String rssUrl, ArticleSection section) {
+		for (SyndEntry item : RSSCrawler.getArticleList(rssUrl)) {
+			Article article = parseRSSItem(item, section);
+			if (article == null) {
+				continue;
+			}
+			this.articleList.add(article);
+		}
 	}
 
 	private Article parseRSSItem(SyndEntry rssItem, ArticleSection section) {
@@ -67,14 +69,14 @@ public class DaumNewsCrawler implements NewsCrawler {
 		if (Strings.isNullOrEmpty(article.getTitle())) {
 			return null;
 		}
-		
+
 		article.createContentsFromLink();
 		if (Strings.isNullOrEmpty(article.getContents())) {
 			article.setContents(rssItem.getDescription().getValue());
 		}
-		
+
 		article.setContents(ContentsAnalysisService.clearInvalidWords(article.getContents()));
-		
+
 		return article;
 	}
 

@@ -17,25 +17,42 @@ import com.sun.syndication.feed.synd.SyndEntry;
 
 public class GoogleNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(GoogleNewsCrawler.class);
-	private static String RSS_URL = "https://news.google.co.kr/nwshp?hl=ko&output=rss"; // 주요기사
+
+	private static String TODAY = "https://news.google.co.kr/news/feeds?hl=ko&output=rss"; // 주요기사
+	private static String POLITICS = "https://news.google.co.kr/news/feeds?hl=ko&topic=p&output=rss";
+	private static String ECON = "https://news.google.co.kr/news/feeds?hl=ko&topic=b&output=rss";
+	private static String SOCIETY = "https://news.google.co.kr/news/feeds?hl=ko&topic=y&output=rss";
+	private static String CULTURE = "https://news.google.co.kr/news/feeds?hl=ko&topic=l&output=rss";
+	private static String ENT = "https://news.google.co.kr/news/feeds?hl=ko&topic=r&output=rss";
+	private static String SPORT = "https://news.google.co.kr/news/feeds?hl=ko&topic=s&output=rss";
+	private static String IT = "https://news.google.co.kr/news/feeds?hl=ko&topic=t&output=rss";
+
+	private List<Article> articleList = new ArrayList<>();
 
 	@Override
 	public List<Article> createArticlList() {
 		LOG.debug("get RSS from Google.");
-		
-		List<Article> articleList = new ArrayList<>();
-		List<SyndEntry> rssList = RSSCrawler.getArticleList(RSS_URL);
 
-		for (SyndEntry item : rssList) {
-			Article article = parseRSSItem(item, ArticleSection.TODAY);
+		createListBySection(TODAY, ArticleSection.TODAY);
+		createListBySection(POLITICS, ArticleSection.POLITICS);
+		createListBySection(ECON, ArticleSection.ECON);
+		createListBySection(SOCIETY, ArticleSection.SOCIETY);
+		createListBySection(CULTURE, ArticleSection.CULTURE);
+		createListBySection(ENT, ArticleSection.ENT);
+		createListBySection(SPORT, ArticleSection.SPORT);
+		createListBySection(IT, ArticleSection.IT);
+
+		return this.articleList;
+	}
+
+	private void createListBySection(String rssUrl, ArticleSection section) {
+		for (SyndEntry item : RSSCrawler.getArticleList(rssUrl)) {
+			Article article = parseRSSItem(item, section);
 			if (article == null) {
 				continue;
 			}
-
-			articleList.add(article);
+			this.articleList.add(article);
 		}
-
-		return articleList;
 	}
 
 	private Article parseRSSItem(SyndEntry rssItem, ArticleSection section) {
@@ -47,14 +64,14 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		if (Strings.isNullOrEmpty(article.getTitle())) {
 			return null;
 		}
-		
+
 		article.createContentsFromLink();
 		if (Strings.isNullOrEmpty(article.getContents())) {
 			article.setContents(rssItem.getDescription().getValue());
 		}
-		
+
 		article.setContents(ContentsAnalysisService.clearInvalidWords(article.getContents()));
-		
+
 		return article;
 	}
 

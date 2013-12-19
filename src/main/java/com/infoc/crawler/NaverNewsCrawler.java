@@ -22,25 +22,41 @@ import com.sun.syndication.feed.synd.SyndEntry;
 
 public class NaverNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(NaverNewsCrawler.class);
-	private static String RSS_URL = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=2";
+	private static String TODAY = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=3";
+	private static String POLITICS = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=4";
+	private static String ECON = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=5";
+	private static String SOCIETY = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=6";
+	private static String CULTURE = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=7";
+	private static String ENT = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=10";
+	private static String SPORT = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=11";
+	private static String IT = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=9";
 
+	private List<Article> articleList = new ArrayList<>();
+	
 	@Override
 	public List<Article> createArticlList() {
 		LOG.debug("get RSS from Naver.");
 		
-		List<Article> articleList = new ArrayList<>();
-		List<SyndEntry> rssList = RSSCrawler.getArticleList(RSS_URL);
+		createListBySection(TODAY, ArticleSection.TODAY);
+		createListBySection(POLITICS, ArticleSection.POLITICS);
+		createListBySection(ECON, ArticleSection.ECON);
+		createListBySection(SOCIETY, ArticleSection.SOCIETY);
+		createListBySection(CULTURE, ArticleSection.CULTURE);
+		createListBySection(ENT, ArticleSection.ENT);
+		createListBySection(SPORT, ArticleSection.SPORT);
+		createListBySection(IT, ArticleSection.IT);
 
-		for (SyndEntry item : rssList) {
-			Article article = parseRSSItem(item, ArticleSection.TODAY);
+		return this.articleList;
+	}
+	
+	private void createListBySection(String rssUrl, ArticleSection section) {
+		for (SyndEntry item : RSSCrawler.getArticleList(rssUrl)) {
+			Article article = parseRSSItem(item, section);
 			if (article == null) {
 				continue;
 			}
-
-			articleList.add(article);
+			this.articleList.add(article);
 		}
-
-		return articleList;
 	}
 
 	private Article parseRSSItem(SyndEntry rssItem, ArticleSection section) {

@@ -41,8 +41,6 @@ width: 244px;
 }
 </style>
 
-
-
 </head>
 
 
@@ -56,20 +54,15 @@ width: 244px;
 				</button>
 				<a class="brand" href="index.html" style="color:#FFF7BD">NewsYaa</a>
 				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">정치</a></li>
-						<li><a href="#">경제</a></li>
-						<li><a href="#">사회</a></li>
-						<li><a href="#">문화/생활</a></li>
-						<li><a href="#">연예</a></li>
-						<li><a href="#">스포츠</a></li>
-						<li><a href="#">IT</a></li>
-						
-						<!-- 
-						<li class="active"><a href="#">IT</a></li>
-						<li><a href="#">Contact</a></li>
- 						-->
+					<ul id="top-menu" class="nav">
+						<li class="active"><a href="/main">주요</a></li>
+						<li><a href="/politics">정치</a></li>
+						<li><a href="/econ">경제</a></li>
+						<li><a href="/society">사회</a></li>
+						<li><a href="/culture">문화/생활</a></li>
+						<li><a href="/ent">연예</a></li>
+						<li><a href="/sport">스포츠</a></li>
+						<li><a href="/it">IT</a></li>
 					</ul>
 					<ul class="nav pull-right">
 					<li><a href="#" style="color:#FF823A">- 프리미엄 -</a></li>
@@ -206,29 +199,37 @@ width: 244px;
 </body>
 
 <script type="text/javascript">
-
-$(function() {
-	
-	var $titSection = $('#title-section');
-	$titSection.imagesLoaded(function() {
-		$titSection.packery({
-			itemSelector : '.titem',
-			gutter : 5
-		});
-	});
-	
-	
-	$('.story').each(function() {
-		var $container = $(this);
-		$container.imagesLoaded(function() {
-			$container.packery({
-				itemSelector : '.item',
+(function(yourcode) {
+	yourcode(window.jQuery, window, document);
+}(function($, window, document) {
+	$(function() {
+		// The DOM is ready!
+		
+		var $titSection = $('#title-section');
+		$titSection.imagesLoaded(function() {
+			$titSection.packery({
+				itemSelector : '.titem',
 				gutter : 5
 			});
 		});
+		
+		
+		$('.story').each(function() {
+			var $container = $(this);
+			$container.imagesLoaded(function() {
+				$container.packery({
+					itemSelector : '.item',
+					gutter : 5
+				});
+			});
+		});
+		
+		
 	});
-	
-});
+	// The rest of code goes here!
+
+}));
+
 </script>
 
 
