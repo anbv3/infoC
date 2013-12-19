@@ -22,7 +22,7 @@ public enum ArticleSection {
 
 	public static ArticleSection find(String type) {
 		for (ArticleSection each : ArticleSection.values()) {
-			if (each.toString().equals(type)) {
+			if (each.toString().equalsIgnoreCase(type)) {
 				return each;
 			}
 		}
