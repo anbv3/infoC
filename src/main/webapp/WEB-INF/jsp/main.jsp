@@ -64,9 +64,12 @@ width: 244px;
 						<li id="sport-menu"><a href="/sport">스포츠</a></li>
 						<li id="it-menu"><a href="/it">IT</a></li>
 					</ul>
+					
+					<!-- 
 					<ul class="nav pull-right">
 					<li><a href="#" style="color:#FF823A">- 프리미엄 -</a></li>
 					</ul>
+					 -->
 				</div>
 				<!--/.nav-collapse -->
 			</div>
@@ -137,7 +140,12 @@ width: 244px;
 
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item">
-							<div class="span12 item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
+							<div class="span12 item_title bkg4">
+								<a href="${row.link}" target="_blank">${row.title}</a>
+							</div>
+							<c:if test="${not empty row.img}">
+								<div> <img src="${row.img}"/></div>
+							</c:if>
 							<div class="item_content">${row.mainContents}</div>
 						</div>
 					</c:forEach>
@@ -179,7 +187,12 @@ width: 244px;
 
 					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 						<div class="item">
-							<div class="span12 item_title bkg4"><a href="${row.link}" target="_blank">${row.title}</a></div>
+							<div class="span12 item_title bkg4">
+								<a href="${row.link}" target="_blank">${row.title}</a>
+							</div>
+							<c:if test="${not empty row.img}">
+								<div> <img src="${row.img}"/></div>
+							</c:if>
 							<div class="item_content">${row.mainContents}</div>
 						</div>
 					</c:forEach>
