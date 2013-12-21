@@ -1,8 +1,3 @@
-/*
- * @(#)ArticleSection.java $version 2013. 12. 6.
- *
- */
-
 package com.infoc.enumeration;
 
 

@@ -55,14 +55,14 @@ width: 244px;
 				<a class="brand" href="index.html" style="color:#FFF7BD">NewsYaa</a>
 				<div class="nav-collapse collapse">
 					<ul id="top-menu" class="nav">
-						<li class="active"><a href="/main">주요</a></li>
-						<li><a href="/politics">정치</a></li>
-						<li><a href="/econ">경제</a></li>
-						<li><a href="/society">사회</a></li>
-						<li><a href="/culture">문화/생활</a></li>
-						<li><a href="/ent">연예</a></li>
-						<li><a href="/sport">스포츠</a></li>
-						<li><a href="/it">IT</a></li>
+						<li id="main-menu"><a href="/main">주요</a></li>
+						<li id="politics-menu"><a href="/politics">정치</a></li>
+						<li id="econ-menu"><a href="/econ">경제</a></li>
+						<li id="society-menu"><a href="/society">사회</a></li>
+						<li id="culture-menu"><a href="/culture">문화/생활</a></li>
+						<li id="ent-menu"><a href="/ent">연예</a></li>
+						<li id="sport-menu"><a href="/sport">스포츠</a></li>
+						<li id="it-menu"><a href="/it">IT</a></li>
 					</ul>
 					<ul class="nav pull-right">
 					<li><a href="#" style="color:#FF823A">- 프리미엄 -</a></li>
@@ -199,6 +199,7 @@ width: 244px;
 </body>
 
 <script type="text/javascript">
+
 (function(yourcode) {
 	yourcode(window.jQuery, window, document);
 }(function($, window, document) {
@@ -224,8 +225,10 @@ width: 244px;
 			});
 		});
 		
-		
-	});
+		var urlList = document.URL.split('/');
+		var menu = "#" + urlList[3] + "-menu";
+		$(menu).addClass("active");
+	});	
 	// The rest of code goes here!
 
 }));
