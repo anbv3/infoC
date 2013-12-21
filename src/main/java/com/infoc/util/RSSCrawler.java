@@ -21,9 +21,6 @@ public class RSSCrawler {
 
 			List<SyndEntry> entries = (List<SyndEntry>)feed.getEntries();
 
-			for (int i = 0; i < entries.size(); i++) {
-				SyndEntry entry = entries.get(i);
-			}
 			return entries;
 		} catch (IllegalArgumentException e) {
 			// ...
