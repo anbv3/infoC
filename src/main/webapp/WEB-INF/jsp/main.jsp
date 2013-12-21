@@ -52,7 +52,7 @@ width: 244px;
 				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<a class="brand" href="index.html" style="color:#FFF7BD">NewsYaa</a>
+				<a class="brand" href="/main" style="color:#FFF7BD">NewsYaa</a>
 				<div class="nav-collapse collapse">
 					<ul id="top-menu" class="nav">
 						<li id="main-menu"><a href="/main">주요</a></li>
