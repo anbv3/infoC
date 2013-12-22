@@ -13,6 +13,7 @@ public class SentenceInfo {
 	private Integer length;
 	private Integer matchedWord; // the number of matched words with the keyword list
 
+	// check with keyword to count the number of the matched words
 	public void checkKeyword(Set<String> keywordList) {
 		int matchedCnt = 0;
 		if (keywordList.isEmpty()) {

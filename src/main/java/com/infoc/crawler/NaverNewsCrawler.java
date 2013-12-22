@@ -71,7 +71,7 @@ public class NaverNewsCrawler implements NewsCrawler {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")));
 		article.setTitle(ContentsAnalysisService.clearInvalidWords(rssItem.getTitle()));
-		if (Strings.isNullOrEmpty(article.getTitle())) {
+		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
 		
