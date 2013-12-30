@@ -18,6 +18,10 @@ public class ContentsAnalysisService {
 	public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
 	public static void createMainSentence(Article article) {
+		if (!Strings.isNullOrEmpty(article.getMainContents())) {
+			return;
+		}
+		
 		// create key words first
 		Set<String> keyWordList = createKeyWorkList(article.getTitle());
 		article.setKeyWordList(keyWordList);
