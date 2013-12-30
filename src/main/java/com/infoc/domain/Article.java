@@ -80,7 +80,7 @@ public class Article {
 			if (this.link.contains("naver")) {
 				contentId = "#articleBody";
 
-				Document doc = Jsoup.connect(this.link).get();
+				Document doc = Jsoup.connect(this.link).timeout(6000).get();
 				Elements contentsArea = doc.select(contentId);
 				Elements linkArea = doc.select(".link_news");
 
@@ -155,7 +155,7 @@ public class Article {
 				return;
 			}
 
-			Document doc = Jsoup.connect(this.link).get();
+			Document doc = Jsoup.connect(this.link).timeout(6000).get();
 			Elements contentsArea = doc.select(contentId);
 			this.contents = contentsArea.text();
 		} catch (IOException e) {
