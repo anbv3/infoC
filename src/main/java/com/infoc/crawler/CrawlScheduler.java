@@ -1,8 +1,3 @@
-/*
- * @(#)CrawlScheduler.java $version 2013. 10. 31.
- *
- */
-
 package com.infoc.crawler;
 
 import java.util.ArrayList;

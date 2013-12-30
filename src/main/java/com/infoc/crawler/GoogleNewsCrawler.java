@@ -61,7 +61,9 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));
 		parseTitleAuthor(rssItem.getTitle(), article);
-		if (Strings.isNullOrEmpty(article.getTitle())) {
+		
+		// if title is empty or too short, hard to analysis. So let's skip
+		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
 

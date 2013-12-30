@@ -159,7 +159,7 @@ public class Article {
 			Elements contentsArea = doc.select(contentId);
 			this.contents = contentsArea.text();
 		} catch (IOException e) {
-			LOG.error("", e);
+			LOG.error(this.link + "\n", e);
 		}
 	}
 

@@ -17,6 +17,7 @@ import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
+import com.sun.syndication.feed.synd.SyndEnclosure;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 public class DaumNewsCrawler implements NewsCrawler {
@@ -66,10 +67,15 @@ public class DaumNewsCrawler implements NewsCrawler {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));
 		article.setTitle(ContentsAnalysisService.clearInvalidWords(rssItem.getTitle()));
-		if (Strings.isNullOrEmpty(article.getTitle())) {
+		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
 
+		if (!rssItem.getEnclosures().isEmpty()) {
+			SyndEnclosure enclosure = (SyndEnclosure)(rssItem.getEnclosures().get(0));
+			article.setImg(enclosure.getUrl());
+		}
+		
 		article.createContentsFromLink();
 		if (Strings.isNullOrEmpty(article.getContents())) {
 			article.setContents(rssItem.getDescription().getValue());
