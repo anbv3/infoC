@@ -18,29 +18,20 @@ import org.slf4j.LoggerFactory;
 import com.infoc.domain.Article;
 
 public class CollectionService {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(CollectionService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
 	private static final Integer MAX_DUP_NUM = 2;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
 	public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
-	public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
-	public static Map<Integer, List<Article>> POLITICS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
-	public static Map<Integer, List<Article>> ECON_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
-	public static Map<Integer, List<Article>> SOCIETY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
-	public static Map<Integer, List<Article>> CULTURE_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
-	public static Map<Integer, List<Article>> ENT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
-	public static Map<Integer, List<Article>> SPORT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
-	public static Map<Integer, List<Article>> IT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(
-			Collections.reverseOrder());
+	public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> POLITICS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> ECON_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> SOCIETY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> CULTURE_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> ENT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> SPORT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> IT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 
 	static {
 		CACHE_LIST.add(TODAY_CACHE);
@@ -103,8 +94,7 @@ public class CollectionService {
 
 	public static void add(Article newArticle) {
 		// skip the old article before today
-		if (newArticle.getPubDate().isBefore(
-				DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
+		if (newArticle.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
 			return;
 		}
 		
@@ -147,8 +137,7 @@ public class CollectionService {
 		addNew(newArticle, cache);
 	}
 
-	private static void addNew(Article newArticle,
-			Map<Integer, List<Article>> cache) {
+	private static void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
 		// check the duplicated articles from the stored article.
 		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
@@ -163,7 +152,13 @@ public class CollectionService {
 		}
 
 		int hour = newArticle.getPubDate().getHourOfDay();
-		cache.get(hour).add(newArticle);
+		if (cache.get(hour).size() <= 8) {
+			cache.get(hour).add(newArticle);
+		} else {
+			// TODO: remove the less important article rather than the first one
+			cache.get(hour).remove(0);
+			cache.get(hour).add(newArticle);
+		}
 	}
 
 	public static void clearYesterDay() {
