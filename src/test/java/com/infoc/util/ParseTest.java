@@ -142,4 +142,8 @@ public class ParseTest {
 	
 	}
 
+	@Test
+	public void testWordLength() {
+		LOG.debug("{}", "강원".length());
+	}
 }
