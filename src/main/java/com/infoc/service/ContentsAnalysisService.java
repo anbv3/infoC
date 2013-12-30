@@ -39,9 +39,10 @@ public class ContentsAnalysisService {
 		}
 
 		article.setMainContents(sb.toString());
+		article.setContents("");
 	}
 
-	public static Set<String> createKeyWorkList(String title) {
+	private static Set<String> createKeyWorkList(String title) {
 		Set<String> keyWordList = new HashSet<>();
 		if (Strings.isNullOrEmpty(title)) {
 			return keyWordList;
@@ -69,7 +70,7 @@ public class ContentsAnalysisService {
 	/**
 	 * TODO: 테스트 필요
 	 */
-	public static boolean isSpecialChar(String str) {
+	private static boolean isSpecialChar(String str) {
 		char c;
 		int cint;
 		for (int n = 0; n < str.length(); n++) {
@@ -84,7 +85,7 @@ public class ContentsAnalysisService {
 		return true;
 	}
 
-	public static List<SentenceInfo> createSentenceList(Set<String> keyWordList, String contents) {
+	private static List<SentenceInfo> createSentenceList(Set<String> keyWordList, String contents) {
 		List<SentenceInfo> sentenceList = new ArrayList<>();
 
 		List<String> sList = Lists.newArrayList(
@@ -109,7 +110,7 @@ public class ContentsAnalysisService {
 		return sentenceList;
 	}
 
-	public static List<SentenceInfo> createKeySentenceList(List<SentenceInfo> sentenceList) {
+	private static List<SentenceInfo> createKeySentenceList(List<SentenceInfo> sentenceList) {
 		List<SentenceInfo> keySentenceList = new ArrayList<>();
 
 		List<SentenceInfo> matchedOrderList = Article.matchedOrder.nullsLast().reverse().sortedCopy(sentenceList);
