@@ -18,6 +18,7 @@ public class ContentsAnalysisService {
 	public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
 	public static void createMainSentence(Article article) {
+		// 키워드 업데이트후 다시 요약문장을 만들어야 하는데 필요없을수도...
 		if (!Strings.isNullOrEmpty(article.getMainContents())) {
 			return;
 		}

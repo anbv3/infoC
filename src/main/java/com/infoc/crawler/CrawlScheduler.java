@@ -73,7 +73,7 @@ public class CrawlScheduler {
 		Timer timer = new Timer();
 		timer.schedule(new EconCrawlTask(), 1000, 5 * 60 * 1000);
 		timer.schedule(new CrawlTask(), 2000, 10 * 60 * 1000);
-		timer.schedule(new CrawlClearTask(), 3000, 60 * 60 * 1000);
+		timer.schedule(new CrawlClearTask(), 10000, 60 * 60 * 1000);
 	}
 
 }
