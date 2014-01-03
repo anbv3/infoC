@@ -70,10 +70,9 @@ public class CrawlScheduler {
 
 	@PostConstruct
 	public static void runShcedule() {
-		Timer timer = new Timer();
-		timer.schedule(new EconCrawlTask(), 1000, 5 * 60 * 1000);
-		timer.schedule(new CrawlTask(), 2000, 10 * 60 * 1000);
-		timer.schedule(new CrawlClearTask(), 10000, 60 * 60 * 1000);
+		new Timer().scheduleAtFixedRate(new EconCrawlTask(), 1000, 5 * 60 * 1000);
+		new Timer().scheduleAtFixedRate(new CrawlTask(), 2000, 10 * 60 * 1000);
+		new Timer().scheduleAtFixedRate(new CrawlClearTask(), 10000, 60 * 60 * 1000);
 	}
 
 }
