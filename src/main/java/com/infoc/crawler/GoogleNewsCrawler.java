@@ -34,9 +34,9 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		LOG.debug("get RSS from Google.");
 
 		createListBySection(TODAY, ArticleSection.TODAY);
-		//createListBySection(POLITICS, ArticleSection.POLITICS);
-		//createListBySection(ECON, ArticleSection.ECON);
-		//createListBySection(SOCIETY, ArticleSection.SOCIETY);
+		createListBySection(POLITICS, ArticleSection.POLITICS);
+		createListBySection(ECON, ArticleSection.ECON);
+		createListBySection(SOCIETY, ArticleSection.SOCIETY);
 		//createListBySection(CULTURE, ArticleSection.CULTURE);
 		//createListBySection(ENT, ArticleSection.ENT);
 		//createListBySection(SPORT, ArticleSection.SPORT);
