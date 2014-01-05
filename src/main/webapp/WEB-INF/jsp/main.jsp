@@ -14,25 +14,36 @@
 
 <style type="text/css" media="only screen and (max-width : 720px)">
 .titem {
+width:100%;
 font-size: 12px;
-width: 100%;
 border-left: none;
 border-right: none;
 }
 
 .item {
-width: 100%;
 border-left: none;
 border-right: none;
 }
 
+.item, .item_title, item_content {
+width:100%;
+}
 </style>
 
-<style type="text/css" media="only screen and (min-width : 721px) and (max-width: 1220px)">
-.titem,.item {
+<style type="text/css" media="only screen and (min-width : 721px) and (max-width: 1100px)">
+.titem {
 font-size: 12px;
-width: 244px;
+width: 180px;
 }
+
+</style>
+
+<style type="text/css" media="only screen and (min-width : 1101px) and (max-width: 1220px)">
+.titem {
+font-size: 12px;
+width: 224px;
+}
+
 </style>
 
 <style type="text/css" media="only screen and (min-width : 1221px) and (max-width: 1620px)">
@@ -46,33 +57,36 @@ width: 244px;
 
 <body>
 	<!-- header -->
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<col-md- class="sr-only">Toggle navigation</col-md-> <col-md- class="icon-bar"></col-md-> <col-md- class="icon-bar"></col-md->
+					<col-md- class="icon-bar"></col-md->
 				</button>
-				<a class="brand" href="/main" style="color:#FFF7BD">NewsYaa</a>
-				<div class="nav-collapse collapse">
-					<ul id="top-menu" class="nav">
-						<li id="main-menu"><a href="/main">주요</a></li>
-						<li id="politics-menu"><a href="/politics">정치</a></li>
-						<li id="econ-menu"><a href="/econ">경제</a></li>
-						<li id="society-menu"><a href="/society">사회</a></li>
-						<li id="culture-menu"><a href="/culture">문화/생활</a></li>
-						<li id="ent-menu"><a href="/ent">연예</a></li>
-						<li id="sport-menu"><a href="/sport">스포츠</a></li>
-						<li id="it-menu"><a href="/it">IT</a></li>
-					</ul>
-					
-					<!-- 
-					<ul class="nav pull-right">
-					<li><a href="#" style="color:#FF823A">- 프리미엄 -</a></li>
-					</ul>
-					 -->
-				</div>
-				<!--/.nav-collapse -->
+				<a class="navbar-brand" href="/main" style="color: #FFF7BD">NewsYaa</a>
 			</div>
+
+
+			<div class="collapse navbar-collapse">
+				<ul id="top-menu" class="nav navbar-nav">
+					<li id="main-menu"><a href="/main">주요</a></li>
+					<li id="politics-menu"><a href="/politics">정치</a></li>
+					<li id="econ-menu"><a href="/econ">경제</a></li>
+					<li id="society-menu"><a href="/society">사회</a></li>
+					<li id="culture-menu"><a href="/culture">문화/생활</a></li>
+					<li id="ent-menu"><a href="/ent">연예</a></li>
+					<li id="sport-menu"><a href="/sport">스포츠</a></li>
+					<li id="it-menu"><a href="/it">IT</a></li>
+				</ul>
+
+				<!-- 
+				<ul class="nav pull-right">
+				<li><a href="#" style="color:#FF823A">- 프리미엄 -</a></li>
+				</ul>
+				 -->
+			</div>
+			<!--/.nav-collapse -->
 		</div>
 		<div class="color-strip"></div>
 	</div>
@@ -83,28 +97,27 @@ width: 244px;
 	<!-- body -->
 	
 	<div id="top-section">
-		<div class="container-fluid bkg2">
-			<div class="row-fluid">
-				<div class="span2 section-title day-section">
-					<h3><fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}"/></h3>
-					
+		<div class="bkg2" style="padding-top:25px;">
+			<div class="row">
+				<div class="col-md-2 day-section">
+					<h3 style="line-height: 90px;"><fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}"/></h3>
 				</div>
 				
-				<div class="span10 article-section">
-					<div id="title-section">
-						<div class="titem stock-section bkg4">
+				<div class="col-md-10 article-section container">
+					<div id="title-section" class="row">
+						<div class="col-xs-2 titem stock-section bkg3">
 							<h5>코스피 ${econ.kospiChange}</h5>
 							<h2>${econ.kospi}</h2>
 						</div>
-						<div class="titem currency-section bkg4">
+						<div class="col-xs-2  titem currency-section bkg3">
 							<h5>코스닥 ${econ.kosdaqChange}</h5>
 							<h2>${econ.kosdaq}</h2>
 						</div>
-						<div class="titem stock-section bkg4">
+						<div class="col-xs-2  titem stock-section bkg3">
 							<h5>미국 USD ${econ.usdChange}</h5>
 							<h2>${econ.usd}원</h2>
 						</div>
-						<div class="titem stock-section bkg4">
+						<div class="col-xs-2  titem stock-section bkg3">
 							<h5>중국 CNY ${econ.cnyChange}</h5>
 							<h2>${econ.cny}원</h2>
 						</div>
@@ -127,34 +140,32 @@ width: 244px;
 	
 	<c:if test="${entry.key <= currentHour}">
 
-	<div class="${rowColor}">
-		<div class="container-fluid">
-			<div class="row-fluid">
+	<div class="row ${rowColor}">
+		<div class="col-md-2 section-title text-left">
+			<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
+		</div>
 
-				<div class="span2 section-title text-left">
-					<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
-				</div>
+		<!-- article section -->
+		<div class="col-md-10 article-section container">
+			<div class="story row">
 
-				<div class="span10 article-section">
-					<div class="story">
-
-					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
-						<div class="item">
-							<div class="span12 item_title bkg4">
-								<a href="${row.link}" target="_blank">${row.title}</a>
-							</div>
-							<c:if test="${not empty row.img}">
-								<div> <img src="${row.img}"/></div>
-							</c:if>
-							<div class="item_content">${row.mainContents}</div>
-						</div>
-					</c:forEach>
-						
+			<c:forEach var="row" items="${entry.value}" varStatus="cnt">
+				<div class="item">
+					<div class="item_title col-xs-12">
+						<a href="${row.link}" target="_blank">${row.title}</a>
 					</div>
+					
+					<c:if test="${not empty row.img}">
+					<div> <img class="item_img" src="${row.img}"/></div>
+					</c:if>
+					
+					<div class="item_content">${row.mainContents}</div>
 				</div>
+			</c:forEach>
 				
 			</div>
 		</div>
+		<!-- // article section -->
 	</div>
 	
 	</c:if>
@@ -174,34 +185,32 @@ width: 244px;
 	
 	<c:if test="${entry.key > currentHour}">
 
-	<div class="${rowColor}">
-		<div class="container-fluid">
-			<div class="row-fluid">
+	<div class="row ${rowColor}">
+		<div class="col-md-2 section-title text-left">
+			<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
+		</div>
 
-				<div class="span2 section-title text-left">
-					<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
-				</div>
+		<!-- article section -->
+		<div class="col-md-10 article-section container">
+			<div class="story">
 
-				<div class="span10 article-section">
-					<div class="story">
-
-					<c:forEach var="row" items="${entry.value}" varStatus="cnt">
-						<div class="item">
-							<div class="span12 item_title bkg4">
-								<a href="${row.link}" target="_blank">${row.title}</a>
-							</div>
-							<c:if test="${not empty row.img}">
-								<div> <img src="${row.img}"/></div>
-							</c:if>
-							<div class="item_content">${row.mainContents}</div>
-						</div>
-					</c:forEach>
-						
+			<c:forEach var="row" items="${entry.value}" varStatus="cnt">
+				<div class="item">
+					<div class="item_title col-xs-12">
+						<a href="${row.link}" target="_blank">${row.title}</a>
 					</div>
+					
+					<c:if test="${not empty row.img}">
+					<div> <img class="item_img" src="${row.img}"/></div>
+					</c:if>
+					
+					<div class="item_content">${row.mainContents}</div>
 				</div>
+			</c:forEach>
 				
 			</div>
 		</div>
+		<!-- // article section -->
 	</div>
 	
 	</c:if>
@@ -217,8 +226,6 @@ width: 244px;
 	yourcode(window.jQuery, window, document);
 }(function($, window, document) {
 	$(function() {
-		// The DOM is ready!
-		
 		var $titSection = $('#title-section');
 		$titSection.imagesLoaded(function() {
 			$titSection.packery({
@@ -226,7 +233,6 @@ width: 244px;
 				gutter : 5
 			});
 		});
-		
 		
 		$('.story').each(function() {
 			var $container = $(this);
@@ -238,6 +244,7 @@ width: 244px;
 			});
 		});
 		
+		// top menu
 		var urlList = document.URL.split('/');
 		var menu = "#" + urlList[3] + "-menu";
 		$(menu).addClass("active");

@@ -152,6 +152,10 @@ public class CollectionService {
 		}
 
 		int hour = newArticle.getPubDate().getHourOfDay();
+		cache.get(hour).add(newArticle);
+		
+		/*
+		 * TODO: remove the less important article rather than the first one
 		if (cache.get(hour).size() <= 8) {
 			cache.get(hour).add(newArticle);
 		} else {
@@ -159,6 +163,7 @@ public class CollectionService {
 			cache.get(hour).remove(0);
 			cache.get(hour).add(newArticle);
 		}
+		*/
 	}
 
 	public static void clearYesterDay() {
