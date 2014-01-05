@@ -100,6 +100,7 @@ public class ContentsAnalysisService {
 			scInfo.setIndex(i);
 			scInfo.setLength(sentence.length());
 			scInfo.setSentance(sentence);
+			// 각 문장에서 keyword 리스트와 비교하고 매칭되는 개수를 저장
 			scInfo.checkKeyword(keyWordList);
 
 			sentenceList.add(scInfo);
