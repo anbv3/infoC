@@ -1,7 +1,10 @@
 @font-face {
-	font-family: NG;
-	src: url(NanumGothic.eot);
-	src: local(��), url(NanumGothic.woff) format('woff')
+	font-family: 'NanumGothicRegular';
+	src: url('nanumgothic.eot');
+	src: local("☺"),
+		url('nanumgothic.woff') format('woff'),
+		url('nanumgothic.ttf') format('truetype'),
+		url('nanumgothic.svg#webfonturzspG4F') format('svg');
 }
 
 body,table,input,textarea,select,button {
@@ -23,15 +26,18 @@ body,table,input,textarea,select,button {
 	font-weight: bold;
 	font-family: NanumGothic, "Times New Roman", Times, serif;
 }
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+color: #fff;
+background-color: #6e203c;
+}
+
 /* ***************************************************************** */
 .item {
 	width: 330px;
 	text-align: justify;
 	word-wrap: break-word;
 	margin-bottom: 10px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #a0a0a0 #e0e4e6 #e0e4e6;
 }
 
 .titem {
@@ -39,28 +45,25 @@ body,table,input,textarea,select,button {
 	text-align: justify;
 	word-wrap: break-word;
 	margin-bottom: 10px;
-	border-width: 1px;
-	border-style: solid;
 }
 
 .one {
+	background: #ebeae6;
 	margin: 0 auto;
+	padding: 10px 0;
 }
 
 .two {
-	background: #3c4b61;
+	background: #a6a6a6;
 	margin: 0 auto;
-	margin-bottom: 10px;
 	padding: 10px 0;
 }
 
 .item_title {
 	padding: 8px 28px;
-	border-bottom: 1px solid #e1e1e1;
-	background-color: #EEF1DF;
+	background-color: #535659;
 	color: #fff;
 	font-weight: bold;
-	width: 330px;
 	display: table-cell;
 	vertical-align: middle;
 }
@@ -69,9 +72,16 @@ body,table,input,textarea,select,button {
 	color: #fff;
 }
 
+.item_img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	margin:auto;
+	vertical-align: middle;
+}
+
 .item_content {
 	padding: 18px 28px;
-	border-bottom: 1px solid #e1e1e1;
 	background-color: #fff;
 	line-height: 28px;
 }
@@ -84,6 +94,7 @@ body,table,input,textarea,select,button {
 
 .section-title {
 	text-align: center;
+	margin-left: -10px;
 }
 
 .two .section-title {
@@ -108,7 +119,7 @@ body,table,input,textarea,select,button {
 }
 
 .bkg2 {
-	background-color: rgb(1, 199, 0);
+	background-color: #d9d3cc;
 }
 
 .bkg3 {
@@ -129,7 +140,6 @@ body,table,input,textarea,select,button {
 
 .day-section {
 	text-align: center;
-	padding-top: 43px;
 	color: #fff;
 }
 
