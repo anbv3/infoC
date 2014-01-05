@@ -24,7 +24,7 @@ public class CrawlScheduler {
 	static {
 		newsCrawlerList.add(new DaumNewsCrawler());
 		newsCrawlerList.add(new NaverNewsCrawler());
-		//newsCrawlerList.add(new GoogleNewsCrawler());
+		newsCrawlerList.add(new GoogleNewsCrawler());
 	}
 
 	private static class CrawlTask extends TimerTask {
