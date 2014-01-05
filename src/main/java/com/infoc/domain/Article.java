@@ -72,24 +72,31 @@ public class Article {
 		}
 	};
 
+	// TODO: 신문사별 본문 및 이미지 링크도 같이 파싱해야 함으로 코드 정리 필요
 	public void createContentsFromLink() {
 		try {
 			String contentId = null;
 
 			// for naver news, remove the last link section from the contents
 			if (this.link.contains("naver")) {
+				// parse the main contents
 				contentId = "#articleBody";
 
 				Document doc = Jsoup.connect(this.link).timeout(6000).get();
 				Elements contentsArea = doc.select(contentId);
+				
+				// 본문영역 뒤에 신문사 기사링크 영역 제거
 				Elements linkArea = doc.select(".link_news");
-
 				int linkIdx = contentsArea.text().indexOf(linkArea.text());
 				if (linkIdx != -1) {
 					this.contents = contentsArea.text().substring(0, linkIdx);
 				} else {
 					this.contents = contentsArea.text();
 				}
+				
+				// parse img url
+				this.img = contentsArea.select("img").attr("src");
+				
 				return;
 			}
 
@@ -132,6 +139,7 @@ public class Article {
 			} else if (this.link.contains("ittoday")
 				|| this.link.contains("unionpress")
 				|| this.link.contains("yonhapnews")
+				|| this.link.contains("itimes")
 				|| this.link.contains("newsis")) {
 
 				contentId = "#articleBody";
@@ -152,6 +160,7 @@ public class Article {
 				contentId = "#CmAdContent";
 
 			} else {
+				LOG.error("Fail to parsing => Link:{}, ContentId:{}", this.link, contentId);
 				return;
 			}
 			
