@@ -131,6 +131,14 @@ public class Article {
 			} else if (this.link.contains("newsen")) {
 
 				contentId = "#CLtag";
+				
+			} else if (this.link.contains("fnnews")) {
+				
+				contentId = "#contTxt";
+				
+			} else if (this.link.contains("kookje")) {
+				
+				contentId = "#news_textArea";
 
 			} else if (this.link.contains("hankooki")) {
 
