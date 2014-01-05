@@ -100,7 +100,7 @@ width: 244px;
 		<div class="bkg2" style="padding-top:25px;">
 			<div class="row">
 				<div class="col-md-2 day-section">
-					<h3 style="line-height: 90px;"><fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}"/></h3>
+					<h3 style=""><fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}"/></h3>
 				</div>
 				
 				<div class="col-md-10 article-section container">
@@ -192,7 +192,7 @@ width: 244px;
 
 		<!-- article section -->
 		<div class="col-md-10 article-section container">
-			<div class="story">
+			<div class="story row">
 
 			<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 				<div class="item">

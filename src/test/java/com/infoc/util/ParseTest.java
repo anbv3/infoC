@@ -62,6 +62,12 @@ public class ParseTest {
 	}
 	
 	@Test
+	public void parseUrl() {
+		String t = "http://news.google.com/news/url?sa=t&fd=R&usg=AFQjCNEr-NVDIylz7Bb65Z2eb2ToK2KNOQ&url=http://sports.chosun.com/news/utype.htm?id%3D201401060100040030002282%26ServiceDate%3D20140105";
+		LOG.debug("{}", t.replaceAll(".*url=", ""));
+	}
+	
+	@Test
 	public void parseTitle() {
 
 		String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\|”|\\.\\.";
@@ -135,6 +141,26 @@ public class ParseTest {
 			for(String s : sList) {
 				LOG.debug("{}", s);
 			}
+			
+		} catch (IOException e) {
+			LOG.debug("", e);
+		}
+	
+	}
+	
+	@Test
+	public void testGetImgFromNaverNews() {
+		String uuu = "http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=104&oid=073&aid=0002367457";
+		
+		Document doc;
+		try {
+			doc = Jsoup.connect(uuu).get();
+			Elements newsHeadlines = doc.select("#articleBody");
+			
+			String src = newsHeadlines.select("img").attr("src");
+			
+			LOG.debug("{}", newsHeadlines.select("img").text());
+			LOG.debug("{}", src);
 			
 		} catch (IOException e) {
 			LOG.debug("", e);

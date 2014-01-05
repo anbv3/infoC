@@ -1,14 +1,11 @@
-@font-face {
-	font-family: 'NanumGothicRegular';
-	src: url('nanumgothic.eot');
-	src: local("☺"),
-		url('nanumgothic.woff') format('woff'),
-		url('nanumgothic.ttf') format('truetype'),
-		url('nanumgothic.svg#webfonturzspG4F') format('svg');
+@font-face{
+    font-family:ng;
+    src:url(NanumGothic.eot);
+    src:local(※), url(NanumGothic.woff) format(‘woff’)
 }
 
 body,table,input,textarea,select,button {
-	font-family: NanumGothic, ngwoff, ngeot;
+	font-family: '나눔고딕', NanumGothic, ngwoff, ngeot;
 }
 
 .color-strip {
@@ -140,7 +137,13 @@ background-color: #6e203c;
 
 .day-section {
 	text-align: center;
-	color: #fff;
+	color: #6e203c;
+}
+
+.day-section > h3 {
+	line-height: 90px;
+	font-weight: bold;
+	font-size: 28px;
 }
 
 .stock-section {
