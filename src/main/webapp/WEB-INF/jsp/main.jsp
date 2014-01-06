@@ -35,7 +35,9 @@ width:100%;
 font-size: 12px;
 width: 180px;
 }
-
+.item {
+width: 350px;
+}
 </style>
 
 <style type="text/css" media="only screen and (min-width : 1101px) and (max-width: 1220px)">
