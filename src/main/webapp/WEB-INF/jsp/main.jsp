@@ -12,7 +12,7 @@
 
 <jsp:include page="./common/resources.jsp" />
 
-<style type="text/css" media="only screen and (max-width : 720px)">
+<style type="text/css" media="only screen and (max-width : 721px)">
 .titem {
 width:100%;
 font-size: 12px;
@@ -30,12 +30,14 @@ width:100%;
 }
 </style>
 
-<style type="text/css" media="only screen and (min-width : 721px) and (max-width: 1100px)">
+<style type="text/css" media="only screen and (min-width : 722px) and (max-width: 1100px)">
 .titem {
 font-size: 12px;
 width: 180px;
 }
-
+.item {
+width: 350px;
+}
 </style>
 
 <style type="text/css" media="only screen and (min-width : 1101px) and (max-width: 1220px)">
