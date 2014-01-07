@@ -35,6 +35,8 @@ public class Article {
 
 	private String author;
 	
+	private Integer numDups = 0;
+	
 	private ArticleSection section;
 
 	// /////////////////////////////////////////////////////////////////////////////
@@ -183,8 +185,11 @@ public class Article {
 
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this).add("title", this.title)
-			.add("link", this.link).add("pubDate", this.pubDate)
+		return Objects.toStringHelper(this)
+			.add("title", this.title)
+			.add("link", this.link)
+			.add("pubDate", this.pubDate)
+			.add("numDups", this.numDups)
 			.add("mainContents", this.mainContents)
 			.add("keyWordList", this.keyWordList).toString();
 	}
@@ -267,5 +272,13 @@ public class Article {
 
 	public void setMainContents(String mainContents) {
 		this.mainContents = mainContents;
+	}
+
+	public Integer getNumDups() {
+		return numDups;
+	}
+
+	public void setNumDups(Integer numDups) {
+		this.numDups = numDups;
 	}
 }
