@@ -32,18 +32,16 @@ public class CrawlScheduler {
 		public void run() {
 			LOG.info("collect the aritcles from RSS.");
 			
-			List<Article> articleList = new ArrayList<>();
 			for (NewsCrawler crawler : newsCrawlerList) {
-				articleList.addAll(crawler.createArticlList());
+				for (Article article : crawler.createArticlList()) {
+					// create the main contents
+					ContentsAnalysisService.createMainSentence(article);
+					
+					// add to the store
+					CollectionService.add(article);
+				}
 			}
 
-			for (Article article : articleList) {
-				// create the main contents
-				ContentsAnalysisService.createMainSentence(article);
-
-				// add to the store
-				CollectionService.add(article);
-			}
 		}
 	}
 

@@ -81,6 +81,7 @@ background-color: #6e203c;
 	padding: 18px 28px;
 	background-color: #fff;
 	line-height: 28px;
+	float:left;
 }
 
 .item_link {

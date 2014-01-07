@@ -97,6 +97,7 @@ width: 244px;
 	<!-- ************************************************************************************************************************************ -->
 
 	<!-- body -->
+	<div class="carousel-inner">
 	
 	<div id="top-section">
 		<div class="bkg2" style="padding-top:25px;">
@@ -128,6 +129,20 @@ width: 244px;
 				
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+	    $('#title-section').each(function() {
+			var $container = $(this);
+			$container.imagesLoaded(function() {
+				$container.packery({
+					itemSelector : '.titem',
+					gutter : 5
+				});
+			});
+		});
+    	</script>
+    
+    
 	</div>
 
 <!-- From now to past -->
@@ -149,7 +164,7 @@ width: 244px;
 
 		<!-- article section -->
 		<div class="col-md-10 article-section container">
-			<div class="story row">
+			<div id="story-${entry.key}" class="story row">
 
 			<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 				<div class="item">
@@ -172,6 +187,17 @@ width: 244px;
 	
 	</c:if>
     
+    <script type="text/javascript">
+	    $('#story-${entry.key}').each(function() {
+			var $container = $(this);
+			$container.imagesLoaded(function() {
+				$container.packery({
+					itemSelector : '.item',
+					gutter : 5
+				});
+			});
+		});
+    </script>
 </c:forEach>
 
 
@@ -194,7 +220,7 @@ width: 244px;
 
 		<!-- article section -->
 		<div class="col-md-10 article-section container">
-			<div class="story row">
+			<div id="story-${entry.key}" class="story row">
 
 			<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 				<div class="item">
@@ -217,8 +243,19 @@ width: 244px;
 	
 	</c:if>
     
+     <script type="text/javascript">
+	    $('#story-${entry.key}').each(function() {
+			var $container = $(this);
+			$container.imagesLoaded(function() {
+				$container.packery({
+					itemSelector : '.item',
+					gutter : 5
+				});
+			});
+		});
+    </script>
 </c:forEach>
-	
+	</div>
 
 </body>
 
@@ -228,24 +265,6 @@ width: 244px;
 	yourcode(window.jQuery, window, document);
 }(function($, window, document) {
 	$(function() {
-		var $titSection = $('#title-section');
-		$titSection.imagesLoaded(function() {
-			$titSection.packery({
-				itemSelector : '.titem',
-				gutter : 5
-			});
-		});
-		
-		$('.story').each(function() {
-			var $container = $(this);
-			$container.imagesLoaded(function() {
-				$container.packery({
-					itemSelector : '.item',
-					gutter : 5
-				});
-			});
-		});
-		
 		// top menu
 		var urlList = document.URL.split('/');
 		var menu = "#" + urlList[3] + "-menu";

@@ -51,27 +51,31 @@ public class CollectionService {
 	}
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
-
+		
+		if(curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
+			return true;
+		}
+		
+		
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
 		Set<String> newKeyWordList = newArticle.getKeyWordList();
 
-		// Compare the basis list with the target's keyword list and compare
-		// again backward
+		// Compare the basis list with the target's keyword list and compare backward again
 		List<String> dupWordList = new ArrayList<>();
 		List<String> clearWordList = new ArrayList<>();
-		for (String oriWord : curKeyWordList) {
+		for (String currWord : curKeyWordList) {
 			for (String tarWord : newKeyWordList) {
 
-				if (oriWord.length() <= 1 || tarWord.length() <= 1) {
+				if (currWord.length() <= 1 || tarWord.length() <= 1) {
 					continue;
 				}
 
-				if (oriWord.contains(tarWord) || tarWord.contains(oriWord)) {
+				if (currWord.contains(tarWord) || tarWord.contains(currWord)) {
 
 					// store the dup keyword
-					if (oriWord.length() < tarWord.length()) {
-						dupWordList.add(oriWord);
-						clearWordList.add(oriWord);
+					if (currWord.length() < tarWord.length()) {
+						dupWordList.add(currWord);
+						clearWordList.add(currWord);
 					} else {
 						dupWordList.add(tarWord);
 					}
@@ -86,6 +90,10 @@ public class CollectionService {
 			// update the keyword list
 			curKeyWordList.remove(clearWordList);
 			curKeyWordList.addAll(dupWordList);
+			curArticle.setNumDups(curArticle.getNumDups() + 1);
+			
+			LOG.debug("curArticle: {}, newArticle:{}", curArticle.getTitle(), newArticle.getTitle());
+			LOG.debug("# of dups: {}", curArticle.getNumDups());
 			return true;
 		}
 
@@ -116,10 +124,10 @@ public class CollectionService {
 			cache = ECON_CACHE;
 			break;
 		case SOCIETY:
-			cache = CULTURE_CACHE;
+			cache = SOCIETY_CACHE;
 			break;
 		case CULTURE:
-			cache = SOCIETY_CACHE;
+			cache = CULTURE_CACHE;
 			break;
 		case ENT:
 			cache = ENT_CACHE;
@@ -142,8 +150,6 @@ public class CollectionService {
 		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 				if (isDuplicate(curArticle, newArticle)) {
-					// update the key sentence list of the curArticle
-
 					// create the main contents again..?
 
 					return;
