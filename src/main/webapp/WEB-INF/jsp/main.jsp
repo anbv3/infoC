@@ -54,6 +54,23 @@ width: 244px;
 }
 </style>
 
+<script type="text/javascript">
+
+(function(yourcode) {
+	yourcode(window.jQuery, window, document);
+}(function($, window, document) {
+	$(function() {
+		// top menu
+		var urlList = document.URL.split('/');
+		var menu = "#" + urlList[3] + "-menu";
+		$(menu).addClass("active");
+	});	
+	// The rest of code goes here!
+
+}));
+
+</script>
+
 </head>
 
 
@@ -258,23 +275,5 @@ width: 244px;
 	</div>
 
 </body>
-
-<script type="text/javascript">
-
-(function(yourcode) {
-	yourcode(window.jQuery, window, document);
-}(function($, window, document) {
-	$(function() {
-		// top menu
-		var urlList = document.URL.split('/');
-		var menu = "#" + urlList[3] + "-menu";
-		$(menu).addClass("active");
-	});	
-	// The rest of code goes here!
-
-}));
-
-</script>
-
 
 </html>
