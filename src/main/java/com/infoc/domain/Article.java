@@ -174,7 +174,6 @@ public class Article {
 				return;
 			}
 			
-			LOG.debug("Link:{}, ContentId:{}", this.link, contentId);
 			Document doc = Jsoup.connect(this.link).timeout(6000).get();
 			Elements contentsArea = doc.select(contentId);
 			this.contents = contentsArea.text();

@@ -92,7 +92,7 @@ public class CollectionService {
 			curKeyWordList.addAll(dupWordList);
 			curArticle.setNumDups(curArticle.getNumDups() + 1);
 			
-			LOG.debug("curArticle: {}, newArticle:{}", curArticle.getTitle(), newArticle.getTitle());
+			//LOG.debug("curArticle: {}, newArticle:{}", curArticle.getTitle(), newArticle.getTitle());
 			LOG.debug("# of dups: {}", curArticle.getNumDups());
 			return true;
 		}
