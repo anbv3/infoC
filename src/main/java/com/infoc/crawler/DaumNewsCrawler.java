@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.CollectionService;
 import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEnclosure;
@@ -56,7 +57,13 @@ public class DaumNewsCrawler implements NewsCrawler {
 			if (article == null) {
 				continue;
 			}
-			this.articleList.add(article);
+			// this.articleList.add(article);
+			
+			// create the main contents
+			ContentsAnalysisService.createMainSentence(article);
+			
+			// add to the store
+			CollectionService.add(article);
 		}
 	}
 

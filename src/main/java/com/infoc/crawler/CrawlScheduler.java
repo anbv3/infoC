@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.infoc.domain.Article;
 import com.infoc.service.CollectionService;
-import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.EconInfoCrawler;
 
 @Component
@@ -31,17 +29,9 @@ public class CrawlScheduler {
 		@Override
 		public void run() {
 			LOG.info("collect the aritcles from RSS.");
-			
 			for (NewsCrawler crawler : newsCrawlerList) {
-				for (Article article : crawler.createArticlList()) {
-					// create the main contents
-					ContentsAnalysisService.createMainSentence(article);
-					
-					// add to the store
-					CollectionService.add(article);
-				}
+				crawler.createArticlList();
 			}
-
 		}
 	}
 
