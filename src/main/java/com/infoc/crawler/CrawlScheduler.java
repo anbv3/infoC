@@ -2,10 +2,12 @@ package com.infoc.crawler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +19,8 @@ import com.infoc.util.EconInfoCrawler;
 @Component
 public class CrawlScheduler {
 	private static final Logger LOG = LoggerFactory.getLogger(CrawlScheduler.class);
-
+	private static final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);
+	
 	private static List<NewsCrawler> newsCrawlerList = new ArrayList<>();
 	static {
 		newsCrawlerList.add(new DaumNewsCrawler());
@@ -25,17 +28,21 @@ public class CrawlScheduler {
 		newsCrawlerList.add(new GoogleNewsCrawler());
 	}
 
-	private static class CrawlTask extends TimerTask {
+	private static class CrawlTask implements Runnable {
 		@Override
 		public void run() {
 			LOG.info("collect the aritcles from RSS.");
 			for (NewsCrawler crawler : newsCrawlerList) {
-				crawler.createArticlList();
+				try {
+					crawler.createArticlList();
+				} catch (Exception e) {
+					LOG.error("", e);
+				}
 			}
 		}
 	}
 
-	private static class EconCrawlTask extends TimerTask {
+	private static class EconCrawlTask implements Runnable {
 		@Override
 		public void run() {
 			try {
@@ -48,7 +55,7 @@ public class CrawlScheduler {
 		}
 	}
 
-	private static class CrawlClearTask extends TimerTask {
+	private static class CrawlClearTask implements Runnable {
 		@Override
 		public void run() {
 			LOG.info("Clear articles one day before!");
@@ -58,9 +65,14 @@ public class CrawlScheduler {
 
 	@PostConstruct
 	public static void runShcedule() {
-		new Timer().scheduleAtFixedRate(new EconCrawlTask(), 1000, 5 * 60 * 1000);
-		new Timer().scheduleAtFixedRate(new CrawlTask(), 2000, 10 * 60 * 1000);
-		new Timer().scheduleAtFixedRate(new CrawlClearTask(), 10000, 60 * 60 * 1000);
+		scheduledExecutorService.scheduleAtFixedRate(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleAtFixedRate(new CrawlTask(), 0, 10, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleAtFixedRate(new CrawlClearTask(), 30, 30, TimeUnit.MINUTES);
+	}
+	
+	@PreDestroy
+	public static void cleanShcedule() {
+		scheduledExecutorService.shutdownNow();
 	}
 
 }
