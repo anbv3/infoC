@@ -93,7 +93,7 @@ public class CollectionService {
 			curArticle.setNumDups(curArticle.getNumDups() + 1);
 			
 			//LOG.debug("curArticle: {}, newArticle:{}", curArticle.getTitle(), newArticle.getTitle());
-			LOG.debug("# of dups: {}", curArticle.getNumDups());
+			//LOG.debug("# of dups: {}", curArticle.getNumDups());
 			return true;
 		}
 
