@@ -56,7 +56,10 @@ public class NaverNewsCrawler implements NewsCrawler {
 			if (article == null) {
 				continue;
 			}
-			// this.articleList.add(article);
+
+			if (article.getContents().length() < 100) {
+				continue;
+			}
 			
 			// create the main contents
 			ContentsAnalysisService.createMainSentence(article);
