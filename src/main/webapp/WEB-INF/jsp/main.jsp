@@ -83,7 +83,7 @@ width: 244px;
 					<col-md- class="sr-only">Toggle navigation</col-md-> <col-md- class="icon-bar"></col-md-> <col-md- class="icon-bar"></col-md->
 					<col-md- class="icon-bar"></col-md->
 				</button>
-				<a class="navbar-brand" href="/main" style="color: #FFF7BD">NewsYaa</a>
+				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">NewsYaa</a>
 			</div>
 
 
@@ -125,19 +125,19 @@ width: 244px;
 				
 				<div class="col-md-10 article-section container">
 					<div id="title-section" class="row">
-						<div class="col-xs-2 titem stock-section bkg3">
+						<div class="col-xs-2 titem econ-section bkg3">
 							<h5>코스피 ${econ.kospiChange}</h5>
 							<h2>${econ.kospi}</h2>
 						</div>
-						<div class="col-xs-2  titem currency-section bkg3">
+						<div class="col-xs-2 titem econ-section bkg3">
 							<h5>코스닥 ${econ.kosdaqChange}</h5>
 							<h2>${econ.kosdaq}</h2>
 						</div>
-						<div class="col-xs-2  titem stock-section bkg3">
+						<div class="col-xs-2 titem econ-section bkg3">
 							<h5>미국 USD ${econ.usdChange}</h5>
 							<h2>${econ.usd}원</h2>
 						</div>
-						<div class="col-xs-2  titem stock-section bkg3">
+						<div class="col-xs-2 titem econ-section bkg3">
 							<h5>중국 CNY ${econ.cnyChange}</h5>
 							<h2>${econ.cny}원</h2>
 						</div>

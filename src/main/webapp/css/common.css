@@ -10,7 +10,7 @@ body,table,input,textarea,select,button {
 
 .color-strip {
 	background: #ccc url('../img/color-strip.png') no-repeat 20% top;
-	height: 5px;
+	height: 4px;
 }
 
 .navbar .brand {
@@ -138,18 +138,18 @@ background-color: #6e203c;
 
 .day-section {
 	text-align: center;
-	color: #6e203c;
+	color: #000;
 }
 
 .day-section > h3 {
-	line-height: 90px;
+	line-height: 70px;
 	font-weight: bold;
 }
 
-.stock-section {
+.econ-section {
 	color: #fff;
 	text-align: center;
-	padding: 20px 0;
+	padding: 10px 0;
 }
 
 .currency-section {
