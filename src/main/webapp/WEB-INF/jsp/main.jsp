@@ -163,7 +163,7 @@ width: 244px;
 	</div>
 
 <!-- From now to past -->
-<c:forEach var="entry" items="${articleMap}">
+<c:forEach var="entry" items="${articleMap}" varStatus="loop">
 
 	<c:if test="${(entry.key % 2) == 0}">
 	    <c:set var="rowColor" value="one"/>
@@ -194,7 +194,26 @@ width: 244px;
 					</c:if>
 					
 					<div class="item_content">${row.mainContents}</div>
+					
+					<div class="panel-group">
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title panel-${entry.key}">
+					        <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					          유사기사
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse collapse">
+					      <div class="panel-body">
+					        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+					      </div>
+					    </div>
+					  </div>
+  					</div>
+					
 				</div>
+				
 			</c:forEach>
 				
 			</div>
@@ -214,6 +233,30 @@ width: 244px;
 				});
 			});
 		});
+	    
+	    $('.collapse').on('show.bs.collapse', function () {
+	    	$('#story-${entry.key}').each(function() {
+				var $container = $(this);
+				$container.imagesLoaded(function() {
+					$container.packery({
+						itemSelector : '.item',
+						gutter : 5
+					});
+				});
+			});
+	    });
+	    $('.collapse-${entry.key}').on('hiden.bs.collapse', function () {
+	    	$('#story-${entry.key}').each(function() {
+				var $container = $(this);
+				$container.imagesLoaded(function() {
+					$container.packery({
+						itemSelector : '.item',
+						gutter : 5
+					});
+				});
+			});
+	    });
+	   
     </script>
 </c:forEach>
 
@@ -250,7 +293,25 @@ width: 244px;
 					</c:if>
 					
 					<div class="item_content">${row.mainContents}</div>
+					
+					<div class="panel-group" >
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title panel-${entry.key}">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					          유사기사
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapse-${entry.key}-${cnt.index}" class="panel-collapse collapse-${entry.key} collapse">
+					      <div class="panel-body">
+					        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+					      </div>
+					    </div>
+					  </div>
+  					</div>
 				</div>
+				
 			</c:forEach>
 				
 			</div>
@@ -270,6 +331,30 @@ width: 244px;
 				});
 			});
 		});
+	    
+	    
+	    $('.collapse').on('show.bs.collapse', function () {
+	    	$('#story-${entry.key}').each(function() {
+				var $container = $(this);
+				$container.imagesLoaded(function() {
+					$container.packery({
+						itemSelector : '.item',
+						gutter : 5
+					});
+				});
+			});
+	    });
+	    $('.collapse-${entry.key}').on('hiden.bs.collapse', function () {
+	    	$('#story-${entry.key}').each(function() {
+				var $container = $(this);
+				$container.imagesLoaded(function() {
+					$container.packery({
+						itemSelector : '.item',
+						gutter : 5
+					});
+				});
+			});
+	    });
     </script>
 </c:forEach>
 	</div>

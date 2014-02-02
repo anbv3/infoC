@@ -56,7 +56,6 @@ public class CollectionService {
 			return true;
 		}
 		
-		
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
 		Set<String> newKeyWordList = newArticle.getKeyWordList();
 
@@ -83,17 +82,17 @@ public class CollectionService {
 			}
 		}
 
-		// determine the new article is duplicated or not by the number of the
-		// dup. keyword list.
+		// determine the new article is duplicated or not by the number of the dup keyword list.
 		if (dupWordList.size() >= MAX_DUP_NUM) {
 
 			// update the keyword list
 			curKeyWordList.remove(clearWordList);
 			curKeyWordList.addAll(dupWordList);
-			curArticle.setNumDups(curArticle.getNumDups() + 1);
 			
-			//LOG.debug("curArticle: {}, newArticle:{}", curArticle.getTitle(), newArticle.getTitle());
-			//LOG.debug("# of dups: {}", curArticle.getNumDups());
+			curArticle.setNumDups(curArticle.getNumDups() + 1);
+			curArticle.addNewSimilarList(newArticle);
+			
+			//LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
 			return true;
 		}
 
