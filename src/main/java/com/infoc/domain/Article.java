@@ -1,7 +1,9 @@
 package com.infoc.domain;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
@@ -21,7 +23,7 @@ import com.infoc.enumeration.ArticleSection;
 public class Article {
 	private static final Logger LOG = LoggerFactory.getLogger(Article.class);
 
-	private String hashId; // for later
+	private String hashId; // for later, org.apache.commons.codec.digest
 
 	private String title;
 
@@ -39,6 +41,8 @@ public class Article {
 	
 	private ArticleSection section;
 
+	private List<Article> simularList = new ArrayList<>();
+	
 	// /////////////////////////////////////////////////////////////////////////////
 	private Set<String> keyWordList = new HashSet<>(); // use for summarization
 														// and duplication check
@@ -181,7 +185,21 @@ public class Article {
 			LOG.error(this.link + "\n", e);
 		}
 	}
-
+	
+	/*
+	 * newArticle이 유사 리스트에 포함되어 있는지 비교
+	 * newArticle을 유사 리스트에 추가
+	 */
+	public void addNewSimilarList(Article similarArticle) {
+		for (Article article : simularList) {
+			if (article.getTitle().equalsIgnoreCase(similarArticle.getTitle())) {
+				return;
+			}
+		}
+		
+		simularList.add(similarArticle);
+	}
+	
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
@@ -280,4 +298,13 @@ public class Article {
 	public void setNumDups(Integer numDups) {
 		this.numDups = numDups;
 	}
+
+	public List<Article> getSimularList() {
+		return simularList;
+	}
+
+	public void setSimularList(List<Article> simularList) {
+		this.simularList = simularList;
+	}
+	
 }
