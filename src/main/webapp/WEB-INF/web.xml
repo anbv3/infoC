@@ -49,6 +49,16 @@
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.ico</url-pattern>
+  </servlet-mapping>
+
+  <mime-mapping>
+    <extension>ico</extension>
+    <mime-type>image/x-icon</mime-type>
+  </mime-mapping>
+
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

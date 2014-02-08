@@ -84,7 +84,7 @@ width: 244px;
 					<col-md- class="sr-only">Toggle navigation</col-md-> <col-md- class="icon-bar"></col-md-> <col-md- class="icon-bar"></col-md->
 					<col-md- class="icon-bar"></col-md->
 				</button>
-				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">NewsYaa</a>
+				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">뉴스야!</a>
 			</div>
 
 
