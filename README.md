@@ -7,6 +7,10 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
+* 번역 기능 추가
+=> http://translate.google.co.kr/#ko/en/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%95%88
+<= html: #result_box 파싱
+
 중요도 지표 추가 및 좋아요 버튼 추가
 - 테두리색 변경?, 유사 기사 리스트 출력?
 - 유사 리스트는 전체 시간대로 비교해서 유사 기사가 다른 시간대에 안 나오도록
