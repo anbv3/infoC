@@ -108,7 +108,7 @@ width: 244px;
 			</div>
 			<!--/.nav-collapse -->
 		</div>
-		<div class="color-strip"></div>
+		<!-- <div class="color-strip"></div> -->
 	</div>
 	<!-- header -->
 
