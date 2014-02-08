@@ -196,7 +196,7 @@ width: 244px;
 					
 					<div class="item_content">${row.mainContents}</div>
 					
-					<div class="panel-group">
+					<div class="panel-group panel-group-sArt">
 					  <div class="panel panel-default panel-sArt" >
 					   
 					    <div class="panel-heading panel-heading-sArt">
@@ -209,7 +209,7 @@ width: 244px;
 					      </c:if>
 					      
 					      <h4 class="panel-title panel-${entry.key}">
-					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}">
 					          번역
 					        </a>
 					      </h4>
@@ -224,6 +224,15 @@ width: 244px;
 					      	</c:forEach>
 					      </div>
 					    </div>
+					    
+					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
+					      <div class="panel-body panel-body-sArt">
+					     	 <div class="sArt-title col-xs-12">
+						      	준비중..
+						     </div>
+					      </div>
+					    </div>
+					    
 					  </div>
   					</div>
 					
