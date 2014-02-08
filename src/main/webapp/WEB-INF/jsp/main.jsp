@@ -299,7 +299,7 @@ width: 244px;
 					<div class="item_content">${row.mainContents}</div>
 					
 					
-					<div class="panel-group">
+					<div class="panel-group panel-group-sArt">
 					  <div class="panel panel-default panel-sArt" >
 					   
 					    <div class="panel-heading panel-heading-sArt">
