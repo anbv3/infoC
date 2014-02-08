@@ -6,6 +6,7 @@
 
 <head>
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi"/>
 
 <title>NewsYaa</title>
@@ -195,18 +196,27 @@ width: 244px;
 					
 					<div class="item_content">${row.mainContents}</div>
 					
-					<c:if test="${not empty row.simularList}">
 					<div class="panel-group">
-					  <div class="panel panel-default">
-					    <div class="panel-heading">
-					      <h4 class="panel-title panel-${entry.key}">
-					        <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					  <div class="panel panel-default panel-sArt" >
+					   
+					    <div class="panel-heading panel-heading-sArt">
+					      <c:if test="${not empty row.simularList}">
+					      <h4 class="panel-title panel-title-sArt panel-${entry.key}">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
 					          관련기사
 					        </a>
 					      </h4>
+					      </c:if>
+					      
+					      <h4 class="panel-title panel-${entry.key}">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					          번역
+					        </a>
+					      </h4>
 					    </div>
-					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse collapse">
-					      <div class="panel-body">
+					    
+					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
+					      <div class="panel-body panel-body-sArt">
 					      	<c:forEach var="sArticle" items="${row.simularList}">
 						      	<div class="sArt-title col-xs-12">
 									<a href="${sArticle.link}" target="_blank">${sArticle.title}</a>
@@ -216,7 +226,6 @@ width: 244px;
 					    </div>
 					  </div>
   					</div>
-					</c:if>
 					
 				</div>
 				
@@ -289,18 +298,28 @@ width: 244px;
 					
 					<div class="item_content">${row.mainContents}</div>
 					
-					<c:if test="${not empty row.simularList}">
+					
 					<div class="panel-group">
-					  <div class="panel panel-default">
-					    <div class="panel-heading">
-					      <h4 class="panel-title panel-${entry.key}">
-					        <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					  <div class="panel panel-default panel-sArt" >
+					   
+					    <div class="panel-heading panel-heading-sArt">
+					      <c:if test="${not empty row.simularList}">
+					      <h4 class="panel-title panel-title-sArt panel-${entry.key}">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
 					          관련기사
 					        </a>
 					      </h4>
+					      </c:if>
+					      
+					      <h4 class="panel-title panel-${entry.key}">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}">
+					          번역
+					        </a>
+					      </h4>
 					    </div>
-					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse collapse">
-					      <div class="panel-body">
+					    
+					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
+					      <div class="panel-body panel-body-sArt">
 					      	<c:forEach var="sArticle" items="${row.simularList}">
 						      	<div class="sArt-title col-xs-12">
 									<a href="${sArticle.link}" target="_blank">${sArticle.title}</a>
@@ -308,9 +327,17 @@ width: 244px;
 					      	</c:forEach>
 					      </div>
 					    </div>
+					    
+					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
+					      <div class="panel-body panel-body-sArt">
+					     	 <div class="sArt-title col-xs-12">
+						      	준비중..
+						     </div>
+					      </div>
+					    </div>
+					    
 					  </div>
   					</div>
-					</c:if>
   					
 				</div>
 				

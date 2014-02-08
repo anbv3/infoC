@@ -37,17 +37,6 @@ background-color: #6e203c;
 	border-radius: 0;
 }
 
-.panel-heading {
-	margin: -1px;
-}
-
-.panel-collapse {
-	margin: -1px;
-}
-
-.panel-body {
-padding: 0;
-}
 
 /* ***************************************************************** */
 .item {
@@ -183,4 +172,26 @@ padding: 0;
 	font-weight: bold;
 	display: table-cell;
 	vertical-align: middle;
+}
+
+
+	
+
+.panel-sArt {
+}
+
+.panel-heading-sArt {
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+}
+
+.panel-collapse-sArt {
+}
+
+.panel-body-sArt {
+	padding: 0;
+}
+
+.panel-title-sArt {
+	float: right;
 }

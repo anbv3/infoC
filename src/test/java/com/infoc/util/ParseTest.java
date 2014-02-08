@@ -170,6 +170,23 @@ public class ParseTest {
 
 	@Test
 	public void testWordLength() {
-		LOG.debug("{}", "강원".length());
+		LOG.debug("{}", "강원".getBytes());
+	}
+	
+	@Test
+	public void testGetTranslation() {
+		String uuu = "http://translate.google.co.kr/#ko/en/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%95%88";
+		
+		Document doc;
+		try {
+			doc = Jsoup.connect(uuu).userAgent("Mozilla").get();
+			Elements newsHeadlines = doc.select("#gt-res-c");
+			
+			LOG.debug("{}", newsHeadlines.html());
+			
+		} catch (IOException e) {
+			LOG.debug("", e);
+		}
+	
 	}
 }
