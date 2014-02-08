@@ -26,7 +26,7 @@ body,table,input,textarea,select,button {
 
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
 color: #fff;
-background-color: #6e203c;
+background-color: #94e0c8;
 }
 
 .panel-group .panel {
@@ -60,7 +60,7 @@ background-color: #6e203c;
 }
 
 .two {
-	background: #a6a6a6;
+	background: #ffde66;
 	margin: 0 auto;
 	padding: 10px 0;
 }
@@ -105,7 +105,7 @@ background-color: #6e203c;
 }
 
 .two .section-title {
-	color: #fff;
+	color: #000;
 }
 
 #top-section {
@@ -130,7 +130,7 @@ background-color: #6e203c;
 }
 
 .bkg3 {
-	background-color: #67859c;
+	background-color: #82d580;
 }
 
 .bkg4 {
@@ -156,7 +156,7 @@ background-color: #6e203c;
 }
 
 .econ-section {
-	color: #fff;
+	color: #000;
 	text-align: center;
 	padding: 10px 0;
 }
