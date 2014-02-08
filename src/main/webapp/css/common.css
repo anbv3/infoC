@@ -174,11 +174,8 @@ background-color: rgb(61, 153, 254);
 	vertical-align: middle;
 }
 
-
-	
-
 .panel-group-sArt {
-	margin-bottom: 0px;
+	margin: -1px;
 }
 
 .panel-heading-sArt {
