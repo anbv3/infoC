@@ -29,6 +29,26 @@ color: #fff;
 background-color: #6e203c;
 }
 
+.panel-group .panel {
+	border-radius: 0;
+}
+
+.panel {
+	border-radius: 0;
+}
+
+.panel-heading {
+	margin: -1px;
+}
+
+.panel-collapse {
+	margin: -1px;
+}
+
+.panel-body {
+padding: 0;
+}
+
 /* ***************************************************************** */
 .item {
 	width: 330px;
@@ -156,4 +176,11 @@ background-color: #6e203c;
 	color: #fff;
 	text-align: center;
 	padding: 20px 0;
+}
+
+.sArt-title {
+	padding: 8px 28px;
+	font-weight: bold;
+	display: table-cell;
+	vertical-align: middle;
 }

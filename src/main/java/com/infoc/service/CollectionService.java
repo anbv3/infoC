@@ -89,10 +89,10 @@ public class CollectionService {
 			curKeyWordList.remove(clearWordList);
 			curKeyWordList.addAll(dupWordList);
 			
-			curArticle.setNumDups(curArticle.getNumDups() + 1);
 			curArticle.addNewSimilarList(newArticle);
+			curArticle.setNumDups(curArticle.getSimularList().size());
 			
-			//LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
+			LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
 			return true;
 		}
 

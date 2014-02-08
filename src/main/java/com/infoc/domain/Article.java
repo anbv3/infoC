@@ -174,7 +174,7 @@ public class Article {
 				contentId = "#CmAdContent";
 
 			} else {
-				LOG.error("Fail to parsing => Link:{}, ContentId:{}", this.link, contentId);
+				//LOG.error("Fail to parsing => Link:{}, ContentId:{}", this.link, contentId);
 				return;
 			}
 			
@@ -191,13 +191,13 @@ public class Article {
 	 * newArticle을 유사 리스트에 추가
 	 */
 	public void addNewSimilarList(Article similarArticle) {
-		for (Article article : simularList) {
+		for (Article article : this.simularList) {
 			if (article.getTitle().equalsIgnoreCase(similarArticle.getTitle())) {
 				return;
 			}
 		}
 		
-		simularList.add(similarArticle);
+		this.simularList.add(similarArticle);
 	}
 	
 	@Override
