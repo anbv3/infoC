@@ -14,8 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 import com.google.common.collect.Ordering;
 import com.infoc.enumeration.ArticleSection;
+import com.infoc.util.TranslationParser;
 
 /**
  * @author anbv3
@@ -44,10 +46,11 @@ public class Article {
 	private List<Article> simularList = new ArrayList<>();
 	
 	// /////////////////////////////////////////////////////////////////////////////
-	private Set<String> keyWordList = new HashSet<>(); // use for summarization
-														// and duplication check
+	private Set<String> keyWordList = new HashSet<>(); // use for summarization and duplication check
 
 	private String mainContents;
+	
+	private String transedContents;
 	// /////////////////////////////////////////////////////////////////////////////
 
 	public static final Ordering<Article> dateOrder = new Ordering<Article>() {
@@ -200,6 +203,12 @@ public class Article {
 		this.simularList.add(similarArticle);
 	}
 	
+	public void translateMainContents() {
+		if (Strings.isNullOrEmpty(this.transedContents)) {
+			this.transedContents = TranslationParser.krToEn(this.mainContents);
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
@@ -305,6 +314,14 @@ public class Article {
 
 	public void setSimularList(List<Article> simularList) {
 		this.simularList = simularList;
+	}
+
+	public String getTransedContents() {
+		return transedContents;
+	}
+
+	public void setTransedContents(String transedContents) {
+		this.transedContents = transedContents;
 	}
 	
 }

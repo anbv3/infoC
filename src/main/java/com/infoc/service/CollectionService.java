@@ -92,9 +92,9 @@ public class CollectionService {
 			curArticle.addNewSimilarList(newArticle);
 			curArticle.setNumDups(curArticle.getSimularList().size());
 			
-			LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
+			// LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
 			return true;
-		}
+		} 
 
 		return false;
 	}
@@ -111,37 +111,37 @@ public class CollectionService {
 		}
 
 		// get cache for each type
-		Map<Integer, List<Article>> cache = null;
+		Map<Integer, List<Article>> cacheLocation = null;
 		switch (newArticle.getSection()) {
 		case TODAY:
-			cache = TODAY_CACHE;
+			cacheLocation = TODAY_CACHE;
 			break;
 		case POLITICS:
-			cache = POLITICS_CACHE;
+			cacheLocation = POLITICS_CACHE;
 			break;
 		case ECON:
-			cache = ECON_CACHE;
+			cacheLocation = ECON_CACHE;
 			break;
 		case SOCIETY:
-			cache = SOCIETY_CACHE;
+			cacheLocation = SOCIETY_CACHE;
 			break;
 		case CULTURE:
-			cache = CULTURE_CACHE;
+			cacheLocation = CULTURE_CACHE;
 			break;
 		case ENT:
-			cache = ENT_CACHE;
+			cacheLocation = ENT_CACHE;
 			break;
 		case SPORT:
-			cache = SPORT_CACHE;
+			cacheLocation = SPORT_CACHE;
 			break;
 		case IT:
-			cache = IT_CACHE;
+			cacheLocation = IT_CACHE;
 			break;
 		default:
 			return;
 		}
 
-		addNew(newArticle, cache);
+		addNew(newArticle, cacheLocation);
 	}
 
 	private static void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
@@ -152,10 +152,14 @@ public class CollectionService {
 					// create the main contents again..?
 
 					return;
-				}
+				} 
 			}
 		}
 
+		// if it is the new one, then translate the main contents.
+		newArticle.translateMainContents();
+		
+		// get the hour of the time for the time section
 		int hour = newArticle.getPubDate().getHourOfDay();
 		cache.get(hour).add(newArticle);
 		
