@@ -30,7 +30,7 @@ public class TranslationParser {
 		try {
 			String q = "http://translate.google.com/translate_a/t?client=t&sl=ko&tl=en&hl=ko&ie=UTF-8&oe=UTF-8&prev=btn&ssel=0&tsel=0";
 
-			String reqStr = kr.replaceAll("\"", "'").replaceAll("“", "'");
+			String reqStr = kr.replaceAll("“", "'");
 			
 			doc = Jsoup.connect(q).userAgent("Mozilla").data("q", reqStr).post();
 
@@ -50,6 +50,7 @@ public class TranslationParser {
 				// TODO: make it better... :-(
 				String f = s.substring(2)
 					.replaceAll(" \\.", ".")
+					.replaceAll("\\\\\"", "\"")
 					.replaceAll(" ,", ",")
 					.replaceAll(" 's", "'s")
 					.replaceAll(" ' ", " '");
