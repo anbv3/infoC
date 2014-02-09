@@ -340,7 +340,7 @@ width: 244px;
 					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">
 					     	 <div class="sArt-title col-xs-12">
-						      	준비중..
+						      	${row.transedContents}
 						     </div>
 					      </div>
 					    </div>
