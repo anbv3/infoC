@@ -92,6 +92,7 @@ background-color: rgb(61, 153, 254);
 	background-color: #fff;
 	line-height: 28px;
 	float:left;
+	width: 100%;
 }
 
 .item_link {
