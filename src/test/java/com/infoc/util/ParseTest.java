@@ -54,19 +54,19 @@ public class ParseTest {
 		String a = "박희순, `관상 기대되요~` [MBN포토]";
 		LOG.debug("{}", a.replaceAll("[^\\p{L}\\p{Z}]", ""));
 	}
-	
+
 	@Test
 	public void parseTitleSP() {
 		String t = "[단독] 무상 학자금도 .. 모자라 저리융자 '이중지원'";
 		LOG.debug("-{}", t.replaceAll("\\[.*\\]", ""));
 	}
-	
+
 	@Test
 	public void parseUrl() {
 		String t = "http://news.google.com/news/url?sa=t&fd=R&usg=AFQjCNEr-NVDIylz7Bb65Z2eb2ToK2KNOQ&url=http://sports.chosun.com/news/utype.htm?id%3D201401060100040030002282%26ServiceDate%3D20140105";
 		LOG.debug("{}", t.replaceAll(".*url=", ""));
 	}
-	
+
 	@Test
 	public void parseTitle() {
 
@@ -77,25 +77,23 @@ public class ParseTest {
 
 		LOG.debug("{}", Sets.newHashSet(SPLITTER.split(t)));
 	}
-	
+
 	@Test
 	public void parseSentence() {
 		String contents = " 시구를 위해 마운드로 이동하고 있다.hany@media.sportsseoul.com";
-		
+
 		List<String> sList = Lists.newArrayList(
 			Splitter.onPattern("\\.\\s|다\\.")
 				.trimResults()
 				.omitEmptyStrings()
 				.split(contents)
 			);
-		
 
 		LOG.debug("{}", sList);
-		
-		
+
 		String a = "알려졌다.2013.11.1/뉴스1";
-		LOG.debug("{}", a.replaceAll("다\\.","다\\. "));
-		
+		LOG.debug("{}", a.replaceAll("다\\.", "다\\. "));
+
 		a = "[티브이데일리 한예지 기자] 수능 난이도가 지난 9월 ∼17:00, 40분) 순서로 진행된다. [티브이데일리 한예지 기자 news@tvdaily.co.kr/사진=뉴스 화면 캡처]";
 		LOG.debug("{}", a.replaceAll("(?i)\\[.*?\\]", ""));
 	}
@@ -111,7 +109,7 @@ public class ParseTest {
 			// add to the store
 			CollectionService.add(article);
 		}
-		
+
 		for (Entry<Integer, List<Article>> entry : CollectionService.getToday().entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 
@@ -122,11 +120,11 @@ public class ParseTest {
 			}
 		}
 	}
-	
+
 	@Test
 	public void testGetOriginalContents() {
 		String uuu = "http://media.daum.net/economic/others/newsview?newsid=20131003175005632";
-		
+
 		Document doc;
 		try {
 			doc = Jsoup.connect(uuu).get();
@@ -134,59 +132,43 @@ public class ParseTest {
 			LOG.debug("{}", newsHeadlines.toString());
 			LOG.debug("{}", newsHeadlines.text());
 			LOG.debug("{}", newsHeadlines.html());
-			
-			
+
 			List<String> sList = Lists.newArrayList(Splitter.on(". ").trimResults()
 				.omitEmptyStrings().split(newsHeadlines.text()));
-			for(String s : sList) {
+			for (String s : sList) {
 				LOG.debug("{}", s);
 			}
-			
+
 		} catch (IOException e) {
 			LOG.debug("", e);
 		}
-	
+
 	}
-	
+
 	@Test
 	public void testGetImgFromNaverNews() {
 		String uuu = "http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=104&oid=073&aid=0002367457";
-		
+
 		Document doc;
 		try {
 			doc = Jsoup.connect(uuu).get();
 			Elements newsHeadlines = doc.select("#articleBody");
-			
+
 			String src = newsHeadlines.select("img").attr("src");
-			
+
 			LOG.debug("{}", newsHeadlines.select("img").text());
 			LOG.debug("{}", src);
-			
+
 		} catch (IOException e) {
 			LOG.debug("", e);
 		}
-	
+
 	}
 
 	@Test
 	public void testWordLength() {
-		LOG.debug("{}", "강원".getBytes());
+		LOG.debug("{}", "강원".length());
+		LOG.debug("{}", "강원".getBytes().length);
 	}
-	
-	@Test
-	public void testGetTranslation() {
-		String uuu = "http://translate.google.co.kr/#ko/en/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%95%88";
-		
-		Document doc;
-		try {
-			doc = Jsoup.connect(uuu).userAgent("Mozilla").get();
-			Elements newsHeadlines = doc.select("#gt-res-c");
-			
-			LOG.debug("{}", newsHeadlines.html());
-			
-		} catch (IOException e) {
-			LOG.debug("", e);
-		}
-	
-	}
+
 }
