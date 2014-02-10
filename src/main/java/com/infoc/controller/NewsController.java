@@ -24,6 +24,7 @@ public class NewsController extends BaseController {
 	public String getMain(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.TODAY_CACHE);
+		model.addAttribute("menu","main");
 		return "/main";
 	}
 
@@ -31,6 +32,7 @@ public class NewsController extends BaseController {
 	public String getPolitics(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.POLITICS_CACHE);
+		model.addAttribute("menu","politics");
 		return "/main";
 	}
 
@@ -38,6 +40,7 @@ public class NewsController extends BaseController {
 	public String getEcon(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.ECON_CACHE);
+		model.addAttribute("menu","econ");
 		return "/main";
 	}
 
@@ -45,6 +48,7 @@ public class NewsController extends BaseController {
 	public String getSociety(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.SOCIETY_CACHE);
+		model.addAttribute("menu","society");
 		return "/main";
 	}
 
@@ -52,6 +56,7 @@ public class NewsController extends BaseController {
 	public String getCulture(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.CULTURE_CACHE);
+		model.addAttribute("menu","culture");
 		return "/main";
 	}
 
@@ -59,6 +64,7 @@ public class NewsController extends BaseController {
 	public String getEnt(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.ENT_CACHE);
+		model.addAttribute("menu","ent");
 		return "/main";
 	}
 
@@ -66,6 +72,7 @@ public class NewsController extends BaseController {
 	public String getSport(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.SPORT_CACHE);
+		model.addAttribute("menu","sport");
 		return "/main";
 	}
 
@@ -73,6 +80,7 @@ public class NewsController extends BaseController {
 	public String getIt(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.IT_CACHE);
+		model.addAttribute("menu","it");
 		return "/main";
 	}
 }
