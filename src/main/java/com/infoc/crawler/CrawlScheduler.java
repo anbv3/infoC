@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -31,7 +33,7 @@ public class CrawlScheduler {
 	private static class CrawlTask implements Runnable {
 		@Override
 		public void run() {
-			LOG.info("collect the aritcles from RSS.");
+			LOG.info("collect the aritcles from RSS at {}", DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
 			for (NewsCrawler crawler : newsCrawlerList) {
 				try {
 					crawler.createArticlList();

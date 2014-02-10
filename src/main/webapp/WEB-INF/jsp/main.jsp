@@ -62,9 +62,6 @@ width: 244px;
 }(function($, window, document) {
 	$(function() {
 		// top menu
-		var urlList = document.URL.split('/');
-		var menu = "#" + urlList[3] + "-menu";
-		$(menu).addClass("active");
 	});	
 	// The rest of code goes here!
 
@@ -81,8 +78,10 @@ width: 244px;
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<col-md- class="sr-only">Toggle navigation</col-md-> <col-md- class="icon-bar"></col-md-> <col-md- class="icon-bar"></col-md->
-					<col-md- class="icon-bar"></col-md->
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">뉴스야!</a>
 			</div>
@@ -99,10 +98,15 @@ width: 244px;
 					<li id="sport-menu"><a href="/sport">스포츠</a></li>
 					<li id="it-menu"><a href="/it">IT</a></li>
 				</ul>
-
-				<!-- 
+				
+				<script type="text/javascript">
+					var menu = "#" + "${menu}" + "-menu";
+					$(menu).addClass("active");
+		    	</script>
+    	
+    			<!-- 
 				<ul class="nav pull-right">
-				<li><a href="#" style="color:#FF823A">- 프리미엄 -</a></li>
+					<li><a href="/contact" style="color:#FF823A">- 프리미엄 -</a></li>
 				</ul>
 				 -->
 			</div>
@@ -163,18 +167,19 @@ width: 244px;
     
 	</div>
 
+
 <!-- From now to past -->
+<c:set var="rowColor" value="two"/>
+
 <c:forEach var="entry" items="${articleMap}" varStatus="loop">
 
-	<c:if test="${(entry.key % 2) == 0}">
-	    <c:set var="rowColor" value="one"/>
-	</c:if>    
-	<c:if test="${(entry.key % 2) != 0}">
-		<c:set var="rowColor" value="two"/>
-	</c:if>
-	
-	<c:if test="${entry.key <= currentHour}">
+	<c:choose>
+ 		<c:when test="${rowColor == 'two'}"><c:set var="rowColor" value="one"/></c:when>
+ 		<c:otherwise><c:set var="rowColor" value="two"/></c:otherwise>
+	</c:choose>
 
+	<c:if test="${entry.key <= currentHour && not empty entry.value}">
+	
 	<div class="row ${rowColor}">
 		<div class="col-md-2 section-title text-left">
 			<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
@@ -277,14 +282,12 @@ width: 244px;
 <!-- From the rest -->
 <c:forEach var="entry" items="${articleMap}">
 
-	<c:if test="${(entry.key % 2) == 0}">
-	    <c:set var="rowColor" value="one"/>
-	</c:if>    
-	<c:if test="${(entry.key % 2) != 0}">
-		<c:set var="rowColor" value="two"/>
-	</c:if>
-	
-	<c:if test="${entry.key > currentHour}">
+	<c:choose>
+ 		<c:when test="${rowColor == 'two'}"><c:set var="rowColor" value="one"/></c:when>
+ 		<c:otherwise><c:set var="rowColor" value="two"/></c:otherwise>
+	</c:choose>
+		
+	<c:if test="${entry.key > currentHour && not empty entry.value}">
 
 	<div class="row ${rowColor}">
 		<div class="col-md-2 section-title text-left">
@@ -383,9 +386,23 @@ width: 244px;
 			});
 	    });
     </script>
-</c:forEach>
-	</div>
+	</c:forEach>
+	
+	
+	</div> <!-- carousel-inner -->
 
+	<div id="footer">
+      <div class="container">
+      	<div class="col-md-6">
+        <span>Copyright © 2013–2014, NewsYaa, Inc. All Rights Reserved.</span>
+        </div>
+        
+      	<div class="col-md-6">
+        <span> Crafted with love <strong>Jinppang S.</strong>  &nbsp; | &nbsp; Contact: anbv333@gmail.com </span>
+        </div>
+        
+      </div>
+    </div>
 </body>
 
 </html>

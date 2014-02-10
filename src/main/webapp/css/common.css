@@ -195,3 +195,12 @@ background-color: rgb(61, 153, 254);
 .panel-title-sArt {
 	float: right;
 }
+
+#footer {
+	height: 60px;
+	padding: 20px 0 20px 0;
+	color: #fff;
+	background-color: #333;
+	
+	font-weight: bold;
+}
