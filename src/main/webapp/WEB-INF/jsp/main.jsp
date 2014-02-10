@@ -391,17 +391,16 @@ width: 244px;
 	
 	</div> <!-- carousel-inner -->
 
-	<div id="footer" class="footer navbar-fixed-bottom">
-      <div class="container">
-      	<div class="col-md-6">
-        <span>Copyright © 2013–2014, NewsYaa, Inc. All Rights Reserved.</span>
-        </div>
+	<div id="footer" class="row">
+      	<div class="container">
+	      	<div class="col-md-6">
+	      		<span>Copyright © 2013–2014, NewsYaa, Inc. All Rights Reserved.</span>
+	      	</div>
+	      	<div class="col-md-6">
+	      		<span>Crafted with love <strong>Jinppang S.</strong>  &nbsp; | &nbsp; Contact: anbv333@gmail.com</span>
+	      	</div>
         
-      	<div class="col-md-6">
-        <span> Crafted with love <strong>Jinppang S.</strong>  &nbsp; | &nbsp; Contact: anbv333@gmail.com </span>
         </div>
-        
-      </div>
     </div>
 </body>
 
