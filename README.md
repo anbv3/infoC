@@ -7,6 +7,13 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
+* 탑 메뉴 선택 개선
+* 년일/날씨 추가 및 econ 영역은 경제 영역에서만 출력
+* 나를 위한 기능: 몇몇 사이트 출력, contact 추가
+
+
+
+
 * 번역 기능 추가
 - http://translate.google.co.kr/#ko/en/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%95%88
 - html: #result_box 파싱
