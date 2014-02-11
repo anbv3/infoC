@@ -61,7 +61,7 @@ width: 244px;
 	yourcode(window.jQuery, window, document);
 }(function($, window, document) {
 	$(function() {
-		// top menu
+		
 	});	
 	// The rest of code goes here!
 
@@ -85,7 +85,6 @@ width: 244px;
 				</button>
 				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">뉴스야!</a>
 			</div>
-
 
 			<div class="collapse navbar-collapse">
 				<ul id="top-menu" class="nav navbar-nav">
@@ -123,6 +122,8 @@ width: 244px;
 	
 	<div id="top-section">
 		<div class="bkg2" style="padding-top:25px;">
+
+			<c:if test="${menu == 'main'}">		
 			<div class="row">
 				<div class="col-md-2 day-section">
 					<h3 style=""><fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}"/></h3>
@@ -148,8 +149,9 @@ width: 244px;
 						</div>
 					</div>
 				</div>
-				
 			</div>
+			</c:if>
+			
 		</div>
 		
 		<script type="text/javascript">
