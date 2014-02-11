@@ -175,12 +175,12 @@ width: 244px;
 
 <c:forEach var="entry" items="${articleMap}" varStatus="loop">
 
-	<c:choose>
- 		<c:when test="${rowColor == 'two'}"><c:set var="rowColor" value="one"/></c:when>
- 		<c:otherwise><c:set var="rowColor" value="two"/></c:otherwise>
-	</c:choose>
-
 	<c:if test="${entry.key <= currentHour && not empty entry.value}">
+	
+	<c:choose>
+ 		<c:when test="${rowColor == 'one'}"><c:set var="rowColor" value="two"/></c:when>
+ 		<c:otherwise><c:set var="rowColor" value="one"/></c:otherwise>
+	</c:choose>
 	
 	<div class="row ${rowColor}">
 		<div class="col-md-2 section-title text-left">
@@ -284,13 +284,13 @@ width: 244px;
 <!-- From the rest -->
 <c:forEach var="entry" items="${articleMap}">
 
+	<c:if test="${entry.key > currentHour && not empty entry.value}">
+
 	<c:choose>
  		<c:when test="${rowColor == 'two'}"><c:set var="rowColor" value="one"/></c:when>
  		<c:otherwise><c:set var="rowColor" value="two"/></c:otherwise>
 	</c:choose>
-		
-	<c:if test="${entry.key > currentHour && not empty entry.value}">
-
+	
 	<div class="row ${rowColor}">
 		<div class="col-md-2 section-title text-left">
 			<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
@@ -393,17 +393,16 @@ width: 244px;
 	
 	</div> <!-- carousel-inner -->
 
-	<div id="footer">
-      <div class="container">
-      	<div class="col-md-6">
-        <span>Copyright © 2013–2014, NewsYaa, Inc. All Rights Reserved.</span>
-        </div>
+	<div id="footer" class="row">
+      	<div class="container">
+	      	<div class="col-md-6">
+	      		<span>Copyright © 2013–2014, NewsYaa, Inc. All Rights Reserved.</span>
+	      	</div>
+	      	<div class="col-md-6">
+	      		<span>Crafted with love <strong>Jinppang S.</strong>  &nbsp; | &nbsp; Contact: anbv333@gmail.com</span>
+	      	</div>
         
-      	<div class="col-md-6">
-        <span> Crafted with love <strong>Jinppang S.</strong>  &nbsp; | &nbsp; Contact: anbv333@gmail.com </span>
         </div>
-        
-      </div>
     </div>
 </body>
 
