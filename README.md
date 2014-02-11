@@ -9,7 +9,7 @@ infoC
 
 * 뉴스 섹션별 주요 내용 필요 - 메인 => 주식, 날씨, 경제 => 결제 지표, 사회 => 날씨, 기타.. 
 * 나를 위한 기능: 몇몇 사이트 출력, contact 추가
-
+* 해외 뉴스: http://www.mediagaon.or.kr/jsp/mlink/medialink_08.jsp
 
 
 

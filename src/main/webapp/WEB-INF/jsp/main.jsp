@@ -57,6 +57,21 @@ width: 244px;
 
 <script type="text/javascript">
 
+// 이미지 캐싱...
+(function($) {
+	var cache = [];
+	$.preLoadImages = function() {
+		var args_len = arguments.length;
+		for (var i = args_len; i--;) {
+			var cacheImage = document.createElement('img');
+			cacheImage.src = arguments[i];
+			cache.push(cacheImage);
+		}
+
+	};
+})(jQuery);
+
+
 (function(yourcode) {
 	yourcode(window.jQuery, window, document);
 }(function($, window, document) {
@@ -65,6 +80,8 @@ width: 244px;
 	});	
 	// The rest of code goes here!
 
+	
+	
 }));
 
 </script>
