@@ -198,9 +198,19 @@ background-color: rgb(61, 153, 254);
 
 #footer {
 	height: 60px;
-	padding: 20px 0 20px 0;
+	padding: 20px 0 10px 0;
 	color: #fff;
 	background-color: #333;
 	
 	font-weight: bold;
+	
+	text-overflow-mode: ellipsis; 
+	overflow:hidden;
+	margin:0;
+}
+
+.carousel-inner {
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto;
 }
