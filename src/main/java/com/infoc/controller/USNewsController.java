@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.infoc.service.CollectionService;
 
 @Controller
-@RequestMapping(value = {"/", "/kr"})
-public class NewsController extends BaseController {
-	private static final Logger LOG = LoggerFactory.getLogger(NewsController.class);
+@RequestMapping(value = "/us")
+public class USNewsController extends BaseController {
+	private static final Logger LOG = LoggerFactory.getLogger(USNewsController.class);
 
 	private void getCommonInfo(Model model) {
 		model.addAttribute("econ", CollectionService.ECON_INFO);
@@ -21,7 +21,7 @@ public class NewsController extends BaseController {
 		model.addAttribute("currentDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
 	}
 
-	@RequestMapping(value = {"/", "/main"})
+	@RequestMapping(value = "/main")
 	public String getMain(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.TODAY_CACHE);

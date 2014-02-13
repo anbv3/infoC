@@ -201,9 +201,7 @@ background-color: rgb(61, 153, 254);
 	padding: 20px 0 10px 0;
 	color: #fff;
 	background-color: #333;
-	
 	font-weight: bold;
-	
 	text-overflow-mode: ellipsis; 
 	overflow:hidden;
 	margin:0;
@@ -213,4 +211,8 @@ background-color: rgb(61, 153, 254);
 	min-height: 100%;
 	height: auto;
 	margin: 0 auto;
+}
+
+.country-menu {
+	min-width: 85px;
 }
