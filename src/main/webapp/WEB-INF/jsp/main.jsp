@@ -57,21 +57,6 @@ width: 244px;
 
 <script type="text/javascript">
 
-// 이미지 캐싱...
-(function($) {
-	var cache = [];
-	$.preLoadImages = function() {
-		var args_len = arguments.length;
-		for (var i = args_len; i--;) {
-			var cacheImage = document.createElement('img');
-			cacheImage.src = arguments[i];
-			cache.push(cacheImage);
-		}
-
-	};
-})(jQuery);
-
-
 (function(yourcode) {
 	yourcode(window.jQuery, window, document);
 }(function($, window, document) {
@@ -120,11 +105,20 @@ width: 244px;
 					$(menu).addClass("active");
 		    	</script>
     	
-    			<!-- 
-				<ul class="nav pull-right">
-					<li><a href="/contact" style="color:#FF823A">- 프리미엄 -</a></li>
+    			
+				<ul class="nav navbar-nav pull-right">
+					<li class="dropdown" >
+						<a href="#" style="color:#FF823A" class="dropdown-toggle js-activated" data-toggle="dropdown">
+							World 
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu country-menu">
+							<li><a href="/kr/main">한국</a></li>
+							<li><a href="/us/main">미국</a></li>
+						</ul>
+					</li>
 				</ul>
-				 -->
+				
 			</div>
 			<!--/.nav-collapse -->
 		</div>

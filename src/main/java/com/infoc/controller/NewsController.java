@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.infoc.service.CollectionService;
 
 @Controller
+@RequestMapping(value = {"/", "/kr"})
 public class NewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(NewsController.class);
 
