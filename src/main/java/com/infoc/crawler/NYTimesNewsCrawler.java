@@ -59,7 +59,7 @@ public class NYTimesNewsCrawler implements NewsCrawler {
 				continue;
 			}
 
-			if (article.getContents().length() < 10) {
+			if (article.getContents().length() < 150) {
 				continue;
 			}
 			
