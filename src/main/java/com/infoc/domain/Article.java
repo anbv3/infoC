@@ -175,9 +175,20 @@ public class Article {
 				|| this.link.contains("vop")) {
 
 				contentId = "#CmAdContent";
+			} else if (this.link.contains("nytimes")) {
 
+				contentId = "#story";
+				
+				Document doc = Jsoup.connect(this.link).timeout(6000).get();
+				Elements contentsArea = doc.select(contentId);
+				this.contents = contentsArea.text();
+				
+				// parse img url
+				this.img = contentsArea.select(".image > img").attr("src");
+				
+				return;
 			} else {
-				//LOG.error("Fail to parsing => Link:{}, ContentId:{}", this.link, contentId);
+				LOG.error("Fail to parsing => Link:{}, ContentId:{}", this.link, contentId);
 				return;
 			}
 			
@@ -206,6 +217,12 @@ public class Article {
 	public void translateMainContents() {
 		if (Strings.isNullOrEmpty(this.transedContents)) {
 			this.transedContents = TranslationParser.krToEn(this.mainContents);
+		}
+	}
+	
+	public void translateMainContentsFromEnToKr() {
+		if (Strings.isNullOrEmpty(this.transedContents)) {
+			this.transedContents = TranslationParser.enToKr(this.mainContents);
 		}
 	}
 	
