@@ -46,6 +46,7 @@ public class TranslationParserTest {
 				+ "forming a government would “take a few days,” given the scope of the changes he hoped to enact..";
 		
 		LOG.debug(TranslationParser.enToKr(kr));
+		LOG.debug("{}", kr.length());
 	}
 	
 }

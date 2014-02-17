@@ -236,7 +236,7 @@ width: 244px;
 					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">
 					      	<c:forEach var="sArticle" items="${row.simularList}">
-						      	<div class="sArt-title col-xs-12">
+						      	<div class="panel-article-info col-xs-12">
 									<a href="${sArticle.link}" target="_blank">${sArticle.title}</a>
 								</div>
 					      	</c:forEach>
@@ -245,7 +245,7 @@ width: 244px;
 					    
 					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">
-					     	 <div class="sArt-title col-xs-12">
+					     	 <div class="panel-article-info col-xs-12">
 						      	${row.transedContents}
 						     </div>
 					      </div>
@@ -346,7 +346,7 @@ width: 244px;
 					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">
 					      	<c:forEach var="sArticle" items="${row.simularList}">
-						      	<div class="sArt-title col-xs-12">
+						      	<div class="panel-article-info col-xs-12">
 									<a href="${sArticle.link}" target="_blank">${sArticle.title}</a>
 								</div>
 					      	</c:forEach>
@@ -355,7 +355,7 @@ width: 244px;
 					    
 					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">
-					     	 <div class="sArt-title col-xs-12">
+					     	 <div class="panel-article-info col-xs-12">
 						      	${row.transedContents}
 						     </div>
 					      </div>

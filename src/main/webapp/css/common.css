@@ -169,11 +169,12 @@ background-color: rgb(61, 153, 254);
 	padding: 20px 0;
 }
 
-.sArt-title {
+.panel-article-info {
 	padding: 8px 28px;
 	font-weight: bold;
 	display: table-cell;
 	vertical-align: middle;
+	line-height: 28px;
 }
 
 .panel-group-sArt {
