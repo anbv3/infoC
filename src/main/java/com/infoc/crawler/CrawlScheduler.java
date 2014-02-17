@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.infoc.service.CollectionService;
+import com.infoc.service.USCollectionService;
 import com.infoc.util.EconInfoCrawler;
 
 @Component
@@ -28,12 +29,15 @@ public class CrawlScheduler {
 		newsCrawlerList.add(new DaumNewsCrawler());
 		newsCrawlerList.add(new NaverNewsCrawler());
 		newsCrawlerList.add(new GoogleNewsCrawler());
+		newsCrawlerList.add(new NYTimesNewsCrawler());
 	}
 
 	private static class CrawlTask implements Runnable {
 		@Override
 		public void run() {
-			LOG.info("collect the aritcles from RSS at {}", DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
+			LOG.info("collect the aritcles from RSS at {} O'clock", 
+					DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
+			
 			for (NewsCrawler crawler : newsCrawlerList) {
 				try {
 					crawler.createArticlList();
@@ -62,6 +66,7 @@ public class CrawlScheduler {
 		public void run() {
 			LOG.info("Clear articles one day before!");
 			CollectionService.clearYesterDay();
+			USCollectionService.clearYesterDay();
 		}
 	}
 

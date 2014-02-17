@@ -38,4 +38,14 @@ public class TranslationParserTest {
 		LOG.debug(TranslationParser.krToEn(kr));
 	}
 	
+	@Test
+	public void testGetTranslationKR2EN() throws UnsupportedEncodingException {
+		String kr = "Europe Party’s New Leader Agrees to Form Government in Italy By ELISABETTA POVOLEDOFEB. "
+				+ "But his first challenge is to form a coalition that will back his party, "
+				+ "which does not have a majority in either house of Parliament. Renzi said that "
+				+ "forming a government would “take a few days,” given the scope of the changes he hoped to enact..";
+		
+		LOG.debug(TranslationParser.enToKr(kr));
+	}
+	
 }
