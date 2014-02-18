@@ -9,9 +9,6 @@ infoC
 
 * times, la news, google news 추가
 
-    1. split sentences with ?, .", .” 
-    
-
 * create a base class and article classes for each news.
 
 

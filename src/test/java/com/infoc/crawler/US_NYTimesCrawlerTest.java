@@ -1,6 +1,8 @@
 package com.infoc.crawler;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,7 +13,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.infoc.service.USCollectionService;
 import com.infoc.service.USContentsAnalysisService;
@@ -82,5 +86,25 @@ public class US_NYTimesCrawlerTest {
 		LOG.debug("{}", Strings.isNullOrEmpty(contentsArea.text()));
 	}
 	
+	
+	@Test
+	public void testSpliteSentence() throws UnsupportedEncodingException {
+		String kr = "Europe Party’s New Leader Agrees to Form Government in Italy By ELISABETTA POVOLEDOFEB. "
+				+ "But his first challenge is to form a coalition that will back his party? "
+				+ "which does not have a majority in either house of Parliament. Renzi said that "
+				+ "forming a government would “take a few days.\" given the scope of the changes he hoped to enact..";
+		
+		List<String> sList = Lists.newArrayList(
+			Splitter.onPattern("(?<=\\.\\s)|(?<=\\?\\s)|(?<=\\.\\\")")
+				.trimResults()
+				.omitEmptyStrings()
+				.split(kr)
+			);
+		
+		for(String s : sList) {
+			LOG.debug("{}", s);
+			
+		}
+	}
 	
 }

@@ -38,10 +38,6 @@ public class USContentsAnalysisService {
 		StringBuilder sb = new StringBuilder();
 		for (SentenceInfo sentence : keySentenceList) {
 			sb.append(sentence.getSentance());
-			
-			if (!sentence.getSentance().endsWith(".")) {
-				sb.append(". ");
-			}
 		}
 
 		article.setMainContents(sb.toString());
@@ -88,7 +84,7 @@ public class USContentsAnalysisService {
 		List<SentenceInfo> sentenceList = new ArrayList<>();
 
 		List<String> sList = Lists.newArrayList(
-			Splitter.onPattern("\\.\\s")
+			Splitter.onPattern("(?<=\\.\\s)|(?<=\\?\\s)|(?<=\\.\\”)|(?<=\\.\\\")")
 				.trimResults()
 				.omitEmptyStrings()
 				.split(contents)

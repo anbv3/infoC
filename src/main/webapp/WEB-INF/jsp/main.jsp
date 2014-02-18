@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
 
 <title>뉴스야</title>
 
@@ -105,17 +105,7 @@ width: 244px;
 						<li id="ent-menu"><a href="/ent">연예</a></li>
 						<li id="sport-menu"><a href="/sport">스포츠</a></li>
 						<li id="it-menu"><a href="/it">IT</a></li>
-						
-						<li class="dropdown" >
-							<a href="#" style="color:#FF823A" class="dropdown-toggle js-activated" data-toggle="dropdown">
-								World 
-								<b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu country-menu">
-								<li><a href="/kr/main">한국</a></li>
-								<li><a href="/us/main">미국</a></li>
-							</ul>
-						</li>
+						<li id="us-menu"><a style="color:#FF823A" href="/us/main">미국</a></li>
 					</ul>
 				</nav>
 			</div>
