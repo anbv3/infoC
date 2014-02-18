@@ -40,7 +40,7 @@ public class US_BostonNewsCrawler implements NewsCrawler {
 	
 	@Override
 	public List<Article> createArticlList() {
-		LOG.debug("get RSS from nytimes.");
+		LOG.debug("get RSS from Boston.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);

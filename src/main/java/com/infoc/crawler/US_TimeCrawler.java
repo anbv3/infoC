@@ -36,7 +36,7 @@ public class US_TimeCrawler implements NewsCrawler {
 	
 	@Override
 	public List<Article> createArticlList() {
-		LOG.debug("get RSS from nytimes.");
+		LOG.debug("get RSS from Time.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
