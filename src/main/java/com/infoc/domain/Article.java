@@ -9,6 +9,7 @@ import java.util.Set;
 import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -193,7 +194,12 @@ public class Article {
 				
 				Document doc = Jsoup.connect(this.link).timeout(6000).get();
 				Elements contentsArea = doc.select(contentId);
-				this.contents = contentsArea.text();
+				Elements bodyArea = contentsArea.select(".story-body-text");
+				StringBuilder sb = new StringBuilder();
+				for (Element element : bodyArea) {
+					sb.append(element.ownText()).append(" ");
+				}
+				this.contents = sb.toString();
 				
 				// parse img url
 				this.img = contentsArea.select(".image > img").attr("src");

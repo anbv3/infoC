@@ -13,6 +13,23 @@
 
 <jsp:include page="./common/resources.jsp" />
 
+<style type="text/css" >
+
+.item_title {
+padding: 8px 28px;
+background-color: #fff;
+color: #000;
+line-height: 24px;
+font-weight: bold;
+letter-spacing: normal;
+font-size: 20px;
+font-family: 'Miller Headline Bold', 'Times New Roman', Times, Georgia, serif;
+}
+.item_title a {
+color: #444;
+}
+</style>
+
 <style type="text/css" media="only screen and (max-width : 721px)">
 
 .titem {

@@ -37,7 +37,7 @@ public class USContentsAnalysisService {
 
 		StringBuilder sb = new StringBuilder();
 		for (SentenceInfo sentence : keySentenceList) {
-			sb.append(sentence.getSentance());
+			sb.append(sentence.getSentance().trim()).append(" ");
 		}
 
 		article.setMainContents(sb.toString());
