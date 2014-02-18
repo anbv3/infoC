@@ -175,6 +175,18 @@ public class Article {
 				|| this.link.contains("vop")) {
 
 				contentId = "#CmAdContent";
+			} else if (this.link.contains("time.com")) {
+				
+				contentId = ".entry-content";
+				
+				Document doc = Jsoup.connect(this.link).timeout(6000).get();
+				Elements contentsArea = doc.select(contentId);
+				this.contents = contentsArea.text();
+				
+				// parse img url
+				this.img = contentsArea.select("img").attr("src");
+				
+				return;
 			} else if (this.link.contains("nytimes")) {
 
 				contentId = "#story";

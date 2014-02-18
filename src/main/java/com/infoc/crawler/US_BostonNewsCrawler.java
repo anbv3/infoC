@@ -67,6 +67,10 @@ public class US_BostonNewsCrawler implements NewsCrawler {
 				continue;
 			}
 			
+			if (article.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
+				return;
+			}
+			
 			// create the main contents
 			USContentsAnalysisService.createMainSentence(article);
 			

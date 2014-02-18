@@ -100,11 +100,6 @@ public class CollectionService {
 	}
 
 	public static void add(Article newArticle) {
-		// skip the old article before today
-		if (newArticle.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
-			return;
-		}
-		
 		// just in case, # of keyword is one, then skip to add
 		if (newArticle.getKeyWordList().size() < 2) {
 			return;

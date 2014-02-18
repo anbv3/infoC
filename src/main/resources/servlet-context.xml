@@ -47,14 +47,6 @@
 	</bean>
 	 -->
 	 
-	<!-- disabled by albamc to use Content Negotiating View Resolver
-	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-	 -->
-
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="order" value="0" />
 		<property name="contentNegotiationManager">
@@ -74,15 +66,16 @@
 		<property name="defaultViews">
 			<list>
 				<!-- JSON View -->
-				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
 			</list>
 		</property>
 	</bean>
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
 	
-	
-	<!-- bean 형태로 Inject받아서 사용할경우,-->
-	<!--<bean class="com.nhncorp.lucy.spring.core.web.helper.PagerInfoFactoryBean" />-->
-
 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
 		<property name="proxyTargetClass" value="true"></property>
 		<property name="usePrefix" value="true"/>

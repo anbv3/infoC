@@ -32,6 +32,7 @@ public class CrawlScheduler {
 		newsCrawlerList.add(new US_NYTimesCrawler());
 		newsCrawlerList.add(new US_ChicagoTribuneCrawler());
 		newsCrawlerList.add(new US_BostonNewsCrawler());
+		newsCrawlerList.add(new US_TimeCrawler());
 	}
 
 	private static class CrawlTask implements Runnable {
