@@ -1,9 +1,7 @@
 package com.infoc.crawler;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
@@ -15,13 +13,12 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
-import com.infoc.domain.Article;
 import com.infoc.service.USCollectionService;
 import com.infoc.service.USContentsAnalysisService;
 
-public class US_NYTimesNewsCrawlerTest {
+public class US_NYTimesCrawlerTest {
 	private static final Logger LOG = LoggerFactory
-			.getLogger(US_NYTimesNewsCrawlerTest.class);
+			.getLogger(US_NYTimesCrawlerTest.class);
 
 	@Test
 	public void test2() {
@@ -42,11 +39,9 @@ public class US_NYTimesNewsCrawlerTest {
 		}
 	}
 	
-	private static String TODAY = "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml";
-
 	@Test
 	public void test1() {
-		US_NYTimesNewsCrawler d = new US_NYTimesNewsCrawler();
+		NewsCrawler d = new US_ChicagoTribuneCrawler();
 		d.createArticlList();
 	
 		LOG.debug("{}, {}",  USCollectionService.TODAY_CACHE.isEmpty(),  USCollectionService.TODAY_CACHE.size());
