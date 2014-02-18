@@ -56,19 +56,26 @@ width: 244px;
 </style>
 
 <script type="text/javascript">
+	(function(yourcode) {
+		yourcode(window.jQuery, window, document);
+	}(function($, window, document) {
+		$(function() {
+			// side slider
+			var sideslider = $('[data-toggle=collapse-side]');
+			var sel = sideslider.attr('data-target');
+			var sel2 = sideslider.attr('data-target-2');
+			sideslider.click(function(event) {
+				$(sel).toggleClass('in');
+				$(sel2).toggleClass('out');
+			});
 
-(function(yourcode) {
-	yourcode(window.jQuery, window, document);
-}(function($, window, document) {
-	$(function() {
-		
-	});	
-	// The rest of code goes here!
+			// active menu
+			var menu = "#" + "${menu}" + "-menu";
+			$(menu).addClass("active");
+		});
+		// The rest of code goes here!
 
-	
-	
-}));
-
+	}));
 </script>
 
 </head>
@@ -79,46 +86,38 @@ width: 244px;
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
+				<button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-right">
 					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span>
+					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">뉴스야!</a>
 			</div>
 
-			<div class="collapse navbar-collapse">
-				<ul id="top-menu" class="nav navbar-nav">
-					<li id="main-menu"><a href="/main">주요</a></li>
-					<li id="politics-menu"><a href="/politics">정치</a></li>
-					<li id="econ-menu"><a href="/econ">경제</a></li>
-					<li id="society-menu"><a href="/society">사회</a></li>
-					<li id="culture-menu"><a href="/culture">문화/생활</a></li>
-					<li id="ent-menu"><a href="/ent">연예</a></li>
-					<li id="sport-menu"><a href="/sport">스포츠</a></li>
-					<li id="it-menu"><a href="/it">IT</a></li>
-				</ul>
-				
-				<script type="text/javascript">
-					var menu = "#" + "${menu}" + "-menu";
-					$(menu).addClass("active");
-		    	</script>
-    	
-    			
-				<ul class="nav navbar-nav pull-right">
-					<li class="dropdown" >
-						<a href="#" style="color:#FF823A" class="dropdown-toggle js-activated" data-toggle="dropdown">
-							World 
-							<b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu country-menu">
-							<li><a href="/kr/main">한국</a></li>
-							<li><a href="/us/main">미국</a></li>
-						</ul>
-					</li>
-				</ul>
-				
+			<div class="navbar-inverse side-collapse in">
+				<nav role="navigation" class="navbar-collapse">
+					<ul id="top-menu" class="nav navbar-nav">
+						<li id="main-menu"><a href="/main">주요</a></li>
+						<li id="politics-menu"><a href="/politics">정치</a></li>
+						<li id="econ-menu"><a href="/econ">경제</a></li>
+						<li id="society-menu"><a href="/society">사회</a></li>
+						<li id="culture-menu"><a href="/culture">문화/생활</a></li>
+						<li id="ent-menu"><a href="/ent">연예</a></li>
+						<li id="sport-menu"><a href="/sport">스포츠</a></li>
+						<li id="it-menu"><a href="/it">IT</a></li>
+						
+						<li class="dropdown" >
+							<a href="#" style="color:#FF823A" class="dropdown-toggle js-activated" data-toggle="dropdown">
+								World 
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu country-menu">
+								<li><a href="/kr/main">한국</a></li>
+								<li><a href="/us/main">미국</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
@@ -129,7 +128,7 @@ width: 244px;
 	<!-- ************************************************************************************************************************************ -->
 
 	<!-- body -->
-	<div class="carousel-inner">
+	<div class="carousel-inner side-collapse-container">
 	
 	<div id="top-section">
 		<div class="bkg2" style="padding-top:25px;">

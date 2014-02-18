@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi"/>
 
-<title>뉴스야</title>
+<title>News Yaa!</title>
 
 <jsp:include page="./common/resources.jsp" />
 
 <style type="text/css" media="only screen and (max-width : 721px)">
+
 .titem {
 width:100%;
 font-size: 12px;
@@ -56,19 +57,27 @@ width: 244px;
 </style>
 
 <script type="text/javascript">
+	(function(yourcode) {
+		yourcode(window.jQuery, window, document);
+	}(function($, window, document) {
+		$(function() {
+			// side slider
+			var sideslider = $('[data-toggle=collapse-side]');
+			var sel = sideslider.attr('data-target');
+			var sel2 = sideslider.attr('data-target-2');
+			sideslider.click(function(event) {
+				$(sel).toggleClass('in');
+				$(sel2).toggleClass('out');
+			});
 
-(function(yourcode) {
-	yourcode(window.jQuery, window, document);
-}(function($, window, document) {
-	$(function() {
-		
-	});	
-	// The rest of code goes here!
+			// active menu
+			var menu = "#" + "${menu}" + "-menu";
+			$(menu).addClass("active");
 
-	
-	
-}));
+		});
+		// The rest of code goes here!
 
+	}));
 </script>
 
 </head>
@@ -79,46 +88,38 @@ width: 244px;
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
+				<button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-right">
+					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/us/main" style="color:#fff;font-weight: bold;">뉴스야!</a>
+				<a class="navbar-brand" href="/us/main" style="color: #fff; font-weight: bold;">News Yaa!</a>
 			</div>
 
-			<div class="collapse navbar-collapse">
-				<ul id="top-menu" class="nav navbar-nav">
-					<li id="main-menu"><a href="/us/main">주요</a></li>
-					<li id="politics-menu"><a href="/us/politics">정치</a></li>
-					<li id="econ-menu"><a href="/us/econ">경제</a></li>
-					<li id="society-menu"><a href="/us/society">사회</a></li>
-					<li id="culture-menu"><a href="/us/culture">문화/생활</a></li>
-					<li id="ent-menu"><a href="/us/ent">연예</a></li>
-					<li id="sport-menu"><a href="/us/sport">스포츠</a></li>
-					<li id="it-menu"><a href="/us/it">IT</a></li>
-				</ul>
-				
-				<script type="text/javascript">
-					var menu = "#" + "${menu}" + "-menu";
-					$(menu).addClass("active");
-		    	</script>
-    	
-    			
-				<ul class="nav navbar-nav pull-right">
-					<li class="dropdown" >
+			<div class="navbar-inverse side-collapse in">
+				<nav role="navigation" class="navbar-collapse">
+					<ul id="top-menu" class="nav navbar-nav">
+						<li id="main-menu"><a href="/us/main">Top</a></li>
+						<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>
+						<li id="econ-menu"><a href="/us/econ">BUSINESS</a></li>
+						<li id="society-menu"><a href="/us/society">LOCAL</a></li>
+						<li id="culture-menu"><a href="/us/culture">LIFE</a></li>
+						<li id="ent-menu"><a href="/us/ent">ENT</a></li>
+						<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>
+						<li id="it-menu"><a href="/us/it">TECH</a></li>
+						
+						<li class="dropdown" >
 						<a href="#" style="color:#FF823A" class="dropdown-toggle js-activated" data-toggle="dropdown">
 							World 
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu country-menu">
-							<li><a href="/kr/main">한국</a></li>
-							<li><a href="/us/main">미국</a></li>
+							<li><a href="/kr/main">Korea</a></li>
+							<li><a href="/us/main">US</a></li>
 						</ul>
 					</li>
-				</ul>
-				
+					</ul>
+				</nav>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
@@ -129,7 +130,7 @@ width: 244px;
 	<!-- ************************************************************************************************************************************ -->
 
 	<!-- body -->
-	<div class="carousel-inner">
+	<div class="carousel-inner side-collapse-container">
 	
 	<div id="top-section">
 		<div class="bkg2" style="padding-top:25px;">

@@ -187,6 +187,29 @@ public class Article {
 				this.img = contentsArea.select(".image > img").attr("src");
 				
 				return;
+			} else if (this.link.contains("boston")) {
+				Document doc = Jsoup.connect(this.link).timeout(6000).get();
+
+				contentId = ".article-text";
+				Elements contentsArea = doc.select(contentId);
+				this.contents = contentsArea.text();
+
+				if (Strings.isNullOrEmpty(this.contents)) {
+					contentId = ".blogText";
+					contentsArea = doc.select(contentId);
+					this.contents = contentsArea.text();
+				}
+				
+				if (Strings.isNullOrEmpty(this.contents)) {
+					contentId = ".pic-story-content";
+					contentsArea = doc.select(contentId);
+					this.contents = contentsArea.text();
+				}
+
+				// parse img url
+				this.img = contentsArea.select("img").attr("src");
+
+				return;
 			} else {
 				LOG.error("Fail to parsing => Link:{}, ContentId:{}", this.link, contentId);
 				return;

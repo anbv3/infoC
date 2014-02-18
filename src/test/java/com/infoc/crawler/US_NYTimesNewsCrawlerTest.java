@@ -13,14 +13,15 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import com.infoc.domain.Article;
 import com.infoc.service.USCollectionService;
 import com.infoc.service.USContentsAnalysisService;
 
-public class NYTimesNewsCrawlerTest {
+public class US_NYTimesNewsCrawlerTest {
 	private static final Logger LOG = LoggerFactory
-			.getLogger(NYTimesNewsCrawlerTest.class);
+			.getLogger(US_NYTimesNewsCrawlerTest.class);
 
 	@Test
 	public void test2() {
@@ -45,7 +46,7 @@ public class NYTimesNewsCrawlerTest {
 
 	@Test
 	public void test1() {
-		NYTimesNewsCrawler d = new NYTimesNewsCrawler();
+		US_NYTimesNewsCrawler d = new US_NYTimesNewsCrawler();
 		d.createArticlList();
 	
 		LOG.debug("{}, {}",  USCollectionService.TODAY_CACHE.isEmpty(),  USCollectionService.TODAY_CACHE.size());
@@ -75,4 +76,16 @@ public class NYTimesNewsCrawlerTest {
 			LOG.debug("haha");
 		}
 	}
+	
+	
+	@Test
+	public void testBostonNews() throws IOException {
+		Document doc = Jsoup.connect("http://www.boston.com/sports/other-sports/olympics/2014/02/17/costas-returns-olympic-coverage/j56d3jKddYFMgQmsRIycIN/story.html?rss_id=Top+Stories").timeout(6000).get();
+		Elements contentsArea = doc.select(".blogText");
+		
+		// parse img url
+		LOG.debug("{}", Strings.isNullOrEmpty(contentsArea.text()));
+	}
+	
+	
 }
