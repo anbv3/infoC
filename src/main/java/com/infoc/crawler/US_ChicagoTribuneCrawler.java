@@ -22,16 +22,16 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 
-public class US_NYTimesNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(US_NYTimesNewsCrawler.class);
-	private static String TODAY = "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
-	private static String POLITICS = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
-	private static String ECON = "http://rss.nytimes.com/services/xml/rss/nyt/Economy.xml";
-	private static String SOCIETY = "http://rss.nytimes.com/services/xml/rss/nyt/NYRegion.xml";
-	private static String CULTURE = "http://rss.nytimes.com/services/xml/rss/nyt/FashionandStyle.xml";
-	private static String ENT = "http://rss.nytimes.com/services/xml/rss/nyt/Arts.xml";
-	private static String SPORT = "http://rss.nytimes.com/services/xml/rss/nyt/Sports.xml";
-	private static String IT = "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml";
+public class US_ChicagoTribuneCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(US_ChicagoTribuneCrawler.class);
+	private static String TODAY = "http://chicagotribune.feedsportal.com/c/34253/f/622809/index.rss";
+	private static String POLITICS = "http://chicagotribune.feedsportal.com/c/34253/f/669325/index.rss";
+	private static String ECON = "http://chicagotribune.feedsportal.com/c/34253/f/669329/index.rss";
+	private static String SOCIETY = "http://chicagotribune.feedsportal.com/c/34253/f/669324/index.rss";
+	private static String CULTURE = "http://chicagotribune.feedsportal.com/c/34253/f/669314/index.rss";
+	private static String ENT = "http://chicagotribune.feedsportal.com/c/34253/f/669302/index.rss";
+	private static String SPORT = "http://chicagotribune.feedsportal.com/c/34253/f/622872/index.rss";
+	private static String IT = "http://chicagotribune.feedsportal.com/c/34253/f/669330/index.rss";
 
 	private List<Article> articleList = new ArrayList<>();
 	

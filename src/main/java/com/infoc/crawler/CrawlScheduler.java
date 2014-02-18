@@ -29,7 +29,8 @@ public class CrawlScheduler {
 		newsCrawlerList.add(new DaumNewsCrawler());
 		newsCrawlerList.add(new NaverNewsCrawler());
 		newsCrawlerList.add(new GoogleNewsCrawler());
-		newsCrawlerList.add(new US_NYTimesNewsCrawler());
+		newsCrawlerList.add(new US_NYTimesCrawler());
+		newsCrawlerList.add(new US_ChicagoTribuneCrawler());
 		newsCrawlerList.add(new US_BostonNewsCrawler());
 	}
 
@@ -74,7 +75,7 @@ public class CrawlScheduler {
 	@PostConstruct
 	public static void runShcedule() {
 		scheduledExecutorService.scheduleAtFixedRate(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleAtFixedRate(new CrawlTask(), 0, 13, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleAtFixedRate(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleAtFixedRate(new CrawlClearTask(), 30, 30, TimeUnit.MINUTES);
 	}
 	
