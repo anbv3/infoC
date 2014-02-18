@@ -33,7 +33,10 @@ public class ContentsAnalysisService {
 
 		StringBuilder sb = new StringBuilder();
 		for (SentenceInfo sentence : keySentenceList) {
-			sb.append(sentence.getSentance()).append(". ");
+			sb.append(sentence.getSentance());
+			if (!sentence.getSentance().endsWith(".")) {
+				sb.append(". ");
+			}
 		}
 
 		article.setMainContents(sb.toString());

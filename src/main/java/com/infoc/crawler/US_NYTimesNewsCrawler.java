@@ -22,8 +22,8 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 
-public class NYTimesNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(NYTimesNewsCrawler.class);
+public class US_NYTimesNewsCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(US_NYTimesNewsCrawler.class);
 	private static String TODAY = "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
 	private static String POLITICS = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
 	private static String ECON = "http://rss.nytimes.com/services/xml/rss/nyt/Economy.xml";
@@ -59,7 +59,7 @@ public class NYTimesNewsCrawler implements NewsCrawler {
 				continue;
 			}
 
-			if (article.getContents().length() < 150) {
+			if (article.getContents().length() < 300) {
 				continue;
 			}
 			
