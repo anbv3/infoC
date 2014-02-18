@@ -7,7 +7,28 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
-* 뉴스 섹션별 주요 내용 필요 - 메인 => 주식, 날씨, 경제 => 결제 지표, 사회 => 날씨, 기타.. 
+* times, la news, google news 추가
+* create a base class and article classes for each news.
+
+
+* 뉴스 섹션별 주요 내용 필요 - 메인 => 주식, 날씨, 경제 => 결제 지표, 사회 => 날씨, 기타..
+기사 분류별 대쉬영역
+
+주요: top news, 경제지표, 날씨, 
+
+사회: 환경문제, 종교문제, 가족문제, 주택
+
+정치: 새누리, 민주당,, 말말말
+
+문화생활: 도서순위, 전시회, 음학회 순위, 공연순위
+
+연예: 드라마시청율, 음반순위, 영화순위, 광고순위
+
+스포츠: top news
+
+
+
+
 * 나를 위한 기능: 몇몇 사이트 출력, contact 추가
 * 해외 뉴스: http://www.mediagaon.or.kr/jsp/mlink/medialink_08.jsp
 
