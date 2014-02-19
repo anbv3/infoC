@@ -10,6 +10,7 @@ infoC
 * times, la news, google news 추가
 
 * create a base class and article classes for each news.
+  1. news crawler 에 각각의 본문 파싱 로직을 article또는 본문 가져오기 함수에서 사용할수 있게 한다.
 
 
 * 뉴스 섹션별 주요 내용 필요 - 메인 => 주식, 날씨, 경제 => 결제 지표, 사회 => 날씨, 기타..
