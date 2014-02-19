@@ -30,9 +30,6 @@ font-family: 'Miller Headline Bold', 'Times New Roman', Times, Georgia, serif;
 color: #444;
 }
 
-.item {
-text-align: left;
-}
 </style>
 
 

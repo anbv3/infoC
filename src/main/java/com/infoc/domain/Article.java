@@ -113,7 +113,14 @@ public class Article {
 			if (this.link.contains("daum")) {
 
 				contentId = "#newsBodyShadow";
-
+				
+				Document doc = Jsoup.connect(this.link).timeout(6000).get();
+				Elements contentsArea = doc.select(contentId);
+				contentsArea.select(".image").remove();
+				
+				this.contents = contentsArea.text();
+				
+				return;
 			} else if (this.link.contains("interview365")) {
 
 				contentId = "#IDContents";
@@ -203,6 +210,16 @@ public class Article {
 				
 				// parse img url
 				this.img = contentsArea.select(".image > img").attr("src");
+				
+				return;
+			} else if (this.link.contains("latimes")) {
+				
+				contentId = "#story-body-text";
+				
+				Document doc = Jsoup.connect(this.link).timeout(6000).get();
+				
+				this.contents = doc.select("#story-body-text").text();
+				this.img= doc.select(".thumbnail").select("img").attr("src");
 				
 				return;
 			} else if (this.link.contains("chicagotribune")) {

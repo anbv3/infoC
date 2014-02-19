@@ -1,8 +1,12 @@
 package com.infoc.util;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,4 +59,26 @@ private static final Logger LOG = LoggerFactory.getLogger(RSSCrawlerTest.class);
 			LOG.debug("{}", enclosure.getUrl());
 		}
 	}
+	
+	
+	@Test
+	public void testLATimes() {
+		String url = "http://www.latimes.com/world/worldnow/la-fg-wn-lebanon-suicide-bombings-20140219,0,3839057.story#axzz2tllPQVOt";
+
+		Document doc;
+		try {
+			
+			doc = Jsoup.connect(url).timeout(6000).get();
+			Elements contentsArea = doc.select("#story-body-text");
+			LOG.debug("{}", contentsArea.text());
+			
+			String img = doc.select(".thumbnail").select("img").attr("src");
+			LOG.debug("{}", img);
+
+		} catch (IOException e) {
+			LOG.debug("", e);
+		}
+
+	}
+	
 }
