@@ -13,6 +13,7 @@
 
 <jsp:include page="./common/resources.jsp" />
 
+
 <style type="text/css" >
 
 .item_title {
@@ -28,7 +29,14 @@ font-family: 'Miller Headline Bold', 'Times New Roman', Times, Georgia, serif;
 .item_title a {
 color: #444;
 }
+
+.item {
+text-align: left;
+}
 </style>
+
+
+
 
 <style type="text/css" media="only screen and (max-width : 721px)">
 
@@ -47,6 +55,7 @@ border-right: none;
 .item, .item_title, item_content {
 width:100%;
 }
+
 </style>
 
 <style type="text/css" media="only screen and (min-width : 722px) and (max-width: 1100px)">
@@ -116,7 +125,7 @@ width: 244px;
 			<div class="navbar-inverse side-collapse in">
 				<nav role="navigation" class="navbar-collapse">
 					<ul id="top-menu" class="nav navbar-nav">
-						<li id="main-menu"><a href="/us/main">Top</a></li>
+						<li id="main-menu"><a href="/us/main">TOP</a></li>
 						<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>
 						<li id="econ-menu"><a href="/us/econ">BUSINESS</a></li>
 						<li id="society-menu"><a href="/us/society">LOCAL</a></li>
@@ -185,14 +194,14 @@ width: 244px;
 					      <c:if test="${not empty row.simularList}">
 					      <h4 class="panel-title panel-title-sArt panel-${entry.key}">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
-					          관련기사
+					          Related
 					        </a>
 					      </h4>
 					      </c:if>
 					      
 					      <h4 class="panel-title panel-${entry.key}">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}">
-					          번역
+					          Translate
 					        </a>
 					      </h4>
 					    </div>
