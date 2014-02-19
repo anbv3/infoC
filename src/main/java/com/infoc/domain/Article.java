@@ -183,6 +183,28 @@ public class Article {
 				|| this.link.contains("vop")) {
 
 				contentId = "#CmAdContent";
+				
+			} else if (this.link.contains("newspeppermint")) {
+
+				contentId = ".entry";
+				
+			} else if (this.link.contains("clien")) {
+				
+				contentId = "#writeContents";
+				
+			} else if (this.link.contains("newstapa")) {
+				
+				contentId = ".entry-content";
+				
+				Document doc = Jsoup.connect(this.link).timeout(6000).get();
+				Elements contentsArea = doc.select(contentId);
+				this.contents = contentsArea.text();
+				
+				// parse img url
+				this.img = contentsArea.select("img").attr("src");
+				
+				return;
+				
 			} else if (this.link.contains("time.com")) {
 				
 				contentId = ".entry-content";
@@ -258,7 +280,7 @@ public class Article {
 
 				return;
 			} else {
-				LOG.error("Fail to parsing => Link:{}, ContentId:{}", this.link, contentId);
+//				LOG.error("Fail to parsing => Link:{}, ContentId:{}", this.link, contentId);
 				return;
 			}
 			

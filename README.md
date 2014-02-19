@@ -7,8 +7,6 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
-* times, la news, google news 추가
-
 * create a base class and article classes for each news.
   1. news crawler 에 각각의 본문 파싱 로직을 article또는 본문 가져오기 함수에서 사용할수 있게 한다.
 

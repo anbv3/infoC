@@ -181,6 +181,9 @@ width: 244px;
 					<c:if test="${not empty row.img}">
 					<div> <img class="item_img" src="${row.img}"/></div>
 					</c:if>
+					<c:if test="${empty row.img}">
+					<hr class="item_title-separator">
+					</c:if>
 					
 					<div class="item_content">${row.mainContents}</div>
 					
@@ -289,6 +292,9 @@ width: 244px;
 					
 					<c:if test="${not empty row.img}">
 					<div> <img class="item_img" src="${row.img}"/></div>
+					</c:if>
+					<c:if test="${empty row.img}">
+					<hr class="item_title-separator">
 					</c:if>
 					
 					<div class="item_content">${row.mainContents}</div>

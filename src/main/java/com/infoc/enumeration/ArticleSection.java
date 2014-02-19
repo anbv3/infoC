@@ -13,7 +13,8 @@ public enum ArticleSection {
 	CULTURE,
 	ENT,
 	SPORT,
-	IT;
+	IT,
+	USER;
 
 	public static ArticleSection find(String type) {
 		for (ArticleSection each : ArticleSection.values()) {

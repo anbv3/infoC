@@ -84,4 +84,12 @@ public class NewsController extends BaseController {
 		model.addAttribute("menu","it");
 		return "/main";
 	}
+	
+	@RequestMapping(value = "/user")
+	public String getUserNews(Model model) throws Exception {
+		getCommonInfo(model);
+		model.addAttribute("articleMap", CollectionService.USER_CACHE);
+		model.addAttribute("menu","user");
+		return "/main";
+	}
 }

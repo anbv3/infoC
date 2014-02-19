@@ -105,6 +105,7 @@ width: 244px;
 						<li id="ent-menu"><a href="/ent">연예</a></li>
 						<li id="sport-menu"><a href="/sport">스포츠</a></li>
 						<li id="it-menu"><a href="/it">IT</a></li>
+						<li id="user-menu"><a href="/user">기타</a></li>
 						<li id="us-menu"><a style="color:#FF823A" href="/us/main">미국</a></li>
 					</ul>
 				</nav>
@@ -199,6 +200,9 @@ width: 244px;
 					
 					<c:if test="${not empty row.img}">
 					<div> <img class="item_img" src="${row.img}"/></div>
+					</c:if>
+					<c:if test="${empty row.img}">
+					<hr class="item_title-separator">
 					</c:if>
 					
 					<div class="item_content">${row.mainContents}</div>
@@ -308,6 +312,9 @@ width: 244px;
 					
 					<c:if test="${not empty row.img}">
 					<div> <img class="item_img" src="${row.img}"/></div>
+					</c:if>
+					<c:if test="${empty row.img}">
+					<hr class="item_title-separator">
 					</c:if>
 					
 					<div class="item_content">${row.mainContents}</div>
