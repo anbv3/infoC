@@ -27,6 +27,7 @@ public class UserNewsCrawler implements NewsCrawler {
 	private static String NEWSTAPA = "http://www.newstapa.com/feed";
 	private static String NEWSPEPPER = "http://newspeppermint.com/feed";
 	private static String CLIEN_NEWS = "http://feeds.feedburner.com/Clien--news";
+	private static String SLOW_NEWS = "http://feeds.feedburner.com/slownews";
 
 	private List<Article> articleList = new ArrayList<>();
 
@@ -38,6 +39,7 @@ public class UserNewsCrawler implements NewsCrawler {
 		createListBySection(NEWSTAPA, ArticleSection.USER);
 		createListBySection(NEWSPEPPER, ArticleSection.USER);
 		createListBySection(CLIEN_NEWS, ArticleSection.USER);
+		createListBySection(SLOW_NEWS, ArticleSection.USER);
 
 		return this.articleList;
 	}

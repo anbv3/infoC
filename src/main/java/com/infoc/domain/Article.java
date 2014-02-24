@@ -148,6 +148,9 @@ public class Article {
 			} else if (this.link.contains("newsen")) {
 
 				contentId = "#CLtag";
+			} else if (this.link.contains("sportsseoul")) {
+				
+				contentId = "#content_area";
 				
 			} else if (this.link.contains("fnnews")) {
 				
@@ -191,6 +194,19 @@ public class Article {
 			} else if (this.link.contains("clien")) {
 				
 				contentId = "#writeContents";
+				
+			} else if (this.link.contains("slownews")) {
+				
+				contentId = "#article_content";
+				
+				Document doc = Jsoup.connect(this.link).timeout(6000).get();
+				Elements contentsArea = doc.select(contentId);
+				this.contents = contentsArea.text();
+				
+				// parse img url
+				this.img = contentsArea.select("img").attr("src");
+				
+				return;
 				
 			} else if (this.link.contains("newstapa")) {
 				
