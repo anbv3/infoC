@@ -4,11 +4,15 @@
 
 package com.infoc.crawler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +61,10 @@ public class US_TimeCrawler implements NewsCrawler {
 				continue;
 			}
 
+			if (Strings.isNullOrEmpty(article.getContents())) {
+				continue;
+			}
+			
 			if (article.getContents().length() < 300) {
 				continue;
 			}
@@ -80,19 +88,35 @@ public class US_TimeCrawler implements NewsCrawler {
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")));
 		
-		article.setTitle(ContentsAnalysisService.clearInvalidWords(rssItem.getTitle()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
 		
-		article.createContentsFromLink();
-		if (Strings.isNullOrEmpty(article.getContents())) {
-			article.setContents(rssItem.getDescription().getValue());
-		}
-
-		article.setContents(ContentsAnalysisService.clearInvalidWords(article.getContents()));
+		parseContentsFromLink(rssItem, article);
 
 		return article;
 	}
 	
+	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
+		String rssLink = rssItem.getLink();
+		if(!rssLink.contains("time.com")) {
+			return;
+		}
+		
+		Document doc;
+		try {
+			doc = Jsoup.connect(rssLink).timeout(6000).get();
+		} catch (IOException e) {
+			LOG.error(rssLink + "\n", e);
+			return;
+		}
+		
+		String contentId = ".entry-content";
+		Elements contentsArea = doc.select(contentId);
+		article.setContents(contentsArea.text());
+		
+		// extract the img link ////////////////////////////////////////////////////////
+		article.setImg(contentsArea.select("img").attr("src"));
+	}
 }

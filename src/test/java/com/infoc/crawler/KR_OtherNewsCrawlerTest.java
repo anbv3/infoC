@@ -13,8 +13,8 @@ import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
 
-public class UserNewsCrawlerTest {
-	private static final Logger LOG = LoggerFactory.getLogger(UserNewsCrawlerTest.class);
+public class KR_OtherNewsCrawlerTest {
+	private static final Logger LOG = LoggerFactory.getLogger(KR_OtherNewsCrawlerTest.class);
 	
 	@Test
 	public void testLib() {

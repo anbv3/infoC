@@ -32,7 +32,7 @@ public class CollectionService {
 	public static Map<Integer, List<Article>> ENT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> SPORT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> IT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> USER_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	public static Map<Integer, List<Article>> OTHERS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 
 	static {
 		CACHE_LIST.add(TODAY_CACHE);
@@ -43,7 +43,7 @@ public class CollectionService {
 		CACHE_LIST.add(ENT_CACHE);
 		CACHE_LIST.add(SPORT_CACHE);
 		CACHE_LIST.add(IT_CACHE);
-		CACHE_LIST.add(USER_CACHE);
+		CACHE_LIST.add(OTHERS_CACHE);
 
 		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
 			for (int i = 0; i < 24; i++) {
@@ -134,8 +134,8 @@ public class CollectionService {
 		case IT:
 			cacheLocation = IT_CACHE;
 			break;
-		case USER:
-			cacheLocation = USER_CACHE;
+		case OTHERS:
+			cacheLocation = OTHERS_CACHE;
 			break;
 		default:
 			return;

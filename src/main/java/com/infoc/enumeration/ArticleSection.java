@@ -14,7 +14,7 @@ public enum ArticleSection {
 	ENT,
 	SPORT,
 	IT,
-	USER;
+	OTHERS;
 
 	public static ArticleSection find(String type) {
 		for (ArticleSection each : ArticleSection.values()) {

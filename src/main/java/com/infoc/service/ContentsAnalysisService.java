@@ -128,7 +128,10 @@ public class ContentsAnalysisService {
 	 * ". "를 기준으로 문장을 자르는데 "다.XX"인 경우가 있어 미리 변경
 	 * 기타 잡스런 단어 제거
 	 */
-	public static String clearInvalidWords(String some) {
+	public static String removeInvalidWordsForKR(String some) {
+		if(Strings.isNullOrEmpty(some)) {
+			return "";
+		}
 		return some.replaceAll("&nbsp;", "")
 			.replaceAll("다\\.", "다\\. ")
 			.replaceAll("(?i)\\【.*?\\】", "")

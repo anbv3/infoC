@@ -1,10 +1,14 @@
 package com.infoc.crawler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +57,10 @@ public class GoogleNewsCrawler implements NewsCrawler {
 				continue;
 			}
 			
+			if (Strings.isNullOrEmpty(article.getContents())) {
+				continue;
+			}
+			
 			if (article.getContents().length() < 100) {
 				continue;
 			}
@@ -81,19 +89,78 @@ public class GoogleNewsCrawler implements NewsCrawler {
 			return null;
 		}
 
-		article.createContentsFromLink();
-		if (Strings.isNullOrEmpty(article.getContents())) {
-			article.setContents(rssItem.getDescription().getValue());
-		}
-
-		article.setContents(ContentsAnalysisService.clearInvalidWords(article.getContents()));
+		parseContentsFromLink(rssItem, article);
 
 		return article;
 	}
 
 	private void parseTitleAuthor(String title, Article article) {
 		int idx = title.lastIndexOf("-");
-		article.setTitle(ContentsAnalysisService.clearInvalidWords(title.substring(0, idx).trim()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(title.substring(0, idx).trim()));
 		article.setAuthor(title.substring(idx + 1, title.length()).trim());
+	}
+	
+	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
+		String rssLink = rssItem.getLink();
+		
+		Document doc;
+		try {
+			doc = Jsoup.connect(rssLink).timeout(6000).get();
+		} catch (IOException e) {
+			LOG.error(rssLink + "\n", e);
+			return;
+		}
+		
+		
+		Elements contentsArea;
+		
+		if (rssLink.contains("interview365")) {
+			contentsArea = doc.select("#IDContents");
+		} else if (rssLink.contains("khan")) {
+			contentsArea = doc.select("#_article");
+		} else if (rssLink.contains("segye")) {
+			contentsArea = doc.select("#article_txt");
+		} else if (rssLink.contains("asiae")) {
+			contentsArea = doc.select(".article");
+		} else if (rssLink.contains("chosun")) {
+			contentsArea = doc.select(".par");
+		} else if (rssLink.contains("dailian")) {
+			contentsArea = doc.select(".par");
+		} else if (rssLink.contains("newsen")) {
+			contentsArea = doc.select("#CLtag");
+		} else if (rssLink.contains("sportsseoul")) {
+			contentsArea = doc.select("#content_area");
+		} else if (rssLink.contains("fnnews")) {
+			contentsArea = doc.select("#contTxt");
+		} else if (rssLink.contains("kookje")) {
+			contentsArea = doc.select("#news_textArea");
+		} else if (rssLink.contains("hankooki")) {
+			contentsArea = doc.select("#GS_Content");
+		} else if (rssLink.contains("ittoday")
+			|| rssLink.contains("unionpress")
+			|| rssLink.contains("yonhapnews")
+			|| rssLink.contains("itimes")
+			|| rssLink.contains("newsis")) {
+
+			contentsArea = doc.select("#articleBody");
+		} else if (rssLink.contains("hankyung") 
+			|| rssLink.contains("ahatv")) {
+			
+			contentsArea = doc.select("#sstvarticle");
+		} else if (rssLink.contains("sportsworldi")) {
+			contentsArea = doc.select("#article_content");
+		} else if (rssLink.contains("tvdaily")
+			|| rssLink.contains("etoday")
+			|| rssLink.contains("ytn")
+			|| rssLink.contains("vop")) {
+
+			contentsArea = doc.select("#CmAdContent");
+		} else {
+//			LOG.error("Fail to parsing => Link:{}, ContentId:{}", rssLink, contentId);
+			return;
+		}
+		
+		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(contentsArea.text()));
+		
 	}
 }

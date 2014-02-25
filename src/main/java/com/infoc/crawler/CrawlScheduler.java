@@ -29,7 +29,7 @@ public class CrawlScheduler {
 		newsCrawlerList.add(new DaumNewsCrawler());
 		newsCrawlerList.add(new NaverNewsCrawler());
 		newsCrawlerList.add(new GoogleNewsCrawler());
-		newsCrawlerList.add(new UserNewsCrawler());
+		newsCrawlerList.add(new KR_OtherNewsCrawler());
 		
 		newsCrawlerList.add(new US_NYTimesCrawler());
 		newsCrawlerList.add(new US_ChicagoTribuneCrawler());

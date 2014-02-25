@@ -12,8 +12,8 @@ import com.infoc.service.CollectionService;
 
 @Controller
 @RequestMapping(value = {"/", "/kr"})
-public class NewsController extends BaseController {
-	private static final Logger LOG = LoggerFactory.getLogger(NewsController.class);
+public class KRNewsController extends BaseController {
+	private static final Logger LOG = LoggerFactory.getLogger(KRNewsController.class);
 
 	private void getCommonInfo(Model model) {
 		model.addAttribute("econ", CollectionService.ECON_INFO);
@@ -85,11 +85,11 @@ public class NewsController extends BaseController {
 		return "/main";
 	}
 	
-	@RequestMapping(value = "/user")
+	@RequestMapping(value = "/others")
 	public String getUserNews(Model model) throws Exception {
 		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.USER_CACHE);
-		model.addAttribute("menu","user");
+		model.addAttribute("articleMap", CollectionService.OTHERS_CACHE);
+		model.addAttribute("menu","others");
 		return "/main";
 	}
 }

@@ -4,11 +4,15 @@
 
 package com.infoc.crawler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +60,11 @@ public class NaverNewsCrawler implements NewsCrawler {
 			if (article == null) {
 				continue;
 			}
-
+			
+			if (Strings.isNullOrEmpty(article.getContents())) {
+				continue;
+			}
+			
 			if (article.getContents().length() < 100) {
 				continue;
 			}
@@ -84,19 +92,47 @@ public class NaverNewsCrawler implements NewsCrawler {
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
 		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")));
-		article.setTitle(ContentsAnalysisService.clearInvalidWords(rssItem.getTitle()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
 		
-		article.createContentsFromLink();
-		if (Strings.isNullOrEmpty(article.getContents())) {
-			article.setContents(rssItem.getDescription().getValue());
-		}
-
-		article.setContents(ContentsAnalysisService.clearInvalidWords(article.getContents()));
+		parseContentsFromLink(rssItem, article);
 
 		return article;
+	}
+	
+	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
+		String rssLink = rssItem.getLink();
+		if(!rssLink.contains("naver")) {
+			return;
+		}
+		
+		String contentId = "#articleBody";
+		
+		Document doc;
+		try {
+			doc = Jsoup.connect(rssLink).timeout(6000).get();
+		} catch (IOException e) {
+			LOG.error(rssLink + "\n", e);
+			return;
+		}
+		
+		Elements contentsArea = doc.select(contentId);
+		
+		// 본문영역 뒤에 신문사 기사링크 영역 제거
+		Elements linkArea = doc.select(".link_news");
+		int linkIdx = contentsArea.text().indexOf(linkArea.text());
+		if (linkIdx != -1) {
+			article.setContents(contentsArea.text().substring(0, linkIdx));
+		} else {
+			article.setContents(contentsArea.text());
+		}
+		
+		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(article.getContents()));
+		
+		// extract the img link ///////////////////////////////////////////////////
+		article.setImg(contentsArea.select("img").attr("src"));
 	}
 	
 }
