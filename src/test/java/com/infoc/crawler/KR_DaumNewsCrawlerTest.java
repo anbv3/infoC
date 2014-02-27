@@ -26,12 +26,12 @@ import com.infoc.service.ContentsAnalysisService;
 /**
  * @author NBP
  */
-public class DaumNewsCrawlerTest {
-	private static final Logger LOG = LoggerFactory.getLogger(DaumNewsCrawler.class);
+public class KR_DaumNewsCrawlerTest {
+	private static final Logger LOG = LoggerFactory.getLogger(KR_DaumNewsCrawler.class);
 	
 	@Test
 	public void test1() {
-		GoogleNewsCrawler d = new GoogleNewsCrawler();
+		KR_GoogleNewsCrawler d = new KR_GoogleNewsCrawler();
 		List<Article> list = d.createArticlList();
 
 		LOG.debug("{}", list.size());

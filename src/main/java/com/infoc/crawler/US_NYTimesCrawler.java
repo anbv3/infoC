@@ -32,7 +32,6 @@ public class US_NYTimesCrawler implements NewsCrawler {
 	private static String TODAY = "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
 	private static String POLITICS = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
 	private static String ECON = "http://rss.nytimes.com/services/xml/rss/nyt/Economy.xml";
-	private static String SOCIETY = "http://rss.nytimes.com/services/xml/rss/nyt/NYRegion.xml";
 	private static String CULTURE = "http://rss.nytimes.com/services/xml/rss/nyt/FashionandStyle.xml";
 	private static String ENT = "http://rss.nytimes.com/services/xml/rss/nyt/Arts.xml";
 	private static String SPORT = "http://rss.nytimes.com/services/xml/rss/nyt/Sports.xml";
@@ -47,7 +46,6 @@ public class US_NYTimesCrawler implements NewsCrawler {
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(SOCIETY, ArticleSection.SOCIETY);
 		createListBySection(CULTURE, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);
 		createListBySection(SPORT, ArticleSection.SPORT);

@@ -25,8 +25,8 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 
-public class NaverNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(NaverNewsCrawler.class);
+public class KR_NaverNewsCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(KR_NaverNewsCrawler.class);
 	private static String TODAY = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=3";
 	private static String POLITICS = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=4";
 	private static String ECON = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=5";

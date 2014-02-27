@@ -30,7 +30,6 @@ public class US_LATimesCrawler implements NewsCrawler {
 	private static String TODAY = "http://feeds.latimes.com/latimes/news";
 	private static String POLITICS = "http://feeds.latimes.com/latimes/news/politics/";
 	private static String ECON = "http://feeds.latimes.com/latimes/business";
-	private static String SOCIETY = "http://feeds.latimes.com/latimes/news/local";
 	private static String CULTURE = "http://feeds.feedburner.com/latimes/entertainment/news/arts";
 	private static String ENT = "http://feeds.feedburner.com/latimes/entertainment/news/";
 	private static String SPORT = "http://feeds.latimes.com/latimes/sports/";
@@ -45,7 +44,6 @@ public class US_LATimesCrawler implements NewsCrawler {
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(SOCIETY, ArticleSection.SOCIETY);
 		createListBySection(CULTURE, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);
 		createListBySection(SPORT, ArticleSection.SPORT);

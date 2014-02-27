@@ -20,8 +20,8 @@ import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
-public class GoogleNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(GoogleNewsCrawler.class);
+public class KR_GoogleNewsCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(KR_GoogleNewsCrawler.class);
 
 	private static String TODAY = "https://news.google.co.kr/news/feeds?hl=ko&output=rss"; // 주요기사
 	private static String POLITICS = "https://news.google.co.kr/news/feeds?hl=ko&topic=p&output=rss";

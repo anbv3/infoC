@@ -7,9 +7,13 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
-* create a base class and article classes for each news.
-  1. news crawler 에 각각의 본문 파싱 로직을 article또는 본문 가져오기 함수에서 사용할수 있게 한다.
+* 성능 개선 - 2-3시간 단위로 기사 가져오기 - 스크롤하면 추가로 가져오기..ㅋㅋ
+    
+* 회원 가입 추가 => favorite 버튼 => 중요도에 반영 => 내 기사 보기 => 유사 기사 보기 
 
+* 버지 기사 추가: http://www.theverge.com/rss/index.xml 
+
+* 구글 analysis 추가
 
 * 뉴스 섹션별 주요 내용 필요 - 메인 => 주식, 날씨, 경제 => 결제 지표, 사회 => 날씨, 기타..
 기사 분류별 대쉬영역
@@ -28,8 +32,7 @@ infoC
 
 
 
-
-* 나를 위한 기능: 몇몇 사이트 출력, contact 추가
+* 나를 위한 기능: contact 추가
 * 해외 뉴스: http://www.mediagaon.or.kr/jsp/mlink/medialink_08.jsp
 
 
@@ -45,7 +48,7 @@ infoC
 - 언어별 번역 버튼 추가?
 - 중요도에 따라 제목 크기 변경?
 
-favorite 버튼 => 중요도에 반영 => 내 기사 보기 => 유사 기사 보기
+
 
 
 사용자별 기능 추가

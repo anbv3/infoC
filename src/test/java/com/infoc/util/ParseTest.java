@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.infoc.crawler.DaumNewsCrawler;
+import com.infoc.crawler.KR_DaumNewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.service.CollectionService;
 import com.infoc.service.ContentsAnalysisService;
@@ -100,7 +100,7 @@ public class ParseTest {
 
 	@Test
 	public void parseSentenceList() {
-		DaumNewsCrawler d = new DaumNewsCrawler();
+		KR_DaumNewsCrawler d = new KR_DaumNewsCrawler();
 		List<Article> list = d.createArticlList();
 		for (Article article : list) {
 			// create the main contents

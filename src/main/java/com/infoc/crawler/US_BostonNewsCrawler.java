@@ -31,7 +31,6 @@ public class US_BostonNewsCrawler implements NewsCrawler {
 	private static String TODAY = "http://feeds.boston.com/boston/topstories";
 	private static String POLITICS = "http://feeds.boston.com/boston/news/politics";
 	private static String ECON = "http://feeds.boston.com/boston/business";
-	private static String SOCIETY = "http://feeds.boston.com/boston/news/local";
 	private static String ENT = "http://feeds.boston.com/boston/ae";
 	private static String SPORT = "http://feeds.boston.com/boston/sports/news";
 	private static String IT = "http://feeds.boston.com/boston/business/technology";
@@ -49,7 +48,6 @@ public class US_BostonNewsCrawler implements NewsCrawler {
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(SOCIETY, ArticleSection.SOCIETY);
 		createListBySection(CULTURE_FOOD, ArticleSection.CULTURE);
 		createListBySection(CULTURE_BOOKS, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);

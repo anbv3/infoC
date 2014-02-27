@@ -26,9 +26,9 @@ public class CrawlScheduler {
 	
 	private static List<NewsCrawler> newsCrawlerList = new ArrayList<>();
 	static {
-		newsCrawlerList.add(new DaumNewsCrawler());
-		newsCrawlerList.add(new NaverNewsCrawler());
-		newsCrawlerList.add(new GoogleNewsCrawler());
+		newsCrawlerList.add(new KR_DaumNewsCrawler());
+		newsCrawlerList.add(new KR_NaverNewsCrawler());
+		newsCrawlerList.add(new KR_GoogleNewsCrawler());
 		newsCrawlerList.add(new KR_OtherNewsCrawler());
 		
 		newsCrawlerList.add(new US_NYTimesCrawler());

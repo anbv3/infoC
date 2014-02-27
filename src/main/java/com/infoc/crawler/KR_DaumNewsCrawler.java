@@ -25,8 +25,8 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEnclosure;
 import com.sun.syndication.feed.synd.SyndEntry;
 
-public class DaumNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(DaumNewsCrawler.class);
+public class KR_DaumNewsCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(KR_DaumNewsCrawler.class);
 
 	private static String TODAY = "http://media.daum.net/syndication/today_sisa.rss";
 	private static String POLITICS = "http://media.daum.net/syndication/politics.rss";

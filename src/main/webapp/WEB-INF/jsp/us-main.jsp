@@ -125,7 +125,6 @@ width: 244px;
 						<li id="main-menu"><a href="/us/main">TOP</a></li>
 						<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>
 						<li id="econ-menu"><a href="/us/econ">BUSINESS</a></li>
-						<li id="society-menu"><a href="/us/society">LOCAL</a></li>
 						<li id="culture-menu"><a href="/us/culture">LIFE</a></li>
 						<li id="ent-menu"><a href="/us/ent">ENT</a></li>
 						<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>

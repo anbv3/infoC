@@ -72,6 +72,21 @@ width: 244px;
 			// active menu
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
+			
+			/*
+			// get more articles when scrolling down 
+			$(window).data('ajaxready', true).scroll(function() {
+				if ($(window).data('ajaxready') == false) {
+					return;
+				}
+				if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+					$(window).data('ajaxready', false);
+					
+					//control.getPackageByOsTypeAndStageWithPage();
+					
+				}
+			});
+			*/
 		});
 		// The rest of code goes here!
 

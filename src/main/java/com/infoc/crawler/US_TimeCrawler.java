@@ -31,7 +31,6 @@ public class US_TimeCrawler implements NewsCrawler {
 	private static String TODAY = "http://feeds2.feedburner.com/time/topstories";
 	private static String POLITICS = "http://feeds.feedburner.com/timeblogs/swampland";
 	private static String ECON = "http://feeds2.feedburner.com/time/business";
-	private static String SOCIETY = "http://feeds2.feedburner.com/time/nation";
 	private static String CULTURE = "http://feeds.feedburner.com/time/healthland";
 	private static String ENT = "http://feeds2.feedburner.com/time/entertainment";
 	private static String IT = "http://feeds.feedburner.com/timeblogs/nerd_world";
@@ -45,7 +44,6 @@ public class US_TimeCrawler implements NewsCrawler {
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(SOCIETY, ArticleSection.SOCIETY);
 		createListBySection(CULTURE, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);
 		createListBySection(IT, ArticleSection.IT);

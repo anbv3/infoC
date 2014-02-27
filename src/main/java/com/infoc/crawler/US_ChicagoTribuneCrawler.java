@@ -31,7 +31,6 @@ public class US_ChicagoTribuneCrawler implements NewsCrawler {
 	private static String TODAY = "http://chicagotribune.feedsportal.com/c/34253/f/622809/index.rss";
 	private static String POLITICS = "http://chicagotribune.feedsportal.com/c/34253/f/669325/index.rss";
 	private static String ECON = "http://chicagotribune.feedsportal.com/c/34253/f/669329/index.rss";
-	private static String SOCIETY = "http://chicagotribune.feedsportal.com/c/34253/f/669324/index.rss";
 	private static String CULTURE = "http://chicagotribune.feedsportal.com/c/34253/f/669314/index.rss";
 	private static String ENT = "http://chicagotribune.feedsportal.com/c/34253/f/669302/index.rss";
 	private static String SPORT = "http://chicagotribune.feedsportal.com/c/34253/f/622872/index.rss";
@@ -46,7 +45,6 @@ public class US_ChicagoTribuneCrawler implements NewsCrawler {
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(SOCIETY, ArticleSection.SOCIETY);
 		createListBySection(CULTURE, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);
 		createListBySection(SPORT, ArticleSection.SPORT);
