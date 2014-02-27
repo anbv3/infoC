@@ -33,7 +33,7 @@ public class CrawlScheduler {
 		
 		newsCrawlerList.add(new US_NYTimesCrawler());
 		newsCrawlerList.add(new US_ChicagoTribuneCrawler());
-		newsCrawlerList.add(new US_BostonNewsCrawler());
+		//newsCrawlerList.add(new US_BostonNewsCrawler());
 		newsCrawlerList.add(new US_TimeCrawler());
 		newsCrawlerList.add(new US_LATimesCrawler());
 	}
