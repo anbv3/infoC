@@ -60,10 +60,18 @@ public class CollectionService {
 		
 		int currentHour = DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay();
 		for (int i = currentHour; i > 0; i--) {
+			if (map.get(i).isEmpty()) {
+				continue;
+			}
+			
 			currMap.put(i, map.get(i));
 		}
 
 		for (int i = 23; i > currentHour; i--) {
+			if (map.get(i).isEmpty()) {
+				continue;
+			}
+			
 			currMap.put(i, map.get(i));
 		}
 		

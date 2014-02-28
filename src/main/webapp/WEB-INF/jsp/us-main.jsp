@@ -154,8 +154,6 @@ width: 244px;
 
 <c:forEach var="entry" items="${articleMap}" varStatus="loop">
 
-	<c:if test="${not empty entry.value}">
-	
 	<c:choose>
  		<c:when test="${rowColor == 'one'}"><c:set var="rowColor" value="two"/></c:when>
  		<c:otherwise><c:set var="rowColor" value="one"/></c:otherwise>
@@ -234,8 +232,6 @@ width: 244px;
 		<!-- // article section -->
 	</div>
 	
-	</c:if>
-    
     <script type="text/javascript">
 	    $('#story-${entry.key}').each(function() {
 			var $container = $(this);

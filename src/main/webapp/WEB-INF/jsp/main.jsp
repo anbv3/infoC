@@ -56,6 +56,8 @@ width: 244px;
 </style>
 
 <script type="text/javascript">
+
+
 	(function(yourcode) {
 		yourcode(window.jQuery, window, document);
 	}(function($, window, document) {
@@ -73,7 +75,34 @@ width: 244px;
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 			
+			
 			/*
+			
+			var hour = 1;
+
+			getArticlesByPage = function() {
+				
+				var reqURL = "<c:url value="/kr/"/>" + "/" + "${menu}";
+				
+				reqURL = reqURL.concat("/hour/").concat(hour);
+
+				$.ajax({
+					type : "GET",
+					url : reqURL
+				}).done(function(response) {
+					
+					if(response.trim() != "") {
+						$('#pkg-list').children().last().after(response);
+						pageNum++;
+					} 
+					
+					$(window).data('ajaxready', true);
+				}).error(function(response) {
+					alert( "[ERROR] " + response.status + " : "+ response.statusText );
+				});
+			};
+			
+			
 			// get more articles when scrolling down 
 			$(window).data('ajaxready', true).scroll(function() {
 				if ($(window).data('ajaxready') == false) {
@@ -189,7 +218,6 @@ width: 244px;
 <c:set var="rowColor" value="two"/>
 
 <c:forEach var="entry" items="${articleMap}" varStatus="loop">
-<c:if test="${not empty entry.value}">
 
 	<c:choose>
  		<c:when test="${rowColor == 'one'}"><c:set var="rowColor" value="two"/></c:when>
@@ -269,8 +297,6 @@ width: 244px;
 		<!-- // article section -->
 	</div>
 	
-</c:if>
-
     <script type="text/javascript">
 	    $('#story-${entry.key}').each(function() {
 			var $container = $(this);
