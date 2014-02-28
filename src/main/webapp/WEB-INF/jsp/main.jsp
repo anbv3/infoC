@@ -106,7 +106,7 @@ width: 244px;
 					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">뉴스야!</a>
+				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">스킴 페이퍼!</a>
 			</div>
 
 			<div class="navbar-inverse side-collapse in">
