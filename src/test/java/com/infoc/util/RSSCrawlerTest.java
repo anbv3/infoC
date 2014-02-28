@@ -63,13 +63,13 @@ private static final Logger LOG = LoggerFactory.getLogger(RSSCrawlerTest.class);
 	
 	@Test
 	public void testLATimes() {
-		String url = "http://www.latimes.com/world/worldnow/la-fg-wn-lebanon-suicide-bombings-20140219,0,3839057.story#axzz2tllPQVOt";
+		String url = "http://slownews.kr/20194?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+slownews+%28%EC%8A%AC%EB%A1%9C%EC%9A%B0%EB%89%B4%EC%8A%A4%29";
 
 		Document doc;
 		try {
 			
-			doc = Jsoup.connect(url).timeout(6000).get();
-			Elements contentsArea = doc.select("#story-body-text");
+			doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0").timeout(6000).get();
+			Elements contentsArea = doc.select("#article_content");
 			LOG.debug("{}", contentsArea.text());
 			
 			String img = doc.select(".thumbnail").select("img").attr("src");
