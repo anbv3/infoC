@@ -17,78 +17,69 @@ public class KRNewsController extends BaseController {
 
 	private void getCommonInfo(Model model) {
 		model.addAttribute("econ", CollectionService.ECON_INFO);
-		model.addAttribute("currentHour", DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
 		model.addAttribute("currentDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
 	}
 
 	@RequestMapping(value = {"/", "/main"})
 	public String getMain(Model model) throws Exception {
 		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.TODAY_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.TODAY_CACHE));
 		model.addAttribute("menu","main");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/politics")
 	public String getPolitics(Model model) throws Exception {
-		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.POLITICS_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.POLITICS_CACHE));
 		model.addAttribute("menu","politics");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/econ")
 	public String getEcon(Model model) throws Exception {
-		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.ECON_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.ECON_CACHE));
 		model.addAttribute("menu","econ");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/society")
 	public String getSociety(Model model) throws Exception {
-		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.SOCIETY_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.SOCIETY_CACHE));
 		model.addAttribute("menu","society");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/culture")
 	public String getCulture(Model model) throws Exception {
-		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.CULTURE_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.CULTURE_CACHE));
 		model.addAttribute("menu","culture");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/ent")
 	public String getEnt(Model model) throws Exception {
-		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.ENT_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.ENT_CACHE));
 		model.addAttribute("menu","ent");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/sport")
 	public String getSport(Model model) throws Exception {
-		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.SPORT_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.SPORT_CACHE));
 		model.addAttribute("menu","sport");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/it")
 	public String getIt(Model model) throws Exception {
-		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.IT_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.IT_CACHE));
 		model.addAttribute("menu","it");
 		return "/main";
 	}
 	
 	@RequestMapping(value = "/others")
 	public String getUserNews(Model model) throws Exception {
-		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.OTHERS_CACHE);
+		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.OTHERS_CACHE));
 		model.addAttribute("menu","others");
 		return "/main";
 	}

@@ -3,6 +3,7 @@ package com.infoc.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -24,6 +25,7 @@ public class CollectionService {
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
 	public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
+	
 	public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> POLITICS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> ECON_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
@@ -50,6 +52,22 @@ public class CollectionService {
 				cache.put(i, new ArrayList<Article>());
 			}
 		}
+	}
+	
+	public static Map<Integer, List<Article>> startByCurrentTime(Map<Integer, List<Article>> map) {
+		
+		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
+		
+		int currentHour = DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay();
+		for (int i = currentHour; i > 0; i--) {
+			currMap.put(i, map.get(i));
+		}
+
+		for (int i = 23; i > currentHour; i--) {
+			currMap.put(i, map.get(i));
+		}
+		
+		return currMap;
 	}
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
