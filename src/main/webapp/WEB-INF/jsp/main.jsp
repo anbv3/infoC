@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
 
-<title>스킴 페이퍼</title>
+<title>Skim paper</title>
 
 <jsp:include page="./common/resources.jsp" />
 
@@ -122,6 +122,11 @@ width: 244px;
 	}));
 </script>
 
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
 
 
@@ -135,7 +140,7 @@ width: 244px;
 					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">스킴 페이퍼!</a>
+				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">SkimPaper</a>
 			</div>
 
 			<div class="navbar-inverse side-collapse in">
@@ -150,7 +155,8 @@ width: 244px;
 						<li id="sport-menu"><a href="/sport">스포츠</a></li>
 						<li id="it-menu"><a href="/it">IT</a></li>
 						<li id="others-menu"><a href="/others">기타</a></li>
-						<li id="us-menu"><a style="color:#FF823A" href="/us/main">미국</a></li>
+						<li id="us-menu"><a href="/us/main">미국</a></li>
+						<li id="us-menu"><a style="color:#6db4d0" href="/login">로그인</a></li>
 					</ul>
 				</nav>
 			</div>

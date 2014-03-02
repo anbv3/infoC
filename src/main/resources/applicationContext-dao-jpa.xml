@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
     ">
 
 
-    <!-- Entity Manager -->
-    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan">
-            <list>
-                <value>com.infoc.domain</value>
-            </list>
-        </property>
+	<!-- Entity Manager -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.infoc.domain</value>
+			</list>
+		</property>
 
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="true"/>
-                <property name="generateDdl" value="true"/>
-                <property name="database" value="MYSQL"/>
-                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-            </bean>
-        </property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="false" />
+				<property name="generateDdl" value="true" />
+				<property name="database" value="HSQL" />
+				<property name="databasePlatform" value="org.hibernate.dialect.H2Dialect" />
+			</bean>
+		</property>
 
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.cache.use_second_level_cache">false</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop> <!-- validate | update | create | create-drop -->
-            </props>
-        </property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop> <!-- validate | update | create | create-drop -->
+			</props>
+		</property>
 
-    </bean>
+	</bean>
 
-    <!-- Transaction Manager - also used in applicationContext-dao-mybatis.xml -->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
+	<!-- Transaction Manager - also used in applicationContext-dao-mybatis.xml -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
 
-    <!-- Annotation 을 사용한 트랜잭션 사용시 활성화 -->
-    <tx:annotation-driven></tx:annotation-driven>
+	<!-- Annotation 을 사용한 트랜잭션 사용시 활성화 -->
+	<tx:annotation-driven></tx:annotation-driven>
 
-    <!-- Jpa Repositories -->
-    <jpa:repositories base-package="com.infoc.repository"></jpa:repositories>
+	<!-- Jpa Repositories -->
+	<jpa:repositories base-package="com.infoc.repository"></jpa:repositories>
 
 
 </beans>
