@@ -83,6 +83,7 @@ public class CrawlScheduler {
 		scheduledExecutorService.scheduleAtFixedRate(new CrawlClearTask(), 30, 30, TimeUnit.MINUTES);
 	}
 	
+	
 	@PreDestroy
 	public static void cleanShcedule() {
 		scheduledExecutorService.shutdownNow();
