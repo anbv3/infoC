@@ -127,7 +127,6 @@ body {
 						<li id="it-menu"><a href="/it">IT</a></li>
 						<li id="others-menu"><a href="/others">기타</a></li>
 						<li id="us-menu"><a href="/us/main">미국</a></li>
-						<li id="us-menu"><a style="color:#6db4d0" href="/login">로그인</a></li>
 					</ul>
 				</nav>
 			</div>

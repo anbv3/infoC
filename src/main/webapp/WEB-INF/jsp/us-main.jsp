@@ -135,8 +135,8 @@ width: 244px;
 						<li id="ent-menu"><a href="/us/ent">ENT</a></li>
 						<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>
 						<li id="it-menu"><a href="/us/it">TECH</a></li>
-						<li id="us-menu"><a href="/kr/main">Korea</a></li>
-						<li id="us-menu"><a style="color:#6db4d0" href="/login">LogIn</a></li>
+						<li id="us-menu"><a style="color:#6db4d0" href="/kr/main">Korea</a></li>
+						<li id="us-menu"><a style="color:#ffde66" href="/login">Log In</a></li>
 					</ul>
 				</nav>
 			</div>
