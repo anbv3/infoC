@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
 
-<title>스킴 페이퍼</title>
+<title>Skim Paper!</title>
 
 <jsp:include page="./common/resources.jsp" />
 
@@ -111,7 +111,7 @@ body {
 					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">스킴 페이퍼!</a>
+				<a class="navbar-brand" href="/main" style="color:#fff;font-weight: bold;">Skim Paper!</a>
 			</div>
 
 			<div class="navbar-inverse side-collapse in">
@@ -126,7 +126,8 @@ body {
 						<li id="sport-menu"><a href="/sport">스포츠</a></li>
 						<li id="it-menu"><a href="/it">IT</a></li>
 						<li id="others-menu"><a href="/others">기타</a></li>
-						<li id="us-menu"><a style="color:#FF823A" href="/us/main">미국</a></li>
+						<li id="us-menu"><a href="/us/main">미국</a></li>
+						<li id="us-menu"><a style="color:#6db4d0" href="/login">로그인</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -143,13 +144,13 @@ body {
       <form class="form-signin" role="form">
         <h2 class="form-signin-heading">로그인하세요.</h2>
         <input type="email" class="form-control" placeholder="Email address" required="" autofocus="">
-        <input type="password" class="form-control" placeholder="Password" required="">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        
+        <!--  <input type="password" class="form-control" placeholder="Password" required="">  -->
         <br>
-        <span>처음 입력된 아이디와 비밀번호라면 자동으로 회원가입이 됩니다.</span>
-        <span>이후 같은 아이디와 비밀번호로 로그인하세요.</span>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
         <br>
-        <span>아직 비밀번호 변경/찾기는 제공하지 않습니다.</span>
+        <span>처음 입력한 아이디면 자동으로 회원가입이 됩니다.</span>
+        <span>이후 같은 아이디로 로그인하세요.</span>
         
       </form>
 

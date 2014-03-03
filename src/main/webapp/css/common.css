@@ -194,6 +194,10 @@ pre {
 	background-color: rgb(57, 180, 73);
 }
 
+.icon-disabled {
+	color: #d9d3cc;
+}
+
 .day-section {
 	text-align: center;
 	color: #000;
@@ -239,8 +243,12 @@ pre {
 	padding: 0;
 }
 
-.panel-title-sArt {
-	float: right;
+.panel-title {
+	text-align: center;
+}
+
+.panel-title .glyphicon {
+	font-size: 20px;
 }
 
 #footer {

@@ -75,7 +75,12 @@ width: 244px;
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 			
-			
+			$('.js-add-article').on('click', function(e) {
+				e.preventDefault();
+				
+				alert("준비중");
+				
+			});
 			/*
 			
 			var hour = 1;
@@ -257,22 +262,29 @@ width: 244px;
 					<div class="panel-group panel-group-sArt">
 					  <div class="panel panel-default panel-sArt" >
 					   
-					    <div class="panel-heading panel-heading-sArt">
-					      <c:if test="${not empty row.simularList}">
-					      <h4 class="panel-title panel-title-sArt panel-${entry.key}">
-					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
-					          관련기사
-					        </a>
-					      </h4>
-					      </c:if>
-					      
-					      <h4 class="panel-title panel-${entry.key}">
+					    <div class="panel-heading panel-heading-sArt row">
+					    
+					      <h4 class="panel-title panel-${entry.key} col-xs-4">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}">
-					          번역
+					          <span class="glyphicon glyphicon-transfer"></span>
 					        </a>
 					      </h4>
+					      
+					      <h4 class="panel-title col-xs-4">
+					      	<a class="js-add-article" href="#">
+					          <span class="glyphicon glyphicon-plus <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
+					        </a>
+					      </h4>
+					      
+					      <h4 class="panel-title panel-${entry.key} col-xs-4">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					         <span class="glyphicon glyphicon-list <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
+					        </a>
+					      </h4>
+					      
 					    </div>
 					    
+					   
 					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">
 					      	<c:forEach var="sArticle" items="${row.simularList}">
@@ -282,6 +294,7 @@ width: 244px;
 					      	</c:forEach>
 					      </div>
 					    </div>
+					     
 					    
 					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">

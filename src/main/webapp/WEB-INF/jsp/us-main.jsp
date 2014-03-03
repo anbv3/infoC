@@ -135,7 +135,8 @@ width: 244px;
 						<li id="ent-menu"><a href="/us/ent">ENT</a></li>
 						<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>
 						<li id="it-menu"><a href="/us/it">TECH</a></li>
-						<li id="us-menu"><a style="color:#FF823A" href="/kr/main">Korea</a></li>
+						<li id="us-menu"><a href="/kr/main">Korea</a></li>
+						<li id="us-menu"><a style="color:#6db4d0" href="/login">LogIn</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -192,22 +193,29 @@ width: 244px;
 					<div class="panel-group panel-group-sArt">
 					  <div class="panel panel-default panel-sArt" >
 					   
-					    <div class="panel-heading panel-heading-sArt">
-					      <c:if test="${not empty row.simularList}">
-					      <h4 class="panel-title panel-title-sArt panel-${entry.key}">
-					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
-					          Related
-					        </a>
-					      </h4>
-					      </c:if>
-					      
-					      <h4 class="panel-title panel-${entry.key}">
+					    <div class="panel-heading panel-heading-sArt row">
+					    
+					      <h4 class="panel-title panel-${entry.key} col-xs-4">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}">
-					          Translate
+					          <span class="glyphicon glyphicon-transfer"></span>
 					        </a>
 					      </h4>
+					      
+					      <h4 class="panel-title col-xs-4">
+					      	<a class="js-add-article" href="#">
+					          <span class="glyphicon glyphicon-plus <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
+					        </a>
+					      </h4>
+					      
+					      <h4 class="panel-title panel-${entry.key} col-xs-4">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					         <span class="glyphicon glyphicon-list <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
+					        </a>
+					      </h4>
+					      
 					    </div>
 					    
+					   
 					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">
 					      	<c:forEach var="sArticle" items="${row.simularList}">
@@ -217,6 +225,7 @@ width: 244px;
 					      	</c:forEach>
 					      </div>
 					    </div>
+					     
 					    
 					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
 					      <div class="panel-body panel-body-sArt">
