@@ -272,7 +272,7 @@ width: 244px;
 					      
 					      <h4 class="panel-title col-xs-4">
 					      	<a class="js-add-article" href="#">
-					          <span class="glyphicon glyphicon-plus <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
+					          <span class="glyphicon glyphicon-plus icon-disabled"></span>
 					        </a>
 					      </h4>
 					      
