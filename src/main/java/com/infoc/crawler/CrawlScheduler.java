@@ -78,9 +78,9 @@ public class CrawlScheduler {
 
 	@PostConstruct
 	public static void runShcedule() {
-//		scheduledExecutorService.scheduleAtFixedRate(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-//		scheduledExecutorService.scheduleAtFixedRate(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
-//		scheduledExecutorService.scheduleAtFixedRate(new CrawlClearTask(), 30, 30, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleAtFixedRate(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleAtFixedRate(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleAtFixedRate(new CrawlClearTask(), 30, 30, TimeUnit.MINUTES);
 	}
 	
 	@PreDestroy
