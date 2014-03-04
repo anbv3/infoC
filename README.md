@@ -8,9 +8,12 @@ infoC
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
 * 성능 개선 - 2-3시간 단위로 기사 가져오기 - 스크롤하면 추가로 가져오기..ㅋㅋ
+
   1. jsp는 간단히 처리할 수 있도록 controller단에서 처리
     
-* 회원 가입 추가 => favorite 버튼 => 중요도에 반영 => 내 기사 보기 => 유사 기사 보기 
+* 회원 가입 추가 => favorite 버튼 => 중요도에 반영 => 내 기사 보기 => 유사 기사 보기
+
+  1. 로그인 폼 암호화: http://www.jcryption.org  
 
 * 버지 기사 추가: http://www.theverge.com/rss/index.xml 
 

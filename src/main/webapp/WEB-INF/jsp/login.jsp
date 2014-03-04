@@ -117,15 +117,7 @@ body {
 			<div class="navbar-inverse side-collapse in">
 				<nav role="navigation" class="navbar-collapse">
 					<ul id="top-menu" class="nav navbar-nav">
-						<li id="main-menu"><a href="/main">주요</a></li>
-						<li id="politics-menu"><a href="/politics">정치</a></li>
-						<li id="econ-menu"><a href="/econ">경제</a></li>
-						<li id="society-menu"><a href="/society">사회</a></li>
-						<li id="culture-menu"><a href="/culture">문화/생활</a></li>
-						<li id="ent-menu"><a href="/ent">연예</a></li>
-						<li id="sport-menu"><a href="/sport">스포츠</a></li>
-						<li id="it-menu"><a href="/it">IT</a></li>
-						<li id="others-menu"><a href="/others">기타</a></li>
+						<li id="us-menu"><a href="/kr/main">한국</a></li>
 						<li id="us-menu"><a href="/us/main">미국</a></li>
 					</ul>
 				</nav>
@@ -146,9 +138,11 @@ body {
         
         <!--  <input type="password" class="form-control" placeholder="Password" required="">  -->
         <br>
+        
         <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+        
         <br>
-        <span>처음 입력한 아이디면 자동으로 회원가입이 됩니다.</span>
+        <span>처음 아이디를 입력하면 자동으로 회원가입이 완료됩니다.</span>
         <span>이후 같은 아이디로 로그인하세요.</span>
         
       </form>
@@ -159,7 +153,7 @@ body {
 	<div id="footer" class="row navbar-fixed-bottom">
       	<div class="container">
 	      	<div class="col-md-6">
-	      		<span>Copyright © 2013–2014, NewsYaa, Inc. All Rights Reserved.</span>
+	      		<span>Copyright © 2013–2014, SkimPaper, Inc. All Rights Reserved.</span>
 	      	</div>
 	      	<div class="col-md-6">
 	      		<span>Crafted with love <strong>Jinppang S.</strong>  &nbsp; | &nbsp; Contact: anbv333@gmail.com</span>
@@ -167,6 +161,7 @@ body {
         
         </div>
     </div>
+	
 </body>
 
 </html>
