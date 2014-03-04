@@ -27,15 +27,15 @@ public class CrawlScheduler {
 	private static List<NewsCrawler> newsCrawlerList = new ArrayList<>();
 	static {
 		newsCrawlerList.add(new KR_DaumNewsCrawler());
-		newsCrawlerList.add(new KR_NaverNewsCrawler());
-		newsCrawlerList.add(new KR_GoogleNewsCrawler());
-		newsCrawlerList.add(new KR_OtherNewsCrawler());
-		
-		newsCrawlerList.add(new US_NYTimesCrawler());
-		newsCrawlerList.add(new US_ChicagoTribuneCrawler());
-		//newsCrawlerList.add(new US_BostonNewsCrawler());
-		newsCrawlerList.add(new US_TimeCrawler());
-		newsCrawlerList.add(new US_LATimesCrawler());
+//		newsCrawlerList.add(new KR_NaverNewsCrawler());
+//		newsCrawlerList.add(new KR_GoogleNewsCrawler());
+//		newsCrawlerList.add(new KR_OtherNewsCrawler());
+//		
+//		newsCrawlerList.add(new US_NYTimesCrawler());
+//		newsCrawlerList.add(new US_ChicagoTribuneCrawler());
+//		//newsCrawlerList.add(new US_BostonNewsCrawler());
+//		newsCrawlerList.add(new US_TimeCrawler());
+//		newsCrawlerList.add(new US_LATimesCrawler());
 	}
 
 	private static class CrawlTask implements Runnable {

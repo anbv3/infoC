@@ -17,7 +17,7 @@ infoC
 
 * 버지 기사 추가: http://www.theverge.com/rss/index.xml 
 
-* 구글 analysis 추가
+* 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
 
 * 뉴스 섹션별 주요 내용 필요 - 메인 => 주식, 날씨, 경제 => 결제 지표, 사회 => 날씨, 기타..
 기사 분류별 대쉬영역

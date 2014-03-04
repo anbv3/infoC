@@ -4,19 +4,33 @@ import javax.persistence.Entity;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import com.google.common.base.Objects;
+
 @Entity
 public class User extends AbstractPersistable<Long> {
 	private static final long serialVersionUID = -4548247329625710336L;
 	
-	private String name;
+	private String email;
+	
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public void setId(Long id) {
 		super.setId(id);
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("id", super.getId())
+			.add("email", this.email)
+			.toString();
 	}
 }

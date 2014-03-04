@@ -39,19 +39,19 @@
 					    
 					      <h4 class="panel-title panel-${entry.key} col-xs-4">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}">
-					          <span class="glyphicon glyphicon-transfer"></span>
+					          <span title="Translate this!" class="glyphicon glyphicon-transfer"></span>
 					        </a>
 					      </h4>
 					      
 					      <h4 class="panel-title col-xs-4">
 					      	<a class="js-add-article" href="#">
-					          <span class="glyphicon glyphicon-plus icon-disabled"></span>
+					          <span title="See later~" class="glyphicon glyphicon-plus icon-disabled"></span>
 					        </a>
 					      </h4>
 					      
 					      <h4 class="panel-title panel-${entry.key} col-xs-4">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
-					         <span class="glyphicon glyphicon-list <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
+					         <span title="Related articles." class="glyphicon glyphicon-list <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
 					        </a>
 					      </h4>
 					      

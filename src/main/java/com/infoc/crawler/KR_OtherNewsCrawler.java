@@ -32,6 +32,7 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 	private static String NEWSPEPPER = "http://newspeppermint.com/feed";
 	private static String CLIEN_NEWS = "http://feeds.feedburner.com/Clien--news";
 	private static String SLOW_NEWS = "http://feeds.feedburner.com/slownews";
+	private static String PPSS = "http://feeds.feedburner.com/ppss";
 
 	private List<Article> articleList = new ArrayList<>();
 
@@ -44,6 +45,7 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 		createListBySection(NEWSPEPPER, ArticleSection.OTHERS);
 		createListBySection(CLIEN_NEWS, ArticleSection.OTHERS);
 		createListBySection(SLOW_NEWS, ArticleSection.OTHERS);
+		createListBySection(PPSS, ArticleSection.OTHERS);
 
 		return this.articleList;
 	}
@@ -51,26 +53,26 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 	private void createListBySection(String rssUrl, ArticleSection section) {
 		for (SyndEntry item : RSSCrawler.getArticleList(rssUrl)) {
 			Article article = parseRSSItem(item, section);
-			
+
 			if (article == null) {
 				continue;
 			}
-			
+
 			if (Strings.isNullOrEmpty(article.getContents())) {
 				continue;
 			}
-			
+
 			if (article.getContents().length() < 100) {
 				continue;
 			}
-			
+
 			if (article.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
 				return;
 			}
-			
+
 			// create the main contents
 			ContentsAnalysisService.createMainSentence(article);
-			
+
 			// add to the store
 			CollectionService.add(article);
 		}
@@ -94,39 +96,53 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
-		
+
 		Document doc;
 		try {
 			doc = Jsoup.connect(rssLink)
-					.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-					.timeout(6000)
-					.get();
+				.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+				.timeout(6000)
+				.get();
 		} catch (IOException e) {
 			LOG.error(rssLink + "\n", e);
 			return;
 		}
-		
-		
+
 		Elements contentsArea;
 		if (rssLink.contains("newspeppermint")) {
+
 			contentsArea = doc.select(".entry");
+
 		} else if (rssLink.contains("clien")) {
+
 			contentsArea = doc.select("#writeContents");
+
 		} else if (rssLink.contains("slownews")) {
 			contentsArea = doc.select("#article_content");
-			
-			// extract the img link //////////////////////////////////
+
+			// extract the img link
 			article.setImg(contentsArea.select("img").attr("src"));
 		} else if (rssLink.contains("newstapa")) {
 			contentsArea = doc.select(".entry-content");
-			
-			// extract the img link //////////////////////////////////
+
+			// extract the img link
 			article.setImg(contentsArea.select("img").attr("src"));
+		} else if (rssLink.contains("ppss")) {
+			contentsArea = doc.select(".tha-content");
+
+			// extract the img link
+			article.setImg(contentsArea.select("img").attr("src"));
+
+		} else if (rssLink.contains("likelink")) {
+
+			article.setContents(rssItem.getDescription().getValue());
+			return;
+			
 		} else {
 			return;
 		}
-		
+
 		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(contentsArea.text()));
 	}
-	
+
 }

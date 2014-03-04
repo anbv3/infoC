@@ -25,7 +25,7 @@ public class CollectionService {
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
 	public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
-	
+
 	public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> POLITICS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> ECON_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
@@ -54,16 +54,40 @@ public class CollectionService {
 		}
 	}
 	
-	public static Map<Integer, List<Article>> startByCurrentTime(Map<Integer, List<Article>> map) {
-		
+	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
+		return getArticlesByCurrentTime(map, 0);
+	}
+
+	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page) {
+
+		Map<Integer, List<Article>> articleMap = sortByCurrentTime(map);
+
+		int idx = 0;
+		int limit = 3;
+		int range = page * limit;
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
+		LOG.debug("map size: {}, range: {}", articleMap.size(), range);
 		
+		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
+			if (idx >= range && idx <= range + 2) {
+				currMap.put(eachTime.getKey(), eachTime.getValue());
+			}
+			idx++;
+		}
+
+		return currMap;
+	}
+
+	public static Map<Integer, List<Article>> sortByCurrentTime(Map<Integer, List<Article>> map) {
+
+		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
+
 		int currentHour = DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay();
 		for (int i = currentHour; i > 0; i--) {
 			if (map.get(i).isEmpty()) {
 				continue;
 			}
-			
+
 			currMap.put(i, map.get(i));
 		}
 
@@ -71,19 +95,19 @@ public class CollectionService {
 			if (map.get(i).isEmpty()) {
 				continue;
 			}
-			
+
 			currMap.put(i, map.get(i));
 		}
-		
+
 		return currMap;
 	}
 
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
-		
-		if(curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
+
+		if (curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
 			return true;
 		}
-		
+
 		Set<String> curKeyWordList = curArticle.getKeyWordList();
 		Set<String> newKeyWordList = newArticle.getKeyWordList();
 
@@ -116,13 +140,13 @@ public class CollectionService {
 			// update the keyword list
 			curKeyWordList.remove(clearWordList);
 			curKeyWordList.addAll(dupWordList);
-			
+
 			curArticle.addNewSimilarList(newArticle);
 			curArticle.setNumDups(curArticle.getSimularList().size());
-			
+
 			// LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
 			return true;
-		} 
+		}
 
 		return false;
 	}
@@ -136,35 +160,35 @@ public class CollectionService {
 		// get cache for each type
 		Map<Integer, List<Article>> cacheLocation = null;
 		switch (newArticle.getSection()) {
-		case TODAY:
-			cacheLocation = TODAY_CACHE;
-			break;
-		case POLITICS:
-			cacheLocation = POLITICS_CACHE;
-			break;
-		case ECON:
-			cacheLocation = ECON_CACHE;
-			break;
-		case SOCIETY:
-			cacheLocation = SOCIETY_CACHE;
-			break;
-		case CULTURE:
-			cacheLocation = CULTURE_CACHE;
-			break;
-		case ENT:
-			cacheLocation = ENT_CACHE;
-			break;
-		case SPORT:
-			cacheLocation = SPORT_CACHE;
-			break;
-		case IT:
-			cacheLocation = IT_CACHE;
-			break;
-		case OTHERS:
-			cacheLocation = OTHERS_CACHE;
-			break;
-		default:
-			return;
+			case TODAY:
+				cacheLocation = TODAY_CACHE;
+				break;
+			case POLITICS:
+				cacheLocation = POLITICS_CACHE;
+				break;
+			case ECON:
+				cacheLocation = ECON_CACHE;
+				break;
+			case SOCIETY:
+				cacheLocation = SOCIETY_CACHE;
+				break;
+			case CULTURE:
+				cacheLocation = CULTURE_CACHE;
+				break;
+			case ENT:
+				cacheLocation = ENT_CACHE;
+				break;
+			case SPORT:
+				cacheLocation = SPORT_CACHE;
+				break;
+			case IT:
+				cacheLocation = IT_CACHE;
+				break;
+			case OTHERS:
+				cacheLocation = OTHERS_CACHE;
+				break;
+			default:
+				return;
 		}
 
 		addNew(newArticle, cacheLocation);
@@ -178,17 +202,17 @@ public class CollectionService {
 					// create the main contents again..?
 
 					return;
-				} 
+				}
 			}
 		}
 
 		// if it is the new one, then translate the main contents.
 		newArticle.translateMainContents();
-		
+
 		// get the hour of the time for the time section
 		int hour = newArticle.getPubDate().getHourOfDay();
 		cache.get(hour).add(newArticle);
-		
+
 		/*
 		 * TODO: remove the less important article rather than the first one
 		if (cache.get(hour).size() <= 8) {
@@ -207,12 +231,12 @@ public class CollectionService {
 				Iterator<Article> article = entry.getValue().iterator();
 				while (article.hasNext()) {
 					if (article
-							.next()
-							.getPubDate()
-							.isBefore(
-									DateTime.now(
-											DateTimeZone.forID("Asia/Seoul"))
-											.minusDays(1))) {
+						.next()
+						.getPubDate()
+						.isBefore(
+							DateTime.now(
+								DateTimeZone.forID("Asia/Seoul"))
+								.minusDays(1))) {
 						article.remove();
 					}
 				}

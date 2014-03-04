@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.infoc.service.CollectionService;
@@ -23,64 +24,74 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = {"/", "/main"})
 	public String getMain(Model model) throws Exception {
 		getCommonInfo(model);
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.TODAY_CACHE));
-		model.addAttribute("menu","main");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE));
+		model.addAttribute("menu", "main");
 		return "/main";
+	}
+
+	@RequestMapping(value = "/main/{page}")
+	public String getMainByPage(Model model, @PathVariable("page") int page) throws Exception {
+		LOG.debug("page: {}", page);
+		
+		getCommonInfo(model);
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE, page));
+		model.addAttribute("menu", "main");
+		return "/common/articles";
 	}
 
 	@RequestMapping(value = "/politics")
 	public String getPolitics(Model model) throws Exception {
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.POLITICS_CACHE));
-		model.addAttribute("menu","politics");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.POLITICS_CACHE));
+		model.addAttribute("menu", "politics");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/econ")
 	public String getEcon(Model model) throws Exception {
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.ECON_CACHE));
-		model.addAttribute("menu","econ");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.ECON_CACHE));
+		model.addAttribute("menu", "econ");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/society")
 	public String getSociety(Model model) throws Exception {
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.SOCIETY_CACHE));
-		model.addAttribute("menu","society");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.SOCIETY_CACHE));
+		model.addAttribute("menu", "society");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/culture")
 	public String getCulture(Model model) throws Exception {
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.CULTURE_CACHE));
-		model.addAttribute("menu","culture");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.CULTURE_CACHE));
+		model.addAttribute("menu", "culture");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/ent")
 	public String getEnt(Model model) throws Exception {
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.ENT_CACHE));
-		model.addAttribute("menu","ent");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.ENT_CACHE));
+		model.addAttribute("menu", "ent");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/sport")
 	public String getSport(Model model) throws Exception {
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.SPORT_CACHE));
-		model.addAttribute("menu","sport");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.SPORT_CACHE));
+		model.addAttribute("menu", "sport");
 		return "/main";
 	}
 
 	@RequestMapping(value = "/it")
 	public String getIt(Model model) throws Exception {
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.IT_CACHE));
-		model.addAttribute("menu","it");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.IT_CACHE));
+		model.addAttribute("menu", "it");
 		return "/main";
 	}
-	
+
 	@RequestMapping(value = "/others")
 	public String getUserNews(Model model) throws Exception {
-		model.addAttribute("articleMap", CollectionService.startByCurrentTime(CollectionService.OTHERS_CACHE));
-		model.addAttribute("menu","others");
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.OTHERS_CACHE));
+		model.addAttribute("menu", "others");
 		return "/main";
 	}
 }
