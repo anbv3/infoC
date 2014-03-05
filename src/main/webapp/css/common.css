@@ -13,15 +13,20 @@ body,table,input,textarea,select,button {
 	height: 4px;
 }
 
-.navbar .brand {
-	font-size: 25px;
-	font-family: 'Miller Headline Bold', 'Times New Roman', Times, Georgia, serif;
+.navbar-brand {
+  font-family: 'Averia Sans Libre', serif;
+  font-size: 18px;
+  text-shadow: 4px 4px 4px #aaa;
+}
+
+.nav>li>a {
+	padding: 15px 12px;
 }
 
 .navbar-inverse .nav>li>a {
 	font-size: 16px;
 	font-weight: bold;
-	font-family: NanumGothic, 'Miller Headline Bold', 'Times New Roman', Times, Georgia, serif;
+	font-family: 'Averia Sans Libre', 'Miller Headline Bold', 'Times New Roman', Times, Georgia, serif;
 }
 
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
@@ -260,6 +265,7 @@ pre {
 	text-overflow-mode: ellipsis; 
 	overflow:hidden;
 	margin:0;
+	font-family: 'Averia Sans Libre', serif;
 }
 
 .carousel-inner {

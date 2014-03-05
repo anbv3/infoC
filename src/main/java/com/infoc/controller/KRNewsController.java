@@ -47,6 +47,7 @@ public class KRNewsController extends BaseController {
 
 	@RequestMapping(value = "/politics/{page}")
 	public String getPolitics(Model model, @PathVariable("page") final int page) throws Exception {
+		LOG.debug("{}", page);
 		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.POLITICS_CACHE, page));
 		model.addAttribute("menu", "politics");
 		return "/common/articles";

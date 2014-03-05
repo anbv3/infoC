@@ -108,7 +108,10 @@
 				if ($(window).data('ajaxready') == false) {
 					return;
 				}
-				if ($(window).scrollTop() > ($(document).height() - $(window).height())* 0.9) {
+				
+				if ($(window).scrollTop() > ($(document).height() - $(window).height())* 0.8
+						&& $(window).scrollTop() < ($(document).height() - $(window).height())* 0.9) {
+					
 					$(window).data('ajaxready', false);
 					control.getArticlesByPage();
 				}
