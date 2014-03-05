@@ -15,13 +15,13 @@ body,table,input,textarea,select,button {
 
 .navbar .brand {
 	font-size: 25px;
-	font-family: Century Gothic, sans-serif;;
+	font-family: 'Miller Headline Bold', 'Times New Roman', Times, Georgia, serif;
 }
 
 .navbar-inverse .nav>li>a {
 	font-size: 16px;
 	font-weight: bold;
-	font-family: NanumGothic, "Times New Roman", Times, serif;
+	font-family: NanumGothic, 'Miller Headline Bold', 'Times New Roman', Times, Georgia, serif;
 }
 
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
@@ -45,7 +45,7 @@ pre {
 	tab-size: 8;
 }
 
-@media screen and (max-width: 722px) {
+@media screen and (max-width: 768px) {
 	.side-collapse-container {
 		width: 100%;
 		position: relative;

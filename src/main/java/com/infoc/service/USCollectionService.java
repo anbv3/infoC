@@ -21,6 +21,7 @@ import com.infoc.domain.Article;
 public class USCollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(USCollectionService.class);
 	private static final Integer MAX_DUP_NUM = 3;
+	private static final Integer PAGE_LIMIT = 4;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
@@ -51,16 +52,38 @@ public class USCollectionService {
 		}
 	}
 
-	public static Map<Integer, List<Article>> startByCurrentTime(Map<Integer, List<Article>> map) {
-		
+	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
+		return getArticlesByCurrentTime(map, 0);
+	}
+
+	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page) {
+		Map<Integer, List<Article>> articleMap = sortByCurrentTime(map);
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 		
+		int idx = 0;
+		int range = page * PAGE_LIMIT;
+		//LOG.debug("{}, {}, {} ~ {}", articleMap.size(), page, range, range + PAGE_LIMIT);
+		
+		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
+			if (idx >= range && idx < range + PAGE_LIMIT) {
+				currMap.put(eachTime.getKey(), eachTime.getValue());
+			}
+			idx++;
+		}
+
+		return currMap;
+	}
+
+	public static Map<Integer, List<Article>> sortByCurrentTime(Map<Integer, List<Article>> map) {
+
+		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
+
 		int currentHour = DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay();
 		for (int i = currentHour; i > 0; i--) {
 			if (map.get(i).isEmpty()) {
 				continue;
 			}
-			
+
 			currMap.put(i, map.get(i));
 		}
 
@@ -68,13 +91,13 @@ public class USCollectionService {
 			if (map.get(i).isEmpty()) {
 				continue;
 			}
-			
+
 			currMap.put(i, map.get(i));
 		}
-		
+
 		return currMap;
 	}
-
+	
 	public static boolean isDuplicate(Article curArticle, Article newArticle) {
 		
 		if(curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {

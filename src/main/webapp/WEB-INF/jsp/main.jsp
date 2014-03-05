@@ -14,7 +14,7 @@
 
 <jsp:include page="./common/resources.jsp" />
 
-<style type="text/css" media="only screen and (max-width : 721px)">
+<style type="text/css" media="only screen and (max-width : 768px)">
 .titem {
 	width: 100%;
 	font-size: 12px;
@@ -32,7 +32,7 @@
 }
 </style>
 
-<style type="text/css" media="only screen and (min-width : 722px) and (max-width: 1100px)">
+<style type="text/css" media="only screen and (min-width : 769px) and (max-width: 1100px)">
 .titem {
 	font-size: 12px;
 	width: 180px;
@@ -57,7 +57,7 @@
 </style>
 
 <script type="text/javascript">
-	var page = 1;
+	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 
 	var control = {
 		getArticlesByPage : function() {
@@ -108,9 +108,8 @@
 				if ($(window).data('ajaxready') == false) {
 					return;
 				}
-				if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+				if ($(window).scrollTop() > ($(document).height() - $(window).height())* 0.9) {
 					$(window).data('ajaxready', false);
-	
 					control.getArticlesByPage();
 				}
 			});
@@ -148,7 +147,7 @@
 						<li id="politics-menu"><a href="/politics">정치</a></li>
 						<li id="econ-menu"><a href="/econ">경제</a></li>
 						<li id="society-menu"><a href="/society">사회</a></li>
-						<li id="culture-menu"><a href="/culture">문화/생활</a></li>
+						<li id="culture-menu"><a href="/culture">문화</a></li>
 						<li id="ent-menu"><a href="/ent">연예</a></li>
 						<li id="sport-menu"><a href="/sport">스포츠</a></li>
 						<li id="it-menu"><a href="/it">IT</a></li>

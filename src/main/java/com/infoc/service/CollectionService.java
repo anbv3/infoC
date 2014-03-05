@@ -21,6 +21,7 @@ import com.infoc.domain.Article;
 public class CollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
 	private static final Integer MAX_DUP_NUM = 2;
+	private static final Integer PAGE_LIMIT = 4;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
@@ -59,17 +60,15 @@ public class CollectionService {
 	}
 
 	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page) {
-
 		Map<Integer, List<Article>> articleMap = sortByCurrentTime(map);
-
-		int idx = 0;
-		int limit = 3;
-		int range = page * limit;
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
-		LOG.debug("map size: {}, range: {}", articleMap.size(), range);
+		
+		int idx = 0;
+		int range = page * PAGE_LIMIT;
+		//LOG.debug("{}, {}, {} ~ {}", articleMap.size(), page, range, range + PAGE_LIMIT);
 		
 		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
-			if (idx >= range && idx <= range + 2) {
+			if (idx >= range && idx < range + PAGE_LIMIT) {
 				currMap.put(eachTime.getKey(), eachTime.getValue());
 			}
 			idx++;

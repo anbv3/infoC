@@ -35,8 +35,7 @@ color: #444;
 
 
 
-<style type="text/css" media="only screen and (max-width : 721px)">
-
+<style type="text/css" media="only screen and (max-width : 768px)">
 .titem {
 width:100%;
 font-size: 12px;
@@ -55,7 +54,7 @@ width:100%;
 
 </style>
 
-<style type="text/css" media="only screen and (min-width : 722px) and (max-width: 1100px)">
+<style type="text/css" media="only screen and (min-width : 769px) and (max-width: 1100px)">
 .titem {
 font-size: 12px;
 width: 180px;
@@ -80,6 +79,32 @@ width: 244px;
 </style>
 
 <script type="text/javascript">
+
+var page = 1;
+
+var control = {
+	getArticlesByPage : function() {
+		
+		var reqURL = "<c:url value="/us/"/>" + "/" + "${menu}" + "/" + page;
+
+		$.ajax({
+			type : "GET",
+			url : reqURL
+		}).done(function(response) {
+
+			if (response.trim() != "") {
+				$('#article-section').children().last().after(response);
+				page++;
+			}
+
+			$(window).data('ajaxready', true);
+		}).error(function(response) {
+			alert("[ERROR] " + response.status + " : "	+ response.statusText);
+		});
+	}
+};
+
+
 	(function(yourcode) {
 		yourcode(window.jQuery, window, document);
 	}(function($, window, document) {
@@ -96,6 +121,23 @@ width: 244px;
 			// active menu
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
+			
+			
+			$('.js-add-article').on('click', function(e) {
+				e.preventDefault();
+				alert("not ready yet!");
+			});
+
+			// get more articles when scrolling down 
+			$(window).data('ajaxready', true).scroll(function() {
+				if ($(window).data('ajaxready') == false) {
+					return;
+				}
+				if ($(window).scrollTop() > ($(document).height() - $(window).height())* 0.9) {
+					$(window).data('ajaxready', false);
+					control.getArticlesByPage();
+				}
+			});
 
 		});
 		// The rest of code goes here!
