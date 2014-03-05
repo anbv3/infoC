@@ -62,7 +62,7 @@
 	var control = {
 		getArticlesByPage : function() {
 			
-			var reqURL = "<c:url value="/kr/"/>" + "/" + "${menu}" + "/" + page;
+			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
 
 			$.ajax({
 				type : "GET",
@@ -70,7 +70,7 @@
 			}).done(function(response) {
 
 				if (response.trim() != "") {
-					$('#article-section').children().last().after(response);
+					$('#article-list-section').children().last().after(response);
 					page++;
 				}
 
@@ -181,7 +181,7 @@
 							</h3>
 						</div>
 
-						<div class="col-md-10 article-section container">
+						<div class="col-md-10 container">
 							<div id="title-section" class="row">
 								<div class="col-xs-2 titem econ-section bkg3">
 									<h5>코스피 ${econ.kospiChange}</h5>
@@ -224,7 +224,7 @@
 
 		<c:set var="rowColor" value="two" />
 
-		<div id="article-section">
+		<div id="article-list-section">
 			<jsp:include page="./common/articles.jsp" />
 		</div>
 	</div>

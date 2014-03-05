@@ -85,7 +85,7 @@ var page = 1;
 var control = {
 	getArticlesByPage : function() {
 		
-		var reqURL = "<c:url value="/us/"/>" + "/" + "${menu}" + "/" + page;
+		var reqURL = "<c:url value="/us"/>" + "/" + "${menu}" + "/" + page;
 
 		$.ajax({
 			type : "GET",
@@ -93,7 +93,7 @@ var control = {
 		}).done(function(response) {
 
 			if (response.trim() != "") {
-				$('#article-section').children().last().after(response);
+				$('#article-list-section').children().last().after(response);
 				page++;
 			}
 
@@ -201,7 +201,10 @@ var control = {
 		</div>
 
 		<c:set var="rowColor" value="two"/>
-		<jsp:include page="./common/articles.jsp" />
+		
+		<div id="article-list-section">
+			<jsp:include page="./common/articles.jsp" />
+		</div>
 	
 	</div> <!-- carousel-inner -->
 
