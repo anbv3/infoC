@@ -108,7 +108,7 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 		try {
 			doc = Jsoup.connect(rssLink).timeout(6000).get();
 		} catch (IOException e) {
-			LOG.error(rssLink + "\n", e);
+			//LOG.error(rssLink + "\n", e);
 			return;
 		}
 		

@@ -100,11 +100,10 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 		Document doc;
 		try {
 			doc = Jsoup.connect(rssLink)
-				.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 				.timeout(6000)
 				.get();
 		} catch (IOException e) {
-			LOG.error(rssLink + "\n", e);
+			//LOG.error(rssLink + "\n", e);
 			return;
 		}
 
