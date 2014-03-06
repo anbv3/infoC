@@ -44,9 +44,11 @@
 					      </h4>
 					      
 					      <h4 class="panel-title col-xs-4">
+					      <!-- 
 					      	<a class="js-add-article" href="#">
 					          <span title="See later~" class="glyphicon glyphicon-plus icon-disabled"></span>
 					        </a>
+					       -->  
 					      </h4>
 					      
 					      <h4 class="panel-title panel-${entry.key} col-xs-4">

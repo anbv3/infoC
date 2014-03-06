@@ -74,12 +74,12 @@ body { position: relative }
     margin-bottom: 10px;
 }
 .one {
-    background: #ebeae6;
+    background: #EEE9E9;
     margin: 0 auto;
     padding: 10px 0;
 }
 .two {
-    background: #ffde66;
+    background: #FFE7BA;
     margin: 0 auto;
     padding: 10px 0;
 }
@@ -130,11 +130,12 @@ body { position: relative }
     text-align: center;
     margin-left: -10px;
 }
-.two .section-title { color: #fff }
+.one .section-title { color: #000 }
+.two .section-title { color: #000 }
 #top-section { margin: 40px 0 0 }
 .bkg1 { background-color: #ff891f }
-.bkg2 { background-color: #d9d3cc }
-.bkg3 { background-color: #82d580 }
+.bkg2 { background-color: #F8F8FF }
+.bkg3 { background-color: #FFEC8B }
 .bkg4 { background-color: #3a71c9 }
 .bkg5 { background-color: #3d99fe }
 .bkg6 { background-color: #39b449 }
