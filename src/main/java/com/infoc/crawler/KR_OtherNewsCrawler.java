@@ -139,18 +139,7 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 
 		} else if (rssLink.contains("likelink")) {
 			
-			String contentId = ".summary-box";
-			contentsArea = doc.select(contentId);
-			
-			Elements bodyArea = contentsArea.select(".sentence-box");
-			StringBuilder sb = new StringBuilder();
-			for (Element element : bodyArea) {
-				sb.append(element.ownText()).append(" ");
-			}
-			article.setContents(sb.toString());
-			
-			// img link
-			article.setImg(doc.select(".content").select("img").attr("src"));
+			article.setContents(Jsoup.parse(rssItem.getDescription().getValue()).select("ul").text());
 			
 			return;
 		} else {
