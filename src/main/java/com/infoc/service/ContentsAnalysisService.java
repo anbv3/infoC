@@ -57,7 +57,7 @@ public class ContentsAnalysisService {
 			);
 
 		for (String word : titleList) {
-			if (word.length() > 1 && !isSpecialChar(word)) {
+			if (word.length() > 1) {
 				keyWordList.add(word);
 			}
 		}

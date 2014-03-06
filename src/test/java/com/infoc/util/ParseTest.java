@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -73,8 +74,9 @@ public class ParseTest {
 		String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\|”|\\.\\.";
 		Splitter SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
-		String t = "[단독] 무상 학자금도 .. 모자라 저리융자 '이중지원'";
-
+		String t = "웹보드게임규제안 시행 1주일 “업체 20% 이행안해 행정처분”";
+		
+		LOG.debug(t.replaceAll("[^\\p{L}\\p{Z}]", ""));
 		LOG.debug("{}", Sets.newHashSet(SPLITTER.split(t)));
 	}
 
