@@ -103,7 +103,7 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 				.timeout(6000)
 				.get();
 		} catch (IOException e) {
-			//LOG.error(rssLink + "\n", e);
+			LOG.error(rssLink + "\n", e);
 			return;
 		}
 

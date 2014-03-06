@@ -41,7 +41,7 @@ public class CrawlScheduler {
 	private static class CrawlTask implements Runnable {
 		@Override
 		public void run() {
-			LOG.info("collect the aritcles from RSS at {} O'clock", 
+			LOG.info("********* [START] collect the aritcles from RSS at {} O'clock ***********", 
 					DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
 			
 			for (NewsCrawler crawler : newsCrawlerList) {
@@ -51,6 +51,9 @@ public class CrawlScheduler {
 					LOG.error("", e);
 				}
 			}
+			
+			LOG.info("********* [END] collect the aritcles from RSS at {} O'clock ***********", 
+				DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
 		}
 	}
 

@@ -1,10 +1,11 @@
 @font-face {
 	font-family: 'ng';
-	src: url('NanumGothic.eot'); /* IE9 Compat Modes */
-	src: url('NanumGothic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-	     url('NanumGothic.woff') format('woff'), /* Modern Browsers */
-	     url('NanumGothic.ttf')  format('truetype'), /* Safari, Android, iOS */
-	     url('NanumGothic.svg#svgFontName') format('svg'); /* Legacy iOS */
+	src: url('../fonts/NanumGothic.eot');
+	src: url('../fonts/NanumGothic.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/NanumGothic.woff') format('woff'),
+		 url('../fonts/NanumGothic.ttf') format('truetype'),
+		 url('../fonts/NanumGothic.svg#NanumGothic') format('svg');
+	src: local(※), url('/inc/css/NanumGothic.woff') format('woff');
 	}
 	
 	
@@ -13,7 +14,7 @@ table,
 input,
 textarea,
 select,
-button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng' }
+button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng',sans-serif }
 .color-strip {
     background: #ccc url(../img/color-strip.png) no-repeat 20% top;
     height: 4px;
