@@ -61,23 +61,27 @@
 
 	var control = {
 		getArticlesByPage : function() {
-			
+
 			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
 
 			$.ajax({
 				type : "GET",
 				url : reqURL
-			}).done(function(response) {
+			}).done(
+					function(response) {
 
-				if (response.trim() != "") {
-					$('#article-list-section').children().last().after(response);
-					page++;
-				}
+						if (response.trim() != "") {
+							$('#article-list-section').children().last().after(
+									response);
+							page++;
+						}
 
-				$(window).data('ajaxready', true);
-			}).error(function(response) {
-				alert("[ERROR] " + response.status + " : "	+ response.statusText);
-			});
+						$(window).data('ajaxready', true);
+					}).error(
+					function(response) {
+						alert("[ERROR] " + response.status + " : "
+								+ response.statusText);
+					});
 		}
 	};
 
@@ -104,17 +108,19 @@
 			});
 
 			// get more articles when scrolling down 
-			$(window).data('ajaxready', true).scroll(function() {
-				if ($(window).data('ajaxready') == false) {
-					return;
-				}
-				
-				if ($(window).scrollTop() > ($(document).height() - $(window).height())* 0.85) {
-					
-					$(window).data('ajaxready', false);
-					control.getArticlesByPage();
-				}
-			});
+			$(window).data('ajaxready', true).scroll(
+					function() {
+						if ($(window).data('ajaxready') == false) {
+							return;
+						}
+
+						if ($(window).scrollTop() > ($(document).height() - $(
+								window).height()) * 0.85) {
+
+							$(window).data('ajaxready', false);
+							control.getArticlesByPage();
+						}
+					});
 
 		});
 		// The rest of code goes here!
@@ -171,9 +177,20 @@
 	<div class="carousel-inner side-collapse-container">
 
 		<div id="top-section">
-			<div class="bkg2" style="padding-top: 25px;">
+			<c:if test="${menu != 'main'}">
+				<div class="bkg2">
+					<div class="row">
+						<div class="col-md-12 day-section">
+							<h3>
+								<fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}" />
+							</h3>
+						</div>
+					</div>
+				</div>
+			</c:if>
 
-				<c:if test="${menu == 'main'}">
+			<c:if test="${menu == 'main'}">
+				<div class="bkg2" style="padding-top: 25px;">
 					<div class="row">
 						<div class="col-md-2 day-section">
 							<h3 style="">
@@ -215,9 +232,8 @@
 
 						</div>
 					</div>
-				</c:if>
-
-			</div>
+				</div>
+			</c:if>
 
 		</div>
 

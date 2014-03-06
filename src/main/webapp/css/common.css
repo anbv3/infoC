@@ -5,7 +5,7 @@
 		 url('../fonts/NanumGothic.woff') format('woff'),
 		 url('../fonts/NanumGothic.ttf') format('truetype'),
 		 url('../fonts/NanumGothic.svg#NanumGothic') format('svg');
-	src: local(※), url('/inc/css/NanumGothic.woff') format('woff');
+	src: local(※), url('../fonts/NanumGothic.woff') format('woff');
 	}
 	
 	
@@ -14,7 +14,7 @@ table,
 input,
 textarea,
 select,
-button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng',sans-serif }
+button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng', sans-serif }
 .color-strip {
     background: #ccc url(../img/color-strip.png) no-repeat 20% top;
     height: 4px;

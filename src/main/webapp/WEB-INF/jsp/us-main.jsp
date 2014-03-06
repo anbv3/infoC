@@ -196,7 +196,14 @@ var control = {
 	<div class="carousel-inner side-collapse-container">
 	
 		<div id="top-section">
-			<div class="bkg2" style="padding-top:25px;">
+			<div class="bkg2">
+				<div class="row">
+					<div class="col-md-12 day-section">
+						<h3>
+							<fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}" />
+						</h3>
+					</div>
+				</div>
 			</div>
 		</div>
 

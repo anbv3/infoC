@@ -22,6 +22,7 @@ public class USNewsController extends BaseController {
 
 	@RequestMapping(value = "/main")
 	public String getMain(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.TODAY_CACHE));
 		model.addAttribute("menu","main");
 		return "/us-main";
@@ -36,6 +37,7 @@ public class USNewsController extends BaseController {
 	
 	@RequestMapping(value = "/politics")
 	public String getPolitics(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.POLITICS_CACHE));
 		model.addAttribute("menu","politics");
 		return "/us-main";
@@ -50,6 +52,7 @@ public class USNewsController extends BaseController {
 
 	@RequestMapping(value = "/econ")
 	public String getEcon(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.ECON_CACHE));
 		model.addAttribute("menu","econ");
 		return "/us-main";
@@ -63,6 +66,7 @@ public class USNewsController extends BaseController {
 
 	@RequestMapping(value = "/society")
 	public String getSociety(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.SOCIETY_CACHE));
 		model.addAttribute("menu","society");
 		return "/us-main";
@@ -76,6 +80,7 @@ public class USNewsController extends BaseController {
 	
 	@RequestMapping(value = "/culture")
 	public String getCulture(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.CULTURE_CACHE));
 		model.addAttribute("menu","culture");
 		return "/us-main";
@@ -89,6 +94,7 @@ public class USNewsController extends BaseController {
 	
 	@RequestMapping(value = "/ent")
 	public String getEnt(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.ENT_CACHE));
 		model.addAttribute("menu","ent");
 		return "/us-main";
@@ -102,6 +108,7 @@ public class USNewsController extends BaseController {
 
 	@RequestMapping(value = "/sport")
 	public String getSport(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.SPORT_CACHE));
 		model.addAttribute("menu","sport");
 		return "/us-main";
@@ -115,6 +122,7 @@ public class USNewsController extends BaseController {
 
 	@RequestMapping(value = "/it")
 	public String getIt(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.IT_CACHE));
 		model.addAttribute("menu","it");
 		return "/us-main";
