@@ -164,6 +164,7 @@ body { position: relative }
     line-height: 28px;
     padding: 8px 28px;
 }
+.panel-sArt {border-radius: 0}
 .panel-group-sArt { margin: -1px }
 .panel-body-sArt { padding: 0 }
 .panel-title { text-align: center }
