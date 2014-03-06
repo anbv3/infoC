@@ -22,7 +22,7 @@ private static final Logger LOG = LoggerFactory.getLogger(RSSCrawlerTest.class);
 
 	@Test
 	public void testLib() {
-		String url = "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml";
+		String url = "http://feeds.feedburner.com/likelink-recent";
 		
 		try {
 			URL feedUrl = new URL(url);

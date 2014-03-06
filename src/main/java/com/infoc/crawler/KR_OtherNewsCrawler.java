@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,6 +101,7 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 		Document doc;
 		try {
 			doc = Jsoup.connect(rssLink)
+				.userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
 				.timeout(6000)
 				.get();
 		} catch (IOException e) {
@@ -117,26 +119,40 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 			contentsArea = doc.select("#writeContents");
 
 		} else if (rssLink.contains("slownews")) {
+			
 			contentsArea = doc.select("#article_content");
 
 			// extract the img link
 			article.setImg(contentsArea.select("img").attr("src"));
 		} else if (rssLink.contains("newstapa")) {
+			
 			contentsArea = doc.select(".entry-content");
 
 			// extract the img link
 			article.setImg(contentsArea.select("img").attr("src"));
 		} else if (rssLink.contains("ppss")) {
+			
 			contentsArea = doc.select(".tha-content");
 
 			// extract the img link
 			article.setImg(contentsArea.select("img").attr("src"));
 
 		} else if (rssLink.contains("likelink")) {
-
-			article.setContents(rssItem.getDescription().getValue());
-			return;
 			
+			String contentId = ".summary-box";
+			contentsArea = doc.select(contentId);
+			
+			Elements bodyArea = contentsArea.select(".sentence-box");
+			StringBuilder sb = new StringBuilder();
+			for (Element element : bodyArea) {
+				sb.append(element.ownText()).append(" ");
+			}
+			article.setContents(sb.toString());
+			
+			// img link
+			article.setImg(doc.select(".content").select("img").attr("src"));
+			
+			return;
 		} else {
 			return;
 		}
