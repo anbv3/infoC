@@ -1,5 +1,6 @@
 package com.infoc.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -10,6 +11,7 @@ import com.google.common.base.Objects;
 public class User extends AbstractPersistable<Long> {
 	private static final long serialVersionUID = -4548247329625710336L;
 	
+	@Column
 	private String email;
 	
 	public String getEmail() {

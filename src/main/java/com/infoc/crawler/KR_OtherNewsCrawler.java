@@ -97,6 +97,12 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
+		
+		// likelink는 403 떠서 원문을 못 가져옴..ㅜㅜ
+		if (rssLink.contains("likelink")) {
+			article.setContents(Jsoup.parse(rssItem.getDescription().getValue()).select("ul").text());
+			return;
+		}
 
 		Document doc;
 		try {
@@ -137,11 +143,6 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 			// extract the img link
 			article.setImg(contentsArea.select("img").attr("src"));
 
-		} else if (rssLink.contains("likelink")) {
-			
-			article.setContents(Jsoup.parse(rssItem.getDescription().getValue()).select("ul").text());
-			
-			return;
 		} else {
 			return;
 		}

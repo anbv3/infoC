@@ -5,9 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
@@ -18,34 +25,52 @@ import com.infoc.util.TranslationParser;
 /**
  * @author anbv3
  */
-public class Article {
+@Entity
+public class Article extends AbstractPersistable<Long> {
+	private static final long serialVersionUID = -4609133080342171773L;
 	private static final Logger LOG = LoggerFactory.getLogger(Article.class);
 
+	@Column
 	private String hashId; // for later, org.apache.commons.codec.digest
 
+	@Column
 	private String title;
 
+	@Column
 	private String link;
 
+	@Column
 	private String img;
 
+	@Column
 	private String contents;
 
+	@Column
 	private DateTime pubDate;
 
+	@Column
 	private String author;
-	
+
+	@Column
 	private Integer numDups = 0;
-	
+
+	@Column
 	private ArticleSection section;
 
+	@OneToMany
+	@JoinColumn(name = "simulars")
 	private List<Article> simularList = new ArrayList<>();
-	
+
 	// /////////////////////////////////////////////////////////////////////////////
+
+	@Type(type = "serializable")
+	@Column
 	private Set<String> keyWordList = new HashSet<>(); // use for summarization and duplication check
 
+	@Column
 	private String mainContents;
-	
+
+	@Column
 	private String transedContents;
 	// /////////////////////////////////////////////////////////////////////////////
 
@@ -64,7 +89,7 @@ public class Article {
 			if (match != 0) {
 				return match;
 			}
-			
+
 			// 2. pick the longer sentence among the same matched sentences
 			return left.getLength().compareTo(right.getLength());
 		}
@@ -87,22 +112,22 @@ public class Article {
 				return;
 			}
 		}
-		
+
 		this.simularList.add(similarArticle);
 	}
-	
+
 	public void translateMainContents() {
 		if (Strings.isNullOrEmpty(this.transedContents)) {
 			this.transedContents = TranslationParser.krToEn(this.mainContents);
 		}
 	}
-	
+
 	public void translateMainContentsFromEnToKr() {
 		if (Strings.isNullOrEmpty(this.transedContents)) {
 			this.transedContents = TranslationParser.enToKr(this.mainContents);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
@@ -169,7 +194,7 @@ public class Article {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
+
 	public ArticleSection getSection() {
 		return section;
 	}
@@ -217,5 +242,5 @@ public class Article {
 	public void setTransedContents(String transedContents) {
 		this.transedContents = transedContents;
 	}
-	
+
 }
