@@ -30,7 +30,7 @@
 					<hr class="item_title-separator">
 					</c:if>
 					
-					<div class="item_content">${row.mainContents}</div>
+					<div class="item_content col-xs-12">${row.mainContents}</div>
 					
 					<div class="panel-group panel-group-sArt">
 					  <div class="panel panel-default panel-sArt" >

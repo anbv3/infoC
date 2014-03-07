@@ -7,8 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
 <title>Skim paper</title>
 
@@ -89,15 +88,6 @@
 		yourcode(window.jQuery, window, document);
 	}(function($, window, document) {
 		$(function() {
-			// side slider
-			var sideslider = $('[data-toggle=collapse-side]');
-			var sel = sideslider.attr('data-target');
-			var sel2 = sideslider.attr('data-target-2');
-			sideslider.click(function(event) {
-				$(sel).toggleClass('in');
-				$(sel2).toggleClass('out');
-			});
-
 			// active menu
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
@@ -141,15 +131,16 @@
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container"
-					type="button" class="navbar-toggle pull-right">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
 			</div>
-
-			<div class="navbar-inverse side-collapse in">
-				<nav role="navigation" class="navbar-collapse">
+			
+			<div class="collapse navbar-collapse">
 					<ul id="top-menu" class="nav navbar-nav">
 						<li id="main-menu"><a href="/main">주요</a></li>
 						<li id="politics-menu"><a href="/politics">정치</a></li>
@@ -163,7 +154,6 @@
 						<li id="us-menu"><a style="color: #6db4d0" href="/us/main">USA</a></li>
 						<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
 					</ul>
-				</nav>
 			</div>
 			<!--/.nav-collapse -->
 		</div>

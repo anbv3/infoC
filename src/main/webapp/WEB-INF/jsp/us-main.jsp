@@ -109,15 +109,6 @@ var control = {
 		yourcode(window.jQuery, window, document);
 	}(function($, window, document) {
 		$(function() {
-			// side slider
-			var sideslider = $('[data-toggle=collapse-side]');
-			var sel = sideslider.attr('data-target');
-			var sel2 = sideslider.attr('data-target-2');
-			sideslider.click(function(event) {
-				$(sel).toggleClass('in');
-				$(sel2).toggleClass('out');
-			});
-
 			// active menu
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
@@ -161,28 +152,27 @@ var control = {
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-right">
-					<span class="icon-bar"></span> 
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/us/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
+				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
 			</div>
-
-			<div class="navbar-inverse side-collapse in">
-				<nav role="navigation" class="navbar-collapse">
-					<ul id="top-menu" class="nav navbar-nav">
-						<li id="main-menu"><a href="/us/main">TOP</a></li>
-						<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>
-						<li id="econ-menu"><a href="/us/econ">BUSINESS</a></li>
-						<li id="culture-menu"><a href="/us/culture">LIFE</a></li>
-						<li id="ent-menu"><a href="/us/ent">ENT</a></li>
-						<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>
-						<li id="it-menu"><a href="/us/it">TECH</a></li>
-						<li id="us-menu"><a style="color:#6db4d0" href="/kr/main">Korea</a></li>
-						<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">Log In</a></li>  -->
-					</ul>
-				</nav>
+			
+			<div class="collapse navbar-collapse">
+				<ul id="top-menu" class="nav navbar-nav">
+					<li id="main-menu"><a href="/us/main">TOP</a></li>
+					<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>
+					<li id="econ-menu"><a href="/us/econ">BUSINESS</a></li>
+					<li id="culture-menu"><a href="/us/culture">LIFE</a></li>
+					<li id="ent-menu"><a href="/us/ent">ENT</a></li>
+					<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>
+					<li id="it-menu"><a href="/us/it">TECH</a></li>
+					<li id="us-menu"><a style="color:#6db4d0" href="/kr/main">Korea</a></li>
+					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">Log In</a></li>  -->
+				</ul>
 			</div>
 			<!--/.nav-collapse -->
 		</div>

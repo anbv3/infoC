@@ -36,30 +36,7 @@ button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng', sans-ser
     background-color: #3d99fe;
 }
 body { position: relative }
-
-@media screen and (max-width: 768px) {
-	.side-collapse-container {
-		width: 100%;
-		position: relative;
-		left: 0;
-		transition: left .4s;
-	}
-	.side-collapse-container.out {
-		left: 200px;
-	}
-	.side-collapse {
-		top: 50px;
-		bottom: 0;
-		left: 0;
-		width: 200px;
-		position: fixed;
-		overflow: hidden;
-		transition: width .4s;
-	}
-	.side-collapse.in {
-		width: 0;
-	}
-}
+.panel-group .panel {border-radius: 0}
 
 /* ***************************************************************** */
 .item {
@@ -120,6 +97,7 @@ body { position: relative }
     float: left;
     width: 100%;
     padding: 18px 28px;
+    word-wrap: break-word;
 }
 .item_link {
     border-bottom: 1px solid #e1e1e1;
@@ -164,7 +142,8 @@ body { position: relative }
     line-height: 28px;
     padding: 8px 28px;
 }
-.panel-sArt {border-radius: 0}
+
+.panel-sArt {margin: 1px;}
 .panel-group-sArt { margin: -1px }
 .panel-body-sArt { padding: 0 }
 .panel-title { text-align: center }
