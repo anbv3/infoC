@@ -32,35 +32,30 @@
 					
 					<div class="item_content col-xs-12">${row.mainContents}</div>
 					
-					<div class="panel-group panel-group-sArt">
+					<div class="row">
+					<div class="panel-group panel-group-sArt col-xs-12">
 					  <div class="panel panel-default panel-sArt" >
 					   
-					    <div class="panel-heading panel-heading-sArt row">
+					    <div class="panel-heading panel-heading-sArt">
 					    
-					      <h4 class="panel-title panel-${entry.key} col-xs-4">
-					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}">
+					      <h4 class="panel-title panel-${entry.key}">
+					        <a class="pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}">
 					          <span title="Translate this!" class="glyphicon glyphicon-transfer"></span>
 					        </a>
-					      </h4>
-					      
-					      <h4 class="panel-title col-xs-4">
-					      <!-- 
-					      	<a class="js-add-article" href="#">
+					        
+					        <a class="js-add-article" href="#">
 					          <span title="See later~" class="glyphicon glyphicon-plus icon-disabled"></span>
 					        </a>
-					       -->  
-					      </h4>
-					      
-					      <h4 class="panel-title panel-${entry.key} col-xs-4">
-					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
+					        
+					        <a class="pull-right" data-toggle="collapse" data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}">
 					         <span title="Related articles." class="glyphicon glyphicon-list <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
 					        </a>
 					      </h4>
 					      
 					    </div>
 					    
-					   
-					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
+					   <c:if test="${not empty row.simularList}">
+					    <div id="collapse-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse collapse panel-collapse-sArt">
 					      <div class="panel-body panel-body-sArt">
 					      	<c:forEach var="sArticle" items="${row.simularList}">
 						      	<div class="panel-article-info col-xs-12">
@@ -69,18 +64,21 @@
 					      	</c:forEach>
 					      </div>
 					    </div>
-					     
+					    </c:if>
 					    
-					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse panel-collapse-sArt collapse">
+					    <c:if test="${not empty row.transedContents}">
+					    <div id="collapse-trans-${entry.key}-${cnt.index}" class="collapse-${entry.key} panel-collapse collapse panel-collapse-sArt">
 					      <div class="panel-body panel-body-sArt">
 					     	 <div class="panel-article-info col-xs-12">
 						      	${row.transedContents}
 						     </div>
 					      </div>
 					    </div>
+					    </c:if>
 					    
 					  </div>
-  					</div>
+  					</div> <!-- panel -->
+					</div>
 					
 				</div>
 				

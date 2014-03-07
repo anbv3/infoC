@@ -36,6 +36,7 @@ button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng', sans-ser
     background-color: #3d99fe;
 }
 body { position: relative }
+.panel-group {margin:0;}
 .panel-group .panel {border-radius: 0}
 
 /* ***************************************************************** */
@@ -143,8 +144,11 @@ body { position: relative }
     padding: 8px 28px;
 }
 
+/*
 .panel-sArt {margin: 1px;}
 .panel-group-sArt { margin: -1px }
+*/
+
 .panel-body-sArt { padding: 0 }
 .panel-title { text-align: center }
 .panel-title .glyphicon { font-size: 20px }

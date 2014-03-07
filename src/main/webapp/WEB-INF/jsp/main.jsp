@@ -94,7 +94,6 @@
 
 			$('.js-add-article').on('click', function(e) {
 				e.preventDefault();
-				alert("준비중");
 			});
 
 			// get more articles when scrolling down 

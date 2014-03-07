@@ -116,7 +116,6 @@ var control = {
 			
 			$('.js-add-article').on('click', function(e) {
 				e.preventDefault();
-				alert("not ready yet!");
 			});
 
 			// get more articles when scrolling down 
