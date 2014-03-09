@@ -41,8 +41,8 @@ public class CrawlScheduler {
 	private static class CrawlTask implements Runnable {
 		@Override
 		public void run() {
-			LOG.info("********* [START] collect the aritcles from RSS at {} O'clock ***********", 
-					DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
+			LOG.info("********* [START] collect the aritcles from RSS at {} ***********", 
+					DateTime.now(DateTimeZone.forID("Asia/Seoul")));
 			
 			for (NewsCrawler crawler : newsCrawlerList) {
 				try {
@@ -52,8 +52,8 @@ public class CrawlScheduler {
 				}
 			}
 			
-			LOG.info("********* [END] collect the aritcles from RSS at {} O'clock ***********", 
-				DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
+			LOG.info("********* [END] collect the aritcles from RSS at {} ***********", 
+				DateTime.now(DateTimeZone.forID("Asia/Seoul")));
 		}
 	}
 
@@ -82,8 +82,9 @@ public class CrawlScheduler {
 	@PostConstruct
 	public static void runShcedule() {
 		scheduledExecutorService.scheduleAtFixedRate(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleAtFixedRate(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleAtFixedRate(new CrawlClearTask(), 50, 10, TimeUnit.MINUTES);
+		
+		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
 	}
 	
 	
