@@ -24,52 +24,6 @@
 				<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 					<div class="item">
 
-						<div class="caption">
-							<div class="panel-heading panel-heading-sArt">
-								<h4 class="panel-title panel-${entry.key}">
-									<a href="${row.link}" target="_blank" class="label label-default" rel="tooltip" title="Go to The Original~"> 
-									<span class="glyphicon glyphicon-share-alt"></span>
-									</a>
-								</h4>
-							</div>
-
-							<div class="panel-heading panel-heading-sArt">
-
-								<h4 class="panel-title panel-${entry.key}">
-									<a rel="tooltip" data-placement="right" title="Translate this!" class="label label-default" data-toggle="collapse"
-										data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}"> 
-										<span class="glyphicon glyphicon-transfer"></span>
-									</a>
-								</h4>
-
-							</div>
-					<!-- 
-							<div class="panel-heading panel-heading-sArt">
-
-								<h4 class="panel-title panel-${entry.key}">
-									<a rel="tooltip" data-placement="left" title="See later~" class="label label-default js-add-article" href="#"> <span
-										class="glyphicon glyphicon-plus icon-disabled"></span>
-									</a>
-								</h4>
-
-							</div>
- 					-->
-
-							<div class="panel-heading panel-heading-sArt">
-
-								<h4 class="panel-title panel-${entry.key}">
-									<a rel="tooltip" data-placement="bottom" title="Related articles." class="label label-default" data-toggle="collapse"
-										data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}"> 
-										<span class="glyphicon glyphicon-list <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
-									</a>
-								</h4>
-
-							</div>
-
-						</div>
-
-
-
 						<div class="item_title col-xs-12">
 							<a href="${row.link}" target="_blank">${row.title}</a>
 						</div>
@@ -91,6 +45,29 @@
 							<div class="panel-group panel-group-sArt col-xs-12">
 								<div class="panel panel-default panel-sArt">
 
+								<div class="panel-heading panel-heading-sArt">
+									<h4 class="panel-title panel-${entry.key}">
+										<a class="btn btn-success pull-left" href="${row.link}" target="_blank" rel="tooltip" title="Go to The Original~"> 
+										<span class="glyphicon glyphicon-share-alt"></span>
+										</a>
+										
+										<a class="btn btn-success" rel="tooltip" data-placement="top" title="Translate this!"  data-toggle="collapse"
+										data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}"> 
+										<span class="glyphicon glyphicon-transfer"></span>
+										</a>
+										
+										<!--
+										<a rel="tooltip" data-placement="left" title="See later~" class="js-add-article" href="#"> <span
+											class="glyphicon glyphicon-plus icon-disabled"></span>
+										</a>
+									 	-->
+									 	
+										<a class="btn btn-success pull-right" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
+											data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}"> 
+											<span class="glyphicon glyphicon-list <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
+										</a>
+									</h4>
+								</div>
 
 
 									<c:if test="${not empty row.simularList}">
@@ -155,10 +132,5 @@
 
 		$("[rel='tooltip']").tooltip();
 
-		$('.item').hover(function() {
-			$(this).find('.caption').slideDown(250); //.fadeIn(250)
-		}, function() {
-			$(this).find('.caption').slideUp(250); //.fadeOut(205)
-		});
 	</script>
 </c:forEach>

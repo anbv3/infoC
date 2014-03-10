@@ -6,7 +6,6 @@
 <!-- <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon.ico" />  -->
 
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/css/common.css"/>'/>
 
 <script type='text/javascript' src='<c:url value="/js/jquery/jquery-2.0.3.min.js"/>'></script>

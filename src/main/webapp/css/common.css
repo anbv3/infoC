@@ -33,11 +33,16 @@ button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng', sans-ser
 .navbar-inverse .navbar-nav>.active>a:hover,
 .navbar-inverse .navbar-nav>.active>a:focus {
     color: #fff;
-    background-color: #3d99fe;
+    background-color: #83E01F;
 }
 body { position: relative }
 .panel-group {margin:0;}
 .panel-group .panel {border-radius: 0}
+
+.panel-default>.panel-heading {
+color: #000;
+background-color: #fff;
+}
 
 /* ***************************************************************** */
 
