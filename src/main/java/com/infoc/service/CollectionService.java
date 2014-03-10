@@ -21,7 +21,7 @@ import com.infoc.domain.Article;
 public class CollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
 	private static final Integer MAX_DUP_NUM = 2;
-	private static final Integer PAGE_LIMIT = 2;
+	private static final Integer PAGE_LIMIT = 4;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
@@ -235,7 +235,7 @@ public class CollectionService {
 						.isBefore(
 							DateTime.now(
 								DateTimeZone.forID("Asia/Seoul"))
-								.minusDays(1))) {
+								.minusDays(1).minusHours(1))) {
 						article.remove();
 					}
 				}

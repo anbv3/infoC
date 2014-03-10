@@ -21,7 +21,7 @@ import com.infoc.domain.Article;
 public class USCollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(USCollectionService.class);
 	private static final Integer MAX_DUP_NUM = 3;
-	private static final Integer PAGE_LIMIT = 2;
+	private static final Integer PAGE_LIMIT = 4;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
