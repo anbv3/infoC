@@ -60,27 +60,26 @@
 
 	var control = {
 		getArticlesByPage : function() {
-
+			$('.loading-bar').removeClass('hide');
+			
 			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
-
+			
 			$.ajax({
 				type : "GET",
-				url : reqURL
-			}).done(
-					function(response) {
-
-						if (response.trim() != "") {
-							$('#article-list-section').children().last().after(
-									response);
-							page++;
-						}
-
-						$(window).data('ajaxready', true);
-					}).error(
-					function(response) {
-						alert("[ERROR] " + response.status + " : "
-								+ response.statusText);
-					});
+				url : reqURL,
+				async : false
+			}).done(function(response) {
+				if (response.trim() != "") {
+					$('#article-list-section').children().last().after(response);
+					page++;
+				}
+				
+				$(window).data('ajaxready', true);
+			}).error(function(response) {
+				alert("[ERROR] " + response.status + " : " + response.statusText);
+			}).done(function() {
+				$('.loading-bar').addClass('hide');
+			});
 		}
 	};
 
@@ -97,19 +96,17 @@
 			});
 
 			// get more articles when scrolling down 
-			$(window).data('ajaxready', true).scroll(
-					function() {
-						if ($(window).data('ajaxready') == false) {
-							return;
-						}
+			$(window).data('ajaxready', true).scroll(function() {
+				if ($(window).data('ajaxready') == false) {
+					return;
+				}
 
-						if ($(window).scrollTop() > ($(document).height() - $(
-								window).height()) * 0.85) {
-
-							$(window).data('ajaxready', false);
-							control.getArticlesByPage();
-						}
-					});
+				//if ($(window).scrollTop() > ($(document).height() - $(window).height()) * 0.85) {
+				if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
+					$(window).data('ajaxready', false);
+					control.getArticlesByPage();
+				}
+			});
 
 		});
 		// The rest of code goes here!
@@ -232,6 +229,14 @@
 		<div id="article-list-section">
 			<jsp:include page="./common/articles.jsp" />
 		</div>
+
+		<div class="row loading-bar bkg1 hide">
+			<div class="bar">
+			    <i class="sphere"></i>
+			</div>
+		</div>
+
+		
 	</div>
 	<!-- carousel-inner -->
 

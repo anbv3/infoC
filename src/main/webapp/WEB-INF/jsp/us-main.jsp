@@ -84,12 +84,14 @@ var page = 1;
 
 var control = {
 	getArticlesByPage : function() {
+		$('.loading-bar').removeClass('hide');
 		
 		var reqURL = "<c:url value="/us"/>" + "/" + "${menu}" + "/" + page;
 
 		$.ajax({
 			type : "GET",
-			url : reqURL
+			url : reqURL,
+			async : false
 		}).done(function(response) {
 
 			if (response.trim() != "") {
@@ -100,6 +102,8 @@ var control = {
 			$(window).data('ajaxready', true);
 		}).error(function(response) {
 			alert("[ERROR] " + response.status + " : "	+ response.statusText);
+		}).done(function() {
+			$('.loading-bar').addClass('hide');
 		});
 	}
 };
@@ -124,7 +128,7 @@ var control = {
 					return;
 				}
 				
-				if ($(window).scrollTop() > ($(document).height() - $(window).height())* 0.85) {
+				if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
 					
 					$(window).data('ajaxready', false);
 					control.getArticlesByPage();

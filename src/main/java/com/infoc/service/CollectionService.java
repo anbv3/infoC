@@ -21,7 +21,7 @@ import com.infoc.domain.Article;
 public class CollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
 	private static final Integer MAX_DUP_NUM = 2;
-	private static final Integer PAGE_LIMIT = 4;
+	private static final Integer PAGE_LIMIT = 2;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
@@ -206,7 +206,7 @@ public class CollectionService {
 		}
 
 		// if it is the new one, then translate the main contents.
-		newArticle.translateMainContents();
+//		newArticle.translateMainContents();
 
 		// get the hour of the time for the time section
 		int hour = newArticle.getPubDate().getHourOfDay();

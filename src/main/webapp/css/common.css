@@ -40,6 +40,90 @@ body { position: relative }
 .panel-group .panel {border-radius: 0}
 
 /* ***************************************************************** */
+
+.loading-bar body:after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: -webkit-radial-gradient(center center, circle cover, rgba(0,0,0,0), rgba(0,0,0,0.5));
+    background: -moz-radial-gradient(center center, circle cover, rgba(0,0,0,0), rgba(0,0,0,0.5));
+    background: -ms-radial-gradient(center center, circle cover, rgba(0,0,0,0), rgba(0,0,0,0.5));
+    background: -o-radial-gradient(center center, circle cover, rgba(0,0,0,0), rgba(0,0,0,0.5));
+    background: radial-gradient(center center, circle cover, rgba(0,0,0,0), rgba(0,0,0,0.5));
+}
+
+.loading-bar .bar {
+    width: 10em;
+    height: 1em;
+    position: relative;
+    margin: 20px auto 40px;
+    border-radius: .5em;
+    background: rgba(255,255,255,0.6);
+    box-shadow: 
+        0 0 0 .05em rgba(100,100,100,0.075),
+        0 0 0 .25em rgba(0,0,0,0.1),
+        inset 0 .1em .05em rgba(0,0,0,0.1),
+        0 .05em rgba(255,255,255,0.7);
+}
+
+.loading-bar .bar:after {
+    content: "Please wait.";
+    position: absolute;
+    left: 25%;
+    top: 150%;
+    font-family: 'Carrois Gothic', sans-serif;
+    font-size: 1em;
+    color: #555;
+    text-shadow: 0 .05em rgba(255,255,255,0.7);
+}
+
+.loading-bar .bar .sphere {
+    border-radius: 50%;
+    width: 1em;
+    height: 100%;
+    background: -webkit-linear-gradient(#eee, #ddd);
+    background: -moz-linear-gradient(#eee, #ddd);
+    background: -ms-linear-gradient(#eee, #ddd);
+    background: -o-linear-gradient(#eee, #ddd);
+    background: linear-gradient(#eee, #ddd);
+    box-shadow:
+        inset 0 .15em .1em rgba(255,255,255,0.3),
+        inset 0 -.1em .15em rgba(0,0,0,0.15),
+        0 0 .25em rgba(0,0,0,0.3);
+    display: block;
+    -webkit-animation: slide 1.75s ease-in-out infinite alternate;
+    -moz-animation: slide 1.75s ease-in-out infinite alternate;
+    -ms-animation: slide 1.75s ease-in-out infinite alternate;
+    -o-animation: slide 1.75s ease-in-out infinite alternate;
+    animation: slide 1.75s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes slide {
+    to { margin-left: 90%; }
+}
+
+@-moz-keyframes slide {
+    to { margin-left: 90%; }
+}
+
+@-ms-keyframes slide {
+    to { margin-left: 90%; }
+}
+
+@-o-keyframes slide {
+    to { margin-left: 90%; }
+}
+
+@keyframes slide {
+    to { margin-left: 90%; }
+}
+
+/* ***************************************************************** */
+
+
+
+
 .item {
     width: 330px;
     text-align: left;
@@ -112,7 +196,7 @@ body { position: relative }
 .one .section-title { color: #000 }
 .two .section-title { color: #000 }
 #top-section { margin: 40px 0 0 }
-.bkg1 { background-color: #ff891f }
+.bkg1 { background-color: #000}
 .bkg2 { background-color: #F8F8FF }
 .bkg3 { background-color: #FFEC8B }
 .bkg4 { background-color: #3a71c9 }
