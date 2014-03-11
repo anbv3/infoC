@@ -104,9 +104,7 @@
 				}
 				
 				if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
-									
 					$(window).data('ajaxready', false);
-					
 					control.getArticlesByPage();
 				}
 			});

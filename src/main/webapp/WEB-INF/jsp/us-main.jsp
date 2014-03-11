@@ -83,28 +83,28 @@ width: 244px;
 var page = 1;
 
 var control = {
-	getArticlesByPage : function() {
-		$('.loading-bar').removeClass('hide');
-		
-		var reqURL = "<c:url value="/us"/>" + "/" + "${menu}" + "/" + page;
-
-		$.ajax({
-			type : "GET",
-			url : reqURL,
-		}).done(function(response) {
-
-			if (response.trim() != "") {
-				$('#article-list-section').children().last().after(response);
-				page++;
-			}
-
-			$(window).data('ajaxready', true);
-		}).error(function(response) {
-			alert("[ERROR] " + response.status + " : "	+ response.statusText);
-		}).done(function() {
-			$('.loading-bar').addClass('hide');
-		});
-	}
+		getArticlesByPage : function() {
+			$('#ajaxloader').show();	
+			
+			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
+			
+			$.ajax({
+				type : "GET",
+				url : reqURL,
+			}).done(function(response) {
+				if (response.trim() != "") {
+					$('#article-list-section').children().last().after(response);
+					page++;
+				}
+				
+				$('#ajaxloader').hide();
+				$(window).data('ajaxready', true);
+			}).error(function(response) {
+				alert("[ERROR] " + response.status + " : " + response.statusText);
+			}).done(function() {
+				
+			});
+		}
 };
 
 
@@ -116,6 +116,7 @@ var control = {
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 			
+			$('#ajaxloader').hide();
 			
 			$('.js-add-article').on('click', function(e) {
 				e.preventDefault();
@@ -128,7 +129,6 @@ var control = {
 				}
 				
 				if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
-					
 					$(window).data('ajaxready', false);
 					control.getArticlesByPage();
 				}
@@ -205,7 +205,7 @@ var control = {
 			<jsp:include page="./common/articles.jsp" />
 		</div>
 		
-		<div class="row loading-bar bkg1 hide">
+		<div id="ajaxloader" class="row loading-bar bkg1">
 			<div class="bar">
 			    <i class="sphere"></i>
 			</div>
