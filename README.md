@@ -21,7 +21,7 @@ infoC
 
   2. 로그인 폼 암호화: http://www.jcryption.org
   
-  
+  3. 관련기사 버튼을 빼로 저장 버튼을 넣는다. 관련기사는 무조건 밑에 추가한다.
 
 * 버지 기사 추가: http://www.theverge.com/rss/index.xml 
 
