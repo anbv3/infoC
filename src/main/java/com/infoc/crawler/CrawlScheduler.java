@@ -61,7 +61,8 @@ public class CrawlScheduler {
 		@Override
 		public void run() {
 			try {
-				LOG.info("collect the info for econ indicator.");
+				LOG.info("run to crawl the econ indicators.");
+				
 				CollectionService.ECON_INFO.putAll(EconInfoCrawler.getStock());
 				CollectionService.ECON_INFO.putAll(EconInfoCrawler.getCurrency());
 			} catch (Exception e) {
@@ -73,16 +74,22 @@ public class CrawlScheduler {
 	private static class CrawlClearTask implements Runnable {
 		@Override
 		public void run() {
+			LOG.info("********* [START] Clear articles one day before! at {} ***********", 
+				DateTime.now(DateTimeZone.forID("Asia/Seoul")));
+			
 			LOG.info("Clear articles one day before!");
 			CollectionService.clearYesterDay();
 			USCollectionService.clearYesterDay();
+			
+			LOG.info("********* [END] Clear articles one day before! at {} ***********", 
+				DateTime.now(DateTimeZone.forID("Asia/Seoul")));
 		}
 	}
 
 	@PostConstruct
 	public static void runShcedule() {
 		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 10, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 5, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 1, 15, TimeUnit.MINUTES);
 	}
 	

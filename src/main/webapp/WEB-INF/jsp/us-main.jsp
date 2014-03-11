@@ -91,7 +91,6 @@ var control = {
 		$.ajax({
 			type : "GET",
 			url : reqURL,
-			async : false
 		}).done(function(response) {
 
 			if (response.trim() != "") {
@@ -204,6 +203,12 @@ var control = {
 		
 		<div id="article-list-section">
 			<jsp:include page="./common/articles.jsp" />
+		</div>
+		
+		<div class="row loading-bar bkg1 hide">
+			<div class="bar">
+			    <i class="sphere"></i>
+			</div>
 		</div>
 	
 	</div> <!-- carousel-inner -->

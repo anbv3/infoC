@@ -60,25 +60,25 @@
 
 	var control = {
 		getArticlesByPage : function() {
-			$('.loading-bar').removeClass('hide');
+			$('#ajaxloader').show();	
 			
 			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
 			
 			$.ajax({
 				type : "GET",
 				url : reqURL,
-				async : false
 			}).done(function(response) {
 				if (response.trim() != "") {
 					$('#article-list-section').children().last().after(response);
 					page++;
 				}
 				
+				$('#ajaxloader').hide();
 				$(window).data('ajaxready', true);
 			}).error(function(response) {
 				alert("[ERROR] " + response.status + " : " + response.statusText);
 			}).done(function() {
-				$('.loading-bar').addClass('hide');
+				
 			});
 		}
 	};
@@ -91,6 +91,8 @@
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 
+			$('#ajaxloader').hide();
+			
 			$('.js-add-article').on('click', function(e) {
 				e.preventDefault();
 			});
@@ -100,10 +102,11 @@
 				if ($(window).data('ajaxready') == false) {
 					return;
 				}
-
-				//if ($(window).scrollTop() > ($(document).height() - $(window).height()) * 0.85) {
+				
 				if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
+									
 					$(window).data('ajaxready', false);
+					
 					control.getArticlesByPage();
 				}
 			});
@@ -146,7 +149,7 @@
 						<li id="ent-menu"><a href="/ent">연예</a></li>
 						<li id="sport-menu"><a href="/sport">스포츠</a></li>
 						<li id="it-menu"><a href="/it">IT</a></li>
-						<li id="others-menu"><a href="/others">기타</a></li>
+						<!-- <li id="others-menu"><a href="/others">기타</a></li> -->
 						<li id="us-menu"><a style="color: #83E01F" href="/us/main">USA</a></li>
 						<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
 					</ul>
@@ -230,12 +233,11 @@
 			<jsp:include page="./common/articles.jsp" />
 		</div>
 
-		<div class="row loading-bar bkg1 hide">
+		<div id="ajaxloader" class="row loading-bar bkg1">
 			<div class="bar">
 			    <i class="sphere"></i>
 			</div>
 		</div>
-
 		
 	</div>
 	<!-- carousel-inner -->
