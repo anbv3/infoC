@@ -44,9 +44,10 @@ public class KR_OtherNewsCrawler implements NewsCrawler {
 		createListBySection(LIKELINK, ArticleSection.OTHERS);
 		createListBySection(NEWSTAPA, ArticleSection.OTHERS);
 		createListBySection(NEWSPEPPER, ArticleSection.OTHERS);
-		createListBySection(CLIEN_NEWS, ArticleSection.OTHERS);
 		createListBySection(SLOW_NEWS, ArticleSection.OTHERS);
 		createListBySection(PPSS, ArticleSection.OTHERS);
+		
+		createListBySection(CLIEN_NEWS, ArticleSection.IT);
 
 		return this.articleList;
 	}

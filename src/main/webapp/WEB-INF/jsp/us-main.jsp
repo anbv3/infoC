@@ -86,7 +86,7 @@ var control = {
 		getArticlesByPage : function() {
 			$('#ajaxloader').show();	
 			
-			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
+			var reqURL = "<c:url value="/us"/>" + "/" + "${menu}" + "/" + page;
 			
 			$.ajax({
 				type : "GET",
