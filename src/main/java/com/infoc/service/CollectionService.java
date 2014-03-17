@@ -15,9 +15,12 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.infoc.domain.Article;
 
+@Service
 public class CollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
 	private static final Integer MAX_DUP_NUM = 2;
@@ -26,7 +29,6 @@ public class CollectionService {
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
 	public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
-
 	public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> POLITICS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> ECON_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
@@ -54,6 +56,15 @@ public class CollectionService {
 			}
 		}
 	}
+	
+	public static ArticleService articleService;
+	public static UserService userService;
+	
+	@Autowired
+	public CollectionService(ArticleService articleService, UserService userService) {
+		CollectionService.articleService = articleService;
+		CollectionService.userService = userService;
+    }
 	
 	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
 		return getArticlesByCurrentTime(map, 0);
@@ -206,12 +217,13 @@ public class CollectionService {
 		}
 
 		// if it is the new one, then translate the main contents.
-		newArticle.translateMainContents();
+//		newArticle.translateMainContents();
 
 		// get the hour of the time for the time section
 		int hour = newArticle.getPubDate().getHourOfDay();
 		cache.get(hour).add(newArticle);
 		
+		articleService.add(newArticle);
 	}
 
 	public static void clearYesterDay() {

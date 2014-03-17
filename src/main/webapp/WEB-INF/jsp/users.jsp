@@ -19,7 +19,7 @@
 <c:forEach var="user" items="${page.content}" varStatus="status">
 	<tr>
 	    <td>${page.totalElements - (first + status.index)}</td>
-		<td><a href="<spring:url value="/users/${user.id}"/>"><c:out value="${user.name}" /></a></td>
+		<td><a href="<spring:url value="/users/${user.id}"/>"><c:out value="${user.email}" /></a></td>
 	</tr>
 </c:forEach>
 </tbody>

@@ -26,6 +26,11 @@
 			<name>Activiti</name>
 			<url>https://maven.alfresco.com/nexus/content/repositories/activiti/</url>
 		</repository>
+		<repository>
+        <id>joda-releases</id>
+        <name>Joda Releases</name>
+        <url>https://oss.sonatype.org/content/repositories/joda-releases</url>
+      </repository>
 	</repositories>
 
 	<dependencies>
@@ -237,6 +242,13 @@
 			<version>2.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time-hibernate</artifactId>
+			<version>1.3</version>
+		</dependency>
+            
+            
 		<!-- HTTP Client -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

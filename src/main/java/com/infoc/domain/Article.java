@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
@@ -42,9 +43,11 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private String img;
 
+	@Lob 
 	@Column
 	private String contents;
 
+	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	@Column
 	private DateTime pubDate;
 
@@ -67,9 +70,11 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private Set<String> keyWordList = new HashSet<>(); // use for summarization and duplication check
 
+	@Lob 
 	@Column
 	private String mainContents;
 
+	@Lob 
 	@Column
 	private String transedContents;
 	// /////////////////////////////////////////////////////////////////////////////

@@ -15,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.infoc.domain.User;
+import com.infoc.service.ArticleService;
+import com.infoc.service.CollectionService;
 import com.infoc.service.UserService;
 
 @Controller
 @RequestMapping("users")
 public class UserController extends BaseController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+    
     @Autowired
     UserService userService;
+    
+    @Autowired
+    ArticleService articleService;
 
     @RequestMapping("login")
     public String getLogin() {
@@ -32,7 +37,7 @@ public class UserController extends BaseController {
     
     @RequestMapping
     public void getUsers(Pageable pageable, Model model) {
-        logger.debug("{}", ToStringBuilder.reflectionToString(pageable));
+        LOG.debug("{}", ToStringBuilder.reflectionToString(pageable));
         Page<User> page = userService.getUsers(pageable);
         model.addAttribute("page", page);
     }
@@ -61,5 +66,13 @@ public class UserController extends BaseController {
     public String delete(@RequestParam Long id) {
         userService.delete(id);
         return "redirect:/users";
+    }
+    
+    @RequestMapping("article")
+    public String getArticle(Model model) {
+    	
+    	LOG.debug("{}", articleService.getArticles());
+    	model.addAttribute("page", articleService.getArticles());
+    	return "users/art";
     }
 }
