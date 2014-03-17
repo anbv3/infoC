@@ -284,4 +284,6 @@ border-right: none;
     font-family: Comic Sans, Comic Sans MS, cursive;
 }
     
-    
+.article-btn {
+	font-weight: bold;
+}

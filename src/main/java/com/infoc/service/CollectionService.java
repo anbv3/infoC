@@ -211,17 +211,7 @@ public class CollectionService {
 		// get the hour of the time for the time section
 		int hour = newArticle.getPubDate().getHourOfDay();
 		cache.get(hour).add(newArticle);
-
-		/*
-		 * TODO: remove the less important article rather than the first one
-		if (cache.get(hour).size() <= 8) {
-			cache.get(hour).add(newArticle);
-		} else {
-			// TODO: remove the less important article rather than the first one
-			cache.get(hour).remove(0);
-			cache.get(hour).add(newArticle);
-		}
-		*/
+		
 	}
 
 	public static void clearYesterDay() {

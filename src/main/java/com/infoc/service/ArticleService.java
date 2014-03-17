@@ -30,7 +30,7 @@ public class ArticleService {
 	}
 
 	@Transactional
-	public void save(Article article) {
+	public void add(Article article) {
 		articleRepository.save(article);
 	}
 }

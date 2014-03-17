@@ -90,7 +90,7 @@ public class CrawlScheduler {
 	public static void runShcedule() {
 		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 5, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 1, 15, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
 	}
 	
 	

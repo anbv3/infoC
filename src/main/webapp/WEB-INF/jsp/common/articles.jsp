@@ -37,7 +37,7 @@
 							<hr class="item_title-separator">
 						</c:if>
 
-						<div class="item_content col-xs-12">${row.mainContents}</div>
+						<div class="item_content col-xs-12"><span class="label label-primary">요약</span>&nbsp;${row.mainContents}</div>
 
 
 
@@ -48,12 +48,12 @@
 								<div class="panel-heading panel-heading-sArt">
 									<h4 class="panel-title panel-${entry.key}">
 										<a class="btn btn-success pull-left" href="${row.link}" target="_blank" rel="tooltip" title="Go to The Original~"> 
-										<span class="glyphicon glyphicon-share-alt"></span>
+										<span class="article-btn">원문</span>
 										</a>
 										
 										<a class="btn btn-success" rel="tooltip" data-placement="top" title="Translate this!"  data-toggle="collapse"
 										data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}"> 
-										<span class="glyphicon glyphicon-transfer"></span>
+										<span class="article-btn">번역</span>
 										</a>
 										
 										<!--
@@ -62,9 +62,9 @@
 										</a>
 									 	-->
 									 	
-										<a class="btn btn-success pull-right" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
+										<a class="btn btn-success pull-right <c:if test="${empty row.simularList}"> disabled </c:if>" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
 											data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}"> 
-											<span class="glyphicon glyphicon-list <c:if test="${empty row.simularList}"> icon-disabled </c:if>"></span>
+											<span class="article-btn">관련</span>
 										</a>
 									</h4>
 								</div>
@@ -87,7 +87,9 @@
 										<div id="collapse-trans-${entry.key}-${cnt.index}"
 											class="collapse-${entry.key} panel-collapse collapse panel-collapse-sArt">
 											<div class="panel-body panel-body-sArt">
-												<div class="panel-article-info col-xs-12">${row.transedContents}</div>
+												<div class="panel-article-info col-xs-12">
+													${row.transedContents}
+												</div>
 											</div>
 										</div>
 									</c:if>
