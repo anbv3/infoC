@@ -287,3 +287,7 @@ border-right: none;
 .article-btn {
 	font-weight: bold;
 }
+
+.article-sum-mark {
+	padding-top: 3px;
+}

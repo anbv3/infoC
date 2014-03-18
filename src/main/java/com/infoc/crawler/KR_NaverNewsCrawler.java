@@ -15,6 +15,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
@@ -24,7 +26,7 @@ import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
-
+@Component
 public class KR_NaverNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(KR_NaverNewsCrawler.class);
 	private static String TODAY = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=3";
@@ -37,6 +39,9 @@ public class KR_NaverNewsCrawler implements NewsCrawler {
 	private static String IT = "http://news.search.naver.com/newscluster/rss.nhn?type=0&rss_idx=9";
 
 	private List<Article> articleList = new ArrayList<>();
+
+	@Autowired
+	public CollectionService collectionService;
 	
 	@Override
 	public List<Article> createArticlList() {
@@ -69,7 +74,7 @@ public class KR_NaverNewsCrawler implements NewsCrawler {
 				continue;
 			}
 			
-			if (article.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
+			if (article.getPubDate().before(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1).toDate())) {
 				return;
 			}
 			
@@ -77,7 +82,7 @@ public class KR_NaverNewsCrawler implements NewsCrawler {
 			ContentsAnalysisService.createMainSentence(article);
 			
 			// add to the store
-			CollectionService.add(article);
+			collectionService.add(article);
 		}
 	}
 
@@ -91,7 +96,7 @@ public class KR_NaverNewsCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")));
+		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")).toDate());
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;

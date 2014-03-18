@@ -203,7 +203,7 @@ public class USCollectionService {
 		newArticle.translateMainContentsFromEnToKr();
 		
 		// get the hour of the time for the time section
-		int hour = newArticle.getPubDate().getHourOfDay();
+		int hour = (new DateTime(newArticle.getPubDate())).getHourOfDay();
 		cache.get(hour).add(newArticle);
 		
 		/*
@@ -226,10 +226,10 @@ public class USCollectionService {
 					if (article
 							.next()
 							.getPubDate()
-							.isBefore(
+							.before(
 									DateTime.now(
 											DateTimeZone.forID("Asia/Seoul"))
-											.minusDays(1).minusHours(1))) {
+											.minusDays(1).minusHours(1).toDate())) {
 						article.remove();
 					}
 				}

@@ -1,6 +1,7 @@
 package com.infoc.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +13,6 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -47,9 +47,8 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private String contents;
 
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	@Column
-	private DateTime pubDate;
+	private Date pubDate;
 
 	@Column
 	private String author;
@@ -184,11 +183,11 @@ public class Article extends AbstractPersistable<Long> {
 		this.contents = contents;
 	}
 
-	public DateTime getPubDate() {
+	public Date getPubDate() {
 		return pubDate;
 	}
 
-	public void setPubDate(DateTime pubDate) {
+	public void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
 	}
 

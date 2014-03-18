@@ -43,7 +43,7 @@ public class KR_DaumNewsCrawlerTest {
 			LOG.debug("{}", article);
 			
 			// add to the store
-			CollectionService.add(article);
+			//CollectionService.add(article);
 		}
 		
 		for (Entry<Integer, List<Article>> entry : CollectionService.TODAY_CACHE.entrySet()) {

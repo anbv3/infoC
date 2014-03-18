@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.infoc.domain.Article;
+import com.infoc.repository.ArticleRepository;
 
 @Service
 public class CollectionService {
@@ -57,14 +58,13 @@ public class CollectionService {
 		}
 	}
 	
-	public static ArticleService articleService;
-	public static UserService userService;
+	
+	public static ArticleRepository articleRepository;
 	
 	@Autowired
-	public CollectionService(ArticleService articleService, UserService userService) {
-		CollectionService.articleService = articleService;
-		CollectionService.userService = userService;
-    }
+	public CollectionService(ArticleRepository articleRepository) {
+		CollectionService.articleRepository = articleRepository;
+	}
 	
 	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
 		return getArticlesByCurrentTime(map, 0);
@@ -220,10 +220,10 @@ public class CollectionService {
 //		newArticle.translateMainContents();
 
 		// get the hour of the time for the time section
-		int hour = newArticle.getPubDate().getHourOfDay();
+		int hour = (new DateTime(newArticle.getPubDate())).getHourOfDay();
 		cache.get(hour).add(newArticle);
 		
-		articleService.add(newArticle);
+		articleRepository.save(newArticle);
 	}
 
 	public static void clearYesterDay() {
@@ -234,10 +234,10 @@ public class CollectionService {
 					if (article
 						.next()
 						.getPubDate()
-						.isBefore(
+						.before(
 							DateTime.now(
 								DateTimeZone.forID("Asia/Seoul"))
-								.minusDays(1).minusHours(1))) {
+								.minusDays(1).minusHours(1).toDate())) {
 						article.remove();
 					}
 				}

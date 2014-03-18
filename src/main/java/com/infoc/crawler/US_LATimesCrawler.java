@@ -68,7 +68,7 @@ public class US_LATimesCrawler implements NewsCrawler {
 				continue;
 			}
 			
-			if (article.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
+			if (article.getPubDate().before(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1).toDate())) {
 				return;
 			}
 			
@@ -85,7 +85,7 @@ public class US_LATimesCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")));
+		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")).toDate());
 		
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {

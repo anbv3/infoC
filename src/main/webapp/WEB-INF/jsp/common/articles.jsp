@@ -37,7 +37,7 @@
 							<hr class="item_title-separator">
 						</c:if>
 
-						<div class="item_content col-xs-12"><span class="label label-primary">요약</span>&nbsp;${row.mainContents}</div>
+						<div class="item_content col-xs-12"><span class="label label-primary article-sum-mark">요약</span>&nbsp;${row.mainContents}</div>
 
 
 

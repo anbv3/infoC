@@ -15,6 +15,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
@@ -25,6 +29,7 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEnclosure;
 import com.sun.syndication.feed.synd.SyndEntry;
 
+@Service
 public class KR_DaumNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(KR_DaumNewsCrawler.class);
 
@@ -39,6 +44,10 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 
 	private List<Article> articleList = new ArrayList<>();
 
+	@Autowired
+	public CollectionService collectionService;
+	
+	
 	@Override
 	public List<Article> createArticlList() {
 		LOG.debug("get RSS from Daum.");
@@ -70,7 +79,7 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 				continue;
 			}
 			
-			if (article.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
+			if (article.getPubDate().before(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1).toDate())) {
 				return;
 			}
 			
@@ -78,7 +87,7 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 			ContentsAnalysisService.createMainSentence(article);
 			
 			// add to the store
-			CollectionService.add(article);
+			collectionService.add(article);
 		}
 	}
 
@@ -87,7 +96,7 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));
+		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")).toDate());
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;

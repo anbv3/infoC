@@ -11,6 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
@@ -20,6 +22,7 @@ import com.infoc.service.ContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
+@Component
 public class KR_GoogleNewsCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(KR_GoogleNewsCrawler.class);
 
@@ -34,6 +37,9 @@ public class KR_GoogleNewsCrawler implements NewsCrawler {
 
 	private List<Article> articleList = new ArrayList<>();
 
+	@Autowired
+	public CollectionService collectionService;
+	
 	@Override
 	public List<Article> createArticlList() {
 		LOG.debug("get RSS from Google.");
@@ -65,7 +71,7 @@ public class KR_GoogleNewsCrawler implements NewsCrawler {
 				continue;
 			}
 			
-			if (article.getPubDate().isBefore(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1))) {
+			if (article.getPubDate().before(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1).toDate())) {
 				return;
 			}
 			
@@ -73,7 +79,7 @@ public class KR_GoogleNewsCrawler implements NewsCrawler {
 			ContentsAnalysisService.createMainSentence(article);
 			
 			// add to the store
-			CollectionService.add(article);
+			collectionService.add(article);
 		}
 	}
 
@@ -81,7 +87,7 @@ public class KR_GoogleNewsCrawler implements NewsCrawler {
 		Article article = new Article();
 		article.setSection(section);
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")));
+		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")).toDate());
 		parseTitleAuthor(rssItem.getTitle(), article);
 		
 		// if title is empty or too short, hard to analysis. So let's skip
