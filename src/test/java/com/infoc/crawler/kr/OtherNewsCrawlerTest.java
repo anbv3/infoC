@@ -1,4 +1,4 @@
-package com.infoc.crawler;
+package com.infoc.crawler.kr;
 
 import java.net.URL;
 import java.util.List;
@@ -13,8 +13,8 @@ import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
 
-public class KR_OtherNewsCrawlerTest {
-	private static final Logger LOG = LoggerFactory.getLogger(KR_OtherNewsCrawlerTest.class);
+public class OtherNewsCrawlerTest {
+	private static final Logger LOG = LoggerFactory.getLogger(OtherNewsCrawlerTest.class);
 	
 	@Test
 	public void testLib() {

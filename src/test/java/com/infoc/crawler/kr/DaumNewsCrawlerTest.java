@@ -5,7 +5,7 @@
  * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.infoc.crawler;
+package com.infoc.crawler.kr;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,12 +26,12 @@ import com.infoc.service.ContentsAnalysisService;
 /**
  * @author NBP
  */
-public class KR_DaumNewsCrawlerTest {
-	private static final Logger LOG = LoggerFactory.getLogger(KR_DaumNewsCrawler.class);
+public class DaumNewsCrawlerTest {
+	private static final Logger LOG = LoggerFactory.getLogger(DaumNewsCrawler.class);
 	
 	@Test
 	public void test1() {
-		KR_GoogleNewsCrawler d = new KR_GoogleNewsCrawler();
+		GoogleNewsCrawler d = new GoogleNewsCrawler();
 		List<Article> list = d.createArticlList();
 
 		LOG.debug("{}", list.size());

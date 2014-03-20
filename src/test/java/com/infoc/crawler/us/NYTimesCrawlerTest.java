@@ -1,4 +1,4 @@
-package com.infoc.crawler;
+package com.infoc.crawler.us;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -18,12 +18,13 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.infoc.crawler.NewsCrawler;
 import com.infoc.service.USCollectionService;
 import com.infoc.service.USContentsAnalysisService;
 
-public class US_NYTimesCrawlerTest {
+public class NYTimesCrawlerTest {
 	private static final Logger LOG = LoggerFactory
-			.getLogger(US_NYTimesCrawlerTest.class);
+			.getLogger(NYTimesCrawlerTest.class);
 
 	@Test
 	public void test2() {
@@ -46,7 +47,7 @@ public class US_NYTimesCrawlerTest {
 
 	@Test
 	public void test1() {
-		NewsCrawler d = new US_ChicagoTribuneCrawler();
+		NewsCrawler d = new ChicagoTribuneCrawler();
 		d.createArticlList();
 
 		LOG.debug("{}, {}", USCollectionService.TODAY_CACHE.isEmpty(),

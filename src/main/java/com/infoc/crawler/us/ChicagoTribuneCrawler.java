@@ -2,7 +2,7 @@
  * @(#)DaumNewsCrawler.java $version 2013. 10. 25.
  */
 
-package com.infoc.crawler;
+package com.infoc.crawler.us;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,47 +15,37 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
-import com.infoc.service.CollectionService;
 import com.infoc.service.ContentsAnalysisService;
+import com.infoc.service.USCollectionService;
+import com.infoc.service.USContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
-import com.sun.syndication.feed.synd.SyndEnclosure;
 import com.sun.syndication.feed.synd.SyndEntry;
 
-@Service
-public class KR_DaumNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(KR_DaumNewsCrawler.class);
 
-	private static String TODAY = "http://media.daum.net/syndication/today_sisa.rss";
-	private static String POLITICS = "http://media.daum.net/syndication/politics.rss";
-	private static String ECON = "http://media.daum.net/syndication/economic.rss";
-	private static String SOCIETY = "http://media.daum.net/syndication/society.rss";
-	private static String CULTURE = "http://media.daum.net/syndication/culture.rss";
-	private static String ENT = "http://media.daum.net/syndication/today_entertain.rss";
-	private static String SPORT = "http://media.daum.net/syndication/today_sports.rss";
-	private static String IT = "http://media.daum.net/syndication/digital.rss";
+public class ChicagoTribuneCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(ChicagoTribuneCrawler.class);
+	private static String TODAY = "http://chicagotribune.feedsportal.com/c/34253/f/622809/index.rss";
+	private static String POLITICS = "http://chicagotribune.feedsportal.com/c/34253/f/669325/index.rss";
+	private static String ECON = "http://chicagotribune.feedsportal.com/c/34253/f/669329/index.rss";
+	private static String CULTURE = "http://chicagotribune.feedsportal.com/c/34253/f/669314/index.rss";
+	private static String ENT = "http://chicagotribune.feedsportal.com/c/34253/f/669302/index.rss";
+	private static String SPORT = "http://chicagotribune.feedsportal.com/c/34253/f/622872/index.rss";
+	private static String IT = "http://chicagotribune.feedsportal.com/c/34253/f/669330/index.rss";
 
 	private List<Article> articleList = new ArrayList<>();
-
-	@Autowired
-	public CollectionService collectionService;
-	
 	
 	@Override
 	public List<Article> createArticlList() {
-		LOG.debug("get RSS from Daum.");
-
+		LOG.debug("get RSS from ChicagoTribune.");
+		
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(SOCIETY, ArticleSection.SOCIETY);
 		createListBySection(CULTURE, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);
 		createListBySection(SPORT, ArticleSection.SPORT);
@@ -63,19 +53,20 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 
 		return this.articleList;
 	}
-
+	
 	private void createListBySection(String rssUrl, ArticleSection section) {
 		for (SyndEntry item : RSSCrawler.getArticleList(rssUrl)) {
 			Article article = parseRSSItem(item, section);
+			
 			if (article == null) {
 				continue;
 			}
-			
+
 			if (Strings.isNullOrEmpty(article.getContents())) {
 				continue;
 			}
 			
-			if (article.getContents().length() < 100) {
+			if (article.getContents().length() < 300) {
 				continue;
 			}
 			
@@ -84,10 +75,10 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 			}
 			
 			// create the main contents
-			ContentsAnalysisService.createMainSentence(article);
+			USContentsAnalysisService.createMainSentence(article);
 			
 			// add to the store
-			collectionService.add(article);
+			USCollectionService.add(article);
 		}
 	}
 
@@ -96,12 +87,13 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")).toDate());
+		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")).toDate());
+		
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
-
+		
 		parseContentsFromLink(rssItem, article);
 
 		return article;
@@ -109,7 +101,7 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 	
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
-		if(!rssLink.contains("daum")) {
+		if(!rssLink.contains("chicagotribune")) {
 			return;
 		}
 		
@@ -121,20 +113,12 @@ public class KR_DaumNewsCrawler implements NewsCrawler {
 			return;
 		}
 		
-		String contentId = "#newsBodyShadow";
+		String contentId = "#story-body";
 		Elements contentsArea = doc.select(contentId);
-		
-		// remove the .image tag because the title is existed again as the caption of the img.
-		contentsArea.select(".image").remove();
-		
-		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(contentsArea.text()));
-		
+		article.setContents(contentsArea.text());
 		
 		// extract the img link ////////////////////////////////////////////////////////
-		if (!rssItem.getEnclosures().isEmpty()) {
-			SyndEnclosure enclosure = (SyndEnclosure)(rssItem.getEnclosures().get(0));
-			article.setImg(enclosure.getUrl());
-		}
+		article.setImg(contentsArea.select("img").attr("src"));
 	}
 	
 }

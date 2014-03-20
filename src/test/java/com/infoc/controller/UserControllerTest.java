@@ -35,6 +35,9 @@ public class UserControllerTest {
 	@Autowired
 	private ArticleRepository articleRepository;
 	
+	@Autowired
+	private CollectionService collectionService;
+	
 	private MockMvc mockMvc;
 
 	@Before
@@ -51,26 +54,26 @@ public class UserControllerTest {
 	 */
 	@Test
 	public void getUsers() throws Exception {
-		try {
-			Article a = new Article();
-			a.setPubDate(DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
-			a.setTitle("xxxxxxxx");
-			
-			CollectionService.add(a);
-			//articleRepository.save(a);
-			
-			LOG.debug("{}", articleRepository.findAll());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		
 		this.mockMvc.perform(get("/users/form")).andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(model().attributeHasNoErrors("user"))
 			.andExpect(forwardedUrl("users/form"));
 	}
 
+	@Test
+	public void testArticleBeanInit() throws Exception {
+		try {
+			Article a = new Article();
+			a.setPubDate(DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
+			a.setTitle("xxxxxxxx");
+			
+			collectionService.add(a);
+			//articleRepository.save(a);
+			
+			LOG.debug("{}", articleRepository.findAll());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

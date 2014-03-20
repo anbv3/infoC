@@ -2,7 +2,7 @@
  * @(#)DaumNewsCrawler.java $version 2013. 10. 25.
  */
 
-package com.infoc.crawler;
+package com.infoc.crawler.us;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ContentsAnalysisService;
@@ -26,30 +26,26 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 
-public class US_BostonNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(US_BostonNewsCrawler.class);
-	private static String TODAY = "http://feeds.boston.com/boston/topstories";
-	private static String POLITICS = "http://feeds.boston.com/boston/news/politics";
-	private static String ECON = "http://feeds.boston.com/boston/business";
-	private static String ENT = "http://feeds.boston.com/boston/ae";
-	private static String SPORT = "http://feeds.boston.com/boston/sports/news";
-	private static String IT = "http://feeds.boston.com/boston/business/technology";
-	
-	private static String CULTURE_FOOD = "http://feeds.boston.com/boston/lifestyle/food";
-	private static String CULTURE_BOOKS = "http://feeds.boston.com/boston/ae/books";
-	
+public class LATimesCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(LATimesCrawler.class);
+	private static String TODAY = "http://feeds.latimes.com/latimes/news";
+	private static String POLITICS = "http://feeds.latimes.com/latimes/news/politics/";
+	private static String ECON = "http://feeds.latimes.com/latimes/business";
+	private static String CULTURE = "http://feeds.feedburner.com/latimes/entertainment/news/arts";
+	private static String ENT = "http://feeds.feedburner.com/latimes/entertainment/news/";
+	private static String SPORT = "http://feeds.latimes.com/latimes/sports/";
+	private static String IT = "http://feeds.latimes.com/latimes/technology";
 
 	private List<Article> articleList = new ArrayList<>();
 	
 	@Override
 	public List<Article> createArticlList() {
-		LOG.debug("get RSS from Boston.");
+		LOG.debug("get RSS from LA times.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(CULTURE_FOOD, ArticleSection.CULTURE);
-		createListBySection(CULTURE_BOOKS, ArticleSection.CULTURE);
+		createListBySection(CULTURE, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);
 		createListBySection(SPORT, ArticleSection.SPORT);
 		createListBySection(IT, ArticleSection.IT);
@@ -64,11 +60,11 @@ public class US_BostonNewsCrawler implements NewsCrawler {
 			if (article == null) {
 				continue;
 			}
-			
+
 			if (Strings.isNullOrEmpty(article.getContents())) {
 				continue;
 			}
-
+			
 			if (article.getContents().length() < 300) {
 				continue;
 			}
@@ -104,7 +100,7 @@ public class US_BostonNewsCrawler implements NewsCrawler {
 	
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
-		if(!rssLink.contains("boston")) {
+		if(!rssLink.contains("latimes")) {
 			return;
 		}
 		
@@ -116,26 +112,10 @@ public class US_BostonNewsCrawler implements NewsCrawler {
 			return;
 		}
 		
-		String contentId = ".article-text";
-		Elements contentsArea = doc.select(contentId);
-		String contents = contentsArea.text();
-		
-		if (Strings.isNullOrEmpty(contents)) {
-			contentId = ".blogText";
-			contentsArea = doc.select(contentId);
-			contents = contentsArea.text();
-		}
-		
-		if (Strings.isNullOrEmpty(contents)) {
-			contentId = ".pic-story-content";
-			contentsArea = doc.select(contentId);
-			contents = contentsArea.text();
-		}
-		
-		article.setContents(contents);
-		
+		String contentId = "#story-body-text";
+		article.setContents(doc.select(contentId).text());
 		
 		// extract the img link ////////////////////////////////////////////////////////
-		article.setImg(contentsArea.select("img").attr("src"));
+		article.setImg(doc.select(".thumbnail").select("img").attr("src"));
 	}
 }

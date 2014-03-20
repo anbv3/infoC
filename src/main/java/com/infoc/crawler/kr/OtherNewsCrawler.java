@@ -2,7 +2,7 @@
  * @(#)DaumNewsCrawler.java $version 2013. 10. 25.
  */
 
-package com.infoc.crawler;
+package com.infoc.crawler.kr;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.CollectionService;
@@ -28,8 +29,8 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 @Component
-public class KR_OtherNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(KR_OtherNewsCrawler.class);
+public class OtherNewsCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(OtherNewsCrawler.class);
 
 	private static String LIKELINK = "http://feeds.feedburner.com/likelink-recent";
 	private static String NEWSTAPA = "http://www.newstapa.com/feed";

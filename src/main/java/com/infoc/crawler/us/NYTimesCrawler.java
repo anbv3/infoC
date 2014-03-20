@@ -2,7 +2,7 @@
  * @(#)DaumNewsCrawler.java $version 2013. 10. 25.
  */
 
-package com.infoc.crawler;
+package com.infoc.crawler.us;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,11 +12,13 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ContentsAnalysisService;
@@ -26,26 +28,28 @@ import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
 
-public class US_TimeCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(US_TimeCrawler.class);
-	private static String TODAY = "http://feeds2.feedburner.com/time/topstories";
-	private static String POLITICS = "http://feeds.feedburner.com/timeblogs/swampland";
-	private static String ECON = "http://feeds2.feedburner.com/time/business";
-	private static String CULTURE = "http://feeds.feedburner.com/time/healthland";
-	private static String ENT = "http://feeds2.feedburner.com/time/entertainment";
-	private static String IT = "http://feeds.feedburner.com/timeblogs/nerd_world";
+public class NYTimesCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(NYTimesCrawler.class);
+	private static String TODAY = "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
+	private static String POLITICS = "http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml";
+	private static String ECON = "http://rss.nytimes.com/services/xml/rss/nyt/Economy.xml";
+	private static String CULTURE = "http://rss.nytimes.com/services/xml/rss/nyt/FashionandStyle.xml";
+	private static String ENT = "http://rss.nytimes.com/services/xml/rss/nyt/Arts.xml";
+	private static String SPORT = "http://rss.nytimes.com/services/xml/rss/nyt/Sports.xml";
+	private static String IT = "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml";
 
 	private List<Article> articleList = new ArrayList<>();
 	
 	@Override
 	public List<Article> createArticlList() {
-		LOG.debug("get RSS from Time.");
+		LOG.debug("get RSS from nytimes.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
 		createListBySection(CULTURE, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);
+		createListBySection(SPORT, ArticleSection.SPORT);
 		createListBySection(IT, ArticleSection.IT);
 
 		return this.articleList;
@@ -98,7 +102,7 @@ public class US_TimeCrawler implements NewsCrawler {
 	
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
-		if(!rssLink.contains("time.com")) {
+		if(!rssLink.contains("nytimes")) {
 			return;
 		}
 		
@@ -110,11 +114,17 @@ public class US_TimeCrawler implements NewsCrawler {
 			return;
 		}
 		
-		String contentId = ".entry-content";
+		String contentId = "#story";
 		Elements contentsArea = doc.select(contentId);
-		article.setContents(contentsArea.text());
+		
+		Elements bodyArea = contentsArea.select(".story-body-text");
+		StringBuilder sb = new StringBuilder();
+		for (Element element : bodyArea) {
+			sb.append(element.ownText()).append(" ");
+		}
+		article.setContents(sb.toString());
 		
 		// extract the img link ////////////////////////////////////////////////////////
-		article.setImg(contentsArea.select("img").attr("src"));
+		article.setImg(contentsArea.select(".image > img").attr("src"));
 	}
 }

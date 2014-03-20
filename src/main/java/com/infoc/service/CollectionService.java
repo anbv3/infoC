@@ -58,13 +58,8 @@ public class CollectionService {
 		}
 	}
 	
-	
-	public static ArticleRepository articleRepository;
-	
 	@Autowired
-	public CollectionService(ArticleRepository articleRepository) {
-		CollectionService.articleRepository = articleRepository;
-	}
+	public ArticleRepository articleRepository;
 	
 	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
 		return getArticlesByCurrentTime(map, 0);
@@ -161,7 +156,7 @@ public class CollectionService {
 		return false;
 	}
 
-	public static void add(Article newArticle) {
+	public void add(Article newArticle) {
 		// just in case, # of keyword is one, then skip to add
 		if (newArticle.getKeyWordList().size() < 2) {
 			return;
@@ -204,7 +199,7 @@ public class CollectionService {
 		addNew(newArticle, cacheLocation);
 	}
 
-	private static void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
+	private void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
 		// check the duplicated articles from the stored article.
 		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
