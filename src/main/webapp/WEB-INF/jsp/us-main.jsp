@@ -101,7 +101,7 @@ var control = {
 				$(window).data('ajaxready', true);
 			}).error(function(response) {
 				alert("[ERROR] " + response.status + " : " + response.statusText);
-			}).done(function() {
+			}).always(function() {
 				
 			});
 		}

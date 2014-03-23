@@ -60,9 +60,9 @@ public class CrawlScheduler {
 	private void setUpCrawlerList() {
 		// kr
 		newsCrawlerList.add(daumNewsCrawler);
-		newsCrawlerList.add(naverNewsCrawler);
-		newsCrawlerList.add(googleNewsCrawler);
-		newsCrawlerList.add(otherNewsCrawler);
+//		newsCrawlerList.add(naverNewsCrawler);
+//		newsCrawlerList.add(googleNewsCrawler);
+//		newsCrawlerList.add(otherNewsCrawler);
 		
 		// us
 //		newsCrawlerList.add(nyTimesCrawler);

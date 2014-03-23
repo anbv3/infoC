@@ -56,9 +56,24 @@
 </style>
 
 <script type="text/javascript">
+	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy" value="${currentDay}"/>');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 
 	var control = {
+		
+		createDateSection : function(oldDate) {
+			var tmpDay =  new Date(oldDate);
+			var OldDay = tmpDay.getDate();
+			var OldMonth = tmpDay.getMonth() + 1;
+			var OldYear = tmpDay.getFullYear();
+			
+			var dateSection = '<div class="bkg2"> <div class="row"> <div class="col-md-12 day-section"> <h3>' 
+			+ OldYear + '.' + OldMonth + '.' + OldDay + '</h3></div></div></div>';  
+		
+			return dateSection;
+		},
+		
+		
 		getArticlesByPage : function() {
 			$('#ajaxloader').show();	
 			
@@ -67,10 +82,45 @@
 			$.ajax({
 				type : "GET",
 				url : reqURL,
+				async : false
 			}).done(function(response) {
 				if (response.trim() != "") {
 					$('#article-list-section').children().last().after(response);
 					page++;
+				} else {
+					// 이전 날짜 영역을 출력하고 이전 날짜 조회
+					var dayOfMonth = date.getDate();
+					var oldDate = date.setDate(dayOfMonth - 1);
+					
+					$('#article-list-section').children().last().after(control.createDateSection(oldDate));
+				}
+				
+				$('#ajaxloader').hide();
+				$(window).data('ajaxready', true);
+			}).error(function(response) {
+				alert("[ERROR] " + response.status + " : " + response.statusText);
+			}).always(function() {
+				
+			});
+		},
+		
+		getArticlesByDateAndPage : function() {
+			$('#ajaxloader').show();	
+			
+			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
+			
+			$.ajax({
+				type : "GET",
+				url : reqURL,
+				async : false
+			}).done(function(response) {
+				if (response.trim() != "") {
+					$('#article-list-section').children().last().after(response);
+					page++;
+				} else {
+					// 이전 날짜 영역을 출력하고 이전 날짜 조회
+					
+					
 				}
 				
 				$('#ajaxloader').hide();

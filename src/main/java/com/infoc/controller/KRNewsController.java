@@ -1,5 +1,8 @@
 package com.infoc.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.infoc.domain.Article;
 import com.infoc.service.CollectionService;
 
 @Controller
@@ -36,6 +40,27 @@ public class KRNewsController extends BaseController {
 		return "/common/articles";
 	}
 
+	@RequestMapping(value = "/main/date/{date}/page/{page}")
+	public String getMainByDate(Model model, @PathVariable("date") final String date, @PathVariable("page") final int page) throws Exception {
+
+		// server
+		// date, page를 받고
+		// 오늘이면 cache에서 리턴, page++ => 데이터가 없으면 page는 0으로 리턴
+		// 오늘 아니면 DB에서 리턴, page++ => 데이터가 없으면 page는 0으로 리턴
+		
+		// client
+		// date, page로 조회하다가 page가 0으로 리턴되어 오면 이전 date으로 조회시작 
+		
+		
+		
+		
+		// getArticlesByDate
+		Map<Integer, List<Article>> oldArticles = null;
+		
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(oldArticles, page));
+		model.addAttribute("menu", "main");
+		return "/common/articles";
+	}
 	
 	@RequestMapping(value = "/politics")
 	public String getPolitics(Model model) throws Exception {
