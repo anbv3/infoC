@@ -57,7 +57,7 @@
 
 <script type="text/javascript">
 	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy" value="${currentDay}"/>');
-	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
+	var page = "${page}"; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 
 	var control = {
 		
@@ -71,6 +71,11 @@
 			+ OldYear + '.' + OldMonth + '.' + OldDay + '</h3></div></div></div>';  
 		
 			return dateSection;
+		},
+		
+		getArticles : function() {
+			
+			
 		},
 		
 		
@@ -107,7 +112,7 @@
 		getArticlesByDateAndPage : function() {
 			$('#ajaxloader').show();	
 			
-			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
+			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/date" + date.getTime() + "/page" + page;
 			
 			$.ajax({
 				type : "GET",

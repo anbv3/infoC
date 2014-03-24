@@ -1,5 +1,6 @@
 package com.infoc.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +42,12 @@ public class KRNewsController extends BaseController {
 	}
 
 	@RequestMapping(value = "/main/date/{date}/page/{page}")
-	public String getMainByDate(Model model, @PathVariable("date") final String date, @PathVariable("page") final int page) throws Exception {
+	public String getMainByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
 
+		LOG.debug("date: {}, page: {}", date, page);
+		
 		// server
 		// date, page를 받고
 		// 오늘이면 cache에서 리턴, page++ => 데이터가 없으면 page는 0으로 리턴
@@ -52,13 +57,33 @@ public class KRNewsController extends BaseController {
 		// date, page로 조회하다가 page가 0으로 리턴되어 오면 이전 date으로 조회시작 
 		
 		
+		DateTime currTime = DateTime.now(DateTimeZone.forID("Asia/Seoul"));
 		
+		DateTime reqTime = new DateTime(date);
 		
-		// getArticlesByDate
-		Map<Integer, List<Article>> oldArticles = null;
+		Map<Integer, List<Article>> articlesList;
+				
+		if (reqTime.equals(currTime)) {
+			LOG.debug("today");
+			articlesList = CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE, page);
+		} else {
+			LOG.debug("NOT today");
+			
+			// getArticlesByDate
+			articlesList = new HashMap<>();
+		}
 		
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(oldArticles, page));
+		if (articlesList.isEmpty()) {
+			page = 0;
+		} else {
+			page++;
+		}
+			
+		model.addAttribute("articleMap", articlesList);
 		model.addAttribute("menu", "main");
+		model.addAttribute("page", page);
+		model.addAttribute("currentDay", reqTime.toDate());
+		
 		return "/common/articles";
 	}
 	
