@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="./includes.jsp"%>
 
+<c:if test="${end == true}">
+end
+</c:if>
+
 <c:forEach var="entry" items="${articleMap}" varStatus="loop">
 
 	<c:choose>

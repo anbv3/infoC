@@ -56,8 +56,8 @@
 </style>
 
 <script type="text/javascript">
-	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy" value="${currentDay}"/>');
-	var page = "${page}"; // 처음 로드할때 page 0은 가져오므로 1부터 시작
+	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
+	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 
 	var control = {
 		
@@ -73,11 +73,11 @@
 			return dateSection;
 		},
 		
-		getArticles : function() {
-			
-			
+		addDateSection : function(d) {
+			var dayOfMonth = d.getDate();
+			var oldDate = d.setDate(dayOfMonth - 1);
+			$('#article-list-section').children().last().after(control.createDateSection(oldDate));
 		},
-		
 		
 		getArticlesByPage : function() {
 			$('#ajaxloader').show();	
@@ -93,11 +93,8 @@
 					$('#article-list-section').children().last().after(response);
 					page++;
 				} else {
-					// 이전 날짜 영역을 출력하고 이전 날짜 조회
-					var dayOfMonth = date.getDate();
 					var oldDate = date.setDate(dayOfMonth - 1);
-					
-					$('#article-list-section').children().last().after(control.createDateSection(oldDate));
+					control.getArticlesByDateAndPage(oldDate);
 				}
 				
 				$('#ajaxloader').hide();
@@ -112,28 +109,30 @@
 		getArticlesByDateAndPage : function() {
 			$('#ajaxloader').show();	
 			
-			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/date" + date.getTime() + "/page" + page;
+			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
 			
 			$.ajax({
 				type : "GET",
 				url : reqURL,
 				async : false
 			}).done(function(response) {
-				if (response.trim() != "") {
+				if (response.trim() == "end") {
+					return;
+				} else if (response.trim() != "") {
 					$('#article-list-section').children().last().after(response);
 					page++;
 				} else {
-					// 이전 날짜 영역을 출력하고 이전 날짜 조회
-					
-					
+					var dayOfMonth = date.getDate();
+					date = new Date(date.setDate(dayOfMonth - 1));
+					page = 0;
+					control.getArticlesByDateAndPage();
 				}
 				
-				$('#ajaxloader').hide();
-				$(window).data('ajaxready', true);
 			}).error(function(response) {
 				alert("[ERROR] " + response.status + " : " + response.statusText);
-			}).done(function() {
-				
+			}).always(function() {
+				$('#ajaxloader').hide();
+				$(window).data('ajaxready', true);
 			});
 		}
 	};
@@ -160,7 +159,7 @@
 				
 				if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
 					$(window).data('ajaxready', false);
-					control.getArticlesByPage();
+					control.getArticlesByDateAndPage();
 				}
 			});
 

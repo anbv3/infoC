@@ -58,12 +58,12 @@ public class KRNewsController extends BaseController {
 		
 		
 		DateTime currTime = DateTime.now(DateTimeZone.forID("Asia/Seoul"));
-		
-		DateTime reqTime = new DateTime(date);
+		DateTime reqTime = new DateTime(Long.parseLong(date));
+		LOG.debug("reqTime: {}, {}", reqTime.toDate(), reqTime.getMillis());
 		
 		Map<Integer, List<Article>> articlesList;
 				
-		if (reqTime.equals(currTime)) {
+		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
 			LOG.debug("today");
 			articlesList = CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE, page);
 		} else {
@@ -71,6 +71,7 @@ public class KRNewsController extends BaseController {
 			
 			// getArticlesByDate
 			articlesList = new HashMap<>();
+			model.addAttribute("end", true);
 		}
 		
 		if (articlesList.isEmpty()) {
