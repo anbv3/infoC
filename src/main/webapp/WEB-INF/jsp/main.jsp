@@ -73,37 +73,10 @@
 			return dateSection;
 		},
 		
-		addDateSection : function(d) {
-			var dayOfMonth = d.getDate();
-			var oldDate = d.setDate(dayOfMonth - 1);
+		addDateSection : function() {
+			var dayOfMonth = date.getDate();
+			var oldDate = date.setDate(dayOfMonth - 1);
 			$('#article-list-section').children().last().after(control.createDateSection(oldDate));
-		},
-		
-		getArticlesByPage : function() {
-			$('#ajaxloader').show();	
-			
-			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/" + page;
-			
-			$.ajax({
-				type : "GET",
-				url : reqURL,
-				async : false
-			}).done(function(response) {
-				if (response.trim() != "") {
-					$('#article-list-section').children().last().after(response);
-					page++;
-				} else {
-					var oldDate = date.setDate(dayOfMonth - 1);
-					control.getArticlesByDateAndPage(oldDate);
-				}
-				
-				$('#ajaxloader').hide();
-				$(window).data('ajaxready', true);
-			}).error(function(response) {
-				alert("[ERROR] " + response.status + " : " + response.statusText);
-			}).always(function() {
-				
-			});
 		},
 		
 		getArticlesByDateAndPage : function() {
@@ -119,6 +92,10 @@
 				if (response.trim() == "end") {
 					return;
 				} else if (response.trim() != "") {
+					if (page == 0) {
+						$('#article-list-section').children().last().after(control.createDateSection(date));
+					}
+					
 					$('#article-list-section').children().last().after(response);
 					page++;
 				} else {

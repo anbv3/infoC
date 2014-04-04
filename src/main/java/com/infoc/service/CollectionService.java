@@ -75,7 +75,7 @@ public class CollectionService {
 		
 		int idx = 0;
 		int range = page * PAGE_LIMIT;
-		//LOG.debug("{}, {}, {} ~ {}", articleMap.size(), page, range, range + PAGE_LIMIT);
+//		LOG.debug("{}, page: {} => {} ~ {}", articleMap.size(), page, range, range + PAGE_LIMIT);
 		
 		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
 			if (idx >= range && idx < range + PAGE_LIMIT) {

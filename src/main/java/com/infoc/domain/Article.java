@@ -10,8 +10,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -82,8 +83,7 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private ArticleSection section;
 
-	@OneToMany
-	@JoinColumn(name = "simulars")
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Article> simularList = new ArrayList<>();
 
 	// /////////////////////////////////////////////////////////////////////////////
@@ -163,7 +163,8 @@ public class Article extends AbstractPersistable<Long> {
 			.add("pubDate", this.pubDate)
 			.add("numDups", this.numDups)
 			.add("mainContents", this.mainContents)
-			.add("keyWordList", this.keyWordList).toString();
+			.add("keyWordList", this.keyWordList)
+			.toString() + "\n";
 	}
 
 	public String getHashId() {

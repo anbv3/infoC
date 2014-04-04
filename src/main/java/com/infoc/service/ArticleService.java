@@ -1,7 +1,10 @@
 package com.infoc.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -18,23 +21,35 @@ import com.infoc.enumeration.ArticleSection;
 import com.infoc.repository.ArticleRepository;
 
 @Service
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public class ArticleService {
 	private static final Logger LOG = LoggerFactory.getLogger(ArticleService.class);
-	
+
 	@Autowired
 	ArticleRepository articleRepository;
 
 	public List<Article> getArticles() {
 		return articleRepository.findAll();
 	}
-	
-	public List<Article> getArticlesByPubDateAndSection(Date date, ArticleSection section) {
+
+	public Map<Integer, List<Article>> getArticlesByPubDateAndSection(Date date, ArticleSection section) {
 		DateTime pubDate = new DateTime(date, DateTimeZone.forID("Asia/Seoul"));
+
+		List<Article> oneDayList = articleRepository.findBySectionAndPubYearAndPubMonthAndPubDay(section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth());
+
+		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
+		for (int i = 0; i < 24; i++) {
+			articleListMap.put(i, new ArrayList<Article>());
+		}
 		
-		return articleRepository.findBySectionAndPubYearAndPubMonthAndPubDay(section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth());
+		for (Article article : oneDayList) {
+			int hour = (new DateTime(article.getPubDate())).getHourOfDay();
+			articleListMap.get(hour).add(article);
+		}
+
+		return articleListMap;
 	}
-	
+
 	public Page<Article> getArticles(Pageable pageable) {
 		return articleRepository.findAll(pageable);
 	}
@@ -45,7 +60,7 @@ public class ArticleService {
 
 	@Transactional
 	public void delete(Long id) {
-		articleRepository.delete(id);		
+		articleRepository.delete(id);
 	}
 
 	@Transactional

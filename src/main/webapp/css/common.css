@@ -211,6 +211,7 @@ background-color: #fff;
 .day-section {
     text-align: center;
     color: #000;
+    margin-bottom: 10px;
 }
 .day-section > h3 {
     line-height: 70px;

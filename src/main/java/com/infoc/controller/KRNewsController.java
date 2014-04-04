@@ -8,19 +8,25 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
 
 @Controller
 @RequestMapping(value = {"/", "/kr"})
 public class KRNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(KRNewsController.class);
-
+	
+	@Autowired
+	ArticleService articleService;
+	
 	private void getCommonInfo(Model model) {
 		model.addAttribute("econ", CollectionService.ECON_INFO);
 		model.addAttribute("currentDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
@@ -34,57 +40,39 @@ public class KRNewsController extends BaseController {
 		return "/main";
 	}
 
-	@RequestMapping(value = "/main/{page}")
-	public String getMain(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE, page));
-		model.addAttribute("menu", "main");
-		return "/common/articles";
-	}
-
 	@RequestMapping(value = "/main/date/{date}/page/{page}")
 	public String getMainByDate(Model model, 
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 
-		LOG.debug("date: {}, page: {}", date, page);
-		
-		// server
-		// date, page를 받고
-		// 오늘이면 cache에서 리턴, page++ => 데이터가 없으면 page는 0으로 리턴
-		// 오늘 아니면 DB에서 리턴, page++ => 데이터가 없으면 page는 0으로 리턴
-		
-		// client
-		// date, page로 조회하다가 page가 0으로 리턴되어 오면 이전 date으로 조회시작 
-		
-		
 		DateTime currTime = DateTime.now(DateTimeZone.forID("Asia/Seoul"));
 		DateTime reqTime = new DateTime(Long.parseLong(date));
-		LOG.debug("reqTime: {}, {}", reqTime.toDate(), reqTime.getMillis());
+		LOG.debug("reqTime: {}, page: {}", reqTime.toDate(), page);
 		
-		Map<Integer, List<Article>> articlesList;
-				
+		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
+		
 		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
-			LOG.debug("today");
-			articlesList = CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE, page);
+			articleListMap = CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE, page);
+			model.addAttribute("end", false);
 		} else {
-			LOG.debug("NOT today");
+			// 전날의 "주요 뉴스" 가져오기
+			Map<Integer, List<Article>> oldArticleListMap = articleService.getArticlesByPubDateAndSection(reqTime.toDate(), ArticleSection.TODAY);
 			
-			// 해당 날의 "주요 뉴스" 가져오기
-			
-			
-			articlesList = new HashMap<>();
-			model.addAttribute("end", true);
+			if(oldArticleListMap == null || oldArticleListMap.isEmpty()) {
+				model.addAttribute("end", true);
+			} else {
+				articleListMap = CollectionService.getArticlesByCurrentTime(oldArticleListMap, page);
+				if (articleListMap.isEmpty() && page == 0) {
+					model.addAttribute("end", true);
+				} else {
+					model.addAttribute("end", false);	
+				}
+			}
 		}
 		
-		if (articlesList.isEmpty()) {
-			page = 0;
-		} else {
-			page++;
-		}
 			
-		model.addAttribute("articleMap", articlesList);
+		model.addAttribute("articleMap", articleListMap);
 		model.addAttribute("menu", "main");
-		model.addAttribute("page", page);
 		model.addAttribute("currentDay", reqTime.toDate());
 		
 		return "/common/articles";
