@@ -96,7 +96,14 @@ public class DaumNewsCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")).toDate());
+		
+		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
+		article.setPubDate(pubDate.toDate());
+		article.setPubYear(pubDate.getYear());
+		article.setPubMonth(pubDate.getMonthOfYear());
+		article.setPubDay(pubDate.getDayOfMonth());
+		article.setPubHour(pubDate.getHourOfDay());
+		
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;

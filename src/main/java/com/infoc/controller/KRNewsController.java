@@ -69,7 +69,9 @@ public class KRNewsController extends BaseController {
 		} else {
 			LOG.debug("NOT today");
 			
-			// getArticlesByDate
+			// 해당 날의 "주요 뉴스" 가져오기
+			
+			
 			articlesList = new HashMap<>();
 			model.addAttribute("end", true);
 		}

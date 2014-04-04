@@ -8,10 +8,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +48,29 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private String img;
 
-	@Lob 
+	@Lob
 	@Column
 	private String contents;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column
 	private Date pubDate;
+	
+	@Index(name = "idx_pub_date_year")
+	@Column
+	private int pubYear;
+	
+	@Index(name = "idx_pub_date_month")
+	@Column
+	private int pubMonth;
+	
+	@Index(name = "idx_pub_date_day")
+	@Column
+	private int pubDay;
+	
+	@Index(name = "idx_pub_date_hour")
+	@Column
+	private int pubHour;
 
 	@Column
 	private String author;
@@ -56,6 +78,7 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private Integer numDups = 0;
 
+	@Enumerated(EnumType.STRING)
 	@Column
 	private ArticleSection section;
 
@@ -69,11 +92,11 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private Set<String> keyWordList = new HashSet<>(); // use for summarization and duplication check
 
-	@Lob 
+	@Lob
 	@Column
 	private String mainContents;
 
-	@Lob 
+	@Lob
 	@Column
 	private String transedContents;
 	// /////////////////////////////////////////////////////////////////////////////
@@ -247,4 +270,35 @@ public class Article extends AbstractPersistable<Long> {
 		this.transedContents = transedContents;
 	}
 
+	public int getPubYear() {
+		return pubYear;
+	}
+
+	public void setPubYear(int pubYear) {
+		this.pubYear = pubYear;
+	}
+
+	public int getPubMonth() {
+		return pubMonth;
+	}
+
+	public void setPubMonth(int pubMonth) {
+		this.pubMonth = pubMonth;
+	}
+
+	public int getPubDay() {
+		return pubDay;
+	}
+
+	public void setPubDay(int pubDay) {
+		this.pubDay = pubDay;
+	}
+
+	public int getPubHour() {
+		return pubHour;
+	}
+
+	public void setPubHour(int pubHour) {
+		this.pubHour = pubHour;
+	}
 }

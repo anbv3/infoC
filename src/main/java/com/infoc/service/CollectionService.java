@@ -61,6 +61,10 @@ public class CollectionService {
 	@Autowired
 	public ArticleRepository articleRepository;
 	
+	@Autowired
+	public ArticleService articleService;
+	
+	
 	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
 		return getArticlesByCurrentTime(map, 0);
 	}
@@ -204,8 +208,7 @@ public class CollectionService {
 		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 				if (isDuplicate(curArticle, newArticle)) {
-					// create the main contents again..?
-
+					// TODO: create the main contents again..?
 					return;
 				}
 			}
@@ -218,7 +221,9 @@ public class CollectionService {
 		int hour = (new DateTime(newArticle.getPubDate())).getHourOfDay();
 		cache.get(hour).add(newArticle);
 		
-		articleRepository.save(newArticle);
+		// DB에 저장...
+//		articleRepository.save(newArticle);
+		articleService.add(newArticle);
 	}
 
 	public static void clearYesterDay() {
