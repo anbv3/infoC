@@ -46,7 +46,7 @@ public class KRNewsController extends BaseController {
 			@PathVariable("page") int page) throws Exception {
 
 		DateTime currTime = DateTime.now(DateTimeZone.forID("Asia/Seoul"));
-		DateTime reqTime = new DateTime(Long.parseLong(date));
+		DateTime reqTime = new DateTime(Long.parseLong(date), DateTimeZone.forID("Asia/Seoul"));
 		LOG.debug("reqTime: {}, page: {}", reqTime.toDate(), page);
 		
 		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
