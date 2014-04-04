@@ -165,7 +165,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
+				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">테스트중!</a>
 			</div>
 			
 			<div class="collapse navbar-collapse">
