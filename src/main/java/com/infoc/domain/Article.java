@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -43,10 +44,10 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private String title;
 
-	@Column
+	@Column(length=1024)
 	private String link;
 
-	@Column
+	@Column(length=1024)
 	private String img;
 
 	@Lob
@@ -83,7 +84,11 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private ArticleSection section;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToOne
+	@JoinColumn(name = "parentArticle")
+	Article parentArticle;
+	
+	@OneToMany(mappedBy = "parentArticle", fetch = FetchType.EAGER)
 	private List<Article> simularList = new ArrayList<>();
 
 	// /////////////////////////////////////////////////////////////////////////////
