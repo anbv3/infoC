@@ -90,6 +90,9 @@
 				async : false
 			}).done(function(response) {
 				if (response.trim() == "end") {
+					$('#ajaxloader').hide();
+					$(window).data('ajaxready', true);
+					
 					return;
 				} else if (response.trim() != "") {
 					if (page == 0) {
@@ -105,11 +108,15 @@
 					control.getArticlesByDateAndPage();
 				}
 				
-			}).error(function(response) {
-				alert("[ERROR] " + response.status + " : " + response.statusText);
-			}).always(function() {
 				$('#ajaxloader').hide();
 				$(window).data('ajaxready', true);
+			}).error(function(response) {
+				alert("[ERROR] " + response.status + " : " + response.statusText);
+				
+				$('#ajaxloader').hide();
+				$(window).data('ajaxready', true);
+			}).always(function() {
+				
 			});
 		}
 	};

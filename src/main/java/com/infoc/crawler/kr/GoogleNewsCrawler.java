@@ -88,7 +88,14 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		Article article = new Article();
 		article.setSection(section);
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")).toDate());
+
+		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
+		article.setPubDate(pubDate.toDate());
+		article.setPubYear(pubDate.getYear());
+		article.setPubMonth(pubDate.getMonthOfYear());
+		article.setPubDay(pubDate.getDayOfMonth());
+		article.setPubHour(pubDate.getHourOfDay());
+		
 		parseTitleAuthor(rssItem.getTitle(), article);
 		
 		// if title is empty or too short, hard to analysis. So let's skip

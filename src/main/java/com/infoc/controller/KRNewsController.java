@@ -24,6 +24,42 @@ import com.infoc.service.CollectionService;
 public class KRNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(KRNewsController.class);
 	
+	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
+			ArticleSection section, String menuName, int page) throws Exception {
+
+		DateTime currTime = DateTime.now(DateTimeZone.forID("Asia/Seoul"));
+		DateTime reqTime = new DateTime(Long.parseLong(date), DateTimeZone.forID("Asia/Seoul"));
+		LOG.debug("reqTime: {}, page: {}", reqTime.toDate(), page);
+		
+		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
+		
+		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
+			articleListMap = CollectionService.getArticlesByCurrentTime(cacheMap, page);
+			model.addAttribute("end", false);
+		} else {
+			// 전날의 "주요 뉴스" 가져오기
+			Map<Integer, List<Article>> oldArticleListMap = 
+					articleService.getArticlesByPubDateAndSection(reqTime.toDate(), section);
+			
+			if(oldArticleListMap == null || oldArticleListMap.isEmpty()) {
+				model.addAttribute("end", true);
+			} else {
+				articleListMap = CollectionService.getArticlesByCurrentTime(oldArticleListMap, page);
+				if (articleListMap.isEmpty() && page == 0) {
+					model.addAttribute("end", true);
+				} else {
+					model.addAttribute("end", false);	
+				}
+			}
+		}
+			
+		model.addAttribute("articleMap", articleListMap);
+		model.addAttribute("menu", menuName);
+		model.addAttribute("currentDay", reqTime.toDate());
+		
+		return "/common/articles";
+	}
+	
 	@Autowired
 	ArticleService articleService;
 	
@@ -45,37 +81,7 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 
-		DateTime currTime = DateTime.now(DateTimeZone.forID("Asia/Seoul"));
-		DateTime reqTime = new DateTime(Long.parseLong(date), DateTimeZone.forID("Asia/Seoul"));
-		LOG.debug("reqTime: {}, page: {}", reqTime.toDate(), page);
-		
-		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
-		
-		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
-			articleListMap = CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE, page);
-			model.addAttribute("end", false);
-		} else {
-			// 전날의 "주요 뉴스" 가져오기
-			Map<Integer, List<Article>> oldArticleListMap = articleService.getArticlesByPubDateAndSection(reqTime.toDate(), ArticleSection.TODAY);
-			
-			if(oldArticleListMap == null || oldArticleListMap.isEmpty()) {
-				model.addAttribute("end", true);
-			} else {
-				articleListMap = CollectionService.getArticlesByCurrentTime(oldArticleListMap, page);
-				if (articleListMap.isEmpty() && page == 0) {
-					model.addAttribute("end", true);
-				} else {
-					model.addAttribute("end", false);	
-				}
-			}
-		}
-		
-			
-		model.addAttribute("articleMap", articleListMap);
-		model.addAttribute("menu", "main");
-		model.addAttribute("currentDay", reqTime.toDate());
-		
-		return "/common/articles";
+		return getArticlesByDate(model, CollectionService.TODAY_CACHE, date, ArticleSection.TODAY, "main", page);
 	}
 	
 	@RequestMapping(value = "/politics")
@@ -86,13 +92,13 @@ public class KRNewsController extends BaseController {
 		return "/main";
 	}
 
-	@RequestMapping(value = "/politics/{page}")
-	public String getPolitics(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.POLITICS_CACHE, page));
-		model.addAttribute("menu", "politics");
-		return "/common/articles";
-	}
-	
+	@RequestMapping(value = "/politics/date/{date}/page/{page}")
+	public String getPoliticsByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
+		
+		return getArticlesByDate(model, CollectionService.POLITICS_CACHE, date, ArticleSection.POLITICS, "politics", page);
+	}	
 	
 	@RequestMapping(value = "/econ")
 	public String getEcon(Model model) throws Exception {
@@ -102,13 +108,14 @@ public class KRNewsController extends BaseController {
 		return "/main";
 	}
 	
-	@RequestMapping(value = "/econ/{page}")
-	public String getEcon(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.ECON_CACHE, page));
-		model.addAttribute("menu", "econ");
-		return "/common/articles";
+	@RequestMapping(value = "/econ/date/{date}/page/{page}")
+	public String getEconByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
+		
+		return getArticlesByDate(model, CollectionService.ECON_CACHE, date, ArticleSection.ECON, "econ", page);
 	}
-
+	
 	@RequestMapping(value = "/society")
 	public String getSociety(Model model) throws Exception {
 		getCommonInfo(model);
@@ -116,11 +123,12 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("menu", "society");
 		return "/main";
 	}
-	@RequestMapping(value = "/society/{page}")
-	public String getSociety(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.SOCIETY_CACHE, page));
-		model.addAttribute("menu", "society");
-		return "/common/articles";
+	@RequestMapping(value = "/society/date/{date}/page/{page}")
+	public String getSocietyByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
+		
+		return getArticlesByDate(model, CollectionService.SOCIETY_CACHE, date, ArticleSection.SOCIETY, "society", page);
 	}
 
 	@RequestMapping(value = "/culture")
@@ -130,11 +138,12 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("menu", "culture");
 		return "/main";
 	}
-	@RequestMapping(value = "/culture/{page}")
-	public String getCulture(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.CULTURE_CACHE, page));
-		model.addAttribute("menu", "culture");
-		return "/common/articles";
+	@RequestMapping(value = "/culture/date/{date}/page/{page}")
+	public String getCultureByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
+		
+		return getArticlesByDate(model, CollectionService.CULTURE_CACHE, date, ArticleSection.CULTURE, "culture", page);
 	}
 
 	@RequestMapping(value = "/ent")
@@ -144,11 +153,12 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("menu", "ent");
 		return "/main";
 	}
-	@RequestMapping(value = "/ent/{page}")
-	public String getEnt(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.ENT_CACHE, page));
-		model.addAttribute("menu", "ent");
-		return "/common/articles";
+	@RequestMapping(value = "/ent/date/{date}/page/{page}")
+	public String getEntByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
+		
+		return getArticlesByDate(model, CollectionService.ENT_CACHE, date, ArticleSection.ENT, "ent", page);
 	}
 
 	@RequestMapping(value = "/sport")
@@ -158,11 +168,12 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("menu", "sport");
 		return "/main";
 	}
-	@RequestMapping(value = "/sport/{page}")
-	public String getSport(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.SPORT_CACHE, page));
-		model.addAttribute("menu", "sport");
-		return "/common/articles";
+	@RequestMapping(value = "/sport/date/{date}/page/{page}")
+	public String getSportByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
+		
+		return getArticlesByDate(model, CollectionService.SPORT_CACHE, date, ArticleSection.SPORT, "sport", page);
 	}
 	
 	@RequestMapping(value = "/it")
@@ -172,11 +183,12 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("menu", "it");
 		return "/main";
 	}
-	@RequestMapping(value = "/it/{page}")
-	public String getIt(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.IT_CACHE, page));
-		model.addAttribute("menu", "it");
-		return "/common/articles";
+	@RequestMapping(value = "/it/date/{date}/page/{page}")
+	public String getITByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
+		
+		return getArticlesByDate(model, CollectionService.IT_CACHE, date, ArticleSection.IT, "it", page);
 	}
 	
 	@RequestMapping(value = "/others")
@@ -186,10 +198,11 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("menu", "others");
 		return "/main";
 	}
-	@RequestMapping(value = "/others/{page}")
-	public String getUserNews(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.OTHERS_CACHE, page));
-		model.addAttribute("menu", "others");
-		return "/common/articles";
+	@RequestMapping(value = "/others/date/{date}/page/{page}")
+	public String geOthersByDate(Model model, 
+			@PathVariable("date") final String date, 
+			@PathVariable("page") int page) throws Exception {
+		
+		return getArticlesByDate(model, CollectionService.OTHERS_CACHE, date, ArticleSection.OTHERS, "others", page);
 	}
 }

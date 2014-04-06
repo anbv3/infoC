@@ -124,7 +124,7 @@ end
 
 		$('.collapse-<fmt:formatDate pattern="yyyy-dd-MM" value="${currentDay}"/>-${entry.key}').on('shown.bs.collapse hidden.bs.collapse',
 				function() {
-					$('#story-${entry.key}').each(function() {
+					$('#story-<fmt:formatDate pattern="yyyy-dd-MM" value="${currentDay}"/>-${entry.key}').each(function() {
 						var $container = $(this);
 						$container.imagesLoaded(function() {
 							$container.packery({

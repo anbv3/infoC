@@ -53,20 +53,13 @@ public class DaumNewsCrawler implements NewsCrawler {
 		LOG.debug("get RSS from Daum.");
 
 		createListBySection(TODAY, ArticleSection.TODAY);
-		createListBySection(POLITICS, ArticleSection.TODAY);
-		createListBySection(ECON, ArticleSection.TODAY);
-		createListBySection(SOCIETY, ArticleSection.TODAY);
-		createListBySection(CULTURE, ArticleSection.TODAY);
-		createListBySection(ENT, ArticleSection.TODAY);
-		createListBySection(SPORT, ArticleSection.TODAY);
-		createListBySection(IT, ArticleSection.TODAY);
-//		createListBySection(POLITICS, ArticleSection.POLITICS);
-//		createListBySection(ECON, ArticleSection.ECON);
-//		createListBySection(SOCIETY, ArticleSection.SOCIETY);
-//		createListBySection(CULTURE, ArticleSection.CULTURE);
-//		createListBySection(ENT, ArticleSection.ENT);
-//		createListBySection(SPORT, ArticleSection.SPORT);
-//		createListBySection(IT, ArticleSection.IT);
+		createListBySection(POLITICS, ArticleSection.POLITICS);
+		createListBySection(ECON, ArticleSection.ECON);
+		createListBySection(SOCIETY, ArticleSection.SOCIETY);
+		createListBySection(CULTURE, ArticleSection.CULTURE);
+		createListBySection(ENT, ArticleSection.ENT);
+		createListBySection(SPORT, ArticleSection.SPORT);
+		createListBySection(IT, ArticleSection.IT);
 
 		return this.articleList;
 	}
