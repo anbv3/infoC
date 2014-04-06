@@ -56,7 +56,7 @@
 </style>
 
 <script type="text/javascript">
-	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
+	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${requestDay}"/>');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 
 	var control = {
@@ -90,9 +90,6 @@
 				async : false
 			}).done(function(response) {
 				if (response.trim() == "end") {
-					$('#ajaxloader').hide();
-					$(window).data('ajaxready', true);
-					
 					return;
 				} else if (response.trim() != "") {
 					if (page == 0) {
@@ -108,15 +105,11 @@
 					control.getArticlesByDateAndPage();
 				}
 				
-				$('#ajaxloader').hide();
-				$(window).data('ajaxready', true);
 			}).error(function(response) {
 				alert("[ERROR] " + response.status + " : " + response.statusText);
-				
+			}).always(function() {
 				$('#ajaxloader').hide();
 				$(window).data('ajaxready', true);
-			}).always(function() {
-				
 			});
 		}
 	};
