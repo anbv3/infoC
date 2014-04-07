@@ -80,14 +80,13 @@
 		},
 		
 		getArticlesByDateAndPage : function() {
-			$('#ajaxloader').show();	
+			$('#ajaxloader').removeClass('hide');
 			
 			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
 			
 			$.ajax({
 				type : "GET",
 				url : reqURL,
-				async : false
 			}).done(function(response) {
 				if (response.trim() == "end") {
 					return;
@@ -105,10 +104,11 @@
 					control.getArticlesByDateAndPage();
 				}
 				
+				
 			}).error(function(response) {
 				alert("[ERROR] " + response.status + " : " + response.statusText);
 			}).always(function() {
-				$('#ajaxloader').hide();
+				$('#ajaxloader').addClass('hide');
 				$(window).data('ajaxready', true);
 			});
 		}
@@ -122,7 +122,7 @@
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 
-			$('#ajaxloader').hide();
+			//$('#ajaxloader').hide();
 			
 			$('.js-add-article').on('click', function(e) {
 				e.preventDefault();
@@ -262,7 +262,7 @@
 			<jsp:include page="./common/articles.jsp" />
 		</div>
 
-		<div id="ajaxloader" class="row loading-bar bkg1">
+		<div id="ajaxloader" class="row loading-bar bkg1 hide">
 			<div class="bar">
 			    <i class="sphere"></i>
 			</div>
