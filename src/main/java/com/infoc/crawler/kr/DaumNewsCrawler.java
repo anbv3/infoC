@@ -93,35 +93,20 @@ public class DaumNewsCrawler implements NewsCrawler {
 		}
 	}
 
-	public Date getDateCurrentTimeZone(long timestamp) {
-		try {
-			TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
-			
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(timestamp * 1000);
-			calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
-			
-			Date currenTimeZone = (Date)calendar.getTime();
-			return currenTimeZone;
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
 	private Article parseRSSItem(SyndEntry rssItem, ArticleSection section) {
 		Article article = new Article();
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
 		
-		DateTime pubDate = new DateTime(getDateCurrentTimeZone(rssItem.getPublishedDate().getTime()));
-		LOG.debug("date: {}, ==> {}, {}", rssItem.getPublishedDate(), pubDate.toDate(), pubDate.toString());
+		DateTime pubDate = new DateTime(rssItem.getPublishedDate().getTime());
+		LOG.debug("date: {}, ==> {}", rssItem.getPublishedDate(), pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).toDate());
 		
-		article.setPubDate(pubDate.toDate());
-		article.setPubYear(pubDate.getYear());
-		article.setPubMonth(pubDate.getMonthOfYear());
-		article.setPubDay(pubDate.getDayOfMonth());
-		article.setPubHour(pubDate.getHourOfDay());
+		article.setPubDate(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).toDate());
+		article.setPubYear(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).getYear());
+		article.setPubMonth(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).getMonthOfYear());
+		article.setPubDay(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).getDayOfMonth());
+		article.setPubHour(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
 		
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
