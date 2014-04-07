@@ -56,7 +56,7 @@
 </style>
 
 <script type="text/javascript">
-	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${requestDay}"/>');
+	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 
 	var control = {

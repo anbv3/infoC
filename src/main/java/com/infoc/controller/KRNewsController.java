@@ -72,9 +72,7 @@ public class KRNewsController extends BaseController {
 	public String getMain(Model model) throws Exception {
 		
 		getCommonInfo(model);
-		
-		LOG.debug("currentDay: {}", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toString());
-		
+		model.addAttribute("requestDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
 		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE));
 		model.addAttribute("menu", "main");
 		return "/main";
@@ -85,7 +83,6 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.TODAY_CACHE, date, ArticleSection.TODAY, "main", page);
 	}
 	
@@ -102,13 +99,11 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 		
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.POLITICS_CACHE, date, ArticleSection.POLITICS, "politics", page);
 	}	
 	
 	@RequestMapping(value = "/econ")
 	public String getEcon(Model model) throws Exception {
-		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.ECON_CACHE));
 		model.addAttribute("menu", "econ");
 		return "/main";
@@ -119,7 +114,6 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 		
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.ECON_CACHE, date, ArticleSection.ECON, "econ", page);
 	}
 	
@@ -135,7 +129,6 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 		
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.SOCIETY_CACHE, date, ArticleSection.SOCIETY, "society", page);
 	}
 
@@ -151,7 +144,6 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 		
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.CULTURE_CACHE, date, ArticleSection.CULTURE, "culture", page);
 	}
 
@@ -167,7 +159,6 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 		
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.ENT_CACHE, date, ArticleSection.ENT, "ent", page);
 	}
 
@@ -183,7 +174,6 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 		
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.SPORT_CACHE, date, ArticleSection.SPORT, "sport", page);
 	}
 	
@@ -199,7 +189,6 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 		
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.IT_CACHE, date, ArticleSection.IT, "it", page);
 	}
 	
@@ -215,7 +204,6 @@ public class KRNewsController extends BaseController {
 			@PathVariable("date") final String date, 
 			@PathVariable("page") int page) throws Exception {
 		
-		getCommonInfo(model);
 		return getArticlesByDate(model, CollectionService.OTHERS_CACHE, date, ArticleSection.OTHERS, "others", page);
 	}
 }
