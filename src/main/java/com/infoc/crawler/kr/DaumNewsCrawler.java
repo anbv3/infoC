@@ -5,8 +5,12 @@
 package com.infoc.crawler.kr;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -16,9 +20,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 import com.infoc.crawler.NewsCrawler;
@@ -91,13 +93,28 @@ public class DaumNewsCrawler implements NewsCrawler {
 		}
 	}
 
+	public Date getDateCurrentTimeZone(long timestamp) {
+		try {
+			TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+			
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(timestamp * 1000);
+			calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
+			
+			Date currenTimeZone = (Date)calendar.getTime();
+			return currenTimeZone;
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
 	private Article parseRSSItem(SyndEntry rssItem, ArticleSection section) {
 		Article article = new Article();
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
 		
-		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
+		DateTime pubDate = new DateTime(getDateCurrentTimeZone(rssItem.getPublishedDate().getTime()));
 		LOG.debug("date: {}, ==> {}, {}", rssItem.getPublishedDate(), pubDate.toDate(), pubDate.toString());
 		
 		article.setPubDate(pubDate.toDate());
