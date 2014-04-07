@@ -166,9 +166,13 @@ public class Article extends AbstractPersistable<Long> {
 			.add("title", this.title)
 			.add("link", this.link)
 			.add("pubDate", this.pubDate)
+			.add("pubYear", this.pubYear)
+			.add("pubMonth", this.pubMonth)
+			.add("pubHour", this.pubHour)
 			.add("numDups", this.numDups)
 			.add("mainContents", this.mainContents)
 			.add("keyWordList", this.keyWordList)
+			.add("simularListSize", this.simularList.size())
 			.toString() + "\n";
 	}
 
