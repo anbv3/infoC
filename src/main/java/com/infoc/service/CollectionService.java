@@ -226,7 +226,7 @@ public class CollectionService {
 //		newArticle.translateMainContents();
 
 		// get the hour of the time for the time section
-		int hour = (new DateTime(newArticle.getPubDate())).getHourOfDay();
+		int hour = (new DateTime(newArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
 		cache.get(hour).add(newArticle);
 		
 		// DB에 저장...

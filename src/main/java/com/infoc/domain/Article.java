@@ -168,6 +168,7 @@ public class Article extends AbstractPersistable<Long> {
 			.add("pubDate", this.pubDate)
 			.add("pubYear", this.pubYear)
 			.add("pubMonth", this.pubMonth)
+			.add("pubMonth", this.pubDay)
 			.add("pubHour", this.pubHour)
 			.add("numDups", this.numDups)
 			.add("mainContents", this.mainContents)

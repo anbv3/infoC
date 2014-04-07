@@ -99,14 +99,12 @@ public class DaumNewsCrawler implements NewsCrawler {
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
 		
-		DateTime pubDate = new DateTime(rssItem.getPublishedDate().getTime());
-		LOG.debug("date: {}, ==> {}", rssItem.getPublishedDate(), pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).toDate());
-		
-		article.setPubDate(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).toDate());
-		article.setPubYear(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).getYear());
-		article.setPubMonth(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).getMonthOfYear());
-		article.setPubDay(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).getDayOfMonth());
-		article.setPubHour(pubDate.withZone(DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
+		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
+		article.setPubDate(pubDate.toDate());
+		article.setPubYear(pubDate.getYear());
+		article.setPubMonth(pubDate.getMonthOfYear());
+		article.setPubDay(pubDate.getDayOfMonth());
+		article.setPubHour(pubDate.getHourOfDay());
 		
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
