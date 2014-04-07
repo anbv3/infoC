@@ -89,11 +89,12 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setLink(rssItem.getLink());
 
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")).toDate());
-		article.setPubYear(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")).getYear());
-		article.setPubMonth(new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul")).getMonthOfYear());
-		article.setPubDay(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")).getDayOfMonth());
-		article.setPubHour(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")).getHourOfDay());
+		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
+		article.setPubDate(pubDate.toDate());
+		article.setPubYear(pubDate.getYear());
+		article.setPubMonth(pubDate.getMonthOfYear());
+		article.setPubDay(pubDate.getDayOfMonth());
+		article.setPubHour(pubDate.getHourOfDay());
 		
 		parseTitleAuthor(rssItem.getTitle(), article);
 		
