@@ -56,8 +56,6 @@ public class KRNewsController extends BaseController {
 			}
 		}
 
-		LOG.debug("articleListMap: {}", articleListMap);
-			
 		model.addAttribute("articleMap", articleListMap);
 		model.addAttribute("menu", menuName);
 		model.addAttribute("requestDay", reqTime.toDate());
