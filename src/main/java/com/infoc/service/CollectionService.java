@@ -227,8 +227,6 @@ public class CollectionService {
 
 		// get the hour of the time for the time section
 		int hour = (new DateTime(newArticle.getPubDate())).getHourOfDay();
-		LOG.debug("hour: {}", hour);
-		
 		cache.get(hour).add(newArticle);
 		
 		// DB에 저장...
