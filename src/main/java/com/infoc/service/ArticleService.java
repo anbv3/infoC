@@ -3,6 +3,7 @@ package com.infoc.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,10 +36,12 @@ public class ArticleService {
 	public Map<Integer, List<Article>> getArticlesByPubDateAndSection(Date date, ArticleSection section) {
 		DateTime pubDate = new DateTime(date, DateTimeZone.forID("Asia/Seoul"));
 
-		List<Article> oneDayList = articleRepository.findBySectionAndPubYearAndPubMonthAndPubDay(section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth());
+		List<Article> oneDayList = articleRepository
+			.findBySectionAndPubYearAndPubMonthAndPubDay(section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth());
 
-		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
-		for (int i = 0; i < 24; i++) {
+		Map<Integer, List<Article>> articleListMap = new LinkedHashMap<>();
+		
+		for (int i = 23; i <= 0; i--) {
 			articleListMap.put(i, new ArrayList<Article>());
 		}
 		
