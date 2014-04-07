@@ -69,8 +69,7 @@ public class CollectionService {
 		return getArticlesByCurrentTime(map, 0);
 	}
 
-	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page) {
-		Map<Integer, List<Article>> articleMap = sortByCurrentTime(map);
+	public static Map<Integer, List<Article>> getArticlesByPage(Map<Integer, List<Article>> articleMap, int page) {
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 		
 		int idx = 0;
@@ -78,6 +77,10 @@ public class CollectionService {
 //		LOG.debug("{}, page: {} => {} ~ {}", articleMap.size(), page, range, range + PAGE_LIMIT);
 		
 		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
 			if (idx >= range && idx < range + PAGE_LIMIT) {
 				currMap.put(eachTime.getKey(), eachTime.getValue());
 			}
@@ -85,6 +88,11 @@ public class CollectionService {
 		}
 
 		return currMap;
+	}
+	
+	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page) {
+		Map<Integer, List<Article>> articleMap = sortByCurrentTime(map);
+		return getArticlesByPage(articleMap, page);
 	}
 
 	public static Map<Integer, List<Article>> sortByCurrentTime(Map<Integer, List<Article>> map) {
@@ -219,6 +227,8 @@ public class CollectionService {
 
 		// get the hour of the time for the time section
 		int hour = (new DateTime(newArticle.getPubDate())).getHourOfDay();
+		LOG.debug("hour: {}", hour);
+		
 		cache.get(hour).add(newArticle);
 		
 		// DB에 저장...

@@ -18,7 +18,7 @@ end
 
 	<div class="row ${rowColor}">
 		<div class="col-md-2 section-title text-left">
-			<h3>${entry.key}:00~ ${entry.key+1}:00</h3>
+			<h3>${entry.key}:00 ~ ${entry.key+1}:00</h3>
 		</div>
 
 		<!-- article section -->
