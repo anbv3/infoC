@@ -40,14 +40,19 @@ public class ArticleService {
 			.findBySectionAndPubYearAndPubMonthAndPubDay(section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth());
 
 		Map<Integer, List<Article>> articleListMap = new LinkedHashMap<>();
-		
+
 		for (int i = 23; i <= 0; i--) {
 			articleListMap.put(i, new ArrayList<Article>());
 		}
-		
+
 		for (Article article : oneDayList) {
-			int hour = (new DateTime(article.getPubDate())).getHourOfDay();
-			articleListMap.get(hour).add(article);
+			int hour = (new DateTime(article.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
+			if (articleListMap.get(hour) == null) {
+				LOG.error("Why null? => hour: {}", hour);
+				LOG.error("Why null? => articleListMap: {}", articleListMap);
+			} else {
+				articleListMap.get(hour).add(article);
+			}
 		}
 
 		return articleListMap;
