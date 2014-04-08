@@ -108,13 +108,13 @@ public class CollectionService {
 			currMap.put(i, map.get(i));
 		}
 
-		for (int i = 23; i > currentHour; i--) {
-			if (map.get(i).isEmpty()) {
-				continue;
-			}
-
-			currMap.put(i, map.get(i));
-		}
+//		for (int i = 23; i > currentHour; i--) {
+//			if (map.get(i).isEmpty()) {
+//				continue;
+//			}
+//
+//			currMap.put(i, map.get(i));
+//		}
 
 		return currMap;
 	}
@@ -246,6 +246,7 @@ public class CollectionService {
 							DateTime.now(
 								DateTimeZone.forID("Asia/Seoul"))
 								.minusDays(1).minusHours(1).toDate())) {
+						
 						article.remove();
 					}
 				}

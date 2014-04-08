@@ -37,6 +37,7 @@ public class KRNewsController extends BaseController {
 		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
 
 		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
+			LOG.debug("ToDay");
 			articleListMap = CollectionService.getArticlesByCurrentTime(cacheMap, page);
 			model.addAttribute("end", false);
 		} else {
@@ -66,19 +67,14 @@ public class KRNewsController extends BaseController {
 	private void getCommonInfo(Model model) {
 		model.addAttribute("econ", CollectionService.ECON_INFO);
 		model.addAttribute("currentDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
+		model.addAttribute("requestDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
 	}
 
 	@RequestMapping(value = {"/", "/main"})
 	public String getMain(Model model) throws Exception {
 
 		getCommonInfo(model);
-		model.addAttribute("requestDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
-		
-		Map<Integer, List<Article>> articleListMap = CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE);
-		
-		model.addAttribute("articleMap", articleListMap);
-		LOG.debug("articleListMap: {}", articleListMap);
-		
+		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE));
 		model.addAttribute("menu", "main");
 		return "/main";
 	}

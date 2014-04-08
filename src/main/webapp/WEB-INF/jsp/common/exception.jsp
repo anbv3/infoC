@@ -59,7 +59,7 @@ body {
 					<!-- /error-details -->
 
 					<div class="error-actions">
-						<a href='<c:url value="/home"/>' class="btn btn-large btn-warning">
+						<a href='<c:url value="/"/>' class="btn btn-large btn-warning">
 							<i class="icon-chevron-left"></i> &nbsp; Back to Home
 						</a> 
 						<a href="#" class="btn btn-large"> <i class="icon-envelope"></i>
