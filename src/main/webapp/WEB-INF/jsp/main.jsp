@@ -73,23 +73,17 @@
 			return dateSection;
 		},
 		
-		addDateSection : function() {
-			var dayOfMonth = date.getDate();
-			var oldDate = date.setDate(dayOfMonth - 1);
-			$('#article-list-section').children().last().after(control.createDateSection(oldDate));
-		},
-		
 		getArticlesByDateAndPage : function() {
-			$('#ajaxloader').show();	
+			$('#ajaxloader').removeClass('hide');
 			
 			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
 			
 			$.ajax({
 				type : "GET",
 				url : reqURL,
-				async : false
 			}).done(function(response) {
 				if (response.trim() == "end") {
+					$('#ajaxloader').remove();
 					return;
 				} else if (response.trim() != "") {
 					if (page == 0) {
@@ -108,7 +102,7 @@
 			}).error(function(response) {
 				alert("[ERROR] " + response.status + " : " + response.statusText);
 			}).always(function() {
-				$('#ajaxloader').hide();
+				$('#ajaxloader').addClass('hide');
 				$(window).data('ajaxready', true);
 			});
 		}
@@ -121,12 +115,6 @@
 			// active menu
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
-
-			$('#ajaxloader').hide();
-			
-			$('.js-add-article').on('click', function(e) {
-				e.preventDefault();
-			});
 
 			// get more articles when scrolling down 
 			$(window).data('ajaxready', true).scroll(function() {
@@ -141,7 +129,6 @@
 			});
 
 		});
-		// The rest of code goes here!
 
 	}));
 </script>
@@ -165,7 +152,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">테스트중!</a>
+				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
 			</div>
 			
 			<div class="collapse navbar-collapse">
@@ -262,7 +249,7 @@
 			<jsp:include page="./common/articles.jsp" />
 		</div>
 
-		<div id="ajaxloader" class="row loading-bar bkg1">
+		<div id="ajaxloader" class="row loading-bar bkg1 hide">
 			<div class="bar">
 			    <i class="sphere"></i>
 			</div>
