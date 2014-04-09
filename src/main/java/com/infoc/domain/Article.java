@@ -54,6 +54,7 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private String contents;
 
+	@Index(name = "idx_pub_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column
 	private Date pubDate;

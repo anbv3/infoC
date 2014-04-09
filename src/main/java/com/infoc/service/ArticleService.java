@@ -38,20 +38,17 @@ public class ArticleService {
 
 		List<Article> oneDayList = articleRepository
 			.findBySectionAndPubYearAndPubMonthAndPubDay(section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth());
-
+		LOG.debug("{} of articles at {}", oneDayList.size(), pubDate);
+		
 		Map<Integer, List<Article>> articleListMap = new LinkedHashMap<>();
-
-		for (int i = 23; i <= 0; i--) {
-			articleListMap.put(i, new ArrayList<Article>());
-		}
-
 		for (Article article : oneDayList) {
 			int hour = (new DateTime(article.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
 			if (articleListMap.get(hour) == null) {
-				LOG.error("Why null? => hour: {}", hour);
-				LOG.error("Why null? => articleListMap: {}", articleListMap);
+				List<Article> tmpList = new ArrayList<Article>();
+				tmpList.add(article);
+				articleListMap.put(hour, tmpList);
 			} else {
-				articleListMap.get(hour).add(article);
+				articleListMap.get(hour).add(article);	
 			}
 		}
 
