@@ -91,11 +91,11 @@ public class CollectionService {
 	}
 	
 	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page) {
-		Map<Integer, List<Article>> articleMap = sortByCurrentTime(map);
+		Map<Integer, List<Article>> articleMap = beforeCurrentTime(map);
 		return getArticlesByPage(articleMap, page);
 	}
 
-	public static Map<Integer, List<Article>> sortByCurrentTime(Map<Integer, List<Article>> map) {
+	public static Map<Integer, List<Article>> beforeCurrentTime(Map<Integer, List<Article>> map) {
 
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 

@@ -2,7 +2,6 @@ package com.infoc.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,11 +33,16 @@ public class ArticleService {
 		return articleRepository.findAll();
 	}
 
+	private Sort sortByHour() {
+        return new Sort(Sort.Direction.DESC, "pubHour");
+    }
+	
 	public Map<Integer, List<Article>> getArticlesByPubDateAndSection(Date date, ArticleSection section) {
 		DateTime pubDate = new DateTime(date, DateTimeZone.forID("Asia/Seoul"));
 
-		List<Article> oneDayList = articleRepository
-			.findBySectionAndPubYearAndPubMonthAndPubDay(section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth());
+		List<Article> oneDayList = articleRepository.findBySectionAndPubYearAndPubMonthAndPubDay(
+			section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth(), sortByHour());
+		
 		LOG.debug("{} of articles at {}", oneDayList.size(), pubDate);
 		
 		Map<Integer, List<Article>> articleListMap = new LinkedHashMap<>();
