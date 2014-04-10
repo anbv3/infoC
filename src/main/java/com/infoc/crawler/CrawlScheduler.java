@@ -73,7 +73,7 @@ public class CrawlScheduler {
 
 	private void setUpSchedules() {
 		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 5, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 1, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
 	}
 	
@@ -113,15 +113,9 @@ public class CrawlScheduler {
 	private static class CrawlClearTask implements Runnable {
 		@Override
 		public void run() {
-			LOG.info("********* [START] Clear articles one day before! at {} ***********", 
-				DateTime.now(DateTimeZone.forID("Asia/Seoul")));
-			
 			LOG.info("Clear articles one day before!");
 			CollectionService.clearYesterDay();
 			USCollectionService.clearYesterDay();
-			
-			LOG.info("********* [END] Clear articles one day before! at {} ***********", 
-				DateTime.now(DateTimeZone.forID("Asia/Seoul")));
 		}
 	}
 
