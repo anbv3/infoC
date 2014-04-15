@@ -7,6 +7,16 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
+* DB 검색 결과에 관련 기사 안뜨는거 수정
+
+* 검색 조건에 맞는 기사만 출력
+
+* 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
+
+* 그리고 오픈..ㅋㅋ
+
+
+
 * 기사 DB화 => 메모리 DB사용하고 추이를 보자
 
   
@@ -21,7 +31,7 @@ infoC
 
 * 버지 기사 추가: http://www.theverge.com/rss/index.xml 
 
-* 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
+
 
 * 뉴스 섹션별 주요 내용 필요 - 메인 => 주식, 날씨, 경제 => 결제 지표, 사회 => 날씨, 기타..
 기사 분류별 대쉬영역

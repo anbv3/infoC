@@ -88,9 +88,10 @@
 				} else if (response.trim() != "") {
 					if (page == 0) {
 						$('#article-list-section').children().last().after(control.createDateSection(date));
+					} else {
+						$('#article-list-section').children().last().after(response);	
 					}
 					
-					$('#article-list-section').children().last().after(response);
 					page++;
 				} else {
 					var dayOfMonth = date.getDate();
@@ -116,6 +117,7 @@
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 
+			// TODO: http://darsa.in/
 			// get more articles when scrolling down 
 			$(window).data('ajaxready', true).scroll(function() {
 				if ($(window).data('ajaxready') == false) {

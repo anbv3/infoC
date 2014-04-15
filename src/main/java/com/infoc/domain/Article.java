@@ -41,7 +41,7 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private String hashId; // for later, org.apache.commons.codec.digest
 
-	@Column
+	@Column(length=1024)
 	private String title;
 
 	@Column(length=1024)
