@@ -138,7 +138,6 @@ public class USCollectionService {
 			curKeyWordList.addAll(dupWordList);
 			
 			curArticle.addNewSimilarList(newArticle);
-			curArticle.setNumDups(curArticle.getSimularList().size());
 			
 			// LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
 			return true;

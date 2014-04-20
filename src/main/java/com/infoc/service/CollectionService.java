@@ -2,6 +2,7 @@ package com.infoc.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Strings;
 import com.infoc.domain.Article;
 import com.infoc.repository.ArticleRepository;
 
@@ -66,33 +68,53 @@ public class CollectionService {
 	
 	
 	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
-		return getArticlesByCurrentTime(map, 0);
+		return getArticlesByCurrentTime(map, 0, null);
 	}
 
-	public static Map<Integer, List<Article>> getArticlesByPage(Map<Integer, List<Article>> articleMap, int page) {
+	public static Map<Integer, List<Article>> getArticlesByPage(
+			Map<Integer, List<Article>> articleMap, int page, String search) {
+		
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
-		
+
 		int idx = 0;
-		int range = page * PAGE_LIMIT;
-//		LOG.debug("{}, page: {} => {} ~ {}", articleMap.size(), page, range, range + PAGE_LIMIT);
-		
+		int from = page * PAGE_LIMIT;
+		int to = (page + 1) * PAGE_LIMIT;
+
 		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
 			}
-			
-			if (idx >= range && idx < range + PAGE_LIMIT) {
-				currMap.put(eachTime.getKey(), eachTime.getValue());
+
+			List<Article> searchedArticles = new ArrayList<>();
+			if (!Strings.isNullOrEmpty(search)) {
+				for (Article article : eachTime.getValue()) {
+					if (article.getMainContents().contains(search)) {
+						searchedArticles.add(article);
+					}
+				}
+
+				if (searchedArticles.isEmpty()) {
+					continue;
+				}
 			}
+			
+			if (idx >= from && idx < to) {
+				if (!Strings.isNullOrEmpty(search)) {
+					currMap.put(eachTime.getKey(), searchedArticles);	
+				} else {
+					currMap.put(eachTime.getKey(), eachTime.getValue());
+				}
+			}
+			
 			idx++;
 		}
 
 		return currMap;
 	}
 	
-	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page) {
+	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page, String search) {
 		Map<Integer, List<Article>> articleMap = beforeCurrentTime(map);
-		return getArticlesByPage(articleMap, page);
+		return getArticlesByPage(articleMap, page, search);
 	}
 
 	public static Map<Integer, List<Article>> beforeCurrentTime(Map<Integer, List<Article>> map) {
@@ -107,14 +129,6 @@ public class CollectionService {
 
 			currMap.put(i, map.get(i));
 		}
-
-//		for (int i = 23; i > currentHour; i--) {
-//			if (map.get(i).isEmpty()) {
-//				continue;
-//			}
-//
-//			currMap.put(i, map.get(i));
-//		}
 
 		return currMap;
 	}
@@ -159,7 +173,6 @@ public class CollectionService {
 			curKeyWordList.addAll(dupWordList);
 
 			curArticle.addNewSimilarList(newArticle);
-			curArticle.setNumDups(curArticle.getSimularList().size());
 
 			// LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
 			return true;
@@ -223,7 +236,7 @@ public class CollectionService {
 		}
 
 		// if it is the new one, then translate the main contents.
-		newArticle.translateMainContents();
+		//newArticle.translateMainContents();
 
 		// get the hour of the time for the time section
 		int hour = (new DateTime(newArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();

@@ -66,22 +66,19 @@ end
 										</a>
 									 	-->
 									 	
-										<a class="btn btn-success pull-right <c:if test="${empty row.simularList}"> disabled </c:if>" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
+										<a class="btn btn-success pull-right <c:if test="${empty row.simularTitle}"> disabled </c:if>" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
 											data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}"> 
 											<span class="article-btn">관련</span>
 										</a>
 									</h4>
 								</div>
 
-									<c:if test="${not empty row.simularList}">
+									<c:if test="${not empty row.simularTitle}">
 										<div id="collapse-${entry.key}-${cnt.index}"
 											class="collapse-<fmt:formatDate pattern="yyyy-dd-MM" value="${requestDay}"/>-${entry.key} panel-collapse collapse panel-collapse-sArt">
 											<div class="panel-body panel-body-sArt">
-												<c:forEach var="sArticle" items="${row.simularList}">
-													<div class="panel-article-info col-xs-12">
-														<a href="${sArticle.link}" target="_blank">${sArticle.title}</a>
-													</div>
-												</c:forEach>
+											${row.simularSection}
+											
 											</div>
 										</div>
 									</c:if>

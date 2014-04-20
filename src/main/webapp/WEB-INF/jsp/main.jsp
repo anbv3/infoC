@@ -56,9 +56,11 @@
 </style>
 
 <script type="text/javascript">
+	var today = true;
 	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
-
+	var search;
+	
 	var control = {
 		
 		createDateSection : function(oldDate) {
@@ -77,6 +79,10 @@
 			$('#ajaxloader').removeClass('hide');
 			
 			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
+			if (search) {
+				reqURL += "?search=";
+				reqURL += encodeURI(encodeURIComponent(search));
+			}
 			
 			$.ajax({
 				type : "GET",
@@ -86,10 +92,14 @@
 					$('#ajaxloader').remove();
 					return;
 				} else if (response.trim() != "") {
+					
 					if (page == 0) {
 						$('#article-list-section').children().last().after(control.createDateSection(date));
+						if (search && today == true) {
+							$('#article-list-section').html(response);	
+						} 
 					} else {
-						$('#article-list-section').children().last().after(response);	
+						$('#article-list-section').children().last().after(response);
 					}
 					
 					page++;
@@ -97,6 +107,7 @@
 					var dayOfMonth = date.getDate();
 					date = new Date(date.setDate(dayOfMonth - 1));
 					page = 0;
+					today = false;
 					control.getArticlesByDateAndPage();
 				}
 				
@@ -117,7 +128,34 @@
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 
-			// TODO: http://darsa.in/
+			$('#search-input').on('keydown', function(e) {
+				if(e.keyCode != 13){
+					return;
+				}
+				
+				if ($('#search-input').val()) {
+					$('#article-list-section').empty();
+					
+					search = $('#search-input').val();
+					page = 0;					
+					date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
+					today = true;
+					control.getArticlesByDateAndPage();	
+				}
+			});
+			
+			$('#search-btn').on('click', function() {
+				if ($('#search-input').val()) {
+					$('#article-list-section').empty();
+					
+					search = $('#search-input').val();
+					page = 0;					
+					date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
+					today = true;
+					control.getArticlesByDateAndPage();	
+				}
+			});
+			
 			// get more articles when scrolling down 
 			$(window).data('ajaxready', true).scroll(function() {
 				if ($(window).data('ajaxready') == false) {
@@ -158,19 +196,33 @@
 			</div>
 			
 			<div class="collapse navbar-collapse">
-					<ul id="top-menu" class="nav navbar-nav">
-						<li id="main-menu"><a href="/main">주요</a></li>
-						<li id="politics-menu"><a href="/politics">정치</a></li>
-						<li id="econ-menu"><a href="/econ">경제</a></li>
-						<li id="society-menu"><a href="/society">사회</a></li>
-						<li id="culture-menu"><a href="/culture">문화</a></li>
-						<li id="ent-menu"><a href="/ent">연예</a></li>
-						<li id="sport-menu"><a href="/sport">스포츠</a></li>
-						<li id="it-menu"><a href="/it">IT</a></li>
-						<li id="others-menu"><a href="/others">기타</a></li>
-						<li id="us-menu"><a style="color: #83E01F" href="/us/main">USA</a></li>
-						<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
-					</ul>
+				<ul id="top-menu" class="nav navbar-nav">
+					<li id="main-menu"><a href="/main">주요</a></li>
+					<li id="politics-menu"><a href="/politics">정치</a></li>
+					<li id="econ-menu"><a href="/econ">경제</a></li>
+					<li id="society-menu"><a href="/society">사회</a></li>
+					<li id="culture-menu"><a href="/culture">문화</a></li>
+					<li id="ent-menu"><a href="/ent">연예</a></li>
+					<li id="sport-menu"><a href="/sport">스포츠</a></li>
+					<li id="it-menu"><a href="/it">IT</a></li>
+					<li id="others-menu"><a href="/others">기타</a></li>
+					<li id="us-menu"><a style="color: #83E01F" href="/us/main">USA</a></li>
+					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
+				</ul>
+
+				<div class="col-lg-3 pull-right">
+					<form class="navbar-form form-inline">
+						<div class="input-group">
+							<input id="search-input" type="text" class="form-control"> <span class="input-group-btn">
+								<button id="search-btn" class="btn btn-primary" type="button">검색</button>
+							</span>
+						</div>
+						<!-- /input-group -->
+					</form>
+				</div>
+				<!-- /.col-lg-6 -->
+
+
 			</div>
 			<!--/.nav-collapse -->
 		</div>
@@ -200,7 +252,7 @@
 				<div class="bkg2" style="padding-top: 25px;">
 					<div class="row">
 						<div class="col-md-2 day-section">
-							<h3 style="">
+							<h3>
 								<fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}" />
 							</h3>
 						</div>

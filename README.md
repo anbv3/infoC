@@ -7,9 +7,8 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
-* DB 검색 결과에 관련 기사 안뜨는거 수정
+* 검색: 1. DB에서만 검색, 2. 페이지 만들때 다시 까본다.
 
-* 검색 조건에 맞는 기사만 출력
 
 * 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
 

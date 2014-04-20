@@ -1,5 +1,6 @@
 package com.infoc.controller;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.common.base.Strings;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
@@ -28,17 +31,21 @@ public class KRNewsController extends BaseController {
 	ArticleService articleService;
 
 	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
-		ArticleSection section, String menuName, int page) throws Exception {
+			ArticleSection section, String menuName, int page) throws Exception {
+		
+		return getArticlesByDate(model, cacheMap, date, section, menuName, page, null);
+	}
+	
+	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
+		ArticleSection section, String menuName, int page, String search) throws Exception {
 
 		DateTime currTime = DateTime.now(DateTimeZone.forID("Asia/Seoul"));
 		DateTime reqTime = new DateTime(Long.parseLong(date), DateTimeZone.forID("Asia/Seoul"));
-//		LOG.debug("reqTime: {}, page: {}", reqTime.toDate(), page);
 
 		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
 
 		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
-			LOG.debug("ToDay");
-			articleListMap = CollectionService.getArticlesByCurrentTime(cacheMap, page);
+			articleListMap = CollectionService.getArticlesByCurrentTime(cacheMap, page, search);
 			model.addAttribute("end", false);
 		} else {
 			// 전날의 "주요 뉴스" 가져오기
@@ -48,7 +55,7 @@ public class KRNewsController extends BaseController {
 			if (oldArticleListMap == null || oldArticleListMap.isEmpty()) {
 				model.addAttribute("end", true);
 			} else {
-				articleListMap = CollectionService.getArticlesByPage(oldArticleListMap, page);
+				articleListMap = CollectionService.getArticlesByPage(oldArticleListMap, page, search);
 				if (articleListMap.isEmpty() && page == 0) {
 					model.addAttribute("end", true);
 				} else {
@@ -82,9 +89,15 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/main/date/{date}/page/{page}")
 	public String getMainByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
-
-		return getArticlesByDate(model, CollectionService.TODAY_CACHE, date, ArticleSection.TODAY, "main", page);
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
+		
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.TODAY_CACHE, date, ArticleSection.TODAY, "main", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/politics")
@@ -105,6 +118,7 @@ public class KRNewsController extends BaseController {
 
 	@RequestMapping(value = "/econ")
 	public String getEcon(Model model) throws Exception {
+		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.ECON_CACHE));
 		model.addAttribute("menu", "econ");
 		return "/main";

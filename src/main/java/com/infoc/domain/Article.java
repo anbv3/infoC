@@ -1,20 +1,14 @@
 package com.infoc.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -85,12 +79,11 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private ArticleSection section;
 
-	@ManyToOne
-	@JoinColumn(name = "parentArticle")
-	Article parentArticle;
+	@Column(length=1024)
+	private String simularTitle = "";
 	
-	@OneToMany(mappedBy = "parentArticle", fetch = FetchType.EAGER)
-	private List<Article> simularList = new ArrayList<>();
+	@Column(length=2048)
+	private String simularSection = "";
 
 	// /////////////////////////////////////////////////////////////////////////////
 
@@ -138,15 +131,41 @@ public class Article extends AbstractPersistable<Long> {
 	/*
 	 * newArticle이 유사 리스트에 포함되어 있는지 비교
 	 * newArticle을 유사 리스트에 추가
+	 * 
+	 * title@link
+	 * 
+	 * <div class="panel-article-info col-xs-12">
+	 * <a href="${sArticle.link}" target="_blank">${sArticle.title}</a>
+	 * </div>
 	 */
 	public void addNewSimilarList(Article similarArticle) {
-		for (Article article : this.simularList) {
-			if (article.getTitle().equalsIgnoreCase(similarArticle.getTitle())) {
-				return;
+		if (!Strings.isNullOrEmpty(this.simularTitle)) {
+			for (String sTitle : this.simularTitle.split("#@")) {
+				if ( sTitle.contains(similarArticle.getTitle()) ) {
+					return;
+				}
 			}
 		}
-
-		this.simularList.add(similarArticle);
+		
+		// update title
+		StringBuilder st = new StringBuilder(this.simularTitle);
+		if (!Strings.isNullOrEmpty(this.simularTitle)) {
+			st.append("#@");
+		}
+		st.append(similarArticle.getTitle());
+		this.simularTitle = st.toString();
+		
+		// update section
+		StringBuilder ss = new StringBuilder(this.simularSection);
+		ss.append("<div class=\"panel-article-info col-xs-12\">");
+		ss.append("<a href=\"");
+		ss.append(similarArticle.getLink());
+		ss.append("\" target=\"_blank\">");
+		ss.append(similarArticle.getTitle());
+		ss.append("</a></div>");
+		this.simularSection = ss.toString();
+		
+		this.numDups++;
 	}
 
 	public void translateMainContents() {
@@ -174,7 +193,7 @@ public class Article extends AbstractPersistable<Long> {
 			.add("numDups", this.numDups)
 			.add("mainContents", this.mainContents)
 			.add("keyWordList", this.keyWordList)
-			.add("simularListSize", this.simularList.size())
+			.add("simularTitle", this.simularTitle)
 			.toString() + "\n";
 	}
 
@@ -266,14 +285,6 @@ public class Article extends AbstractPersistable<Long> {
 		this.numDups = numDups;
 	}
 
-	public List<Article> getSimularList() {
-		return simularList;
-	}
-
-	public void setSimularList(List<Article> simularList) {
-		this.simularList = simularList;
-	}
-
 	public String getTransedContents() {
 		return transedContents;
 	}
@@ -313,4 +324,21 @@ public class Article extends AbstractPersistable<Long> {
 	public void setPubHour(int pubHour) {
 		this.pubHour = pubHour;
 	}
+
+	public String getSimularTitle() {
+		return simularTitle;
+	}
+
+	public void setSimularTitle(String simularTitle) {
+		this.simularTitle = simularTitle;
+	}
+
+	public String getSimularSection() {
+		return simularSection;
+	}
+
+	public void setSimularSection(String simularSection) {
+		this.simularSection = simularSection;
+	}
+	
 }

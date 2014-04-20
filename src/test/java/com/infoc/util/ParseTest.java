@@ -173,4 +173,10 @@ public class ParseTest {
 		LOG.debug("{}", "강원".getBytes().length);
 	}
 
+	@Test
+	public void testSplit() {
+		for (String sTitle : "강원#@fff".split("#@")) {
+			LOG.debug("{}", sTitle);
+		}
+	}
 }
