@@ -30,7 +30,7 @@
 			<props>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.cache.use_second_level_cache">false</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop> <!-- validate | update | create | create-drop -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop> <!-- validate | update | create | create-drop -->
 			</props>
 		</property>
 

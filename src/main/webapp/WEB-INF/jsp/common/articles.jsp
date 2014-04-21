@@ -51,24 +51,16 @@ end
 
 								<div class="panel-heading panel-heading-sArt">
 									<h4 class="panel-title panel-${entry.key}">
-										<a class="btn btn-success pull-left" href="${row.link}" target="_blank" rel="tooltip" title="Go to The Original~"> 
-										<span class="article-btn">원문</span>
-										</a>
-										
 										<a class="btn btn-success" rel="tooltip" data-placement="top" title="Translate this!"  data-toggle="collapse"
-										data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}"> 
-										<span class="article-btn">번역</span>
+											data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}"> 
+											<span class="article-btn">Translate</span>
 										</a>
-										
-										<!--
-										<a rel="tooltip" data-placement="left" title="See later~" class="js-add-article" href="#"> <span
-											class="glyphicon glyphicon-plus icon-disabled"></span>
+										<a class="btn btn-success pull-left" href="${row.link}" target="_blank" rel="tooltip" title="Go to The Original~"> 
+											<span class="article-btn">Link</span>
 										</a>
-									 	-->
-									 	
 										<a class="btn btn-success pull-right <c:if test="${empty row.simularTitle}"> disabled </c:if>" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
 											data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}"> 
-											<span class="article-btn">관련</span>
+											<span class="article-btn">Related</span>
 										</a>
 									</h4>
 								</div>
