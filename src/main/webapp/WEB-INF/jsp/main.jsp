@@ -128,20 +128,11 @@
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 
-			$('#search-input').on('keydown', function(e) {
-				if(e.keyCode != 13){
-					return;
-				}
-				
-				if ($('#search-input').val()) {
-					$('#article-list-section').empty();
-					
-					search = $('#search-input').val();
-					page = 0;					
-					date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
-					today = true;
-					control.getArticlesByDateAndPage();	
-				}
+			$('#search-input').on('keyup', function(e) {
+				var kcode = (window.event) ? event.keyCode : event.which;
+	            if (kcode == 13) {
+	            	$( "#search-btn" ).trigger( "click" );
+	            }
 			});
 			
 			$('#search-btn').on('click', function() {
@@ -211,9 +202,10 @@
 				</ul>
 
 				<div class="col-lg-3 pull-right">
-					<form class="navbar-form form-inline">
+					<form class="navbar-form form-inline" onsubmit="return false">
 						<div class="input-group">
-							<input id="search-input" type="text" class="form-control"> <span class="input-group-btn">
+							<input id="search-input" type="text" class="form-control"> 
+							<span class="input-group-btn">
 								<button id="search-btn" class="btn btn-primary" type="button">검색</button>
 							</span>
 						</div>
