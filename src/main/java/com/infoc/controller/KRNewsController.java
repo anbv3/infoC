@@ -79,7 +79,8 @@ public class KRNewsController extends BaseController {
 
 	@RequestMapping(value = {"/", "/main"})
 	public String getMain(Model model) throws Exception {
-
+		LOG.debug("{}", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
+		
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE));
 		model.addAttribute("menu", "main");
