@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import com.google.common.base.Objects;
 
-@Entity
+@Entity(name="user")
 public class User extends AbstractPersistable<Long> {
 	private static final long serialVersionUID = -4548247329625710336L;
 	

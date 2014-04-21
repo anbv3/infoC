@@ -27,7 +27,7 @@ import com.infoc.util.TranslationParser;
 /**
  * @author anbv3
  */
-@Entity
+@Entity(name="article")
 public class Article extends AbstractPersistable<Long> {
 	private static final long serialVersionUID = -4609133080342171773L;
 	private static final Logger LOG = LoggerFactory.getLogger(Article.class);
@@ -45,7 +45,7 @@ public class Article extends AbstractPersistable<Long> {
 	private String img;
 
 	@Lob
-	@Column
+	@Column(length = 10000)
 	private String contents;
 
 	@Index(name = "idx_pub_date")
@@ -92,11 +92,11 @@ public class Article extends AbstractPersistable<Long> {
 	private Set<String> keyWordList = new HashSet<>(); // use for summarization and duplication check
 
 	@Lob
-	@Column
+	@Column(length = 10000)
 	private String mainContents;
 
 	@Lob
-	@Column
+	@Column(length = 10000)
 	private String transedContents;
 	// /////////////////////////////////////////////////////////////////////////////
 
@@ -154,7 +154,8 @@ public class Article extends AbstractPersistable<Long> {
 		}
 		st.append(similarArticle.getTitle());
 		this.simularTitle = st.toString();
-		
+
+		// TODO: 세련된 방법이 없을까?
 		// update section
 		StringBuilder ss = new StringBuilder(this.simularSection);
 		ss.append("<div class=\"panel-article-info col-xs-12\">");
