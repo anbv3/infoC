@@ -98,6 +98,12 @@
 						if (search && today == true) {
 							$('#article-list-section').html(response);	
 						} 
+						
+						if (today == false) {
+							$('#top-section').html(control.createDateSection(date));	
+							$('#article-list-section').html(response);	
+						}
+						
 					} else {
 						$('#article-list-section').children().last().after(response);
 					}
@@ -108,6 +114,7 @@
 					date = new Date(date.setDate(dayOfMonth - 1));
 					page = 0;
 					today = false;
+					
 					control.getArticlesByDateAndPage();
 				}
 				
@@ -128,6 +135,15 @@
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 
+			if ( $('#article-list-section').children().length <= 0 ) {
+				page = 0;
+				today = false;
+				var dayOfMonth = date.getDate();
+				date = new Date(date.setDate(dayOfMonth - 1));
+				
+				control.getArticlesByDateAndPage();	
+			}
+			
 			$('#search-input').on('keyup', function(e) {
 				var kcode = (window.event) ? event.keyCode : event.which;
 	            if (kcode == 13) {

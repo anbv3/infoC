@@ -51,12 +51,12 @@ end
 
 								<div class="panel-heading panel-heading-sArt">
 									<h4 class="panel-title panel-${entry.key}">
-										<a class="btn btn-success" rel="tooltip" data-placement="top" title="Translate this!"  data-toggle="collapse"
+										<a class="btn btn-success pull-left" rel="tooltip" data-placement="top" title="Translate this!"  data-toggle="collapse"
 											data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}"> 
 											<span class="article-btn">Translate</span>
 										</a>
-										<a class="btn btn-success pull-left" href="${row.link}" target="_blank" rel="tooltip" title="Go to The Original~"> 
-											<span class="article-btn">Link</span>
+										<a class="btn btn-success" href="${row.link}" target="_blank" rel="tooltip" title="Go to The Original~"> 
+											<span class="article-btn">More</span>
 										</a>
 										<a class="btn btn-success pull-right <c:if test="${empty row.simularTitle}"> disabled </c:if>" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
 											data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}"> 

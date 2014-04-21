@@ -111,9 +111,15 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/politics/date/{date}/page/{page}")
 	public String getPoliticsByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
 
-		return getArticlesByDate(model, CollectionService.POLITICS_CACHE, date, ArticleSection.POLITICS, "politics", page);
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.POLITICS_CACHE, date, ArticleSection.POLITICS, "politics", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/econ")
@@ -127,9 +133,15 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/econ/date/{date}/page/{page}")
 	public String getEconByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
 
-		return getArticlesByDate(model, CollectionService.ECON_CACHE, date, ArticleSection.ECON, "econ", page);
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.ECON_CACHE, date, ArticleSection.ECON, "econ", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/society")
@@ -143,9 +155,15 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/society/date/{date}/page/{page}")
 	public String getSocietyByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
 
-		return getArticlesByDate(model, CollectionService.SOCIETY_CACHE, date, ArticleSection.SOCIETY, "society", page);
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.SOCIETY_CACHE, date, ArticleSection.SOCIETY, "society", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/culture")
@@ -159,9 +177,15 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/culture/date/{date}/page/{page}")
 	public String getCultureByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
 
-		return getArticlesByDate(model, CollectionService.CULTURE_CACHE, date, ArticleSection.CULTURE, "culture", page);
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.CULTURE_CACHE, date, ArticleSection.CULTURE, "culture", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/ent")
@@ -175,9 +199,15 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/ent/date/{date}/page/{page}")
 	public String getEntByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
 
-		return getArticlesByDate(model, CollectionService.ENT_CACHE, date, ArticleSection.ENT, "ent", page);
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.ENT_CACHE, date, ArticleSection.ENT, "ent", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/sport")
@@ -191,9 +221,15 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/sport/date/{date}/page/{page}")
 	public String getSportByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
 
-		return getArticlesByDate(model, CollectionService.SPORT_CACHE, date, ArticleSection.SPORT, "sport", page);
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.SPORT_CACHE, date, ArticleSection.SPORT, "sport", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/it")
@@ -207,9 +243,15 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/it/date/{date}/page/{page}")
 	public String getITByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
 
-		return getArticlesByDate(model, CollectionService.IT_CACHE, date, ArticleSection.IT, "it", page);
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.IT_CACHE, date, ArticleSection.IT, "it", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/others")
@@ -223,8 +265,14 @@ public class KRNewsController extends BaseController {
 	@RequestMapping(value = "/others/date/{date}/page/{page}")
 	public String geOthersByDate(Model model,
 		@PathVariable("date") final String date,
-		@PathVariable("page") int page) throws Exception {
+		@PathVariable("page") int page,
+		@RequestParam(value="search", required=false) String search) throws Exception {
 
-		return getArticlesByDate(model, CollectionService.OTHERS_CACHE, date, ArticleSection.OTHERS, "others", page);
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search,"UTF-8");
+		}
+		
+		return getArticlesByDate(model, CollectionService.OTHERS_CACHE, date, ArticleSection.OTHERS, "others", page, decodedSearchInput);
 	}
 }
