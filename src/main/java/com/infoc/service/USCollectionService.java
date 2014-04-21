@@ -78,7 +78,8 @@ public class USCollectionService {
 
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 
-		int currentHour = DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay();
+		DateTime currTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+		int currentHour = currTime.getHourOfDay();
 		for (int i = currentHour; i > 0; i--) {
 			if (map.get(i).isEmpty()) {
 				continue;

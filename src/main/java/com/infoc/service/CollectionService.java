@@ -121,7 +121,8 @@ public class CollectionService {
 
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 
-		int currentHour = DateTime.now(DateTimeZone.forID("Asia/Seoul")).getHourOfDay();
+		DateTime currTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+		int currentHour = currTime.getHourOfDay();
 		for (int i = currentHour; i > 0; i--) {
 			if (map.get(i).isEmpty()) {
 				continue;
@@ -251,13 +252,13 @@ public class CollectionService {
 			for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 				Iterator<Article> article = entry.getValue().iterator();
 				while (article.hasNext()) {
+					DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+					
 					if (article
 						.next()
 						.getPubDate()
 						.before(
-							DateTime.now(
-								DateTimeZone.forID("Asia/Seoul"))
-								.minusDays(1).minusHours(1).toDate())) {
+								currentTime.minusDays(1).minusHours(1).toDate())) {
 						
 						article.remove();
 					}

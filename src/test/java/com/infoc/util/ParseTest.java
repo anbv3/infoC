@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -178,5 +179,11 @@ public class ParseTest {
 		for (String sTitle : "강원#@fff".split("#@")) {
 			LOG.debug("{}", sTitle);
 		}
+		
+		DateTime dt = new DateTime(DateTimeZone.forID("America/Los_Angeles"));
+		LOG.debug("{}", new DateTime(DateTimeZone.forID("America/Los_Angeles")));
+		LOG.debug("{}", new DateTime(DateTimeZone.forID("Asia/Seoul")));
+		LOG.debug("{}", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
+		
 	}
 }

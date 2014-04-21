@@ -81,7 +81,7 @@ public class CrawlScheduler {
 		@Override
 		public void run() {
 			LOG.info("********* [START] collect the aritcles from RSS at {} ***********", 
-					DateTime.now(DateTimeZone.forID("Asia/Seoul")));
+					new DateTime(DateTimeZone.forID("Asia/Seoul")));
 			
 			for (NewsCrawler crawler : newsCrawlerList) {
 				try {
@@ -92,7 +92,7 @@ public class CrawlScheduler {
 			}
 			
 			LOG.info("********* [END] collect the aritcles from RSS at {} ***********", 
-				DateTime.now(DateTimeZone.forID("Asia/Seoul")));
+					new DateTime(DateTimeZone.forID("Asia/Seoul")));
 		}
 	}
 

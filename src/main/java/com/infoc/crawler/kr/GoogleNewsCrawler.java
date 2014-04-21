@@ -72,7 +72,8 @@ public class GoogleNewsCrawler implements NewsCrawler {
 				continue;
 			}
 			
-			if (article.getPubDate().before(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1).toDate())) {
+			DateTime currTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+			if (article.getPubDate().before(currTime.minusDays(1).toDate())) {
 				return;
 			}
 			

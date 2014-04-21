@@ -39,7 +39,7 @@ public class KRNewsController extends BaseController {
 	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
 		ArticleSection section, String menuName, int page, String search) throws Exception {
 
-		DateTime currTime = DateTime.now(DateTimeZone.forID("Asia/Seoul"));
+		DateTime currTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
 		DateTime reqTime = new DateTime(Long.parseLong(date), DateTimeZone.forID("Asia/Seoul"));
 
 		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
@@ -73,14 +73,14 @@ public class KRNewsController extends BaseController {
 
 	private void getCommonInfo(Model model) {
 		model.addAttribute("econ", CollectionService.ECON_INFO);
-		model.addAttribute("currentDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
-		model.addAttribute("requestDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
+		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+		
+		model.addAttribute("currentDay", dTime.toDate());
+		model.addAttribute("requestDay", dTime.toDate());
 	}
 
 	@RequestMapping(value = {"/", "/main"})
 	public String getMain(Model model) throws Exception {
-		LOG.debug("{}", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
-		
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE));
 		model.addAttribute("menu", "main");
