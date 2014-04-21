@@ -7,15 +7,13 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
-* 새벽에 기사가 없는 경우 어제것도 안나온다.
+* DB 저장과 조회를 분리와 중복 저장 방지 필요
 
 * 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
 
 * 그리고 오픈..ㅋㅋ
 
 
-
-* 기사 DB화 => 메모리 DB사용하고 추이를 보자
 
   
 * 회원 가입 추가 => favorite 버튼 => 중요도에 반영 => 내 기사 보기 => 유사 기사 보기
