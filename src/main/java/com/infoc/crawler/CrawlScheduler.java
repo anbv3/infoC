@@ -2,6 +2,8 @@ package com.infoc.crawler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +27,9 @@ import com.infoc.crawler.us.ChicagoTribuneCrawler;
 import com.infoc.crawler.us.LATimesCrawler;
 import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.crawler.us.TimeCrawler;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
 import com.infoc.service.USCollectionService;
 import com.infoc.util.EconInfoCrawler;
@@ -42,6 +47,10 @@ public class CrawlScheduler {
 	public GoogleNewsCrawler googleNewsCrawler;
 	@Autowired
 	public OtherNewsCrawler otherNewsCrawler;
+	
+	@Autowired
+	ArticleService articleService;
+	
 	
 //	@Autowired
 //	public NYTimesCrawler nyTimesCrawler;
@@ -75,6 +84,92 @@ public class CrawlScheduler {
 		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 1, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
+	}
+	
+	private void setUpCache() {
+		DateTime today = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+		
+		// kr
+		Map<Integer, List<Article>> cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.TODAY);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.TODAY_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
+		
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.POLITICS);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.POLITICS_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
+		
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.ECON);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.ECON_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
+		
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.SOCIETY);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.SOCIETY_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
+		
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.CULTURE);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.CULTURE_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
+		
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.ENT);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.ENT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
+		
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.SPORT);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.SPORT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
+		
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.IT);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.IT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
+		
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.OTHERS);
+		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			if (eachTime.getValue().isEmpty()) {
+				continue;
+			}
+			
+			CollectionService.OTHERS_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
+		}
 	}
 	
 	private static class CrawlTask implements Runnable {
@@ -121,6 +216,7 @@ public class CrawlScheduler {
 
 	@PostConstruct
 	public void runShcedule() {
+		setUpCache();
 		setUpCrawlerList();
 		setUpSchedules();
 	}

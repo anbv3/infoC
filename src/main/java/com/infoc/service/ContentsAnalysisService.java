@@ -37,7 +37,6 @@ public class ContentsAnalysisService {
 		}
 
 		article.setMainContents(sb.toString());
-		article.setContents("");
 	}
 
 	private static Set<String> createKeyWorkList(String title) {

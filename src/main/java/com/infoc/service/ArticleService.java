@@ -47,8 +47,6 @@ public class ArticleService {
 		List<Article> oneDayList = articleRepository.findBySectionAndPubYearAndPubMonthAndPubDay(
 			section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth(), sortByHour());
 		
-//		LOG.debug("{} of articles at {}", oneDayList.size(), pubDate);
-		
 		// Map<시간, 기사>의 형태로 변경하여 리턴
 		Map<Integer, List<Article>> articleListMap = new LinkedHashMap<>();
 		for (Article article : oneDayList) {

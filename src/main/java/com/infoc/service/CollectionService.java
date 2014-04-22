@@ -237,7 +237,7 @@ public class CollectionService {
 		}
 
 		// if it is the new one, then translate the main contents.
-		//newArticle.translateMainContents();
+		newArticle.translateMainContents();
 
 		// get the hour of the time for the time section
 		int hour = (new DateTime(newArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
@@ -245,6 +245,7 @@ public class CollectionService {
 		
 		// DB에 저장...
 		articleService.add(newArticle);
+		newArticle.setContents("");
 	}
 
 	public static void clearYesterDay() {

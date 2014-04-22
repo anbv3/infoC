@@ -11,7 +11,7 @@ import com.infoc.service.UserService;
 @Controller
 @RequestMapping("login")
 public class LoginController extends BaseController {
-    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     UserService userService;
