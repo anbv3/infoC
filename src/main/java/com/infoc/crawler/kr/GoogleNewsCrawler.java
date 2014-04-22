@@ -2,6 +2,7 @@ package com.infoc.crawler.kr;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -91,7 +92,7 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		article.setLink(rssItem.getLink());
 
 		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
-		article.setPubDate(pubDate.toDate());
+		article.setPubDate(new Date(pubDate.getMillis()));
 		article.setPubYear(pubDate.getYear());
 		article.setPubMonth(pubDate.getMonthOfYear());
 		article.setPubDay(pubDate.getDayOfMonth());
