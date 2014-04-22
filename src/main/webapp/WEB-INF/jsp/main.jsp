@@ -57,6 +57,7 @@
 
 <script type="text/javascript">
 	var autoLoad = false;
+	var today = true;
 	var date =  new Date('${initDay}');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 	var search;
@@ -97,14 +98,13 @@
 						$('#article-list-section').children().last().after(control.createDateSection(date));
 						if (search) {
 							$('#article-list-section').html(response);	
-						} 
-						
-						if (autoLoad == true) {
+						} else if (today == false) {
+							$('#article-list-section').children().last().after(response);
+						} else if (autoLoad == true) {
 							if ( $('#article-list-section').children().length < 1 ) {
 								$('#top-section').html(control.createDateSection(date));	
 								$('#article-list-section').html(response);	
 							} else {
-								//$('#article-list-section').children().last().after(control.createDateSection(date));
 								$('#article-list-section').children().last().after(response);
 							}
 							
