@@ -100,8 +100,14 @@
 						} 
 						
 						if (autoLoad == true) {
-							$('#top-section').html(control.createDateSection(date));	
-							$('#article-list-section').html(response);	
+							if ( $('#article-list-section').children().length < 1 ) {
+								$('#top-section').html(control.createDateSection(date));	
+								$('#article-list-section').html(response);	
+							} else {
+								$('#article-list-section').children().last().after(control.createDateSection(date));
+								$('#article-list-section').children().last().after(response);
+							}
+							
 							autoLoad = false;
 						}						
 					} else {
