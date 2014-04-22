@@ -78,6 +78,11 @@ public class ArticleService {
 
 	@Transactional
 	public void add(Article article) {
-		articleRepository.save(article);
+		try {
+			articleRepository.save(article);
+		} catch(Exception e) {
+			LOG.error("", e);
+		}
+		
 	}
 }

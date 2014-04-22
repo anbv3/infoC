@@ -97,6 +97,8 @@
 						$('#article-list-section').children().last().after(control.createDateSection(date));
 						if (search && today == true) {
 							$('#article-list-section').html(response);	
+						} else if (search && today == false) {
+							$('#article-list-section').html(response);
 						}
 						
 						if (autoLoad == true) {
