@@ -56,7 +56,7 @@
 </style>
 
 <script type="text/javascript">
-	var today = true;
+	var autoLoad = false;
 	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 	var search;
@@ -97,13 +97,13 @@
 						$('#article-list-section').children().last().after(control.createDateSection(date));
 						if (search && today == true) {
 							$('#article-list-section').html(response);	
-						} 
-						
-						if (today == false) {
-							$('#top-section').html(control.createDateSection(date));	
-							$('#article-list-section').html(response);	
 						}
 						
+						if (autoLoad == true) {
+							$('#top-section').html(control.createDateSection(date));	
+							$('#article-list-section').html(response);	
+							autoLoad = false;
+						}						
 					} else {
 						$('#article-list-section').children().last().after(response);
 					}
@@ -137,7 +137,7 @@
 
 			if ( $('#article-list-section').children().length <= 0 ) {
 				page = 0;
-				today = false;
+				autoLoad = true;
 				var dayOfMonth = date.getDate();
 				date = new Date(date.setDate(dayOfMonth - 1));
 				
