@@ -135,7 +135,7 @@
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 
-			if ( $('#article-list-section').children().length <= 0 ) {
+			if ( $('#article-list-section').children().length < 4 ) {
 				page = 0;
 				autoLoad = true;
 				var dayOfMonth = date.getDate();
