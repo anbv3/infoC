@@ -57,7 +57,7 @@
 
 <script type="text/javascript">
 	var autoLoad = false;
-	var date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
+	var date =  new Date('${initDay}');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 	var search;
 	
@@ -157,7 +157,7 @@
 					
 					search = $('#search-input').val();
 					page = 0;					
-					date =  new Date('<fmt:formatDate pattern="MM/dd/yyyy hh:mm:ss" value="${currentDay}"/>');
+					date =  new Date('${initDay}');
 					today = true;
 					control.getArticlesByDateAndPage();	
 				}
@@ -249,7 +249,7 @@
 					<div class="row">
 						<div class="col-md-12 day-section">
 							<h3>
-								<fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}" />
+								${currentDay}
 							</h3>
 						</div>
 					</div>
@@ -261,7 +261,7 @@
 					<div class="row">
 						<div class="col-md-2 day-section">
 							<h3>
-								<fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}" />
+								${currentDay}
 							</h3>
 						</div>
 

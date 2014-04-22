@@ -23,7 +23,7 @@ end
 
 		<!-- article section -->
 		<div class="col-md-10 article-section container">
-			<div id="story-<fmt:formatDate pattern="yyyy-dd-MM" value="${requestDay}"/>-${entry.key}" class="story row">
+			<div id="story-${requestDay}-${entry.key}" class="story row">
 
 				<c:forEach var="row" items="${entry.value}" varStatus="cnt">
 					<div class="item">
@@ -67,7 +67,7 @@ end
 
 									<c:if test="${not empty row.simularTitle}">
 										<div id="collapse-${entry.key}-${cnt.index}"
-											class="collapse-<fmt:formatDate pattern="yyyy-dd-MM" value="${requestDay}"/>-${entry.key} panel-collapse collapse panel-collapse-sArt">
+											class="collapse-${requestDay}-${entry.key} panel-collapse collapse panel-collapse-sArt">
 											<div class="panel-body panel-body-sArt">
 											${row.simularSection}
 											
@@ -77,7 +77,7 @@ end
 
 									<c:if test="${not empty row.transedContents}">
 										<div id="collapse-trans-${entry.key}-${cnt.index}"
-											class="collapse-<fmt:formatDate pattern="yyyy-dd-MM" value="${requestDay}"/>-${entry.key} panel-collapse collapse panel-collapse-sArt">
+											class="collapse-${requestDay}-${entry.key} panel-collapse collapse panel-collapse-sArt">
 											<div class="panel-body panel-body-sArt">
 												<div class="panel-article-info col-xs-12">
 													${row.transedContents}
@@ -101,7 +101,7 @@ end
 	</div>
 
 	<script type="text/javascript">
-		$('#story-<fmt:formatDate pattern="yyyy-dd-MM" value="${requestDay}"/>-${entry.key}').each(function() {
+		$('#story-${requestDay}-${entry.key}').each(function() {
 			var $container = $(this);
 			$container.imagesLoaded(function() {
 				$container.packery({
@@ -111,9 +111,9 @@ end
 			});
 		});
 
-		$('.collapse-<fmt:formatDate pattern="yyyy-dd-MM" value="${requestDay}"/>-${entry.key}').on('shown.bs.collapse hidden.bs.collapse',
+		$('.collapse-${requestDay}-${entry.key}').on('shown.bs.collapse hidden.bs.collapse',
 				function() {
-					$('#story-<fmt:formatDate pattern="yyyy-dd-MM" value="${requestDay}"/>-${entry.key}').each(function() {
+					$('#story-${requestDay}-${entry.key}').each(function() {
 						var $container = $(this);
 						$container.imagesLoaded(function() {
 							$container.packery({

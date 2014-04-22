@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,17 +67,20 @@ public class KRNewsController extends BaseController {
 
 		model.addAttribute("articleMap", articleListMap);
 		model.addAttribute("menu", menuName);
-		model.addAttribute("requestDay", reqTime.toDate());
+		model.addAttribute("requestDay", reqTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
 
 		return "/common/articles";
 	}
 
 	private void getCommonInfo(Model model) {
 		model.addAttribute("econ", CollectionService.ECON_INFO);
-		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
 		
-		model.addAttribute("currentDay", dTime.toDate());
-		model.addAttribute("requestDay", dTime.toDate());
+		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+		LOG.debug("{}", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
+		
+		model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
+		model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
+		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
 	}
 
 	@RequestMapping(value = {"/", "/main"})
