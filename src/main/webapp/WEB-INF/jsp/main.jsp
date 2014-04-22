@@ -98,7 +98,7 @@
 						if (search && today == true) {
 							$('#article-list-section').html(response);	
 						} else if (search && today == false) {
-							$('#article-list-section').html(response);
+							$('#article-list-section').children().last().after(response);
 						}
 						
 						if (autoLoad == true) {
