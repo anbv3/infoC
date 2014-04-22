@@ -95,11 +95,9 @@
 					
 					if (page == 0) {
 						$('#article-list-section').children().last().after(control.createDateSection(date));
-						if (search && today == true) {
+						if (search) {
 							$('#article-list-section').html(response);	
-						} else if (search && today == false) {
-							$('#article-list-section').children().last().after(response);
-						}
+						} 
 						
 						if (autoLoad == true) {
 							$('#top-section').html(control.createDateSection(date));	
