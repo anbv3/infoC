@@ -104,7 +104,7 @@
 								$('#top-section').html(control.createDateSection(date));	
 								$('#article-list-section').html(response);	
 							} else {
-								$('#article-list-section').children().last().after(control.createDateSection(date));
+								//$('#article-list-section').children().last().after(control.createDateSection(date));
 								$('#article-list-section').children().last().after(response);
 							}
 							
