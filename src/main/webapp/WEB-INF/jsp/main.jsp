@@ -57,7 +57,6 @@
 
 <script type="text/javascript">
 	var autoLoad = false;
-	var today = true;
 	var date =  new Date('${initDay}');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 	var search;
@@ -95,21 +94,27 @@
 				} else if (response.trim() != "") {
 					
 					if (page == 0) {
-						$('#article-list-section').children().last().after(control.createDateSection(date));
+						
+						// 오늘거 다음으로 어제거 처음으로 가져온 경우 => 날자만 추가한다.
+						// 오늘거가 적어서 어제거 가져온 경우 => 날자를 밑에 추가한다.
+						// 검색해서 가져온 경우 => 내용만 추가한다.
+						
 						if (search) {
+							$('#top-section').html(control.createDateSection(date));
 							$('#article-list-section').html(response);	
-						} else if (today == false) {
-							$('#article-list-section').children().last().after(response);
-						} else if (autoLoad == true) {
-							if ( $('#article-list-section').children().length < 1 ) {
-								$('#top-section').html(control.createDateSection(date));	
-								$('#article-list-section').html(response);	
+						} else {
+						
+							if ($('#article-list-section').children().length < 1) {
+								$('#article-list-section').html(control.createDateSection(date));
 							} else {
-								$('#article-list-section').children().last().after(response);
+								$('#article-list-section').children().last().after(control.createDateSection(date));
 							}
 							
-							autoLoad = false;
-						}						
+							if (autoLoad == true) {
+								$('#article-list-section').children().last().after(response);
+								autoLoad = false;
+							}
+						}
 					} else {
 						$('#article-list-section').children().last().after(response);
 					}
@@ -119,7 +124,6 @@
 					var dayOfMonth = date.getDate();
 					date = new Date(date.setDate(dayOfMonth - 1));
 					page = 0;
-					today = false;
 					
 					control.getArticlesByDateAndPage();
 				}
@@ -141,6 +145,7 @@
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
 
+			// 내용이 적으면 전날거 다시 가져오기
 			if ( $('#article-list-section').children().length < 4 ) {
 				page = 0;
 				autoLoad = true;
@@ -150,6 +155,7 @@
 				control.getArticlesByDateAndPage();	
 			}
 			
+			// 검색해서 가져오기
 			$('#search-input').on('keyup', function(e) {
 				var kcode = (window.event) ? event.keyCode : event.which;
 	            if (kcode == 13) {
@@ -164,7 +170,6 @@
 					search = $('#search-input').val();
 					page = 0;					
 					date =  new Date('${initDay}');
-					today = true;
 					control.getArticlesByDateAndPage();	
 				}
 			});

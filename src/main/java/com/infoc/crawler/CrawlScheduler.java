@@ -126,7 +126,6 @@ public class CrawlScheduler {
 			
 			CollectionService.SOCIETY_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
-		LOG.debug("CollectionService.SOCIETY_CACHE: {}", CollectionService.SOCIETY_CACHE);
 		
 		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.CULTURE);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
