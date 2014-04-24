@@ -7,11 +7,9 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
-* 재시작때 오늘거 읽어 캐쉬에 올리는 기능 필요..
+* 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
 
 * DB 저장과 조회를 분리와 중복 저장 방지 필요
-
-* 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
 
 * 그리고 오픈..ㅋㅋ
 

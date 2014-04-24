@@ -56,6 +56,7 @@
 </style>
 
 <script type="text/javascript">
+	var today = true;
 	var autoLoad = false;
 	var date =  new Date('${initDay}');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
@@ -68,6 +69,10 @@
 			var OldDay = tmpDay.getDate();
 			var OldMonth = tmpDay.getMonth() + 1;
 			var OldYear = tmpDay.getFullYear();
+			
+			if (OldMonth.length == 1) {
+				OldMonth = '0' + OldMonth;
+			}
 			
 			var dateSection = '<div class="bkg2"> <div class="row"> <div class="col-md-12 day-section"> <h3>' 
 			+ OldYear + '.' + OldMonth + '.' + OldDay + '</h3></div></div></div>';  
@@ -94,20 +99,25 @@
 				} else if (response.trim() != "") {
 					
 					if (page == 0) {
-						
-						// 오늘거 다음으로 어제거 처음으로 가져온 경우 => 날자만 추가한다.
-						// 오늘거가 적어서 어제거 가져온 경우 => 날자를 밑에 추가한다.
-						// 검색해서 가져온 경우 => 내용만 추가한다.
-						
 						if (search) {
-							$('#top-section').html(control.createDateSection(date));
-							$('#article-list-section').html(response);	
+							// 검색해서 가져온 경우
+							if (today == true) {
+								$('#top-section').html(control.createDateSection(date));
+								$('#article-list-section').html(response);	
+							} else {
+								$('#article-list-section').children().last().after(control.createDateSection(date));
+								return;
+							}
+							
 						} else {
-						
+							// 오늘거 다음으로 어제거 처음으로 가져온 경우 => 날자만 추가한다.
+							// 오늘거가 적어서 어제거 가져온 경우 => 날자를 밑에 추가한다.
+							
 							if ($('#article-list-section').children().length < 1) {
 								$('#article-list-section').html(control.createDateSection(date));
 							} else {
 								$('#article-list-section').children().last().after(control.createDateSection(date));
+								return;
 							}
 							
 							if (autoLoad == true) {
@@ -124,6 +134,7 @@
 					var dayOfMonth = date.getDate();
 					date = new Date(date.setDate(dayOfMonth - 1));
 					page = 0;
+					today = false;
 					
 					control.getArticlesByDateAndPage();
 				}
@@ -151,6 +162,7 @@
 				autoLoad = true;
 				var dayOfMonth = date.getDate();
 				date = new Date(date.setDate(dayOfMonth - 1));
+				today = false;
 				
 				control.getArticlesByDateAndPage();	
 			}
@@ -170,6 +182,8 @@
 					search = $('#search-input').val();
 					page = 0;					
 					date =  new Date('${initDay}');
+					today = true;
+					
 					control.getArticlesByDateAndPage();	
 				}
 			});
