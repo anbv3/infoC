@@ -106,18 +106,16 @@
 								$('#article-list-section').html(response);	
 							} else {
 								$('#article-list-section').children().last().after(control.createDateSection(date));
-								return;
 							}
-							
 						} else {
-							// 오늘거 다음으로 어제거 처음으로 가져온 경우 => 날자만 추가한다.
+							
 							// 오늘거가 적어서 어제거 가져온 경우 => 날자를 밑에 추가한다.
 							
 							if ($('#article-list-section').children().length < 1) {
 								$('#article-list-section').html(control.createDateSection(date));
 							} else {
+								// 오늘거 다음으로 어제거 처음으로 가져온 경우 => 날자만 추가한다.	
 								$('#article-list-section').children().last().after(control.createDateSection(date));
-								return;
 							}
 							
 							if (autoLoad == true) {
