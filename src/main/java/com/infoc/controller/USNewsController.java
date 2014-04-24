@@ -21,7 +21,6 @@ import com.google.common.base.Strings;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
-import com.infoc.service.CollectionService;
 import com.infoc.service.USCollectionService;
 
 @Controller
@@ -47,17 +46,18 @@ public class USNewsController extends BaseController {
 		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
 
 		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
-			articleListMap = CollectionService.getArticlesByCurrentTime(cacheMap, page, search);
+			articleListMap = USCollectionService.getArticlesByCurrentTime(cacheMap, page, search);
 			model.addAttribute("end", false);
 		} else {
 			// 전날 "뉴스" 가져오기
 			Map<Integer, List<Article>> oldArticleListMap =
-				articleService.getArticlesByPubDateAndSection(reqTime.toDate(), section);
+//				articleService.getArticlesByPubDateAndSection(reqTime.toDate(), section);
+				USCollectionService.getArticlesByCurrentTime(cacheMap, page, search);
 
 			if (oldArticleListMap == null || oldArticleListMap.isEmpty()) {
 				model.addAttribute("end", true);
 			} else {
-				articleListMap = CollectionService.getArticlesByPage(oldArticleListMap, page, search);
+				articleListMap = USCollectionService.getArticlesByPage(oldArticleListMap, page, search);
 				if (articleListMap.isEmpty() && page == 0) {
 					model.addAttribute("end", true);
 				} else {
@@ -101,7 +101,7 @@ public class USNewsController extends BaseController {
 			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
 		}
 
-		return getArticlesByDate(model, CollectionService.TODAY_CACHE, date, ArticleSection.TODAY, "main", page, decodedSearchInput);
+		return getArticlesByDate(model, USCollectionService.TODAY_CACHE, date, ArticleSection.TODAY, "main", page, decodedSearchInput);
 	}
 	
 	@RequestMapping(value = "/politics")
@@ -123,7 +123,7 @@ public class USNewsController extends BaseController {
 			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
 		}
 
-		return getArticlesByDate(model, CollectionService.POLITICS_CACHE, date, ArticleSection.POLITICS, "politics", page, decodedSearchInput);
+		return getArticlesByDate(model, USCollectionService.POLITICS_CACHE, date, ArticleSection.POLITICS, "politics", page, decodedSearchInput);
 	}
 	
 
@@ -146,7 +146,7 @@ public class USNewsController extends BaseController {
 			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
 		}
 
-		return getArticlesByDate(model, CollectionService.ECON_CACHE, date, ArticleSection.ECON, "econ", page, decodedSearchInput);
+		return getArticlesByDate(model, USCollectionService.ECON_CACHE, date, ArticleSection.ECON, "econ", page, decodedSearchInput);
 	}
 	
 	@RequestMapping(value = "/society")
@@ -168,7 +168,7 @@ public class USNewsController extends BaseController {
 			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
 		}
 
-		return getArticlesByDate(model, CollectionService.SOCIETY_CACHE, date, ArticleSection.SOCIETY, "society", page, decodedSearchInput);
+		return getArticlesByDate(model, USCollectionService.SOCIETY_CACHE, date, ArticleSection.SOCIETY, "society", page, decodedSearchInput);
 	}
 	
 	
@@ -191,7 +191,7 @@ public class USNewsController extends BaseController {
 			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
 		}
 
-		return getArticlesByDate(model, CollectionService.CULTURE_CACHE, date, ArticleSection.CULTURE, "culture", page, decodedSearchInput);
+		return getArticlesByDate(model, USCollectionService.CULTURE_CACHE, date, ArticleSection.CULTURE, "culture", page, decodedSearchInput);
 	}
 	
 	@RequestMapping(value = "/ent")
@@ -213,7 +213,7 @@ public class USNewsController extends BaseController {
 			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
 		}
 
-		return getArticlesByDate(model, CollectionService.ENT_CACHE, date, ArticleSection.ENT, "ent", page, decodedSearchInput);
+		return getArticlesByDate(model, USCollectionService.ENT_CACHE, date, ArticleSection.ENT, "ent", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/sport")
@@ -235,7 +235,7 @@ public class USNewsController extends BaseController {
 			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
 		}
 
-		return getArticlesByDate(model, CollectionService.SPORT_CACHE, date, ArticleSection.SPORT, "sport", page, decodedSearchInput);
+		return getArticlesByDate(model, USCollectionService.SPORT_CACHE, date, ArticleSection.SPORT, "sport", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/it")
@@ -257,6 +257,6 @@ public class USNewsController extends BaseController {
 			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
 		}
 
-		return getArticlesByDate(model, CollectionService.IT_CACHE, date, ArticleSection.IT, "it", page, decodedSearchInput);
+		return getArticlesByDate(model, USCollectionService.IT_CACHE, date, ArticleSection.IT, "it", page, decodedSearchInput);
 	}
 }
