@@ -76,8 +76,6 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("econ", CollectionService.ECON_INFO);
 
 		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-		LOG.debug("{}", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
-
 		model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
 		model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
 		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));

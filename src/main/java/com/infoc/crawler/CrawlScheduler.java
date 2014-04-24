@@ -68,10 +68,10 @@ public class CrawlScheduler {
 	
 	private void setUpCrawlerList() {
 		// kr
-//		newsCrawlerList.add(daumNewsCrawler);
-//		newsCrawlerList.add(naverNewsCrawler);
-//		newsCrawlerList.add(googleNewsCrawler);
-//		newsCrawlerList.add(otherNewsCrawler);
+		newsCrawlerList.add(daumNewsCrawler);
+		newsCrawlerList.add(naverNewsCrawler);
+		newsCrawlerList.add(googleNewsCrawler);
+		newsCrawlerList.add(otherNewsCrawler);
 		
 		// us
 		newsCrawlerList.add(nyTimesCrawler);
@@ -99,7 +99,6 @@ public class CrawlScheduler {
 			
 			CollectionService.TODAY_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
-		LOG.debug("CollectionService.TODAY_CACHE: {}", CollectionService.TODAY_CACHE);
 		
 		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.POLITICS);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {

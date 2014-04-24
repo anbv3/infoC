@@ -78,8 +78,6 @@ public class USNewsController extends BaseController {
 
 	private void getCommonInfo(Model model) {
 		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-		LOG.debug("{}", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
-
 		model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
 		model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
 		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
