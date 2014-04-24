@@ -55,6 +55,10 @@ body {
   background-color: #fff;
 }
 
+.mobile-nav-list {
+	max-height: 240px;
+}
+
 /* ***************************************************************** */
 
 .loading-bar .bar {

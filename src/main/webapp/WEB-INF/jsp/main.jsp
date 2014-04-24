@@ -226,7 +226,7 @@
 				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
 			</div>
 			
-			<div class="collapse navbar-collapse">
+			<div class="collapse navbar-collapse mobile-nav-list">
 				<ul id="top-menu" class="nav navbar-nav">
 					<li id="main-menu"><a href="/main">주요</a></li>
 					<li id="politics-menu"><a href="/politics">정치</a></li>

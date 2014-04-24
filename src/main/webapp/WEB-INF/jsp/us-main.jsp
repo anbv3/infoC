@@ -252,7 +252,7 @@ width: 244px;
 				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
 			</div>
 			
-			<div class="collapse navbar-collapse">
+			<div class="collapse navbar-collapse mobile-nav-list">
 				<ul id="top-menu" class="nav navbar-nav">
 					<li id="main-menu"><a href="/us/main">TOP</a></li>
 					<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>
