@@ -6,6 +6,7 @@ package com.infoc.crawler.us;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -16,6 +17,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Strings;
 import com.infoc.crawler.NewsCrawler;
@@ -27,7 +30,7 @@ import com.infoc.service.USContentsAnalysisService;
 import com.infoc.util.RSSCrawler;
 import com.sun.syndication.feed.synd.SyndEntry;
 
-
+@Component
 public class NYTimesCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(NYTimesCrawler.class);
 	private static String TODAY = "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
@@ -39,6 +42,9 @@ public class NYTimesCrawler implements NewsCrawler {
 	private static String IT = "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml";
 
 	private List<Article> articleList = new ArrayList<>();
+	
+	@Autowired
+	public USCollectionService collectionService;
 	
 	@Override
 	public List<Article> createArticlList() {
@@ -79,7 +85,7 @@ public class NYTimesCrawler implements NewsCrawler {
 			USContentsAnalysisService.createMainSentence(article);
 			
 			// add to the store
-			USCollectionService.add(article);
+			collectionService.add(article);
 		}
 	}
 
@@ -88,7 +94,13 @@ public class NYTimesCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
-		article.setPubDate(new DateTime(rssItem.getPublishedDate(),	DateTimeZone.forID("Asia/Seoul")).toDate());
+		
+		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
+		article.setPubDate(new Date(pubDate.getMillis()));
+		article.setPubYear(pubDate.getYear());
+		article.setPubMonth(pubDate.getMonthOfYear());
+		article.setPubDay(pubDate.getDayOfMonth());
+		article.setPubHour(pubDate.getHourOfDay());
 		
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {

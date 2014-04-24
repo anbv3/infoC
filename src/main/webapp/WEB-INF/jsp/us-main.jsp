@@ -78,35 +78,98 @@ width: 244px;
 }
 </style>
 
+
 <script type="text/javascript">
-
-var page = 1;
-
-var control = {
-		getArticlesByPage : function() {
-			$('#ajaxloader').show();	
+	var today = true;
+	var autoLoad = false;
+	var date =  new Date('${initDay}');
+	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
+	var search;
+	
+	var control = {
+		
+		createDateSection : function(oldDate) {
+			var tmpDay =  new Date(oldDate);
+			var OldDay = tmpDay.getDate();
+			var OldMonth = tmpDay.getMonth() + 1;
+			var OldYear = tmpDay.getFullYear();
 			
-			var reqURL = "<c:url value="/us"/>" + "/" + "${menu}" + "/" + page;
+			if (OldMonth.length == 1) {
+				OldMonth = '0' + OldMonth;
+			}
+			
+			var dateSection = '<div class="bkg2"> <div class="row"> <div class="col-md-12 day-section"> <h3>' 
+			+ OldYear + '.' + OldMonth + '.' + OldDay + '</h3></div></div></div>';  
+		
+			return dateSection;
+		},
+		
+		getArticlesByDateAndPage : function() {
+			$('#ajaxloader').removeClass('hide');
+			
+			var reqURL = "<c:url value="/us"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
+			if (search) {
+				reqURL += "?search=";
+				reqURL += encodeURI(encodeURIComponent(search));
+			}
 			
 			$.ajax({
 				type : "GET",
 				url : reqURL,
 			}).done(function(response) {
-				if (response.trim() != "") {
-					$('#article-list-section').children().last().after(response);
+				if (response.trim() == "end") {
+					$('#ajaxloader').remove();
+					return;
+				} else if (response.trim() != "") {
+					
+					if (page == 0) {
+						// 이전날 기사를 처음으로 가져온 경우 => 날자만 추가한다.
+						// 안그럼 로딩 요청이 중복으로 들어가 결과도 중복으로 출력된다.
+						
+						if (search) {
+							// 검색해서 가져온 경우
+							if (today == true) {
+								$('#top-section').html(control.createDateSection(date));
+								$('#article-list-section').html(response);	
+							} else {
+								$('#article-list-section').children().last().after(control.createDateSection(date));
+							}
+						} else {
+							if ($('#article-list-section').children().length < 1) {
+								$('#article-list-section').html(control.createDateSection(date));
+							} else {
+								// today == false
+								$('#article-list-section').children().last().after(control.createDateSection(date));
+							}
+							
+							// 기사가 적어 자동 로딩할때만 기사 추가
+							if (autoLoad == true) {
+								$('#article-list-section').children().last().after(response);
+								autoLoad = false;
+							}
+						}
+					} else {
+						$('#article-list-section').children().last().after(response);
+					}
+					
 					page++;
+				} else {
+					var dayOfMonth = date.getDate();
+					date = new Date(date.setDate(dayOfMonth - 1));
+					page = 0;
+					today = false;
+					
+					control.getArticlesByDateAndPage();
 				}
 				
-				$('#ajaxloader').hide();
-				$(window).data('ajaxready', true);
 			}).error(function(response) {
 				alert("[ERROR] " + response.status + " : " + response.statusText);
 			}).always(function() {
-				
+				$('#ajaxloader').addClass('hide');
+				$(window).data('ajaxready', true);
 			});
 		}
-};
-
+	};
 
 	(function(yourcode) {
 		yourcode(window.jQuery, window, document);
@@ -115,13 +178,39 @@ var control = {
 			// active menu
 			var menu = "#" + "${menu}" + "-menu";
 			$(menu).addClass("active");
-			
-			$('#ajaxloader').hide();
-			
-			$('.js-add-article').on('click', function(e) {
-				e.preventDefault();
-			});
 
+			// 내용이 적으면 전날거 다시 가져오기
+			if ( $('#article-list-section').children().length < 4 ) {
+				page = 0;
+				autoLoad = true;
+				var dayOfMonth = date.getDate();
+				date = new Date(date.setDate(dayOfMonth - 1));
+				today = false;
+				
+				control.getArticlesByDateAndPage();	
+			}
+			
+			// 검색해서 가져오기
+			$('#search-input').on('keyup', function(e) {
+				var kcode = (window.event) ? event.keyCode : event.which;
+	            if (kcode == 13) {
+	            	$( "#search-btn" ).trigger( "click" );
+	            }
+			});
+			
+			$('#search-btn').on('click', function() {
+				if ($('#search-input').val()) {
+					$('#article-list-section').empty();
+					
+					search = $('#search-input').val();
+					page = 0;					
+					date =  new Date('${initDay}');
+					today = true;
+					
+					control.getArticlesByDateAndPage();	
+				}
+			});
+			
 			// get more articles when scrolling down 
 			$(window).data('ajaxready', true).scroll(function() {
 				if ($(window).data('ajaxready') == false) {
@@ -130,15 +219,15 @@ var control = {
 				
 				if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
 					$(window).data('ajaxready', false);
-					control.getArticlesByPage();
+					control.getArticlesByDateAndPage();
 				}
 			});
 
 		});
-		// The rest of code goes here!
 
 	}));
 </script>
+
 
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -192,7 +281,7 @@ var control = {
 				<div class="row">
 					<div class="col-md-12 day-section">
 						<h3>
-							<fmt:formatDate pattern="yyyy.MM.dd" value="${currentDay}" />
+							${currentDay}
 						</h3>
 					</div>
 				</div>

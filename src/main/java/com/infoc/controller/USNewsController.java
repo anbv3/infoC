@@ -1,14 +1,27 @@
 package com.infoc.controller;
 
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.common.base.Strings;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.ArticleService;
+import com.infoc.service.CollectionService;
 import com.infoc.service.USCollectionService;
 
 @Controller
@@ -16,10 +29,59 @@ import com.infoc.service.USCollectionService;
 public class USNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(USNewsController.class);
 
-	private void getCommonInfo(Model model) {
-		model.addAttribute("currentDay", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
+	@Autowired
+	ArticleService articleService;
+
+	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
+		ArticleSection section, String menuName, int page) throws Exception {
+
+		return getArticlesByDate(model, cacheMap, date, section, menuName, page, null);
 	}
 
+	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
+		ArticleSection section, String menuName, int page, String search) throws Exception {
+
+		DateTime currTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+		DateTime reqTime = new DateTime(Long.parseLong(date), DateTimeZone.forID("Asia/Seoul"));
+
+		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
+
+		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
+			articleListMap = CollectionService.getArticlesByCurrentTime(cacheMap, page, search);
+			model.addAttribute("end", false);
+		} else {
+			// 전날 "뉴스" 가져오기
+			Map<Integer, List<Article>> oldArticleListMap =
+				articleService.getArticlesByPubDateAndSection(reqTime.toDate(), section);
+
+			if (oldArticleListMap == null || oldArticleListMap.isEmpty()) {
+				model.addAttribute("end", true);
+			} else {
+				articleListMap = CollectionService.getArticlesByPage(oldArticleListMap, page, search);
+				if (articleListMap.isEmpty() && page == 0) {
+					model.addAttribute("end", true);
+				} else {
+					model.addAttribute("end", false);
+				}
+			}
+		}
+
+		model.addAttribute("articleMap", articleListMap);
+		model.addAttribute("menu", menuName);
+		model.addAttribute("requestDay", reqTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+
+		return "/common/articles";
+	}
+
+	private void getCommonInfo(Model model) {
+		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+		LOG.debug("{}", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
+
+		model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
+		model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
+		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+	}
+	
 	@RequestMapping(value = "/main")
 	public String getMain(Model model) throws Exception {
 		getCommonInfo(model);
@@ -28,11 +90,18 @@ public class USNewsController extends BaseController {
 		return "/us-main";
 	}
 	
-	@RequestMapping(value = "/main/{page}")
-	public String getMain(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.TODAY_CACHE, page));
-		model.addAttribute("menu","main");
-		return "/common/articles";
+	@RequestMapping(value = "/main/date/{date}/page/{page}")
+	public String getMainByDate(Model model,
+		@PathVariable("date") final String date,
+		@PathVariable("page") int page,
+		@RequestParam(value = "search", required = false) String search) throws Exception {
+
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+		}
+
+		return getArticlesByDate(model, CollectionService.TODAY_CACHE, date, ArticleSection.TODAY, "main", page, decodedSearchInput);
 	}
 	
 	@RequestMapping(value = "/politics")
@@ -42,11 +111,19 @@ public class USNewsController extends BaseController {
 		model.addAttribute("menu","politics");
 		return "/us-main";
 	}
-	@RequestMapping(value = "/politics/{page}")
-	public String getPolitics(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.POLITICS_CACHE, page));
-		model.addAttribute("menu","politics");
-		return "/common/articles";
+	
+	@RequestMapping(value = "/politics/date/{date}/page/{page}")
+	public String getPoliticsByDate(Model model,
+		@PathVariable("date") final String date,
+		@PathVariable("page") int page,
+		@RequestParam(value = "search", required = false) String search) throws Exception {
+
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+		}
+
+		return getArticlesByDate(model, CollectionService.POLITICS_CACHE, date, ArticleSection.POLITICS, "politics", page, decodedSearchInput);
 	}
 	
 
@@ -57,13 +134,21 @@ public class USNewsController extends BaseController {
 		model.addAttribute("menu","econ");
 		return "/us-main";
 	}
-	@RequestMapping(value = "/econ/{page}")
-	public String getEcon(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.ECON_CACHE, page));
-		model.addAttribute("menu","econ");
-		return "/common/articles";
-	}
+	
+	@RequestMapping(value = "/econ/date/{date}/page/{page}")
+	public String getEconByDate(Model model,
+		@PathVariable("date") final String date,
+		@PathVariable("page") int page,
+		@RequestParam(value = "search", required = false) String search) throws Exception {
 
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+		}
+
+		return getArticlesByDate(model, CollectionService.ECON_CACHE, date, ArticleSection.ECON, "econ", page, decodedSearchInput);
+	}
+	
 	@RequestMapping(value = "/society")
 	public String getSociety(Model model) throws Exception {
 		getCommonInfo(model);
@@ -71,12 +156,21 @@ public class USNewsController extends BaseController {
 		model.addAttribute("menu","society");
 		return "/us-main";
 	}
-	@RequestMapping(value = "/society/{page}")
-	public String getSociety(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.SOCIETY_CACHE, page));
-		model.addAttribute("menu","society");
-		return "/common/articles";
+	
+	@RequestMapping(value = "/society/date/{date}/page/{page}")
+	public String getSocietyByDate(Model model,
+		@PathVariable("date") final String date,
+		@PathVariable("page") int page,
+		@RequestParam(value = "search", required = false) String search) throws Exception {
+
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+		}
+
+		return getArticlesByDate(model, CollectionService.SOCIETY_CACHE, date, ArticleSection.SOCIETY, "society", page, decodedSearchInput);
 	}
+	
 	
 	@RequestMapping(value = "/culture")
 	public String getCulture(Model model) throws Exception {
@@ -85,11 +179,19 @@ public class USNewsController extends BaseController {
 		model.addAttribute("menu","culture");
 		return "/us-main";
 	}
-	@RequestMapping(value = "/culture/{page}")
-	public String getCulture(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.CULTURE_CACHE, page));
-		model.addAttribute("menu","culture");
-		return "/common/articles";
+	
+	@RequestMapping(value = "/culture/date/{date}/page/{page}")
+	public String getCultureByDate(Model model,
+		@PathVariable("date") final String date,
+		@PathVariable("page") int page,
+		@RequestParam(value = "search", required = false) String search) throws Exception {
+
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+		}
+
+		return getArticlesByDate(model, CollectionService.CULTURE_CACHE, date, ArticleSection.CULTURE, "culture", page, decodedSearchInput);
 	}
 	
 	@RequestMapping(value = "/ent")
@@ -99,11 +201,19 @@ public class USNewsController extends BaseController {
 		model.addAttribute("menu","ent");
 		return "/us-main";
 	}
-	@RequestMapping(value = "/ent/{page}")
-	public String getEnt(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.ENT_CACHE, page));
-		model.addAttribute("menu","ent");
-		return "/common/articles";
+	
+	@RequestMapping(value = "/ent/date/{date}/page/{page}")
+	public String getEntByDate(Model model,
+		@PathVariable("date") final String date,
+		@PathVariable("page") int page,
+		@RequestParam(value = "search", required = false) String search) throws Exception {
+
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+		}
+
+		return getArticlesByDate(model, CollectionService.ENT_CACHE, date, ArticleSection.ENT, "ent", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/sport")
@@ -113,11 +223,19 @@ public class USNewsController extends BaseController {
 		model.addAttribute("menu","sport");
 		return "/us-main";
 	}
-	@RequestMapping(value = "/sport/{page}")
-	public String getSport(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.SPORT_CACHE, page));
-		model.addAttribute("menu","sport");
-		return "/common/articles";
+	
+	@RequestMapping(value = "/sport/date/{date}/page/{page}")
+	public String getSportByDate(Model model,
+		@PathVariable("date") final String date,
+		@PathVariable("page") int page,
+		@RequestParam(value = "search", required = false) String search) throws Exception {
+
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+		}
+
+		return getArticlesByDate(model, CollectionService.SPORT_CACHE, date, ArticleSection.SPORT, "sport", page, decodedSearchInput);
 	}
 
 	@RequestMapping(value = "/it")
@@ -127,10 +245,18 @@ public class USNewsController extends BaseController {
 		model.addAttribute("menu","it");
 		return "/us-main";
 	}
-	@RequestMapping(value = "/it/{page}")
-	public String getIt(Model model, @PathVariable("page") final int page) throws Exception {
-		model.addAttribute("articleMap", USCollectionService.getArticlesByCurrentTime(USCollectionService.IT_CACHE, page));
-		model.addAttribute("menu","it");
-		return "/common/articles";
+	
+	@RequestMapping(value = "/it/date/{date}/page/{page}")
+	public String getITByDate(Model model,
+		@PathVariable("date") final String date,
+		@PathVariable("page") int page,
+		@RequestParam(value = "search", required = false) String search) throws Exception {
+
+		String decodedSearchInput = null;
+		if (!Strings.isNullOrEmpty(search)) {
+			decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+		}
+
+		return getArticlesByDate(model, CollectionService.IT_CACHE, date, ArticleSection.IT, "it", page, decodedSearchInput);
 	}
 }

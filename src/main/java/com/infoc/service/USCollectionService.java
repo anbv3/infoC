@@ -15,9 +15,14 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.google.common.base.Strings;
 import com.infoc.domain.Article;
+import com.infoc.repository.ArticleRepository;
 
+@Service
 public class USCollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(USCollectionService.class);
 	private static final Integer MAX_DUP_NUM = 3;
@@ -52,43 +57,70 @@ public class USCollectionService {
 		}
 	}
 
+	@Autowired
+	public ArticleRepository articleRepository;
+	
+	@Autowired
+	public ArticleService articleService;
+	
+	
 	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
-		return getArticlesByCurrentTime(map, 0);
+		return getArticlesByCurrentTime(map, 0, null);
 	}
 
-	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page) {
-		Map<Integer, List<Article>> articleMap = sortByCurrentTime(map);
+	public static Map<Integer, List<Article>> getArticlesByPage(
+			Map<Integer, List<Article>> articleMap, int page, String search) {
+		
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
-		
+
 		int idx = 0;
-		int range = page * PAGE_LIMIT;
-		//LOG.debug("{}, {}, {} ~ {}", articleMap.size(), page, range, range + PAGE_LIMIT);
-		
+		int from = page * PAGE_LIMIT;
+		int to = (page + 1) * PAGE_LIMIT;
+
 		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
-			if (idx >= range && idx < range + PAGE_LIMIT) {
-				currMap.put(eachTime.getKey(), eachTime.getValue());
+			if (eachTime.getValue().isEmpty()) {
+				continue;
 			}
+
+			List<Article> searchedArticles = new ArrayList<>();
+			if (!Strings.isNullOrEmpty(search)) {
+				for (Article article : eachTime.getValue()) {
+					if (article.getMainContents().contains(search)) {
+						searchedArticles.add(article);
+					}
+				}
+
+				if (searchedArticles.isEmpty()) {
+					continue;
+				}
+			}
+			
+			if (idx >= from && idx < to) {
+				if (!Strings.isNullOrEmpty(search)) {
+					currMap.put(eachTime.getKey(), searchedArticles);	
+				} else {
+					currMap.put(eachTime.getKey(), eachTime.getValue());
+				}
+			}
+			
 			idx++;
 		}
 
 		return currMap;
 	}
+	
+	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page, String search) {
+		Map<Integer, List<Article>> articleMap = beforeCurrentTime(map);
+		return getArticlesByPage(articleMap, page, search);
+	}
 
-	public static Map<Integer, List<Article>> sortByCurrentTime(Map<Integer, List<Article>> map) {
+	public static Map<Integer, List<Article>> beforeCurrentTime(Map<Integer, List<Article>> map) {
 
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 
 		DateTime currTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
 		int currentHour = currTime.getHourOfDay();
 		for (int i = currentHour; i > 0; i--) {
-			if (map.get(i).isEmpty()) {
-				continue;
-			}
-
-			currMap.put(i, map.get(i));
-		}
-
-		for (int i = 23; i > currentHour; i--) {
 			if (map.get(i).isEmpty()) {
 				continue;
 			}
@@ -147,7 +179,7 @@ public class USCollectionService {
 		return false;
 	}
 
-	public static void add(Article newArticle) {
+	public void add(Article newArticle) {
 		// just in case, # of keyword is one, then skip to add
 		if (newArticle.getKeyWordList().size() < 2) {
 			return;
@@ -187,7 +219,7 @@ public class USCollectionService {
 		addNew(newArticle, cacheLocation);
 	}
 
-	private static void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
+	private void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
 		// check the duplicated articles from the stored article.
 		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
@@ -203,19 +235,12 @@ public class USCollectionService {
 		newArticle.translateMainContentsFromEnToKr();
 		
 		// get the hour of the time for the time section
-		int hour = (new DateTime(newArticle.getPubDate())).getHourOfDay();
+		int hour = (new DateTime(newArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
 		cache.get(hour).add(newArticle);
 		
-		/*
-		 * TODO: remove the less important article rather than the first one
-		if (cache.get(hour).size() <= 8) {
-			cache.get(hour).add(newArticle);
-		} else {
-			// TODO: remove the less important article rather than the first one
-			cache.get(hour).remove(0);
-			cache.get(hour).add(newArticle);
-		}
-		*/
+		// DB에 저장...
+		//articleService.add(newArticle);
+		//newArticle.setContents("");
 	}
 
 	public static void clearYesterDay() {

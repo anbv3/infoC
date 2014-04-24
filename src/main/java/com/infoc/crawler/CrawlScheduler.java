@@ -40,6 +40,10 @@ public class CrawlScheduler {
 	private static final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);
 	
 	@Autowired
+	ArticleService articleService;
+	
+	// kr
+	@Autowired
 	public DaumNewsCrawler daumNewsCrawler;
 	@Autowired
 	public NaverNewsCrawler naverNewsCrawler;
@@ -48,36 +52,33 @@ public class CrawlScheduler {
 	@Autowired
 	public OtherNewsCrawler otherNewsCrawler;
 	
+	// us
 	@Autowired
-	ArticleService articleService;
-	
-	
-//	@Autowired
-//	public NYTimesCrawler nyTimesCrawler;
-//	@Autowired
-//	public ChicagoTribuneCrawler chicagoTribuneCrawler;
-//	@Autowired
-//	public BostonNewsCrawler bostonNewsCrawler;
-//	@Autowired
-//	public TimeCrawler timeCrawler;
-//	@Autowired
-//	public LATimesCrawler laTimesCrawler;
+	public NYTimesCrawler nyTimesCrawler;
+	@Autowired
+	public ChicagoTribuneCrawler chicagoTribuneCrawler;
+	@Autowired
+	public BostonNewsCrawler bostonNewsCrawler;
+	@Autowired
+	public TimeCrawler timeCrawler;
+	@Autowired
+	public LATimesCrawler laTimesCrawler;
 	
 	private static List<NewsCrawler> newsCrawlerList = new ArrayList<>();
 	
 	private void setUpCrawlerList() {
 		// kr
-		newsCrawlerList.add(daumNewsCrawler);
-		newsCrawlerList.add(naverNewsCrawler);
-		newsCrawlerList.add(googleNewsCrawler);
-		newsCrawlerList.add(otherNewsCrawler);
+//		newsCrawlerList.add(daumNewsCrawler);
+//		newsCrawlerList.add(naverNewsCrawler);
+//		newsCrawlerList.add(googleNewsCrawler);
+//		newsCrawlerList.add(otherNewsCrawler);
 		
 		// us
-//		newsCrawlerList.add(nyTimesCrawler);
-//		newsCrawlerList.add(chicagoTribuneCrawler);
-//		newsCrawlerList.add(bostonNewsCrawler);
-//		newsCrawlerList.add(timeCrawler);
-//		newsCrawlerList.add(laTimesCrawler);
+		newsCrawlerList.add(nyTimesCrawler);
+		newsCrawlerList.add(chicagoTribuneCrawler);
+		newsCrawlerList.add(bostonNewsCrawler);
+		newsCrawlerList.add(timeCrawler);
+		newsCrawlerList.add(laTimesCrawler);
 	}
 
 	private void setUpSchedules() {
@@ -171,6 +172,7 @@ public class CrawlScheduler {
 			
 			CollectionService.OTHERS_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
+		
 	}
 	
 	private static class CrawlTask implements Runnable {

@@ -7,6 +7,8 @@ infoC
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
+* 미국 기사도 추가 => database 분리? 또는 국가 필드 추가..
+
 * 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
 
 * DB 저장과 조회를 분리와 중복 저장 방지 필요

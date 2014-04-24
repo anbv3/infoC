@@ -64,24 +64,6 @@ public class ContentsAnalysisService {
 		return keyWordList;
 	}
 
-	/**
-	 * TODO: 테스트 필요
-	 */
-	private static boolean isSpecialChar(String str) {
-		char c;
-		int cint;
-		for (int n = 0; n < str.length(); n++) {
-			c = str.charAt(n);
-			cint = (int)c;
-			if (cint < 48 || (cint > 57 && cint < 65)
-				|| (cint > 90 && cint < 97) || cint > 122) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	private static List<SentenceInfo> createSentenceList(Set<String> keyWordList, String contents) {
 		List<SentenceInfo> sentenceList = new ArrayList<>();
 
