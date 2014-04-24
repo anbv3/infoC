@@ -99,6 +99,9 @@
 				} else if (response.trim() != "") {
 					
 					if (page == 0) {
+						// 이전날 기사를 처음으로 가져온 경우 => 날자만 추가한다.
+						// 안그럼 로딩 요청이 중복으로 들어가 결과도 중복으로 출력된다.
+						
 						if (search) {
 							// 검색해서 가져온 경우
 							if (today == true) {
@@ -108,16 +111,14 @@
 								$('#article-list-section').children().last().after(control.createDateSection(date));
 							}
 						} else {
-							
-							// 오늘거가 적어서 어제거 가져온 경우 => 날자를 밑에 추가한다.
-							
 							if ($('#article-list-section').children().length < 1) {
 								$('#article-list-section').html(control.createDateSection(date));
 							} else {
-								// 오늘거 다음으로 어제거 처음으로 가져온 경우 => 날자만 추가한다.	
+								// today == false
 								$('#article-list-section').children().last().after(control.createDateSection(date));
 							}
 							
+							// 기사가 적어 자동 로딩할때만 기사 추가
 							if (autoLoad == true) {
 								$('#article-list-section').children().last().after(response);
 								autoLoad = false;
