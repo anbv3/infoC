@@ -49,10 +49,12 @@ public class USNewsController extends BaseController {
 			articleListMap = USCollectionService.getArticlesByCurrentTime(cacheMap, page, search);
 			model.addAttribute("end", false);
 		} else {
+			model.addAttribute("end", true);
+			
+			/*
 			// 전날 "뉴스" 가져오기
 			Map<Integer, List<Article>> oldArticleListMap =
-//				articleService.getArticlesByPubDateAndSection(reqTime.toDate(), section);
-				USCollectionService.getArticlesByCurrentTime(cacheMap, page, search);
+				articleService.getArticlesByPubDateAndSection(reqTime.toDate(), section);
 
 			if (oldArticleListMap == null || oldArticleListMap.isEmpty()) {
 				model.addAttribute("end", true);
@@ -64,6 +66,7 @@ public class USNewsController extends BaseController {
 					model.addAttribute("end", false);
 				}
 			}
+			*/
 		}
 
 		model.addAttribute("articleMap", articleListMap);

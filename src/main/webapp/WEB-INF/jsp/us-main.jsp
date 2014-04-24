@@ -119,6 +119,12 @@ width: 244px;
 			}).done(function(response) {
 				if (response.trim() == "end") {
 					$('#ajaxloader').remove();
+					
+					var dateSection = '<div class="bkg2"> <div class="row"> <div class="col-md-12 day-section"> <h3>' 
+						+ ' No More Articles</h3></div></div></div>'; 
+						
+					$('#article-list-section').children().last().after(dateSection);
+					
 					return;
 				} else if (response.trim() != "") {
 					
