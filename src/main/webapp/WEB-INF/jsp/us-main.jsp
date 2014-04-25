@@ -233,6 +233,7 @@ width: 244px;
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 	
 	ga('create', 'UA-50349754-1', 'skimpaper.com');
+	ga('require', 'displayfeatures');
 	ga('send', 'pageview');
 </script>
 

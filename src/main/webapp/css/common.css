@@ -59,6 +59,21 @@ body {
 	max-height: 240px;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-width: @screen-tablet) { 
+
+  ::i-block-chrome, .row.safari-fix  {
+    display:table!important;
+  }
+ ::i-block-chrome, .row.safari-fix [class*="col-"] {
+    display:table-cell!important;
+    float:none!important;
+   width:auto!important;
+   padding-left:2%!important;
+   padding-right:2%!important;
+  }
+
+} /* end safari rounding bug hack */
+
 /* ***************************************************************** */
 
 .loading-bar .bar {

@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 <title>Skim paper</title>
 
@@ -209,6 +209,7 @@
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 	
 	ga('create', 'UA-50349754-1', 'skimpaper.com');
+	ga('require', 'displayfeatures');
 	ga('send', 'pageview');
 
 </script>
@@ -228,9 +229,7 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
+					<span style="color:#fff">Menu</span> 
 				</button>
 				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
 			</div>
@@ -250,7 +249,7 @@
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
 				</ul>
 
-				<div class="col-lg-3 pull-right">
+				<div class="col-lg-3 nav-right">
 					<form class="navbar-form form-inline" onsubmit="return false">
 						<div class="input-group">
 							<input id="search-input" type="text" class="form-control"> 
