@@ -273,8 +273,25 @@ width: 244px;
 					<li id="us-menu"><a style="color:#83E01F" href="/kr/main">Korea</a></li>
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">Log In</a></li>  -->
 				</ul>
+				
+				<div class="col-lg-3 nav-right">
+					<form class="navbar-form form-inline" onsubmit="return false">
+						<div class="input-group">
+							<input id="search-input" type="text" class="form-control"> 
+							<span class="input-group-btn">
+								<button id="search-btn" class="btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i></button>
+							</span>
+						</div>
+						<!-- /input-group -->
+					</form>
+				</div>
+				<!-- /.col-lg-6 -->
+			
+			
 			</div>
 			<!--/.nav-collapse -->
+			
+			
 		</div>
 		<!-- <div class="color-strip"></div> -->
 	</div>
