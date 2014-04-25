@@ -94,7 +94,7 @@ width: 244px;
 			var OldMonth = tmpDay.getMonth() + 1;
 			var OldYear = tmpDay.getFullYear();
 			
-			if (OldMonth.length == 1) {
+			if (OldMonth.length < 10) {
 				OldMonth = '0' + OldMonth;
 			}
 			
