@@ -90,7 +90,8 @@ public class GoogleNewsCrawler implements NewsCrawler {
 		Article article = new Article();
 		article.setSection(section);
 		article.setLink(rssItem.getLink());
-
+		article.setCountry("KR");
+		
 		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
 		article.setPubDate(new Date(pubDate.getMillis()));
 		article.setPubYear(pubDate.getYear());

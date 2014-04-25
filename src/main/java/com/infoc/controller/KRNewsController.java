@@ -51,7 +51,7 @@ public class KRNewsController extends BaseController {
 		} else {
 			// 전날 "뉴스" 가져오기
 			Map<Integer, List<Article>> oldArticleListMap =
-				articleService.getArticlesByPubDateAndSection(reqTime.toDate(), section);
+				articleService.getArticlesByPubDateAndSection(reqTime.toDate(), "KR", section);
 
 			if (oldArticleListMap == null || oldArticleListMap.isEmpty()) {
 				model.addAttribute("end", true);

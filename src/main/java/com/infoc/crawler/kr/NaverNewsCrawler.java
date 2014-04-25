@@ -99,6 +99,7 @@ public class NaverNewsCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
+		article.setCountry("KR");
 		
 		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
 		article.setPubDate(new Date(pubDate.getMillis()));

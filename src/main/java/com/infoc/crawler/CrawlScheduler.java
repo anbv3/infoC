@@ -91,7 +91,7 @@ public class CrawlScheduler {
 		DateTime today = new DateTime(DateTimeZone.forID("Asia/Seoul"));
 		
 		// kr
-		Map<Integer, List<Article>> cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.TODAY);
+		Map<Integer, List<Article>> cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.TODAY);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
@@ -100,7 +100,7 @@ public class CrawlScheduler {
 			CollectionService.TODAY_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
 		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.POLITICS);
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.POLITICS);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
@@ -109,7 +109,7 @@ public class CrawlScheduler {
 			CollectionService.POLITICS_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
 		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.ECON);
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.ECON);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
@@ -118,7 +118,7 @@ public class CrawlScheduler {
 			CollectionService.ECON_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
 		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.SOCIETY);
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.SOCIETY);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
@@ -127,7 +127,7 @@ public class CrawlScheduler {
 			CollectionService.SOCIETY_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
 		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.CULTURE);
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.CULTURE);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
@@ -136,7 +136,7 @@ public class CrawlScheduler {
 			CollectionService.CULTURE_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
 		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.ENT);
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.ENT);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
@@ -145,7 +145,7 @@ public class CrawlScheduler {
 			CollectionService.ENT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
 		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.SPORT);
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.SPORT);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
@@ -154,7 +154,7 @@ public class CrawlScheduler {
 			CollectionService.SPORT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
 		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.IT);
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.IT);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;
@@ -163,7 +163,7 @@ public class CrawlScheduler {
 			CollectionService.IT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
 		}
 		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), ArticleSection.OTHERS);
+		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.OTHERS);
 		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
 				continue;

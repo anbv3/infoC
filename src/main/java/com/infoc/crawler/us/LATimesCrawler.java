@@ -92,6 +92,7 @@ public class LATimesCrawler implements NewsCrawler {
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
 		article.setLink(rssItem.getLink());
+		article.setCountry("US");
 		
 		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
 		article.setPubDate(new Date(pubDate.getMillis()));

@@ -40,12 +40,12 @@ public class ArticleService {
 	/**
 	 * DB에서 section과 날자로 기사를 조회
 	 */
-	public Map<Integer, List<Article>> getArticlesByPubDateAndSection(Date date, ArticleSection section) {
+	public Map<Integer, List<Article>> getArticlesByPubDateAndSection(Date date, String country, ArticleSection section) {
 		DateTime pubDate = new DateTime(date, DateTimeZone.forID("Asia/Seoul"));
 
 		// 각 section과 날자별 기사를 조회하고 시간 순으로 정렬
-		List<Article> oneDayList = articleRepository.findBySectionAndPubYearAndPubMonthAndPubDay(
-			section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth(), sortByHour());
+		List<Article> oneDayList = articleRepository.findByCountryAndSectionAndPubYearAndPubMonthAndPubDay(
+				country, section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth(), sortByHour());
 		
 		// Map<시간, 기사>의 형태로 변경하여 리턴
 		Map<Integer, List<Article>> articleListMap = new LinkedHashMap<>();

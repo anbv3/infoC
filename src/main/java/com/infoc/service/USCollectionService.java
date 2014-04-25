@@ -239,8 +239,8 @@ public class USCollectionService {
 		cache.get(hour).add(newArticle);
 		
 		// DB에 저장...
-		//articleService.add(newArticle);
-		//newArticle.setContents("");
+		articleService.add(newArticle);
+		newArticle.setContents("");
 	}
 
 	public static void clearYesterDay() {

@@ -48,6 +48,10 @@ public class Article extends AbstractPersistable<Long> {
 	@Column(length = 10000)
 	private String contents;
 
+	@Index(name = "idx_country")
+	@Column(columnDefinition="varchar(10) default 'KR'")
+	private String country;
+	
 	@Index(name = "idx_pub_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column
@@ -75,6 +79,7 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private Integer numDups = 0;
 
+	@Index(name = "idx_section")
 	@Enumerated(EnumType.STRING)
 	@Column
 	private ArticleSection section;
@@ -252,6 +257,14 @@ public class Article extends AbstractPersistable<Long> {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public ArticleSection getSection() {

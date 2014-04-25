@@ -12,5 +12,5 @@ import com.infoc.enumeration.ArticleSection;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 	
 	// pubYear, pubMonth, pubDay
-	List<Article> findBySectionAndPubYearAndPubMonthAndPubDay(ArticleSection section, int year, int month, int day, Sort sort);
+	List<Article> findByCountryAndSectionAndPubYearAndPubMonthAndPubDay(String country, ArticleSection section, int year, int month, int day, Sort sort);
 }
