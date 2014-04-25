@@ -70,7 +70,7 @@
 			var OldMonth = tmpDay.getMonth() + 1;
 			var OldYear = tmpDay.getFullYear();
 			
-			if (OldMonth.length == 1) {
+			if (OldMonth.length < 10) {
 				OldMonth = '0' + OldMonth;
 			}
 			
@@ -246,7 +246,7 @@
 						<div class="input-group">
 							<input id="search-input" type="text" class="form-control"> 
 							<span class="input-group-btn">
-								<button id="search-btn" class="btn btn-primary" type="button">검색</button>
+								<button id="search-btn" class="btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i></button>
 							</span>
 						</div>
 						<!-- /input-group -->
@@ -268,7 +268,6 @@
 	<div class="carousel-inner side-collapse-container">
 
 		<div id="top-section">
-			<c:if test="${menu != 'main'}">
 				<div class="bkg2">
 					<div class="row">
 						<div class="col-md-12 day-section">
@@ -278,8 +277,8 @@
 						</div>
 					</div>
 				</div>
-			</c:if>
-
+				
+<!-- 
 			<c:if test="${menu == 'main'}">
 				<div class="bkg2" style="padding-top: 25px;">
 					<div class="row">
@@ -325,7 +324,8 @@
 					</div>
 				</div>
 			</c:if>
-
+ -->
+ 
 		</div>
 
 

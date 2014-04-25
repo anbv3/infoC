@@ -9,7 +9,7 @@ infoC
 
 * 미국 기사도 추가 => database 분리? 또는 국가 필드 추가..
 
-* 구글 analysis 추가 (https://www.google.com/analytics/gallery/#landing/start/)
+* http://www.bootply.com/render/102931 같은 상단에 간단 설명을 넣을 수 있는 메뉴는 어떨까? ㅋㅋ
 
 * DB 저장과 조회를 분리와 중복 저장 방지 필요
 
