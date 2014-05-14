@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping
-public class CommonController {
-	private static final Logger LOG = LoggerFactory.getLogger(CommonController.class);
+public class MainController {
+	private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
 	
 	@RequestMapping(value = {"/", "/main"})
 	public String redirectByLocale(Model model, Locale locale) throws Exception {

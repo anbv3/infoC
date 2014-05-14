@@ -84,6 +84,20 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
 	}
 
+	@RequestMapping(value = "/search/{section}")
+	public String getMainBySearch(Pageable pageable, Model model,
+			@PathVariable("section") final String section,
+			@RequestParam(value = "q") String query) throws Exception {
+		LOG.debug("section:{}, query: {}, {}", section, query, ToStringBuilder.reflectionToString(pageable));
+		
+		Page<Article> articleList = articleService.getArticlesByMainContents("KR", ArticleSection.find(section), query, pageable);
+		model.addAttribute("page", articleList);
+		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
+		model.addAttribute("menu", section);
+		
+		return "/common/searched-articles";
+	}
+	
 	@RequestMapping(value = "/main")
 	public String getMain(Model model) throws Exception {
 		getCommonInfo(model);
@@ -92,18 +106,6 @@ public class KRNewsController extends BaseController {
 		return "/main";
 	}
 
-	@RequestMapping(value = "/main/search")
-	public String getMainBySearch(Pageable pageable, Model model, @RequestParam(value = "q") String query) throws Exception {
-		LOG.debug("query: {}, {}", query, ToStringBuilder.reflectionToString(pageable));
-		
-		Page<Article> articleList = articleService.getArticlesByMainContents("KR", ArticleSection.TODAY, query, pageable);
-		model.addAttribute("page", articleList);
-		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
-		model.addAttribute("menu", "main");
-		return "/common/searched-articles";
-		
-	}
-	
 	@RequestMapping(value = "/main/date/{date}/page/{page}")
 	public String getMainByDate(Model model,
 		@PathVariable("date") final String date,

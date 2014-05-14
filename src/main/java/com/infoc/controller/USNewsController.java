@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -79,6 +82,20 @@ public class USNewsController extends BaseController {
 		model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
 		model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
 		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+	}
+	
+	@RequestMapping(value = "/search/{section}")
+	public String getMainBySearch(Pageable pageable, Model model,
+			@PathVariable("section") final String section,
+			@RequestParam(value = "q") String query) throws Exception {
+		LOG.debug("section:{}, query: {}, {}", section, query, ToStringBuilder.reflectionToString(pageable));
+		
+		Page<Article> articleList = articleService.getArticlesByMainContents("US", ArticleSection.find(section), query, pageable);
+		model.addAttribute("page", articleList);
+		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
+		model.addAttribute("menu", section);
+		
+		return "/common/searched-articles";
 	}
 	
 	@RequestMapping(value = "/main")
