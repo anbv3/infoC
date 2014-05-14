@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +27,7 @@ import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
 
 @Controller
-@RequestMapping(value = {"/", "/kr"})
+@RequestMapping(value = "/kr")
 public class KRNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(KRNewsController.class);
 
@@ -81,7 +84,7 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
 	}
 
-	@RequestMapping(value = {"/", "/main"})
+	@RequestMapping(value = "/main")
 	public String getMain(Model model) throws Exception {
 		getCommonInfo(model);
 		model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(CollectionService.TODAY_CACHE));
@@ -89,6 +92,18 @@ public class KRNewsController extends BaseController {
 		return "/main";
 	}
 
+	@RequestMapping(value = "/main/search")
+	public String getMainBySearch(Pageable pageable, Model model, @RequestParam(value = "q") String query) throws Exception {
+		LOG.debug("query: {}, {}", query, ToStringBuilder.reflectionToString(pageable));
+		
+		Page<Article> articleList = articleService.getArticlesByMainContents("KR", ArticleSection.TODAY, query, pageable);
+		model.addAttribute("page", articleList);
+		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
+		model.addAttribute("menu", "main");
+		return "/common/searched-articles";
+		
+	}
+	
 	@RequestMapping(value = "/main/date/{date}/page/{page}")
 	public String getMainByDate(Model model,
 		@PathVariable("date") final String date,

@@ -62,6 +62,8 @@
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
 	var search;
 	
+	var requestSent = false;
+	
 	var control = {
 		
 		createDateSection : function(oldDate) {
@@ -70,7 +72,7 @@
 			var OldMonth = tmpDay.getMonth() + 1;
 			var OldYear = tmpDay.getFullYear();
 			
-			if (OldMonth.length < 10) {
+			if (OldMonth.toString().length < 2) {
 				OldMonth = '0' + OldMonth;
 			}
 			
@@ -81,69 +83,119 @@
 		},
 		
 		getArticlesByDateAndPage : function() {
-			$('#ajaxloader').removeClass('hide');
+			if(!requestSent) {
+				requestSent = true;
 			
-			var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
-			if (search) {
-				reqURL += "?search=";
-				reqURL += encodeURI(encodeURIComponent(search));
-			}
-			
-			$.ajax({
-				type : "GET",
-				url : reqURL,
-			}).done(function(response) {
-				if (response.trim() == "end") {
-					$('#ajaxloader').remove();
-					return;
-				} else if (response.trim() != "") {
-					
-					if (page == 0) {
-						// 이전날 기사를 처음으로 가져온 경우 => 날자만 추가한다.
-						// 안그럼 로딩 요청이 중복으로 들어가 결과도 중복으로 출력된다.
-						
-						if (search) {
-							// 검색해서 가져온 경우
-							if (today == true) {
-								$('#top-section').html(control.createDateSection(date));
-								$('#article-list-section').html(response);	
-							} else {
-								$('#article-list-section').children().last().after(control.createDateSection(date));
-							}
-						} else {
-							if ($('#article-list-section').children().length < 1) {
-								$('#article-list-section').html(control.createDateSection(date));
-							} else {
-								// today == false
-								$('#article-list-section').children().last().after(control.createDateSection(date));
-							}
-							
-							// 기사가 적어 자동 로딩할때만 기사 추가
-							if (autoLoad == true) {
-								$('#article-list-section').children().last().after(response);
-								autoLoad = false;
-							}
-						}
-					} else {
-						$('#article-list-section').children().last().after(response);
-					}
-					
-					page++;
-				} else {
-					var dayOfMonth = date.getDate();
-					date = new Date(date.setDate(dayOfMonth - 1));
-					page = 0;
-					today = false;
-					
-					control.getArticlesByDateAndPage();
+				$('#ajaxloader').removeClass('hide');
+				
+				var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
+				if (search) {
+					reqURL += "?search=";
+					reqURL += encodeURI(encodeURIComponent(search));
 				}
 				
-			}).error(function(response) {
-				alert("[ERROR] " + response.status + " : " + response.statusText);
-			}).always(function() {
-				$('#ajaxloader').addClass('hide');
-				$(window).data('ajaxready', true);
-			});
+				$.ajax({
+					type : "GET",
+					url : reqURL,
+				}).done(function(response) {
+					if (response.trim() == "end") {
+						$('#ajaxloader').remove();
+						return;
+					} else if (response.trim() != "") {
+						
+						if (page == 0) {
+							// 이전날 기사를 처음으로 가져온 경우 => 날자만 추가한다.
+							// 안그럼 로딩 요청이 중복으로 들어가 결과도 중복으로 출력된다.
+							
+							if (search) {
+								// 검색해서 가져온 경우
+								if (today == true) {
+									$('#top-section').html(control.createDateSection(date));
+									$('#article-list-section').html(response);	
+								} else {
+									$('#article-list-section').children().last().after(control.createDateSection(date));
+								}
+							} else {
+								if ($('#article-list-section').children().length < 1) {
+									$('#article-list-section').html(control.createDateSection(date));
+								} else {
+									// today == false
+									$('#article-list-section').children().last().after(control.createDateSection(date));
+								}
+								
+								// 기사가 적어 자동 로딩할때만 기사 추가
+								if (autoLoad == true) {
+									$('#article-list-section').children().last().after(response);
+									autoLoad = false;
+								}
+							}
+						} else {
+							$('#article-list-section').children().last().after(response);
+						}
+						
+						page++;
+					} else {
+						var dayOfMonth = date.getDate();
+						date = new Date(date.setDate(dayOfMonth - 1));
+						page = 0;
+						today = false;
+						
+						control.getArticlesByDateAndPage();
+					}
+					
+				}).error(function(response) {
+					alert("[ERROR] " + response.status + " : " + response.statusText);
+				}).always(function() {
+					$('#ajaxloader').addClass('hide');
+					$(window).data('ajaxready', true);
+					requestSent = false;
+				});
+			}
+		},
+		
+		getArticlesBySearch : function() {
+			if(!requestSent) {
+				requestSent = true;
+				
+				$('#ajaxloader').removeClass('hide');
+				
+				var reqURL = "<c:url value="/kr"/>" + "/" + "${menu}" + "/search";
+				if (search) {
+					reqURL += "?q=";
+					//reqURL += encodeURI(encodeURIComponent(search));
+					reqURL += search;
+					
+					var p = page + 1;
+					reqURL += "&page.page=" + p;
+					reqURL += "&page.size=" + 10;
+					
+				}
+				
+				
+				$.ajax({
+					type : "GET",
+					url : reqURL,
+				}).done(function(response) {
+					if (response.trim() == "end") {
+						return;
+					} else if (response.trim() != "") {
+						if (page == 0) {
+							$('#top-section').html(control.createDateSection(date));
+							$('#article-list-section').html(response);	
+						} else {
+							$('#article-list-section').children().last().after(response);
+						}
+						
+						page++;
+					} 
+				}).error(function(response) {
+					alert("[ERROR] " + response.status + " : " + response.statusText);
+				}).always(function() {
+					$('#ajaxloader').addClass('hide');
+					$(window).data('ajaxready', true);
+					requestSent = false;
+				});
+			}
 		}
 	};
 
@@ -183,7 +235,10 @@
 					date =  new Date('${initDay}');
 					today = true;
 					
-					control.getArticlesByDateAndPage();	
+					//control.getArticlesByDateAndPage();
+					
+					control.getArticlesBySearch();
+					
 				}
 			});
 			
@@ -195,7 +250,15 @@
 				
 				if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
 					$(window).data('ajaxready', false);
-					control.getArticlesByDateAndPage();
+					
+					if (search) {
+						control.getArticlesBySearch();
+						
+					} else {
+						control.getArticlesByDateAndPage();	
+					}
+					
+					
 				}
 			});
 

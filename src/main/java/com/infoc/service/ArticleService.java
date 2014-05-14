@@ -2,16 +2,19 @@ package com.infoc.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -66,7 +69,34 @@ public class ArticleService {
 	public Page<Article> getArticles(Pageable pageable) {
 		return articleRepository.findAll(pageable);
 	}
+	
+	public Page<Article> getArticlesByMainContents(String country, ArticleSection section, String query, Pageable pageable) {
+		String likeQuery = '%' + query.trim() + '%';
+		Pageable page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, "pubDate");
+		
+		Page<Article> list = articleRepository.findByCountryAndSectionAndMainContentsLike(country, section, likeQuery, page);
+		return list;
+	}
 
+	public Map<String, String> extractStartAndEndDate(Page<Article> articlePage) {
+		Map<String, String> pubDateMap = new HashMap<String, String>();
+		if(articlePage.getNumberOfElements() == 0) {
+			pubDateMap.put("start", "");
+			pubDateMap.put("end", "");
+			return pubDateMap;
+		}
+		
+		List<Article> articleList = articlePage.getContent();
+		
+		DateTime startTime = new DateTime(articleList.get(0).getPubDate(), DateTimeZone.forID("Asia/Seoul"));
+		pubDateMap.put("end", startTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd hh:mm")));
+		
+		DateTime endTime = new DateTime(articleList.get(articleList.size() -1).getPubDate(), DateTimeZone.forID("Asia/Seoul"));
+		pubDateMap.put("start", endTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd hh:mm")));
+		
+		return pubDateMap;
+	}
+	
 	public Article getArticle(Long id) {
 		return articleRepository.findOne(id);
 	}
