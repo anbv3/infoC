@@ -106,12 +106,26 @@ public class ArticleService {
 	}
 
 	@Transactional
-	public void add(Article article) {
+	public Article add(Article article) {
 		try {
-			articleRepository.save(article);
+			return articleRepository.save(article);
 		} catch(Exception e) {
 			LOG.error("", e);
 		}
-		
+		return null;
 	}
+
+    @Transactional
+    public void update(Article article) {
+        if (article.getId() == null || article.getId() == 0L) {
+            return;
+        }
+
+        try {
+            articleRepository.save(article);
+        } catch(Exception e) {
+            LOG.error("", e);
+        }
+
+    }
 }

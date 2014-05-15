@@ -1,10 +1,10 @@
 package com.infoc.controller;
 
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.base.Strings;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.ArticleService;
+import com.infoc.service.USCollectionService;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.common.base.Strings;
-import com.infoc.domain.Article;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.service.ArticleService;
-import com.infoc.service.USCollectionService;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/us")
@@ -33,12 +32,6 @@ public class USNewsController extends BaseController {
 
 	@Autowired
 	ArticleService articleService;
-
-	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
-		ArticleSection section, String menuName, int page) throws Exception {
-
-		return getArticlesByDate(model, cacheMap, date, section, menuName, page, null);
-	}
 
 	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
 		ArticleSection section, String menuName, int page, String search) throws Exception {

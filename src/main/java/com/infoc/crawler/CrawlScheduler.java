@@ -211,7 +211,7 @@ public class CrawlScheduler {
 		@Override
 		public void run() {
 			LOG.info("Clear articles one day before!");
-			CollectionService.clearYesterDay();
+			CollectionService.clearYesterday();
 			USCollectionService.clearYesterDay();
 		}
 	}
