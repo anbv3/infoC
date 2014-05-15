@@ -20,8 +20,14 @@
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="false" />
 				<property name="generateDdl" value="true" />
-				<property name="database" value="HSQL" />
+
+				<!--
+                <property name="database" value="HSQL" />
 				<property name="databasePlatform" value="org.hibernate.dialect.H2Dialect" />
+                -->
+
+                <property name="database" value="MYSQL" />
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			</bean>
 		</property>
 

@@ -1,12 +1,8 @@
 package com.infoc.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.repository.ArticleRepository;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
@@ -20,9 +16,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.infoc.domain.Article;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.repository.ArticleRepository;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -89,10 +88,10 @@ public class ArticleService {
 		List<Article> articleList = articlePage.getContent();
 		
 		DateTime startTime = new DateTime(articleList.get(0).getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-		pubDateMap.put("end", startTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd hh:mm")));
+		pubDateMap.put("end", startTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 		
 		DateTime endTime = new DateTime(articleList.get(articleList.size() -1).getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-		pubDateMap.put("start", endTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd hh:mm")));
+		pubDateMap.put("start", endTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 		
 		return pubDateMap;
 	}
