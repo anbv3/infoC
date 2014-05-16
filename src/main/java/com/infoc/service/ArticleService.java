@@ -51,6 +51,10 @@ public class ArticleService {
 		
 		// Map<시간, 기사>의 형태로 변경하여 리턴
 		Map<Integer, List<Article>> articleListMap = new LinkedHashMap<>();
+		if (oneDayList == null) {
+			return articleListMap;
+		}
+		
 		for (Article article : oneDayList) {
 			int hour = (new DateTime(article.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
 			if (articleListMap.get(hour) == null) {
@@ -88,10 +92,10 @@ public class ArticleService {
 		List<Article> articleList = articlePage.getContent();
 		
 		DateTime startTime = new DateTime(articleList.get(0).getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-		pubDateMap.put("end", startTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
+		pubDateMap.put("start", startTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 		
 		DateTime endTime = new DateTime(articleList.get(articleList.size() -1).getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-		pubDateMap.put("start", endTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
+		pubDateMap.put("end", endTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 		
 		return pubDateMap;
 	}

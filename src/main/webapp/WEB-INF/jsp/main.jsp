@@ -58,10 +58,9 @@
 <script type="text/javascript">
 	var today = true;
 	var autoLoad = false;
-	var date =  new Date('${initDay}');
+	var date = new Date('${initDay}');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
-	var search;
-	
+	var search = "${query}";
 	var requestSent = false;
 	
 	var control = {
@@ -208,7 +207,7 @@
 			$(menu).addClass("active");
 
 			// 내용이 적으면 전날거 다시 가져오기
-			if ( $('#article-list-section').children().length < 4 ) {
+			if ( !search && $('#article-list-section').children().length < 4 ) {
 				page = 0;
 				autoLoad = true;
 				var dayOfMonth = date.getDate();
@@ -333,71 +332,29 @@
 	<div class="carousel-inner side-collapse-container">
 
 		<div id="top-section">
-				<div class="bkg2">
-					<div class="row">
-						<div class="col-md-12 day-section">
-							<h3>
-								${currentDay}
-							</h3>
-						</div>
+		<c:if test="${empty query}">
+			<div class="bkg2">
+				<div class="row">
+					<div class="col-md-12 day-section">
+						<h3>
+							${currentDay}
+						</h3>
 					</div>
 				</div>
-				
-<!-- 
-			<c:if test="${menu == 'main'}">
-				<div class="bkg2" style="padding-top: 25px;">
-					<div class="row">
-						<div class="col-md-2 day-section">
-							<h3>
-								${currentDay}
-							</h3>
-						</div>
-
-						<div class="col-md-10 container">
-							<div id="title-section" class="row">
-								<div class="col-xs-2 titem econ-section bkg3">
-									<h5>코스피 ${econ.kospiChange}</h5>
-									<h2>${econ.kospi}</h2>
-								</div>
-								<div class="col-xs-2 titem econ-section bkg3">
-									<h5>코스닥 ${econ.kosdaqChange}</h5>
-									<h2>${econ.kosdaq}</h2>
-								</div>
-								<div class="col-xs-2 titem econ-section bkg3">
-									<h5>미국 USD ${econ.usdChange}</h5>
-									<h2>${econ.usd}원</h2>
-								</div>
-								<div class="col-xs-2 titem econ-section bkg3">
-									<h5>중국 CNY ${econ.cnyChange}</h5>
-									<h2>${econ.cny}원</h2>
-								</div>
-							</div>
-
-							<script type="text/javascript">
-								$('#title-section').each(function() {
-									var $container = $(this);
-									$container.imagesLoaded(function() {
-										$container.packery({
-											itemSelector : '.titem',
-											gutter : 5
-										});
-									});
-								});
-							</script>
-
-						</div>
-					</div>
-				</div>
-			</c:if>
- -->
- 
+			</div>
+		</c:if>
 		</div>
 
 
 		<c:set var="rowColor" value="two" />
 
 		<div id="article-list-section">
-			<jsp:include page="./common/articles.jsp" />
+			<c:if test="${empty query}">
+				<jsp:include page="./common/articles.jsp" />
+			</c:if>	
+			<c:if test="${not empty query}">
+				<jsp:include page="./common/searched-articles.jsp" />
+			</c:if>	
 		</div>
 
 		<div id="ajaxloader" class="row loading-bar bkg1 hide">

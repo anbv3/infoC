@@ -15,7 +15,7 @@
 	
 	<div class="row ${rowColor} safari-fix">
 		<div class="col-md-2 section-title text-left">
-			<h3>${pubDate.start} <br> ~ <br> ${pubDate.end}</h3>
+			<h3>${pubDate.start}<br>~<br>${pubDate.end}</h3>
 		</div>
 		
 		<!-- article section -->

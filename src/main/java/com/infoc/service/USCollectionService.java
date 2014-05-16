@@ -3,6 +3,7 @@ package com.infoc.service;
 import com.google.common.base.Strings;
 import com.infoc.domain.Article;
 import com.infoc.repository.ArticleRepository;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -38,7 +39,8 @@ public class USCollectionService {
 	public static Map<Integer, List<Article>> ENT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> SPORT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
 	public static Map<Integer, List<Article>> IT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-
+	public static Map<Integer, List<Article>> OTHERS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+	
 	static {
 		CACHE_LIST.add(TODAY_CACHE);
 		CACHE_LIST.add(POLITICS_CACHE);

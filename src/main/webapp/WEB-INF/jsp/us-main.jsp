@@ -84,7 +84,7 @@ width: 244px;
 	var autoLoad = false;
 	var date =  new Date('${initDay}');
 	var page = 1; // 처음 로드할때 page 0은 가져오므로 1부터 시작
-	var search;
+	var search = "${query}";
 	var requestSent = false;
 	
 	var control = {
@@ -232,7 +232,7 @@ width: 244px;
 			$(menu).addClass("active");
 
 			// 내용이 적으면 전날거 다시 가져오기
-			if ( $('#article-list-section').children().length < 4 ) {
+			if ( !search && $('#article-list-section').children().length < 4 ) {
 				page = 0;
 				autoLoad = true;
 				var dayOfMonth = date.getDate();
@@ -274,7 +274,6 @@ width: 244px;
 					
 					if (search) {
 						control.getArticlesBySearch();
-						
 					} else {
 						control.getArticlesByDateAndPage();	
 					}
@@ -361,6 +360,7 @@ width: 244px;
 	<div class="carousel-inner side-collapse-container">
 	
 		<div id="top-section">
+		<c:if test="${empty query}">
 			<div class="bkg2">
 				<div class="row">
 					<div class="col-md-12 day-section">
@@ -370,12 +370,18 @@ width: 244px;
 					</div>
 				</div>
 			</div>
+		</c:if>
 		</div>
 
 		<c:set var="rowColor" value="two"/>
 		
 		<div id="article-list-section">
-			<jsp:include page="./common/articles.jsp" />
+			<c:if test="${empty query}">
+				<jsp:include page="./common/articles.jsp" />
+			</c:if>	
+			<c:if test="${not empty query}">
+				<jsp:include page="./common/searched-articles.jsp" />
+			</c:if>	
 		</div>
 		
 		<div id="ajaxloader" class="row loading-bar bkg1">

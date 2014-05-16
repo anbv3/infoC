@@ -84,93 +84,34 @@ public class CrawlScheduler {
 	private void setUpSchedules() {
 		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 1, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
+		
+		//scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
 	}
 	
 	private void setUpCache() {
 		DateTime today = new DateTime(DateTimeZone.forID("Asia/Seoul"));
 		
-		// kr
-		Map<Integer, List<Article>> cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.TODAY);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
+		for (ArticleSection section : ArticleSection.values()) {
+			// kr
+			Map<Integer, List<Article>> cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", section);
+			for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+				if (eachTime.getValue().isEmpty()) {
+					continue;
+				}
+				
+				ArticleSection.findKRCache(section.getSection()).get(eachTime.getKey()).addAll(eachTime.getValue());
 			}
 			
-			CollectionService.TODAY_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
-		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.POLITICS);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
+			// us
+			cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "US", section);
+			for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+				if (eachTime.getValue().isEmpty()) {
+					continue;
+				}
+				
+				ArticleSection.findUSCache(section.getSection()).get(eachTime.getKey()).addAll(eachTime.getValue());
 			}
-			
-			CollectionService.POLITICS_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
-		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.ECON);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
-			}
-			
-			CollectionService.ECON_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
-		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.SOCIETY);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
-			}
-			
-			CollectionService.SOCIETY_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
-		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.CULTURE);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
-			}
-			
-			CollectionService.CULTURE_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
-		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.ENT);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
-			}
-			
-			CollectionService.ENT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
-		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.SPORT);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
-			}
-			
-			CollectionService.SPORT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
-		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.IT);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
-			}
-			
-			CollectionService.IT_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
-		
-		cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", ArticleSection.OTHERS);
-		for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
-			}
-			
-			CollectionService.OTHERS_CACHE.get(eachTime.getKey()).addAll(eachTime.getValue());
-		}
+    	}
 		
 	}
 	

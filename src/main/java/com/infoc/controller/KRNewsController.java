@@ -5,6 +5,7 @@ import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,10 +80,24 @@ public class KRNewsController extends BaseController {
 	}
 
     @RequestMapping(value = "/{section}")
-    public String getNews(Model model, @PathVariable("section") final String section) throws Exception {
+    public String getNews(Model model, 
+    		@PathVariable("section") final String section,
+    		@RequestParam(value = "q", required = false) String query) throws Exception {
+    	LOG.debug("section:{}, query: {}", section, query);
+    	
         getCommonInfo(model);
 
-        model.addAttribute("articleMap", CollectionService.getArticlesByCurrentTime(ArticleSection.findCache(section)));
+        if (Strings.isNullOrEmpty(query)) {
+        	model.addAttribute("articleMap", 
+        			CollectionService.getArticlesByCurrentTime(ArticleSection.findKRCache(section)));
+        } else {
+        	Page<Article> articleList = articleService.getArticlesByMainContents(
+        			"KR", ArticleSection.find(section), query, new PageRequest(0, 10));
+    		model.addAttribute("page", articleList);
+    		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
+    		model.addAttribute("query", query);
+        }
+        
         model.addAttribute("menu", section);
         return "/main";
     }
@@ -98,7 +114,7 @@ public class KRNewsController extends BaseController {
             decodedSearchInput = URLDecoder.decode(search, "UTF-8");
         }
 
-        return getArticlesByDate(model, ArticleSection.findCache(section), date,ArticleSection.find(section), section, page, decodedSearchInput);
+        return getArticlesByDate(model, ArticleSection.findKRCache(section), date, ArticleSection.find(section), section, page, decodedSearchInput);
     }
 
 	@RequestMapping(value = "/search/{section}")
