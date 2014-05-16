@@ -1,5 +1,15 @@
 package com.infoc.service;
 
+import com.google.common.base.Strings;
+import com.infoc.domain.Article;
+import com.infoc.repository.ArticleRepository;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -10,17 +20,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.google.common.base.Strings;
-import com.infoc.domain.Article;
-import com.infoc.repository.ArticleRepository;
 
 @Service
 public class USCollectionService {
@@ -225,7 +224,8 @@ public class USCollectionService {
 			for (Article curArticle : entry.getValue()) {
 				if (isDuplicate(curArticle, newArticle)) {
 					// create the main contents again..?	
-					
+
+                    articleService.update(curArticle);
 					return;
 				} 
 			}
@@ -234,13 +234,13 @@ public class USCollectionService {
 		// if it is the new one, then translate the main contents.
 		newArticle.translateMainContentsFromEnToKr();
 		
-		// get the hour of the time for the time section
-		int hour = (new DateTime(newArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
-		cache.get(hour).add(newArticle);
-		
-		// DB에 저장...
-		articleService.add(newArticle);
-		newArticle.setContents("");
+        // DB에 저장...
+        Article storedArticle = articleService.add(newArticle);
+        storedArticle.setContents("");
+
+        // get the hour of the time for the time section
+        int hour = (new DateTime(storedArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
+        cache.get(hour).add(storedArticle);
 	}
 
 	public static void clearYesterDay() {

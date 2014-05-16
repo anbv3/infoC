@@ -250,7 +250,6 @@
 					
 					if (search) {
 						control.getArticlesBySearch();
-						
 					} else {
 						control.getArticlesByDateAndPage();	
 					}
