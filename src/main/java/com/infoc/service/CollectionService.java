@@ -239,9 +239,9 @@ public class CollectionService {
 		// if it is the new one, then translate the main contents.
 		newArticle.translateMainContents();
 
-		// DB에 저장...
+        // store in DB without contents
+        newArticle.setContents("");
         Article storedArticle = articleService.add(newArticle);
-        storedArticle.setContents("");
 
         // get the hour of the time for the time section
         int hour = (new DateTime(storedArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();

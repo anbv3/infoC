@@ -83,10 +83,10 @@ public class Article extends AbstractPersistable<Long> {
 	private ArticleSection section;
 
 	@Column(length=1024)
-	private String simularTitle = "";
+	private String similarTitle = "";
 	
 	@Column(length=4096)
-	private String simularSection = "";
+	private String similarSection = "";
 
 	// /////////////////////////////////////////////////////////////////////////////
 
@@ -142,8 +142,8 @@ public class Article extends AbstractPersistable<Long> {
 	 * </div>
 	 */
 	public void addNewSimilarList(Article similarArticle) {
-		if (!Strings.isNullOrEmpty(this.simularTitle)) {
-			for (String sTitle : this.simularTitle.split("#@")) {
+		if (!Strings.isNullOrEmpty(this.similarTitle)) {
+			for (String sTitle : this.similarTitle.split("#@")) {
 				if ( sTitle.contains(similarArticle.getTitle()) ) {
 					return;
 				}
@@ -151,23 +151,23 @@ public class Article extends AbstractPersistable<Long> {
 		}
 		
 		// update title
-		StringBuilder st = new StringBuilder(this.simularTitle);
-		if (!Strings.isNullOrEmpty(this.simularTitle)) {
+		StringBuilder st = new StringBuilder(this.similarTitle);
+		if (!Strings.isNullOrEmpty(this.similarTitle)) {
 			st.append("#@");
 		}
 		st.append(similarArticle.getTitle());
-		this.simularTitle = st.toString();
+		this.similarTitle = st.toString();
 
 		// TODO: 세련된 방법이 없을까?
 		// update section
-		StringBuilder ss = new StringBuilder(this.simularSection);
+		StringBuilder ss = new StringBuilder(this.similarSection);
 		ss.append("<div class=\"panel-article-info col-xs-12\">");
 		ss.append("<a href=\"");
 		ss.append(similarArticle.getLink());
 		ss.append("\" target=\"_blank\">");
 		ss.append(similarArticle.getTitle());
 		ss.append("</a></div>");
-		this.simularSection = ss.toString();
+		this.similarSection = ss.toString();
 		
 		this.numDups++;
 	}
@@ -197,7 +197,7 @@ public class Article extends AbstractPersistable<Long> {
 			.add("numDups", this.numDups)
 			.add("mainContents", this.mainContents)
 			.add("keyWordList", this.keyWordList)
-			.add("simularTitle", this.simularTitle)
+			.add("similarTitle", this.similarTitle)
 			.toString() + "\n";
 	}
 
@@ -337,20 +337,20 @@ public class Article extends AbstractPersistable<Long> {
 		this.pubHour = pubHour;
 	}
 
-	public String getSimularTitle() {
-		return simularTitle;
+	public String getSimilarTitle() {
+		return similarTitle;
 	}
 
-	public void setSimularTitle(String simularTitle) {
-		this.simularTitle = simularTitle;
+	public void setSimilarTitle(String similarTitle) {
+		this.similarTitle = similarTitle;
 	}
 
-	public String getSimularSection() {
-		return simularSection;
+	public String getSimilarSection() {
+		return similarSection;
 	}
 
-	public void setSimularSection(String simularSection) {
-		this.simularSection = simularSection;
+	public void setSimilarSection(String similarSection) {
+		this.similarSection = similarSection;
 	}
 	
 }

@@ -155,19 +155,19 @@ public class CrawlScheduler {
 		public void run() {
 			LOG.info("Clear articles one day before!");
 			CollectionService.clearYesterday();
-			USCollectionService.clearYesterDay();
+			USCollectionService.clearYesterday();
 		}
 	}
 
 	@PostConstruct
-	public void runShcedule() {
+	public void runSchedules() {
 		setUpCache();
 		setUpCrawlerList();
 		setUpSchedules();
 	}
 	
 	@PreDestroy
-	public static void cleanShcedule() {
+	public static void cleanSchedules() {
 		scheduledExecutorService.shutdownNow();
 	}
 

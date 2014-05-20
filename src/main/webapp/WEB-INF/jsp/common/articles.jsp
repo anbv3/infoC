@@ -58,18 +58,18 @@ end
 										<a class="btn btn-success" href="${row.link}" target="_blank" rel="tooltip" title="Go to The Original~"> 
 											<span class="article-btn">More</span>
 										</a>
-										<a class="btn btn-success pull-right <c:if test="${empty row.simularTitle}"> disabled </c:if>" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
+										<a class="btn btn-success pull-right <c:if test="${empty row.similarTitle}"> disabled </c:if>" rel="tooltip" data-placement="top" title="Related articles."  data-toggle="collapse"
 											data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}"> 
 											<span class="article-btn">Related</span>
 										</a>
 									</h4>
 								</div>
 
-									<c:if test="${not empty row.simularTitle}">
+									<c:if test="${not empty row.similarTitle}">
 										<div id="collapse-${entry.key}-${cnt.index}"
 											class="collapse-${requestDay}-${entry.key} panel-collapse collapse panel-collapse-sArt">
 											<div class="panel-body panel-body-sArt">
-											${row.simularSection}
+											${row.similarSection}
 											
 											</div>
 										</div>

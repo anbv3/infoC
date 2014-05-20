@@ -236,16 +236,17 @@ public class USCollectionService {
 		// if it is the new one, then translate the main contents.
 		newArticle.translateMainContentsFromEnToKr();
 		
-        // DB에 저장...
+        // store in DB without contents
+        newArticle.setContents("");
         Article storedArticle = articleService.add(newArticle);
-        storedArticle.setContents("");
+
 
         // get the hour of the time for the time section
         int hour = (new DateTime(storedArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
         cache.get(hour).add(storedArticle);
 	}
 
-	public static void clearYesterDay() {
+	public static void clearYesterday() {
 		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
 			for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 				Iterator<Article> article = entry.getValue().iterator();
