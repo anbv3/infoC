@@ -148,7 +148,9 @@ public class Article extends AbstractPersistable<Long> {
 					return;
 				}
 			}
-		}
+		} else {
+            this.similarTitle = "";
+        }
 		
 		// update title
 		StringBuilder st = new StringBuilder(this.similarTitle);
