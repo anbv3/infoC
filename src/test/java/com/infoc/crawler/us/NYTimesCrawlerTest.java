@@ -48,7 +48,7 @@ public class NYTimesCrawlerTest {
 	@Test
 	public void test1() {
 		NewsCrawler d = new ChicagoTribuneCrawler();
-		d.createArticlList();
+		d.createArticleList();
 
 		LOG.debug("{}, {}", USCollectionService.TODAY_CACHE.isEmpty(),
 				USCollectionService.TODAY_CACHE.size());

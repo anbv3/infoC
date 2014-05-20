@@ -46,7 +46,7 @@ public class ChicagoTribuneCrawler implements NewsCrawler {
 	public USCollectionService collectionService;
 	
 	@Override
-	public List<Article> createArticlList() {
+	public List<Article> createArticleList() {
 		LOG.debug("get RSS from ChicagoTribune.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);

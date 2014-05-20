@@ -5,7 +5,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
@@ -104,7 +103,7 @@ public class ParseTest {
 	@Test
 	public void parseSentenceList() {
 		DaumNewsCrawler d = new DaumNewsCrawler();
-		List<Article> list = d.createArticlList();
+		List<Article> list = d.createArticleList();
 		for (Article article : list) {
 			// create the main contents
 			ContentsAnalysisService.createMainSentence(article);

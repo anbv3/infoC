@@ -9,5 +9,5 @@ import java.util.List;
 import com.infoc.domain.Article;
 
 public interface NewsCrawler {
-	public List<Article> createArticlList();
+	public List<Article> createArticleList();
 }

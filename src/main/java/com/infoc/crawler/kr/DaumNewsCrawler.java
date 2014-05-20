@@ -48,7 +48,7 @@ public class DaumNewsCrawler implements NewsCrawler {
 	public CollectionService collectionService;
 	
 	@Override
-	public List<Article> createArticlList() {
+	public List<Article> createArticleList() {
 		LOG.debug("get RSS from Daum.");
 
 		createListBySection(TODAY, ArticleSection.TODAY);

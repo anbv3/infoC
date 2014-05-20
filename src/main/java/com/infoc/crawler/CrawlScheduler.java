@@ -7,7 +7,7 @@ import com.infoc.crawler.kr.OtherNewsCrawler;
 import com.infoc.crawler.us.BostonNewsCrawler;
 import com.infoc.crawler.us.ChicagoTribuneCrawler;
 import com.infoc.crawler.us.LATimesCrawler;
-import com.infoc.crawler.us.MLBCrawler;
+import com.infoc.crawler.us.BaseballNewsCrawler;
 import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.crawler.us.TimeCrawler;
 import com.infoc.domain.Article;
@@ -63,7 +63,7 @@ public class CrawlScheduler {
 	@Autowired
 	public LATimesCrawler laTimesCrawler;
     @Autowired
-	public MLBCrawler mlbCrawler;
+	public BaseballNewsCrawler baseballNewsCrawler;
 	
 	private static List<NewsCrawler> newsCrawlerList = new ArrayList<>();
 	
@@ -80,7 +80,7 @@ public class CrawlScheduler {
 		newsCrawlerList.add(bostonNewsCrawler);
 		newsCrawlerList.add(timeCrawler);
 		newsCrawlerList.add(laTimesCrawler);
-		newsCrawlerList.add(mlbCrawler);
+		newsCrawlerList.add(baseballNewsCrawler);
 	}
 
 	private void setUpSchedules() {
@@ -125,7 +125,7 @@ public class CrawlScheduler {
 			
 			for (NewsCrawler crawler : newsCrawlerList) {
 				try {
-					crawler.createArticlList();
+					crawler.createArticleList();
 				} catch (Exception e) {
 					LOG.error("", e);
 				}

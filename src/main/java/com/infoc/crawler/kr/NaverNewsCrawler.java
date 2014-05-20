@@ -46,7 +46,7 @@ public class NaverNewsCrawler implements NewsCrawler {
 	public CollectionService collectionService;
 	
 	@Override
-	public List<Article> createArticlList() {
+	public List<Article> createArticleList() {
 		LOG.debug("get RSS from Naver.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);

@@ -45,7 +45,7 @@ public class OtherNewsCrawler implements NewsCrawler {
 	public CollectionService collectionService;
 	
 	@Override
-	public List<Article> createArticlList() {
+	public List<Article> createArticleList() {
 		LOG.debug("get RSS from USER.");
 
 		createListBySection(LIKELINK, ArticleSection.OTHERS);

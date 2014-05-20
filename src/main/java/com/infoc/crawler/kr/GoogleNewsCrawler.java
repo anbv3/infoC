@@ -43,7 +43,7 @@ public class GoogleNewsCrawler implements NewsCrawler {
 	public CollectionService collectionService;
 	
 	@Override
-	public List<Article> createArticlList() {
+	public List<Article> createArticleList() {
 		LOG.debug("get RSS from Google.");
 
 		createListBySection(TODAY, ArticleSection.TODAY);

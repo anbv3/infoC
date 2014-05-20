@@ -47,7 +47,7 @@ public class NYTimesCrawler implements NewsCrawler {
 	public USCollectionService collectionService;
 	
 	@Override
-	public List<Article> createArticlList() {
+	public List<Article> createArticleList() {
 		LOG.debug("get RSS from nytimes.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);

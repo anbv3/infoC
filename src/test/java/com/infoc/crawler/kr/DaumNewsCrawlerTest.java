@@ -32,7 +32,7 @@ public class DaumNewsCrawlerTest {
 	@Test
 	public void test1() {
 		GoogleNewsCrawler d = new GoogleNewsCrawler();
-		List<Article> list = d.createArticlList();
+		List<Article> list = d.createArticleList();
 
 		LOG.debug("{}", list.size());
 		for (Article article : list) {

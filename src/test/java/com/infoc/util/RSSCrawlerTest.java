@@ -1,9 +1,10 @@
 package com.infoc.util;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-
+import com.sun.syndication.feed.synd.SyndEnclosure;
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.SyndFeedInput;
+import com.sun.syndication.io.XmlReader;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -11,11 +12,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.syndication.feed.synd.SyndEnclosure;
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
 
 public class RSSCrawlerTest {
 	private static final Logger LOG = LoggerFactory.getLogger(RSSCrawlerTest.class);
@@ -62,16 +61,16 @@ public class RSSCrawlerTest {
 
 	@Test
 	public void testLATimes() {
-		String url = "http://slownews.kr/20194?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+slownews+%28%EC%8A%AC%EB%A1%9C%EC%9A%B0%EB%89%B4%EC%8A%A4%29";
+		String url = "http://espn.go.com/blog/dallas/texas-rangers/post/_/id/4911326/extra-bases-playing-through-a-slump";
 
 		Document doc;
 		try {
 
 			doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0").timeout(6000).get();
-			Elements contentsArea = doc.select("#article_content");
+			Elements contentsArea = doc.select(".mod-content");
 			LOG.debug("{}", contentsArea.text());
 
-			String img = doc.select(".thumbnail").select("img").attr("src");
+			String img = contentsArea.select("img").attr("src");
 			LOG.debug("{}", img);
 
 		} catch (IOException e) {
