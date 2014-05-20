@@ -1,8 +1,15 @@
 package com.infoc.domain;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+import com.google.common.collect.Ordering;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.util.TranslationParser;
+import org.hibernate.annotations.Index;
+import org.hibernate.annotations.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,18 +18,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Index;
-import org.hibernate.annotations.Type;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
-import com.google.common.collect.Ordering;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.util.TranslationParser;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author anbv3
@@ -87,7 +85,7 @@ public class Article extends AbstractPersistable<Long> {
 	@Column(length=1024)
 	private String simularTitle = "";
 	
-	@Column(length=2048)
+	@Column(length=4096)
 	private String simularSection = "";
 
 	// /////////////////////////////////////////////////////////////////////////////

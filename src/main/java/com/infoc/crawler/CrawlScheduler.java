@@ -1,23 +1,5 @@
 package com.infoc.crawler;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.infoc.crawler.kr.DaumNewsCrawler;
 import com.infoc.crawler.kr.GoogleNewsCrawler;
 import com.infoc.crawler.kr.NaverNewsCrawler;
@@ -25,6 +7,7 @@ import com.infoc.crawler.kr.OtherNewsCrawler;
 import com.infoc.crawler.us.BostonNewsCrawler;
 import com.infoc.crawler.us.ChicagoTribuneCrawler;
 import com.infoc.crawler.us.LATimesCrawler;
+import com.infoc.crawler.us.MLBCrawler;
 import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.crawler.us.TimeCrawler;
 import com.infoc.domain.Article;
@@ -33,6 +16,22 @@ import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
 import com.infoc.service.USCollectionService;
 import com.infoc.util.EconInfoCrawler;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class CrawlScheduler {
@@ -63,6 +62,8 @@ public class CrawlScheduler {
 	public TimeCrawler timeCrawler;
 	@Autowired
 	public LATimesCrawler laTimesCrawler;
+    @Autowired
+	public MLBCrawler mlbCrawler;
 	
 	private static List<NewsCrawler> newsCrawlerList = new ArrayList<>();
 	
@@ -79,13 +80,14 @@ public class CrawlScheduler {
 		newsCrawlerList.add(bostonNewsCrawler);
 		newsCrawlerList.add(timeCrawler);
 		newsCrawlerList.add(laTimesCrawler);
+		newsCrawlerList.add(mlbCrawler);
 	}
 
 	private void setUpSchedules() {
-		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 1, TimeUnit.MINUTES);
-		
+//		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
+
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 1, TimeUnit.MINUTES);
 	}
 	
 	private void setUpCache() {
