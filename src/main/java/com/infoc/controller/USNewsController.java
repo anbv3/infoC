@@ -4,9 +4,7 @@ import com.google.common.base.Strings;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
-import com.infoc.service.CollectionService;
 import com.infoc.service.USCollectionService;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -109,11 +107,11 @@ public class USNewsController extends BaseController {
                                 @PathVariable("section") final String section,
                                 @PathVariable("date") final String date,
                                 @PathVariable("page") int page,
-                                @RequestParam(value = "search", required = false) String search) throws Exception {
+                                @RequestParam(value = "q", required = false) String query) throws Exception {
 
         String decodedSearchInput = null;
-        if (!Strings.isNullOrEmpty(search)) {
-            decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+        if (!Strings.isNullOrEmpty(query)) {
+            decodedSearchInput = URLDecoder.decode(query, "UTF-8");
         }
 
         return getArticlesByDate(model, ArticleSection.findUSCache(section), date,ArticleSection.find(section), section, page, decodedSearchInput);
@@ -124,8 +122,13 @@ public class USNewsController extends BaseController {
 			@PathVariable("section") final String section,
 			@RequestParam(value = "q") String query) throws Exception {
 		LOG.debug("section:{}, query: {}, {}", section, query, ToStringBuilder.reflectionToString(pageable));
-		
-		Page<Article> articleList = articleService.getArticlesByMainContents("US", ArticleSection.find(section), query, pageable);
+
+        String decodedQuery = null;
+        if (!Strings.isNullOrEmpty(query)) {
+            decodedQuery = URLDecoder.decode(query, "UTF-8");
+        }
+
+		Page<Article> articleList = articleService.getArticlesByMainContents("US", ArticleSection.find(section), decodedQuery, pageable);
 		model.addAttribute("page", articleList);
 		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
 		model.addAttribute("menu", section);

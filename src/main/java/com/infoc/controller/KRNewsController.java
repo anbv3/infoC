@@ -5,7 +5,6 @@ import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -71,8 +70,6 @@ public class KRNewsController extends BaseController {
 	}
 
 	private void getCommonInfo(Model model) {
-		model.addAttribute("econ", CollectionService.ECON_INFO);
-
 		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
 		model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
 		model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
@@ -80,15 +77,15 @@ public class KRNewsController extends BaseController {
 	}
 
     @RequestMapping(value = "/{section}")
-    public String getNews(Model model, 
+    public String getNews(Model model,
     		@PathVariable("section") final String section,
     		@RequestParam(value = "q", required = false) String query) throws Exception {
     	LOG.debug("section:{}, query: {}", section, query);
-    	
+
         getCommonInfo(model);
 
         if (Strings.isNullOrEmpty(query)) {
-        	model.addAttribute("articleMap", 
+        	model.addAttribute("articleMap",
         			CollectionService.getArticlesByCurrentTime(ArticleSection.findKRCache(section)));
         } else {
         	Page<Article> articleList = articleService.getArticlesByMainContents(
@@ -97,7 +94,7 @@ public class KRNewsController extends BaseController {
     		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
     		model.addAttribute("query", query);
         }
-        
+
         model.addAttribute("menu", section);
         return "/main";
     }
@@ -107,11 +104,11 @@ public class KRNewsController extends BaseController {
                                 @PathVariable("section") final String section,
                                 @PathVariable("date") final String date,
                                 @PathVariable("page") int page,
-                                @RequestParam(value = "search", required = false) String search) throws Exception {
+                                @RequestParam(value = "q", required = false) String query) throws Exception {
 
         String decodedSearchInput = null;
-        if (!Strings.isNullOrEmpty(search)) {
-            decodedSearchInput = URLDecoder.decode(search, "UTF-8");
+        if (!Strings.isNullOrEmpty(query)) {
+            decodedSearchInput = URLDecoder.decode(query, "UTF-8");
         }
 
         return getArticlesByDate(model, ArticleSection.findKRCache(section), date, ArticleSection.find(section), section, page, decodedSearchInput);
@@ -122,12 +119,17 @@ public class KRNewsController extends BaseController {
 			@PathVariable("section") final String section,
 			@RequestParam(value = "q") String query) throws Exception {
 		LOG.debug("section:{}, query: {}, {}", section, query, ToStringBuilder.reflectionToString(pageable));
-		
-		Page<Article> articleList = articleService.getArticlesByMainContents("KR", ArticleSection.find(section), query, pageable);
+
+        String decodedQuery = null;
+        if (!Strings.isNullOrEmpty(query)) {
+            decodedQuery = URLDecoder.decode(query, "UTF-8");
+        }
+
+		Page<Article> articleList = articleService.getArticlesByMainContents("KR", ArticleSection.find(section), decodedQuery, pageable);
 		model.addAttribute("page", articleList);
 		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
 		model.addAttribute("menu", section);
-		
+
 		return "/common/searched-articles";
 	}
 }

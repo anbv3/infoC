@@ -113,13 +113,13 @@ width: 244px;
 				
 				var reqURL = "<c:url value="/us"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
 				if (search) {
-					reqURL += "?search=";
+					reqURL += "?q=";
 					reqURL += encodeURI(encodeURIComponent(search));
 				}
 				
 				$.ajax({
 					type : "GET",
-					url : reqURL,
+					url : reqURL
 				}).done(function(response) {
 					if (response.trim() == "end") {
 						$('#ajaxloader').remove();
@@ -186,9 +186,8 @@ width: 244px;
 				var reqURL = "<c:url value="/us/search"/>" + "/" + "${menu}";
 				if (search) {
 					reqURL += "?q=";
-					//reqURL += encodeURI(encodeURIComponent(search));
-					reqURL += search;
-					
+					reqURL += encodeURI(encodeURIComponent(search));
+
 					var p = page + 1;
 					reqURL += "&page.page=" + p;
 					reqURL += "&page.size=" + 10;
@@ -198,7 +197,7 @@ width: 244px;
 				
 				$.ajax({
 					type : "GET",
-					url : reqURL,
+					url : reqURL
 				}).done(function(response) {
 					if (response.trim() == "end") {
 						return;
