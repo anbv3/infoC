@@ -120,11 +120,11 @@ public class ArticleService {
 	@Transactional
 	public Article add(Article article) {
 		try {
-            article.setMainContents(convert(article.getMainContents(), "UTF-8"));
-
+            //article.setMainContents(convert(article.getMainContents(), "UTF-8"));
 			return articleRepository.save(article);
 		} catch(Exception e) {
-			LOG.error("", e);
+			LOG.error("ERROR: {} ==> {}", e.getCause(), article);
+			LOG.error("ERROR: {}", new String(article.getMainContents().getBytes()));
 		}
 		return null;
 	}
