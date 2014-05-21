@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -55,7 +54,7 @@ public class ArticleService {
 		DateTime pubDate = new DateTime(date, DateTimeZone.forID("Asia/Seoul"));
 
 		// 각 section과 날자별 기사를 조회하고 시간 순으로 정렬
-        Set<Article> oneDayList = articleRepository.findByCountryAndSectionAndPubYearAndPubMonthAndPubDay(
+        List<Article> oneDayList = articleRepository.findByCountryAndSectionAndPubYearAndPubMonthAndPubDay(
 				country, section, pubDate.getYear(), pubDate.getMonthOfYear(), pubDate.getDayOfMonth(), sortByHour());
 
 		// Map<시간, 기사>의 형태로 변경하여 리턴

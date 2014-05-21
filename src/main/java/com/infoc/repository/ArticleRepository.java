@@ -7,13 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Set;
+import java.util.List;
 
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     // pubYear, pubMonth, pubDay
-    Set<Article> findByCountryAndSectionAndPubYearAndPubMonthAndPubDay(String country, ArticleSection section, int year, int month, int day, Sort sort);
+    List<Article> findByCountryAndSectionAndPubYearAndPubMonthAndPubDay(String country, ArticleSection section, int year, int month, int day, Sort sort);
 
     Page<Article> findByCountryAndSectionAndMainContentsLike(String country, ArticleSection section, String query, Pageable pageable);
 }
