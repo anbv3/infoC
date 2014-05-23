@@ -85,7 +85,7 @@ public class Article extends AbstractPersistable<Long> {
 	@Column(length=1024)
 	private String similarTitle = "";
 	
-	@Column(length=4096)
+	@Column(length=8192)
 	private String similarSection = "";
 
 	// /////////////////////////////////////////////////////////////////////////////

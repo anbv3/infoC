@@ -1,10 +1,12 @@
 package com.infoc.util;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.Map.Entry;
-
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import com.infoc.crawler.kr.DaumNewsCrawler;
+import com.infoc.domain.Article;
+import com.infoc.service.CollectionService;
+import com.infoc.service.ContentsAnalysisService;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
@@ -14,13 +16,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import com.infoc.crawler.kr.DaumNewsCrawler;
-import com.infoc.domain.Article;
-import com.infoc.service.CollectionService;
-import com.infoc.service.ContentsAnalysisService;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class ParseTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ParseTest.class);
@@ -171,6 +170,7 @@ public class ParseTest {
 	public void testWordLength() {
 		LOG.debug("{}", "강원".length());
 		LOG.debug("{}", "강원".getBytes().length);
+		LOG.debug("{}", "&nbsp;".replaceAll( "([\\ud800-\\udbff\\udc00-\\udfff])", ""));
 	}
 
 	@Test

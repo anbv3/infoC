@@ -61,17 +61,17 @@ public class RSSCrawlerTest {
 
 	@Test
 	public void testLATimes() {
-		String url = "http://espn.go.com/blog/dallas/texas-rangers/post/_/id/4911326/extra-bases-playing-through-a-slump";
+		String url = "http://feedproxy.google.com/~r/ppss/~3/AvRL5mGWTNw/21344";
 
 		Document doc;
 		try {
 
 			doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0").timeout(6000).get();
-			Elements contentsArea = doc.select(".mod-content");
-			LOG.debug("{}", contentsArea.text());
+			Elements contentsArea = doc.select(".tha-content");
+			LOG.debug("{}", contentsArea.text().replaceAll( "([\\ud800-\\udbff\\udc00-\\udfff])", ""));
 
-			String img = contentsArea.select("img").attr("src");
-			LOG.debug("{}", img);
+			//String img = contentsArea.select("img").attr("src");
+			//LOG.debug("{}", img);
 
 		} catch (IOException e) {
 			LOG.debug("", e);
