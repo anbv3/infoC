@@ -190,7 +190,7 @@ width: 244px;
 
 					var p = page + 1;
 					reqURL += "&page.page=" + p;
-					reqURL += "&page.size=" + 10;
+					reqURL += "&page.size=" + 6;
 					
 				}
 				

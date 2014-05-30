@@ -1,6 +1,7 @@
 package com.infoc.service;
 
 import com.google.common.base.Strings;
+import com.infoc.common.Constant;
 import com.infoc.domain.Article;
 import com.infoc.repository.ArticleRepository;
 import org.joda.time.DateTime;
@@ -25,7 +26,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class CollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
 	private static final Integer MAX_DUP_NUM = 2;
-	private static final Integer PAGE_LIMIT = 4;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
@@ -75,8 +75,8 @@ public class CollectionService {
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 
 		int idx = 0;
-		int from = page * PAGE_LIMIT;
-		int to = (page + 1) * PAGE_LIMIT;
+		int from = page * Constant.PAGE_SIZE.getVal();
+		int to = from + Constant.PAGE_SIZE.getVal();
 
 		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {

@@ -1,6 +1,7 @@
 package com.infoc.controller;
 
 import com.google.common.base.Strings;
+import com.infoc.common.Constant;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
@@ -89,7 +90,7 @@ public class KRNewsController extends BaseController {
         			CollectionService.getArticlesByCurrentTime(ArticleSection.findKRCache(section)));
         } else {
         	Page<Article> articleList = articleService.getArticlesByMainContents(
-        			"KR", ArticleSection.find(section), query, new PageRequest(0, 10));
+        			"KR", ArticleSection.find(section), query, new PageRequest(0, Constant.PAGE_SIZE.getVal()));
     		model.addAttribute("page", articleList);
     		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
     		model.addAttribute("query", query);

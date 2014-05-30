@@ -120,6 +120,7 @@
 								} else {
 									// today == false
 									$('#article-list-section').children().last().after(control.createDateSection(date));
+                                    $('#article-list-section').children().last().after(response);
 								}
 								
 								// 기사가 적어 자동 로딩할때만 기사 추가
@@ -165,7 +166,7 @@
 
 					var p = page + 1;
 					reqURL += "&page.page=" + p;
-					reqURL += "&page.size=" + 10;
+					reqURL += "&page.size=" + 6; // Constant.PAGE_SIZE
 					
 				}
 				
