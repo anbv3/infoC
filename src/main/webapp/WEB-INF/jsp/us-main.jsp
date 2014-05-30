@@ -125,37 +125,26 @@ width: 244px;
 						$('#ajaxloader').remove();
 						return;
 					} else if (response.trim() != "") {
-						
-						if (page == 0) {
-							// 이전날 기사를 처음으로 가져온 경우 => 날자만 추가한다.
-							// 안그럼 로딩 요청이 중복으로 들어가 결과도 중복으로 출력된다.
-							
-							if (search) {
-								// 검색해서 가져온 경우
-								if (today == true) {
-									$('#top-section').html(control.createDateSection(date));
-									$('#article-list-section').html(response);	
-								} else {
-									$('#article-list-section').children().last().after(control.createDateSection(date));
-								}
-							} else {
-								if ($('#article-list-section').children().length < 1) {
-									$('#article-list-section').html(control.createDateSection(date));
-								} else {
-									// today == false
-									$('#article-list-section').children().last().after(control.createDateSection(date));
-								}
-								
-								// 기사가 적어 자동 로딩할때만 기사 추가
-								if (autoLoad == true) {
-									$('#article-list-section').children().last().after(response);
-									autoLoad = false;
-								}
-							}
-						} else {
-							$('#article-list-section').children().last().after(response);
-						}
-						
+                        if (page == 0) {
+                            if (search) {
+                                // 검색해서 가져온 경우
+                                if (today == true) {
+                                    $('#top-section').html(control.createDateSection(date));
+                                    $('#article-list-section').html(response);
+                                } else {
+                                    $('#article-list-section').children().last().after(control.createDateSection(date));
+                                }
+                            } else {
+                                if ($('#article-list-section').children().length < 1) {
+                                    $('#article-list-section').html(control.createDateSection(date));
+                                } else {
+                                    // today == false
+                                    $('#article-list-section').children().last().after(control.createDateSection(date));
+                                }
+                            }
+                        }
+
+                        $('#article-list-section').children().last().after(response);
 						page++;
 					} else {
 						var dayOfMonth = date.getDate();
@@ -193,8 +182,7 @@ width: 244px;
 					reqURL += "&page.size=" + 6;
 					
 				}
-				
-				
+
 				$.ajax({
 					type : "GET",
 					url : reqURL
