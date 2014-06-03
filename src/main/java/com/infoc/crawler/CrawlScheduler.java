@@ -86,7 +86,7 @@ public class CrawlScheduler {
 
 	private void setUpSchedules() {
 //		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-
+		
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 15, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 1, TimeUnit.MINUTES);
 	}
@@ -170,7 +170,6 @@ public class CrawlScheduler {
 	@PreDestroy
 	public static void cleanSchedules() {
         scheduledExecutorService.shutdownNow();
-        MorphemeAnalyzer.getInstance().cleanup();
     }
 
 }
