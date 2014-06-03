@@ -336,6 +336,38 @@
             <version>2.0.7</version>
         </dependency>
 
+        <!-- 형태소 -->
+        <dependency>
+            <groupId>komoran.common</groupId>
+            <artifactId>ko-common</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>${project.basedir}/src/main/resources/libs/ko-common-1.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>komoran.analysis</groupId>
+            <artifactId>ko-analysis</artifactId>
+            <scope>system</scope>
+            <version>1.12</version>
+            <systemPath>${project.basedir}/src/main/resources/libs/ko-1.12.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>hannanum</groupId>
+            <artifactId>hannanum</artifactId>
+            <scope>system</scope>
+            <version>0.8.4</version>
+            <systemPath>${project.basedir}/src/main/resources/libs/jhannanum.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>arirang</groupId>
+            <artifactId>lucene-Korean</artifactId>
+            <scope>system</scope>
+            <version>1.1.2</version>
+            <systemPath>${project.basedir}/src/main/resources/libs/arirang-1.1.2.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>
