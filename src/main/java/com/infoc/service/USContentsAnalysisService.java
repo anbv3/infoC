@@ -1,19 +1,20 @@
 package com.infoc.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
+import com.infoc.util.TopicModeler;
+import org.apache.commons.lang.StringUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class USContentsAnalysisService {
 	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
@@ -28,7 +29,7 @@ public class USContentsAnalysisService {
 		}
 		
 		// create key words first
-		Set<String> keyWordList = createKeyWorkList(article.getTitle());
+		Set<String> keyWordList = createKeyWorkList(article);
 		article.setKeyWordList(keyWordList);
 
 		// create key sentences
@@ -43,6 +44,21 @@ public class USContentsAnalysisService {
 		article.setMainContents(sb.toString());
 		article.setContents("");
 	}
+
+    private static Set<String> createKeyWorkList(Article article) {
+        Set<String> keyWordList = new HashSet<>();
+
+        StringBuilder sb = new StringBuilder(article.getTitle());
+        sb.append(" ").append(article.getContents());
+
+        try {
+            keyWordList = TopicModeler.getInstance().getMainTopics(sb.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return keyWordList;
+    }
 
 	private static Set<String> createKeyWorkList(String title) {
 		Set<String> keyWordList = new HashSet<>();

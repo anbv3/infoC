@@ -6,7 +6,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
+import com.infoc.util.MorphemeAnalyzer;
+import com.infoc.util.TopicModeler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,7 +27,7 @@ public class ContentsAnalysisService {
         }
 
         // create key words first
-        Set<String> keyWordList = createKeyWorkList(article.getTitle());
+        Set<String> keyWordList = createKeyWorkList(article);
         article.setKeyWordList(keyWordList);
 
         // create key sentences
@@ -37,6 +40,22 @@ public class ContentsAnalysisService {
         }
 
         article.setMainContents(sb.toString());
+    }
+
+    private static Set<String> createKeyWorkList(Article article) {
+        Set<String> keyWordList = new HashSet<>();
+
+        StringBuilder sb = new StringBuilder(article.getTitle());
+        sb.append(" ").append(article.getContents());
+
+        String nouns = MorphemeAnalyzer.getInstance().extractNouns(sb.toString());
+        try {
+            keyWordList = TopicModeler.getInstance().getMainTopics(nouns);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return keyWordList;
     }
 
     private static Set<String> createKeyWorkList(String title) {

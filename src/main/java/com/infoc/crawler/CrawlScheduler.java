@@ -16,6 +16,7 @@ import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
 import com.infoc.service.USCollectionService;
 import com.infoc.util.EconInfoCrawler;
+import com.infoc.util.MorphemeAnalyzer;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -168,7 +169,8 @@ public class CrawlScheduler {
 	
 	@PreDestroy
 	public static void cleanSchedules() {
-		scheduledExecutorService.shutdownNow();
-	}
+        scheduledExecutorService.shutdownNow();
+        MorphemeAnalyzer.getInstance().cleanup();
+    }
 
 }
