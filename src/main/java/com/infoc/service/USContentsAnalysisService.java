@@ -4,10 +4,14 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
 import com.infoc.util.TopicModeler;
+
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +21,8 @@ import java.util.List;
 import java.util.Set;
 
 public class USContentsAnalysisService {
+	private static final Logger LOG = LoggerFactory.getLogger(USContentsAnalysisService.class);
+	
 	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
 	public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 	private static final int MAX_KEY_SENTENCE = 3;
@@ -53,6 +59,7 @@ public class USContentsAnalysisService {
 
         try {
             keyWordList = TopicModeler.getInstance().getMainTopics(sb.toString());
+            LOG.debug("{}", keyWordList);
         } catch (IOException e) {
             e.printStackTrace();
         }

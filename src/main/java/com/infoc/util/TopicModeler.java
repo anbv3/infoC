@@ -36,7 +36,7 @@ public class TopicModeler {
         return ourInstance;
     }
 
-    private static final int NUM_ITERATIONS = 1000;
+    private static final int NUM_ITERATIONS = 100;
     private static final int NUM_TOPICS = 6;
 
     public Set<String> getMainTopics(String contents) throws IOException {
@@ -59,14 +59,14 @@ public class TopicModeler {
         // Create a model with 100 topics, alpha_t = 0.01, beta_w = 0.01
         //  Note that the first parameter is passed as the sum over topics, while
         //  the second is the parameter for a single dimension of the Dirichlet prior.
-        int numTopics = 100;
+        int numTopics = 1;
         ParallelTopicModel model = new ParallelTopicModel(numTopics, 1.0, 0.01);
 
         model.addInstances(instances);
 
         // Use two parallel samplers, which each look at one half the corpus and combine
         //  statistics after every iteration.
-        model.setNumThreads(2);
+        model.setNumThreads(100);
 
         // Run the model for 50 iterations and stop (this is for testing only,
         //  for real applications, use 1000 to 2000 iterations)
@@ -101,7 +101,7 @@ public class TopicModeler {
                 wordCount++;
             }
             
-            if (wordCount > 10) {
+            if (wordCount > 6) {
             	break;
             }
         }

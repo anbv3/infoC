@@ -53,6 +53,7 @@ public class ContentsAnalysisService {
 
         StringBuilder sb = new StringBuilder(article.getTitle());
         sb.append(" ").append(article.getContents());
+        LOG.debug("{}", article.getContents());
         
         
         try {

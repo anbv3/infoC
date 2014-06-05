@@ -542,7 +542,48 @@ public class MALLET_Test {
     @Test
     public void test() throws IOException {
         //String nouns = MorphemeAnalyzer.getInstance().extractNouns(inData);
-        Set<String> tList = TopicModeler.getInstance().getMainTopics(inData);
+    	
+    	String aa = "Mayor Rahm Emanuel put the city's schoolchildren on the hook to read a couple of million"
+    			+ " more books this summer, part of a bet on national TV to get late-night host Jimmy Fallon to"
+    			+ " visit Chicago again.    The mayor's appearance on 'The Tonight Show' capped a two-day trip "
+    			+ "to New York in which Emanuel also pitched financial executives on the city's balance sheet "
+    			+ "and held a political meeting.    Emanuel agreed to be a talk show guest after Fallon met "
+    			+ "his dare of jumping into an icy Lake Michigan as part of the Polar Plunge, a March event that "
+    			+ "benefits Special Olympics. Emanuel joined Fallon in the frigid lake after challenging Chicago "
+    			+ "students to read 2 million books.    RELATED  Video: Rahm on 'Tonight Show With Jimmy Fallon'  "
+    			+ "Video: Rahm on 'Tonight Show'  Rahm Emanuel visits Jimmy Fallon  Rahm Emanuel visits "
+    			+ "Jimmy Fallon  Fallon, Emanuel take the Polar Plunge  Fallon, Emanuel take the Polar Plunge "
+    			+ " Jimmy and Rahm: A Twitter 'bromance'  Photos: Fallon, Emanuel take polar plunge  Emanuel to "
+    			+ " on Fallon show tonight  Emanuel to Fallon: Forget the sunblock  See more stories ≫    "
+    			+ "On Tuesday night, Emanuel offered Fallon another bet.    'Here's our challenge: This year"
+    			+ " the kids of the city of Chicago, I challenged them to 2.4 million books to be read, and if "
+    			+ "they do it this summer we want you to bring the Tonight Show back to Chicago, it hasn't been "
+    			+ "since 1998,' Emanuel said in a rare moment of pleading. 'If they read it, will you do it, for"
+    			+ " the kids of Chicago?'    After Fallon tried to bump the number up to 11 million, Emanuel joked"
+    			+ " that a local accounting firm would handle the tally before saying, '2.5 million books, "
+    			+ "you can bring your show back to Chicago any time.'    Fallon agreed, saying 'I love to go to"
+    			+ " Chicago.'    Emanuel and Fallon also exchanged jokes about side-by-side photos of the two "
+    			+ "leaving the icy waters of the lake from their respective plunges.    'I went under the water,"
+    			+ " and I saw bubbles come out of my mouth and then I froze,' Fallon said. 'I came out and I heard"
+    			+ " bagpipes, and I looked around for bagpipers, because when you're Irish that's what you hear"
+    			+ " when you die.'    'You know what the difference is?' Emanuel quipped. 'I heard ‘Hava Nagila.'"
+    			+ "    That also was the song the show's band The Roots played as Emanuel's four-and-a-half minute"
+    			+ " segment went to commercial.    Emanuel was the second guest, sitting in for one segment after "
+    			+ "movie star Jonah Hill did two, including one in which he apologized for using a homophobic slur"
+    			+ " in an exchange with a papparzo. Reunited '90s grunge band Soundgarden closed the show with "
+    			+ "a performance of 'Spoonman.'    Before taping the show, the mayor spent the day 'trying to "
+    			+ "recruit two major events to the city,' said Emanuel spokeswoman Kelley Quinn, who declined to "
+    			+ "identify them.    Emanuel also met with 'a bond house to discuss city finances' and the Federal "
+    			+ "Reserve, Quinn said.    Asked if Emanuel did any campaign fundraising on the trip or met with "
+    			+ "any donors, Quinn said the mayor had 'one non-city meeting' Monday but wouldn't say who it was "
+    			+ "with. Quinn, however, said Emanuel's travel expenses would be split between funds from the "
+    			+ "city and the mayor's political campaign.    The New York trip is not the first time Emanuel "
+    			+ "has scheduled city meetings around political events and TV show appearances or speeches."
+    			+ " Earlier this year, the Tribune reported that Emanuel had spent city funds on at least nine"
+    			+ " trips in which he met with political donors or raised campaign money. Six additional "
+    			+ "taxpayer-funded trips involved little or no official city business.";
+    	
+        Set<String> tList = TopicModeler.getInstance().getMainTopics(aa);
 
         LOG.debug("{}", tList);
     }
