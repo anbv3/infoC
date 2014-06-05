@@ -4,6 +4,7 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.infoc.crawler.kr.DaumNewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
 import com.infoc.util.MorphemeAnalyzer;
@@ -16,7 +17,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ContentsAnalysisService {
+	private static final Logger LOG = LoggerFactory.getLogger(ContentsAnalysisService.class);
+	
     private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
     public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
@@ -42,40 +48,35 @@ public class ContentsAnalysisService {
         article.setMainContents(sb.toString());
     }
 
-    private static Set<String> createKeyWorkList(Article article) {
+	private static Set<String> createKeyWorkList(Article article) {
         Set<String> keyWordList = new HashSet<>();
 
         StringBuilder sb = new StringBuilder(article.getTitle());
         sb.append(" ").append(article.getContents());
-
-        String nouns = MorphemeAnalyzer.getInstance().extractNouns(sb.toString());
+        
+        
         try {
-            keyWordList = TopicModeler.getInstance().getMainTopics(nouns);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return keyWordList;
-    }
-
-    private static Set<String> createKeyWorkList(String title) {
-        Set<String> keyWordList = new HashSet<>();
-        if (Strings.isNullOrEmpty(title)) {
-            return keyWordList;
-        }
-
-        // eliminate special characters from title and split it
-        Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.omitEmptyStrings()
-                                                              .trimResults()
-                                                              .split(title.replaceAll("[^\\p{L}\\p{Z}]", " "))
-        );
-
-        for (String word : titleList) {
-            if (word.length() > 1) {
-                keyWordList.add(word);
+        	Set<String> topicKeywords = TopicModeler.getInstance().getMainTopics(sb.toString());
+            LOG.debug("{}", topicKeywords);
+            for (String word : topicKeywords) {
+                if (!word.contains("@")) {
+                    keyWordList.add(word);
+                }
             }
+            
+            // eliminate special characters from title and split it
+            Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.omitEmptyStrings()
+            		.trimResults().split(article.getTitle().replaceAll("[^\\p{L}\\p{Z}]", " ")));
+            LOG.debug("{}", titleList);
+            for (String word : titleList) {
+                if (word.length() > 1) {
+                    keyWordList.add(word);
+                }
+            }
+        } catch (IOException e) {
+        	LOG.debug("", e);
         }
-
+        
         return keyWordList;
     }
 

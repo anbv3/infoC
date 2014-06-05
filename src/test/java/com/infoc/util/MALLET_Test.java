@@ -47,12 +47,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-/**
- * @author Naver
- * @date 2014-06-02
- * Copyright 2007 NHN Corp. All rights Reserved.
- * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 public class MALLET_Test {
     private static final Logger LOG = LoggerFactory.getLogger(MALLET_Test.class);
 
@@ -547,8 +541,8 @@ public class MALLET_Test {
 
     @Test
     public void test() throws IOException {
-        String nouns = MorphemeAnalyzer.getInstance().extractNouns(inData);
-        Set<String> tList = TopicModeler.getInstance().getMainTopics(nouns);
+        //String nouns = MorphemeAnalyzer.getInstance().extractNouns(inData);
+        Set<String> tList = TopicModeler.getInstance().getMainTopics(inData);
 
         LOG.debug("{}", tList);
     }

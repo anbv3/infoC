@@ -1,11 +1,5 @@
 package com.infoc.common;
 
-/**
- * @author Naver
- * @date 2014-05-30
- * Copyright 2007 NHN Corp. All rights Reserved.
- * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 public enum Constant {
     PAGE_SIZE(6);
 

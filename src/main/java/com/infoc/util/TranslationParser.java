@@ -1,10 +1,3 @@
-/*
- * @(#)TranslationParser.java $version 2014. 2. 9.
- *
- * Copyright 2007 NHN Corp. All rights Reserved. 
- * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package com.infoc.util;
 
 import org.jsoup.Jsoup;

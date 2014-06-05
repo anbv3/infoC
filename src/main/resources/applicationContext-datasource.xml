@@ -14,20 +14,6 @@
         </property>
     </bean>
 
-    <!-- 아래는 설정 암호화를 사용하는 경우 -->
-    <!--
-	<bean id="SimplePropertyEncryptor" class="com.nhncorp.lucy.spring.beans.factory.config.SimplePropertyEncryptor"></bean>
-	<bean id="propertyConfigurer" class="com.nhncorp.lucy.spring.beans.factory.config.PropertyEncryptConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:properties/jdbc.properties</value>
-			</list>
-		</property>
-		<property name="propertyEncryptor" ref="SimplePropertyEncryptor"/>
-	</bean>
-    -->
-
-
     <!-- DataSource Configuration -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>

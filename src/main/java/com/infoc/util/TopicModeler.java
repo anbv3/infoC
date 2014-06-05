@@ -11,6 +11,8 @@ import cc.mallet.topics.ParallelTopicModel;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.IDSorter;
 import cc.mallet.types.InstanceList;
+
+import org.netlib.util.intW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -27,12 +29,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-/**
- * @author Naver
- * @date 2014-06-03
- * Copyright 2007 NHN Corp. All rights Reserved.
- * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 public class TopicModeler {
     private static final Logger LOG = LoggerFactory.getLogger(TopicModeler.class);
     private static TopicModeler ourInstance = new TopicModeler();
@@ -40,7 +36,7 @@ public class TopicModeler {
         return ourInstance;
     }
 
-    private static final int NUM_ITERATIONS = 300;
+    private static final int NUM_ITERATIONS = 1000;
     private static final int NUM_TOPICS = 6;
 
     public Set<String> getMainTopics(String contents) throws IOException {
@@ -88,6 +84,7 @@ public class TopicModeler {
         Set<String> keywordList = new HashSet<>();
 
         // Show top 5 words in topics with proportions for the first document
+        int wordCount = 0;
         for (int topic = 0; topic < numTopics; topic++) {
             Iterator<IDSorter> iterator = topicSortedWords.get(topic).iterator();
 
@@ -99,11 +96,16 @@ public class TopicModeler {
                     continue;
                 }
                 keywordList.add(topicWord);
+                
                 rank++;
+                wordCount++;
             }
-
+            
+            if (wordCount > 10) {
+            	break;
+            }
         }
-
+        
         return keywordList;
     }
 }

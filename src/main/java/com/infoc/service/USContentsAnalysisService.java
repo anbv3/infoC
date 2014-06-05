@@ -56,7 +56,8 @@ public class USContentsAnalysisService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        
+        keyWordList.addAll(createKeyWorkList(article.getTitle()));
         return keyWordList;
     }
 

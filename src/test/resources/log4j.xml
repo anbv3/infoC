@@ -10,12 +10,6 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers -->
-	<logger name="com.nhncorp" additivity="false">
-		<level value="DEBUG" />
-		<appender-ref ref="console" />
-	</logger>
-	
 	<!-- 3rdparty Loggers -->
 	<logger name="com.ibatis" additivity="false">
 		<level value="INFO" />

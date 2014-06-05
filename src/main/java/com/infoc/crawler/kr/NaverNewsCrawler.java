@@ -1,7 +1,3 @@
-/*
- * @(#)DaumNewsCrawler.java $version 2013. 10. 25.
- */
-
 package com.infoc.crawler.kr;
 
 import java.io.IOException;
