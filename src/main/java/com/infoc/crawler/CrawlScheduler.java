@@ -86,7 +86,9 @@ public class CrawlScheduler {
 
 	private void setUpSchedules() {
 //		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 20, TimeUnit.MINUTES);
+		
+		// After finished the task, wait for the delay and execute the task again
+		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 5, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 1, TimeUnit.MINUTES);
 	}
 	
