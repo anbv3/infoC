@@ -91,7 +91,7 @@ public class Article extends AbstractPersistable<Long> {
 	// /////////////////////////////////////////////////////////////////////////////
 
 	@Type(type = "serializable")
-	@Column
+	@Column(length=1024)
 	private Set<String> keyWordList = new HashSet<>(); // use for summarization and duplication check
 
 	@Lob
