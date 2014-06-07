@@ -53,8 +53,6 @@ public class ContentsAnalysisService {
 
         StringBuilder sb = new StringBuilder(article.getTitle());
         sb.append(" ").append(article.getContents());
-        LOG.debug("{}", article.getContents());
-        
         
         try {
         	Set<String> topicKeywords = TopicModeler.getInstance().getMainTopics(sb.toString());
@@ -68,7 +66,6 @@ public class ContentsAnalysisService {
             // eliminate special characters from title and split it
             Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.omitEmptyStrings()
             		.trimResults().split(article.getTitle().replaceAll("[^\\p{L}\\p{Z}]", " ")));
-            LOG.debug("{}", titleList);
             for (String word : titleList) {
                 if (word.length() > 1) {
                     keyWordList.add(word);

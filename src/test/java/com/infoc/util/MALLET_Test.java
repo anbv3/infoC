@@ -542,8 +542,14 @@ public class MALLET_Test {
     @Test
     public void test() throws IOException {
         //String nouns = MorphemeAnalyzer.getInstance().extractNouns(inData);
-    	
-    	String aa = "Mayor Rahm Emanuel put the city's schoolchildren on the hook to read a couple of million"
+    	String krData = "[OSEN=김태우 기자] 류현진(27, LA 다저스)이 투수들의 무덤으로 불리는 쿠어스필드에서도 흔들리지 않으며 호투했다. 쿠어스필드에서 가장 위험한 장타 위협을 줄인 땅볼유도가 가장 큰 원동력이었다." 
++ "류현진은 7일(이하 한국시간) 미 콜로라도주 덴버 쿠어스필드에서 열린 콜로라도 로키스와의 원정 경기에 선발 등판해 6이닝 동안 8피안타(1피홈런) 2볼넷 2탈삼진 2실점으로 잘 던지며 시즌 7승(2패)을 거뒀다. 6회 실점이 다소 아쉽긴 했지만 5회까지는 뛰어난 위기관리능력을 발휘하며 팀 승리의 발판을 놨다. 왼 어깨 부상에서 돌아온 뒤 4연승 질주다."
++ "이날 등판은 류현진의 쿠어스필드 첫 등판이라는 점에서 큰 화제를 모았다. 쿠어스필드는 해발 1610m의 고지대에 위치하고 있다. 평지보다는 공기 저항이 적어 큰 타구가 많이 나오는 구장으로 악명이 높다. 타자들에게는 기회의 땅이지만, 투수들에게는 악몽의 땅이다. 실제 리그를 대표하는 에이스급 투수들도 쿠어스필드에서 장타에 고전하는 경우가 적지 않았다. 리그를 호령했던 박찬호 역시 쿠어스필드에서의 평균자책점은 6.06이었다."
++ "그러나 류현진은 영리하게 쿠어스필드 격파 비법을 찾았다. 결국 장타를 줄이려면 뜬공보다는 땅볼을 많이 유도해야 했고 류현진은 이 평범한 진리를 쉽게 풀어나갔다. 8개의 안타, 2개의 볼넷을 허용하며 피출루 자체는 많았지만 특유의 위기관리능력으로 좋은 성적을 냈다."
++ "1회 선두 블랙먼에게 안타를 맞았지만 드마이유를 병살타로 잡아내며 땅볼 유도의 감을 찾았다. 2회에도 스텁스와 버틀러를 유격수 땅볼로 잡아내며 역시 득점권 상황을 정리했다. 3회부터는 땅볼 타구 비율을 높여갔다. 블랙먼, 르마이유, 모노를 모두 땅볼로 요리했다. 4회에도 버틀러를, 6회에도 모노를 땅볼로 잡았다. 이날 류현진의 땅볼로 총 8개의 아웃카운트(병살 1개 포함)를 잡았던 반면 뜬공은 4개였다."
++ "사실 류현진은 올 시즌 땅볼 유도가 다소 줄어든 편이었다. 올 시즌 류현진의 땅볼/뜬공 비율은 1.10이었다. 이는 지난해 1.45보다 떨어진 성적이다. 그러나 장타를 가장 조심해야 할 쿠어스필드에서 땅볼유도능력을 발휘하며 고비를 슬기롭게 잘 넘겼다. 류현진의 저력을 엿볼 수 있었던 한 판이었다.";
+   
+    	String enData = "Mayor Rahm Emanuel put the city's schoolchildren on the hook to read a couple of million"
     			+ " more books this summer, part of a bet on national TV to get late-night host Jimmy Fallon to"
     			+ " visit Chicago again.    The mayor's appearance on 'The Tonight Show' capped a two-day trip "
     			+ "to New York in which Emanuel also pitched financial executives on the city's balance sheet "
@@ -583,8 +589,11 @@ public class MALLET_Test {
     			+ " trips in which he met with political donors or raised campaign money. Six additional "
     			+ "taxpayer-funded trips involved little or no official city business.";
     	
-        Set<String> tList = TopicModeler.getInstance().getMainTopics(aa);
-
+        Set<String> tList = TopicModeler.getInstance().getMainTopics(inData);
+        LOG.debug("{}", tList);
+        tList = TopicModeler.getInstance().getMainTopics(krData);
+        LOG.debug("{}", tList);
+        tList = TopicModeler.getInstance().getMainTopics(enData);
         LOG.debug("{}", tList);
     }
 }
