@@ -66,7 +66,7 @@ public class TopicModeler {
 
         // Use two parallel samplers, which each look at one half the corpus and combine
         //  statistics after every iteration.
-        model.setNumThreads(2);
+        model.setNumThreads(1);
 
         // Run the model for 50 iterations and stop (this is for testing only,
         //  for real applications, use 1000 to 2000 iterations)
