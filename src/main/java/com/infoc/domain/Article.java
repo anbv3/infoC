@@ -143,7 +143,11 @@ public class Article extends AbstractPersistable<Long> {
 	 * </div>
 	 */
 	public void addNewSimilarList(Article similarArticle) {
-		if (!Strings.isNullOrEmpty(this.similarTitle)) {
+		if (this.numDups > 9) {
+            return;
+        }
+
+        if (!Strings.isNullOrEmpty(this.similarTitle)) {
 			for (String sTitle : this.similarTitle.split("#@")) {
 				if ( sTitle.contains(similarArticle.getTitle()) ) {
 					return;
@@ -152,7 +156,7 @@ public class Article extends AbstractPersistable<Long> {
 		} else {
             this.similarTitle = "";
         }
-		
+
 		// update title
 		StringBuilder st = new StringBuilder(this.similarTitle);
 		if (!Strings.isNullOrEmpty(this.similarTitle)) {

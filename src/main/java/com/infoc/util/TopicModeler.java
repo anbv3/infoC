@@ -11,8 +11,6 @@ import cc.mallet.topics.ParallelTopicModel;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.IDSorter;
 import cc.mallet.types.InstanceList;
-
-import org.netlib.util.intW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -37,7 +35,7 @@ public class TopicModeler {
     }
 
     private static final int NUM_ITERATIONS = 50;
-    private static final int NUM_TOPICS = 5;
+    private static final int NUM_TOPICS = 6;
 
     public Set<String> getMainTopics(String contents) throws IOException {
 

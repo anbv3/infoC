@@ -231,6 +231,7 @@ public class CollectionService {
 					// TODO: create the main contents again..?
 
                     articleService.update(curArticle);
+                    LOG.debug("duplicated: {}", curArticle.getNumDups());
 					return;
 				}
 			}

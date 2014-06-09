@@ -4,11 +4,11 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.infoc.crawler.kr.DaumNewsCrawler;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
-import com.infoc.util.MorphemeAnalyzer;
 import com.infoc.util.TopicModeler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,9 +16,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ContentsAnalysisService {
 	private static final Logger LOG = LoggerFactory.getLogger(ContentsAnalysisService.class);
@@ -56,13 +53,13 @@ public class ContentsAnalysisService {
         
         try {
         	Set<String> topicKeywords = TopicModeler.getInstance().getMainTopics(sb.toString());
-            LOG.debug("{}", topicKeywords);
             for (String word : topicKeywords) {
                 if (!word.contains("@")) {
                     keyWordList.add(word);
                 }
             }
-            
+            LOG.debug("{} => {}", article.getSection().getSection(), topicKeywords);
+
             // eliminate special characters from title and split it
             Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.omitEmptyStrings()
             		.trimResults().split(article.getTitle().replaceAll("[^\\p{L}\\p{Z}]", " ")));
