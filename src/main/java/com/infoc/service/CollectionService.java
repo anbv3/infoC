@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 @Service
 public class CollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
-	private static final Integer MAX_DUP_NUM = 2;
+	private static final Integer MAX_DUP_NUM = 5;
 
 	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
@@ -166,7 +166,9 @@ public class CollectionService {
 
 		// determine the new article is duplicated or not by the number of the dup keyword list.
 		if (dupWordList.size() >= MAX_DUP_NUM) {
-
+            LOG.debug("curArticle: {} => {}", curArticle.getTitle(), curArticle.getKeyWordList());
+            LOG.debug("newArticle: {} => {}", newArticle.getTitle(), newArticle.getKeyWordList());
+            
 			// update the keyword list
 			curKeyWordList.remove(clearWordList);
 			curKeyWordList.addAll(dupWordList);
@@ -228,10 +230,7 @@ public class CollectionService {
 		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 				if (isDuplicate(curArticle, newArticle)) {
-					// TODO: create the main contents again..?
-
                     articleService.update(curArticle);
-                    LOG.debug("duplicated: {}", curArticle.getNumDups());
 					return;
 				}
 			}

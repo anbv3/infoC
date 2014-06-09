@@ -589,11 +589,11 @@ public class MALLET_Test {
     			+ " trips in which he met with political donors or raised campaign money. Six additional "
     			+ "taxpayer-funded trips involved little or no official city business.";
     	
-        Set<String> tList = TopicModeler.getInstance().getMainTopics(inData);
+        Set<String> tList = TopicModeler.getMainTopics(inData);
         LOG.debug("{}", tList);
-        tList = TopicModeler.getInstance().getMainTopics(krData);
+        tList = TopicModeler.getMainTopics(krData);
         LOG.debug("{}", tList);
-        tList = TopicModeler.getInstance().getMainTopics(enData);
+        tList = TopicModeler.getMainTopics(enData);
         LOG.debug("{}", tList);
     }
 }

@@ -23,7 +23,7 @@ public class RSSCrawler {
 			SyndFeed feed = input.build(new XmlReader(feedUrl));
 
 			List<SyndEntry> entries = (List<SyndEntry>)feed.getEntries();
-            LOG.debug("RSS size: {}", entries.size());
+            //LOG.debug("RSS size: {}", entries.size());
 
 			return entries;
 		} catch (IllegalArgumentException e) {

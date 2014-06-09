@@ -29,15 +29,11 @@ import java.util.regex.Pattern;
 
 public class TopicModeler {
     private static final Logger LOG = LoggerFactory.getLogger(TopicModeler.class);
-    private static TopicModeler ourInstance = new TopicModeler();
-    public static TopicModeler getInstance() {
-        return ourInstance;
-    }
 
     private static final int NUM_ITERATIONS = 50;
     private static final int NUM_TOPICS = 6;
 
-    public Set<String> getMainTopics(String contents) throws IOException {
+    public static synchronized Set<String> getMainTopics(String contents) throws IOException {
 
         // Begin by importing documents from text to feature sequences
         ArrayList<Pipe> pipeList = new ArrayList<Pipe>();

@@ -4,11 +4,9 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.domain.Article;
 import com.infoc.domain.SentenceInfo;
 import com.infoc.util.TopicModeler;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,13 +56,15 @@ public class USContentsAnalysisService {
         sb.append(" ").append(article.getContents());
 
         try {
-            keyWordList = TopicModeler.getInstance().getMainTopics(sb.toString());
+            keyWordList = TopicModeler.getMainTopics(sb.toString());
             LOG.debug("{}", keyWordList);
         } catch (IOException e) {
             e.printStackTrace();
         }
         
         keyWordList.addAll(createKeyWorkList(article.getTitle()));
+
+        LOG.debug("{} => {}", article.getSection().getSection(), keyWordList);
         return keyWordList;
     }
 

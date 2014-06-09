@@ -52,13 +52,12 @@ public class ContentsAnalysisService {
         sb.append(" ").append(article.getContents());
         
         try {
-        	Set<String> topicKeywords = TopicModeler.getInstance().getMainTopics(sb.toString());
+        	Set<String> topicKeywords = TopicModeler.getMainTopics(sb.toString());
             for (String word : topicKeywords) {
                 if (!word.contains("@")) {
                     keyWordList.add(word);
                 }
             }
-            LOG.debug("{} => {}", article.getSection().getSection(), topicKeywords);
 
             // eliminate special characters from title and split it
             Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.omitEmptyStrings()
@@ -68,6 +67,8 @@ public class ContentsAnalysisService {
                     keyWordList.add(word);
                 }
             }
+
+            LOG.debug("{} => {}", article.getSection().getSection(), keyWordList);
         } catch (IOException e) {
         	LOG.debug("", e);
         }

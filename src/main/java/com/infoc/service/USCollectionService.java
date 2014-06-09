@@ -1,9 +1,9 @@
 package com.infoc.service;
 
 import com.google.common.base.Strings;
+import com.infoc.common.Constant;
 import com.infoc.domain.Article;
 import com.infoc.repository.ArticleRepository;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -19,16 +19,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 @Service
 public class USCollectionService {
 	private static final Logger LOG = LoggerFactory.getLogger(USCollectionService.class);
-	private static final Integer MAX_DUP_NUM = 3;
-	private static final Integer PAGE_LIMIT = 4;
-
-	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
+	private static final Integer MAX_DUP_NUM = 5;
 
 	public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
 	public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
@@ -75,8 +71,8 @@ public class USCollectionService {
 		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 
 		int idx = 0;
-		int from = page * PAGE_LIMIT;
-		int to = (page + 1) * PAGE_LIMIT;
+		int from = page * Constant.PAGE_SIZE.getVal();
+		int to = (page + 1) * Constant.PAGE_SIZE.getVal();
 
 		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
 			if (eachTime.getValue().isEmpty()) {
@@ -166,6 +162,8 @@ public class USCollectionService {
 
 		// determine the new article is duplicated or not by the number of the dup keyword list.
 		if (dupWordList.size() >= MAX_DUP_NUM) {
+            LOG.debug("curArticle: {} => {}", curArticle.getTitle(), curArticle.getKeyWordList());
+            LOG.debug("newArticle: {} => {}", newArticle.getTitle(), newArticle.getKeyWordList());
 
 			// update the keyword list
 			curKeyWordList.remove(clearWordList);
@@ -225,8 +223,6 @@ public class USCollectionService {
 		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
 				if (isDuplicate(curArticle, newArticle)) {
-					// create the main contents again..?	
-
                     articleService.update(curArticle);
 					return;
 				} 
