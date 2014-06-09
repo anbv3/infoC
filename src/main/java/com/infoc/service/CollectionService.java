@@ -24,220 +24,224 @@ import java.util.concurrent.ConcurrentSkipListMap;
 
 @Service
 public class CollectionService {
-	private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
-	private static final Integer MAX_DUP_NUM = 5;
+    private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
+    private static final Integer MAX_DUP_NUM = 5;
 
-	public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
+    public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
 
-	public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
-	public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> POLITICS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> ECON_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> SOCIETY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> CULTURE_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> ENT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> SPORT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> IT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
-	public static Map<Integer, List<Article>> OTHERS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+    public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
+    public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections
+            .reverseOrder());
+    public static Map<Integer, List<Article>> POLITICS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections
+            .reverseOrder());
+    public static Map<Integer, List<Article>> ECON_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections
+            .reverseOrder());
+    public static Map<Integer, List<Article>> SOCIETY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections
+            .reverseOrder());
+    public static Map<Integer, List<Article>> CULTURE_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections
+            .reverseOrder());
+    public static Map<Integer, List<Article>> ENT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+    public static Map<Integer, List<Article>> SPORT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections
+            .reverseOrder());
+    public static Map<Integer, List<Article>> IT_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections.reverseOrder());
+    public static Map<Integer, List<Article>> OTHERS_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections
+            .reverseOrder());
 
-	static {
-		CACHE_LIST.add(TODAY_CACHE);
-		CACHE_LIST.add(POLITICS_CACHE);
-		CACHE_LIST.add(ECON_CACHE);
-		CACHE_LIST.add(SOCIETY_CACHE);
-		CACHE_LIST.add(CULTURE_CACHE);
-		CACHE_LIST.add(ENT_CACHE);
-		CACHE_LIST.add(SPORT_CACHE);
-		CACHE_LIST.add(IT_CACHE);
-		CACHE_LIST.add(OTHERS_CACHE);
+    static {
+        CACHE_LIST.add(TODAY_CACHE);
+        CACHE_LIST.add(POLITICS_CACHE);
+        CACHE_LIST.add(ECON_CACHE);
+        CACHE_LIST.add(SOCIETY_CACHE);
+        CACHE_LIST.add(CULTURE_CACHE);
+        CACHE_LIST.add(ENT_CACHE);
+        CACHE_LIST.add(SPORT_CACHE);
+        CACHE_LIST.add(IT_CACHE);
+        CACHE_LIST.add(OTHERS_CACHE);
 
-		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
-			for (int i = 0; i < 24; i++) {
-				cache.put(i, new ArrayList<Article>());
-			}
-		}
-	}
-	
-	@Autowired
-	public ArticleRepository articleRepository;
-	
-	@Autowired
-	public ArticleService articleService;
-	
-	
-	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
-		return getArticlesByCurrentTime(map, 0, null);
-	}
+        for (Map<Integer, List<Article>> cache : CACHE_LIST) {
+            for (int i = 0; i < 24; i++) {
+                cache.put(i, new ArrayList<Article>());
+            }
+        }
+    }
 
-	public static Map<Integer, List<Article>> getArticlesByPage(
-			Map<Integer, List<Article>> articleMap, int page, String search) {
-		
-		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
+    @Autowired
+    public ArticleRepository articleRepository;
 
-		int idx = 0;
-		int from = page * Constant.PAGE_SIZE.getVal();
-		int to = from + Constant.PAGE_SIZE.getVal();
+    @Autowired
+    public ArticleService articleService;
 
-		for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
-			if (eachTime.getValue().isEmpty()) {
-				continue;
-			}
 
-			List<Article> searchedArticles = new ArrayList<>();
-			if (!Strings.isNullOrEmpty(search)) {
-				for (Article article : eachTime.getValue()) {
-					if (article.getMainContents().contains(search)) {
-						searchedArticles.add(article);
-					}
-				}
+    public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map) {
+        return getArticlesByCurrentTime(map, 0, null);
+    }
 
-				if (searchedArticles.isEmpty()) {
-					continue;
-				}
-			}
-			
-			if (idx >= from && idx < to) {
-				if (!Strings.isNullOrEmpty(search)) {
-					currMap.put(eachTime.getKey(), searchedArticles);	
-				} else {
-					currMap.put(eachTime.getKey(), eachTime.getValue());
-				}
-			}
-			
-			idx++;
-		}
+    public static Map<Integer, List<Article>> getArticlesByPage(Map<Integer, List<Article>> articleMap, int page, String search) {
 
-		return currMap;
-	}
-	
-	public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page, String search) {
-		Map<Integer, List<Article>> articleMap = beforeCurrentTime(map);
-		return getArticlesByPage(articleMap, page, search);
-	}
+        Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 
-	public static Map<Integer, List<Article>> beforeCurrentTime(Map<Integer, List<Article>> map) {
+        int idx = 0;
+        int from = page * Constant.PAGE_SIZE.getVal();
+        int to = from + Constant.PAGE_SIZE.getVal();
 
-		Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
+        for (Entry<Integer, List<Article>> eachTime : articleMap.entrySet()) {
+            if (eachTime.getValue().isEmpty()) {
+                continue;
+            }
 
-		DateTime currTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-		int currentHour = currTime.getHourOfDay();
-		for (int i = currentHour; i > 0; i--) {
-			if (map.get(i).isEmpty()) {
-				continue;
-			}
+            List<Article> searchedArticles = new ArrayList<>();
+            if (!Strings.isNullOrEmpty(search)) {
+                for (Article article : eachTime.getValue()) {
+                    if (article.getMainContents().contains(search)) {
+                        searchedArticles.add(article);
+                    }
+                }
 
-			currMap.put(i, map.get(i));
-		}
+                if (searchedArticles.isEmpty()) {
+                    continue;
+                }
+            }
 
-		return currMap;
-	}
+            if (idx >= from && idx < to) {
+                if (!Strings.isNullOrEmpty(search)) {
+                    currMap.put(eachTime.getKey(), searchedArticles);
+                } else {
+                    currMap.put(eachTime.getKey(), eachTime.getValue());
+                }
+            }
 
-	public static boolean isDuplicate(Article curArticle, Article newArticle) {
+            idx++;
+        }
 
-		if (curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
-			return true;
-		}
+        return currMap;
+    }
 
-		Set<String> curKeyWordList = curArticle.getKeyWordList();
-		Set<String> newKeyWordList = newArticle.getKeyWordList();
+    public static Map<Integer, List<Article>> getArticlesByCurrentTime(Map<Integer, List<Article>> map, int page, String search) {
+        Map<Integer, List<Article>> articleMap = beforeCurrentTime(map);
+        return getArticlesByPage(articleMap, page, search);
+    }
 
-		// Compare the basis list with the target's keyword list and compare backward again
-		List<String> dupWordList = new ArrayList<>();
-		List<String> clearWordList = new ArrayList<>();
-		for (String currWord : curKeyWordList) {
-			for (String tarWord : newKeyWordList) {
+    public static Map<Integer, List<Article>> beforeCurrentTime(Map<Integer, List<Article>> map) {
 
-				if (currWord.length() <= 1 || tarWord.length() <= 1) {
-					continue;
-				}
+        Map<Integer, List<Article>> currMap = new LinkedHashMap<>();
 
-				if (currWord.contains(tarWord) || tarWord.contains(currWord)) {
+        DateTime currTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+        int currentHour = currTime.getHourOfDay();
+        for (int i = currentHour; i > 0; i--) {
+            if (map.get(i).isEmpty()) {
+                continue;
+            }
 
-					// store the dup keyword
-					if (currWord.length() < tarWord.length()) {
-						dupWordList.add(currWord);
-						clearWordList.add(currWord);
-					} else {
-						dupWordList.add(tarWord);
-					}
-				}
-			}
-		}
+            currMap.put(i, map.get(i));
+        }
 
-		// determine the new article is duplicated or not by the number of the dup keyword list.
-		if (dupWordList.size() >= MAX_DUP_NUM) {
+        return currMap;
+    }
+
+    public static boolean isDuplicate(Article curArticle, Article newArticle) {
+
+        // check if they are the same articles
+        if (curArticle.getTitle().equalsIgnoreCase(newArticle.getTitle()) ||
+            curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
+            return true;
+        }
+
+        Set<String> curKeyWordList = curArticle.getKeyWordList();
+        Set<String> newKeyWordList = newArticle.getKeyWordList();
+
+        // Compare the basis list with the target's keyword list and compare backward again
+        int dupWordCount = 0;
+        for (String currWord : curKeyWordList) {
+            if (currWord.length() <= 1) {
+                continue;
+            }
+
+            for (String tarWord : newKeyWordList) {
+
+                if (tarWord.length() <= 1) {
+                    continue;
+                }
+
+                if (currWord.contains(tarWord) || tarWord.contains(currWord)) {
+                    dupWordCount++;
+                    continue;
+                }
+            }
+        }
+
+        // check if they are the same articles
+        if (curKeyWordList.size() == dupWordCount) {
+            return true;
+        }
+
+        // determine the new article is duplicated or not by the number of the dup keyword list.
+        if (dupWordCount >= MAX_DUP_NUM) {
             LOG.debug("curArticle: {} => {}", curArticle.getTitle(), curArticle.getKeyWordList());
             LOG.debug("newArticle: {} => {}", newArticle.getTitle(), newArticle.getKeyWordList());
-            
-			// update the keyword list
-			curKeyWordList.remove(clearWordList);
-			curKeyWordList.addAll(dupWordList);
 
-			curArticle.addNewSimilarList(newArticle);
+            curArticle.addNewSimilarList(newArticle);
+            return true;
+        }
 
-			// LOG.debug("curArticle: {}, # of dups: {}", curArticle.getTitle(), curArticle.getNumDups());
-			return true;
-		}
+        return false;
+    }
 
-		return false;
-	}
+    public void add(Article newArticle) {
+        // just in case, # of keyword is one, then skip to add
+        if (newArticle.getKeyWordList().size() < 2) {
+            return;
+        }
 
-	public void add(Article newArticle) {
-		// just in case, # of keyword is one, then skip to add
-		if (newArticle.getKeyWordList().size() < 2) {
-			return;
-		}
+        // get cache for each type
+        Map<Integer, List<Article>> cacheLocation = null;
+        switch (newArticle.getSection()) {
+            case TODAY:
+                cacheLocation = TODAY_CACHE;
+                break;
+            case POLITICS:
+                cacheLocation = POLITICS_CACHE;
+                break;
+            case ECON:
+                cacheLocation = ECON_CACHE;
+                break;
+            case SOCIETY:
+                cacheLocation = SOCIETY_CACHE;
+                break;
+            case CULTURE:
+                cacheLocation = CULTURE_CACHE;
+                break;
+            case ENT:
+                cacheLocation = ENT_CACHE;
+                break;
+            case SPORT:
+                cacheLocation = SPORT_CACHE;
+                break;
+            case IT:
+                cacheLocation = IT_CACHE;
+                break;
+            case OTHERS:
+                cacheLocation = OTHERS_CACHE;
+                break;
+            default:
+                return;
+        }
 
-		// get cache for each type
-		Map<Integer, List<Article>> cacheLocation = null;
-		switch (newArticle.getSection()) {
-			case TODAY:
-				cacheLocation = TODAY_CACHE;
-				break;
-			case POLITICS:
-				cacheLocation = POLITICS_CACHE;
-				break;
-			case ECON:
-				cacheLocation = ECON_CACHE;
-				break;
-			case SOCIETY:
-				cacheLocation = SOCIETY_CACHE;
-				break;
-			case CULTURE:
-				cacheLocation = CULTURE_CACHE;
-				break;
-			case ENT:
-				cacheLocation = ENT_CACHE;
-				break;
-			case SPORT:
-				cacheLocation = SPORT_CACHE;
-				break;
-			case IT:
-				cacheLocation = IT_CACHE;
-				break;
-			case OTHERS:
-				cacheLocation = OTHERS_CACHE;
-				break;
-			default:
-				return;
-		}
+        addNew(newArticle, cacheLocation);
+    }
 
-		addNew(newArticle, cacheLocation);
-	}
-
-	private void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
-		// check the duplicated articles from the stored article.
-		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
-			for (Article curArticle : entry.getValue()) {
-				if (isDuplicate(curArticle, newArticle)) {
+    private void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
+        // check the duplicated articles from the stored article.
+        for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
+            for (Article curArticle : entry.getValue()) {
+                if (isDuplicate(curArticle, newArticle)) {
                     articleService.update(curArticle);
-					return;
-				}
-			}
-		}
+                    return;
+                }
+            }
+        }
 
-		// if it is the new one, then translate the main contents.
-		newArticle.translateMainContents();
+        // if it is the new one, then translate the main contents.
+        newArticle.translateMainContents();
 
         // store in DB without contents
         newArticle.setContents("");
@@ -246,30 +250,25 @@ public class CollectionService {
         // get the hour of the time for the time section
         int hour = (new DateTime(storedArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
         cache.get(hour).add(storedArticle);
-	}
+    }
 
-	public static void clearYesterday() {
-		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
-			for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
-				Iterator<Article> article = entry.getValue().iterator();
-				while (article.hasNext()) {
-					DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-					
-					if (article
-						.next()
-						.getPubDate()
-						.before(
-								currentTime.minusDays(1).minusHours(1).toDate())) {
-						
-						article.remove();
-					}
-				}
-			}
-		}
+    public static void clearYesterday() {
+        for (Map<Integer, List<Article>> cache : CACHE_LIST) {
+            for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
+                Iterator<Article> article = entry.getValue().iterator();
+                while (article.hasNext()) {
+                    DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
 
-	}
+                    if (article.next().getPubDate().before(currentTime.minusDays(1).minusHours(1).toDate())) {
+                        article.remove();
+                    }
+                }
+            }
+        }
 
-	public static Map<Integer, List<Article>> getToday() {
-		return TODAY_CACHE;
-	}
+    }
+
+    public static Map<Integer, List<Article>> getToday() {
+        return TODAY_CACHE;
+    }
 }
