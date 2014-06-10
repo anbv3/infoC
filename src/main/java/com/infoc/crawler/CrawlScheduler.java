@@ -4,10 +4,10 @@ import com.infoc.crawler.kr.DaumNewsCrawler;
 import com.infoc.crawler.kr.GoogleNewsCrawler;
 import com.infoc.crawler.kr.NaverNewsCrawler;
 import com.infoc.crawler.kr.OtherNewsCrawler;
+import com.infoc.crawler.us.BaseballNewsCrawler;
 import com.infoc.crawler.us.BostonNewsCrawler;
 import com.infoc.crawler.us.ChicagoTribuneCrawler;
 import com.infoc.crawler.us.LATimesCrawler;
-import com.infoc.crawler.us.BaseballNewsCrawler;
 import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.crawler.us.TimeCrawler;
 import com.infoc.domain.Article;
@@ -16,7 +16,6 @@ import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
 import com.infoc.service.USCollectionService;
 import com.infoc.util.EconInfoCrawler;
-import com.infoc.util.MorphemeAnalyzer;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -76,10 +75,13 @@ public class CrawlScheduler {
 		newsCrawlerList.add(otherNewsCrawler);
 		
 		// us
-		newsCrawlerList.add(nyTimesCrawler);
-		newsCrawlerList.add(chicagoTribuneCrawler);
-		newsCrawlerList.add(bostonNewsCrawler);
+
+        // impossible to parse RSS
+        // newsCrawlerList.add(nyTimesCrawler);
+        // newsCrawlerList.add(bostonNewsCrawler);
+
 		newsCrawlerList.add(timeCrawler);
+		newsCrawlerList.add(chicagoTribuneCrawler);
 		newsCrawlerList.add(laTimesCrawler);
 		newsCrawlerList.add(baseballNewsCrawler);
 	}
@@ -122,7 +124,7 @@ public class CrawlScheduler {
 	private static class CrawlTask implements Runnable {
 		@Override
 		public void run() {
-			LOG.info("********* [START] collect the aritcles from RSS at {} ***********", 
+			LOG.info("********* [START] collect the articles from RSS at {} ***********",
 					new DateTime(DateTimeZone.forID("Asia/Seoul")));
 			
 			for (NewsCrawler crawler : newsCrawlerList) {
@@ -133,7 +135,7 @@ public class CrawlScheduler {
 				}
 			}
 			
-			LOG.info("********* [END] collect the aritcles from RSS at {} ***********", 
+			LOG.info("********* [END] collect the articles from RSS at {} ***********",
 					new DateTime(DateTimeZone.forID("Asia/Seoul")));
 		}
 	}

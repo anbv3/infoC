@@ -22,7 +22,7 @@ public class RSSCrawlerTest {
 
 	@Test
 	public void testLib() {
-		String url = "http://feeds.feedburner.com/likelink-recent";
+		String url = "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
 
 		try {
 			URL feedUrl = new URL(url);
@@ -63,7 +63,7 @@ public class RSSCrawlerTest {
 
     @Test
     public void testLATimes() {
-        String url = "http://www.nytimes.com/2014/06/08/us/though-not-quietly-kentucky-moves-to-cut-reliance-on-coal.html";
+        String url = "http://feeds.latimes.com/~r/latimes/news/~3/Eovh8FA43bg/la-na-nn-las-vegas-police-shootings-vigil-20140609-story.html";
 
         Document doc;
         try {
@@ -74,6 +74,10 @@ public class RSSCrawlerTest {
                        .get();
 
             LOG.debug("{}", doc.toString());
+
+            String contentId = ".trb_article_page";
+            Elements contentsArea = doc.select(contentId);
+            LOG.debug("{}", contentsArea.text());
         }
         catch (IOException e) {
             LOG.debug("", e);

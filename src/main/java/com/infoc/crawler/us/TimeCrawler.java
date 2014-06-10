@@ -4,11 +4,15 @@
 
 package com.infoc.crawler.us;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.ContentsAnalysisService;
+import com.infoc.service.USCollectionService;
+import com.infoc.service.USContentsAnalysisService;
+import com.infoc.util.RSSCrawler;
+import com.sun.syndication.feed.synd.SyndEntry;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
@@ -19,15 +23,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Strings;
-import com.infoc.crawler.NewsCrawler;
-import com.infoc.domain.Article;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.service.ContentsAnalysisService;
-import com.infoc.service.USCollectionService;
-import com.infoc.service.USContentsAnalysisService;
-import com.infoc.util.RSSCrawler;
-import com.sun.syndication.feed.synd.SyndEntry;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class TimeCrawler implements NewsCrawler {
@@ -124,7 +123,7 @@ public class TimeCrawler implements NewsCrawler {
 			return;
 		}
 		
-		String contentId = ".entry-content";
+		String contentId = ".article-body";
 		Elements contentsArea = doc.select(contentId);
 		article.setContents(contentsArea.text());
 		
