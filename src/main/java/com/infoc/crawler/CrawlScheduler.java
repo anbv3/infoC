@@ -79,9 +79,9 @@ public class CrawlScheduler {
         // impossible to parse RSS
         // newsCrawlerList.add(nyTimesCrawler);
         // newsCrawlerList.add(bostonNewsCrawler);
+		//newsCrawlerList.add(chicagoTribuneCrawler);
 
 		newsCrawlerList.add(timeCrawler);
-		newsCrawlerList.add(chicagoTribuneCrawler);
 		newsCrawlerList.add(laTimesCrawler);
 		newsCrawlerList.add(baseballNewsCrawler);
 	}
