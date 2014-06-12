@@ -4,7 +4,6 @@
 	src: url('../fonts/NanumGothic.eot?#iefix') format('embedded-opentype'),
 		 url('../fonts/NanumGothic.woff') format('woff'),
 		 url('../fonts/NanumGothic.ttf') format('truetype'),
-		 url('../fonts/NanumGothic.svg#NanumGothic') format('svg');
 	src: local(※), url('../fonts/NanumGothic.woff') format('woff');
 	}
 	
@@ -38,6 +37,64 @@ button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng', sans-ser
   background-color: #83E01F;
 }
 
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by its height */
+    margin: 0 auto -60px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+.scroll-top {
+    height:60px;
+    position:fixed;
+    bottom:0;
+    right:6%;
+    z-index:100;
+    background: darkorange;
+    font-size:24px;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+}
+.scroll-top a:link,.scroll-top a:visited {
+    color:#222;
+}
+/* customize nav style */
+#nav {
+    width: 100%;
+    position:static;
+    top:-32px;
+}
+
+#nav.affix {
+    position: fixed;
+    top: 0;
+    z-index:10;
+    -webkit-transition: all .6s ease-in-out;
+}
+
+.navbar-custom {
+    background-color: #2e2e2e;
+    font-weight:700;
+    border-width:0;
+}
+.navbar-custom  .navbar-nav>li>a {
+    color: #ddd;
+}
+.navbar-custom  .dropdown-menu li>a:hover {
+    color: #eee;
+}
+.navbar-custom  .navbar-nav li>a:hover, .navbar-nav li .open, .navbar-custom .navbar-nav .active a  {
+    background-color: #000;
+}
+.navbar-custom .navbar-nav>.dropdown>a .caret {
+    border-top-color: #999;
+    border-bottom-color: #999;
+}
+
 body {
   position: relative;
 }
@@ -59,8 +116,7 @@ body {
 	max-height: 240px;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) and (min-width: @screen-tablet) { 
-
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-width: @screen-tablet) {
   ::i-block-chrome, .row.safari-fix  {
     display:table!important;
   }
@@ -71,7 +127,6 @@ body {
    padding-left:2%!important;
    padding-right:2%!important;
   }
-
 } /* end safari rounding bug hack */
 
 /* ***************************************************************** */

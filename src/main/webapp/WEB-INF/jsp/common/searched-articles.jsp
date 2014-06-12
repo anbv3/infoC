@@ -4,6 +4,7 @@
 <c:if test="${empty page.content}">end</c:if>
 
 <c:if test="${not empty page.content}">
+
 	<c:choose>
 		<c:when test="${page.number % 2 == 0}">
 			<c:set var="rowColor" value="two" />
@@ -38,7 +39,7 @@
 							<hr class="item_title-separator">
 						</c:if>
 
-						<div class="item_content col-xs-12"><span class="label label-primary article-sum-mark">요약</span>&nbsp;${row.mainContents}</div>
+						<div class="item_content col-xs-12"><span class="label label-primary article-sum-mark">${summary}</span>&nbsp;${row.mainContents}</div>
 
 
 

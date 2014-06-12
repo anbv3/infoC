@@ -26,7 +26,7 @@
 	border-right: none;
 }
 
-.item,.item_title,item_content {
+.item,.item_title {
 	width: 100%;
 }
 </style>
@@ -40,6 +40,9 @@
 .item {
 	width: 350px;
 }
+#top-section {
+    margin-top: 70px;
+}
 </style>
 
 <style type="text/css" media="only screen and (min-width : 1101px) and (max-width: 1220px)">
@@ -47,6 +50,7 @@
 	font-size: 12px;
 	width: 224px;
 }
+
 </style>
 
 <style type="text/css" media="only screen and (min-width : 1221px) and (max-width: 1620px)">
@@ -224,6 +228,8 @@
 					
 					control.getArticlesBySearch();
 				}
+
+                $(".collapse").collapse('hide');
 			});
 			
 			// get more articles when scrolling down 
@@ -243,6 +249,29 @@
 				}
 			});
 
+            ///////////////////////////////////////////////////////
+
+            /* affix the navbar after scroll below header */
+            $('#nav').affix({
+                offset: {
+                    top: $('header').height()-$('#nav').height()
+                }
+            });
+
+            /* highlight the top nav as scrolling occurs */
+            $('body').scrollspy({ target: '#nav' })
+
+            /* smooth scrolling for scroll to top */
+            $('.scroll-top').click(function(){
+                $('body,html').animate({scrollTop:0},1000);
+            })
+
+            /* smooth scrolling for nav sections 페이지내 특정 위치로 이동*/
+            $('#nav .navbar-nav li>a').click(function(){
+                var link = $(this).attr('href');
+                var posi = $(link).offset().top;
+                $('body,html').animate({scrollTop:posi},700);
+            });
 		});
 
 	}));
@@ -267,8 +296,13 @@
 
 
 <body>
+
+    <div id="wrap">
+        <header class="masthead">
+        </header>
+
 	<!-- header -->
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="navbar navbar-custom navbar-inverse navbar-static-top" role="navigation" id="nav">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -306,11 +340,10 @@
 				</div>
 				<!-- /.col-lg-6 -->
 
-
 			</div>
 			<!--/.nav-collapse -->
 		</div>
-		<!-- <div class="color-strip"></div> -->
+		<!-- container -->
 	</div>
 	<!-- header -->
 
@@ -334,7 +367,7 @@
 		</div>
 
 
-		<c:set var="rowColor" value="two" />
+		<c:set var="summary" value="요약" scope="request" />
 
 		<div id="article-list-section">
 			<c:if test="${empty query}">
@@ -353,10 +386,9 @@
 		
 	</div>
 	<!-- carousel-inner -->
-
+</div>
 
 	<%@ include file="./common/footer.jsp"%>
-
 
 </body>
 

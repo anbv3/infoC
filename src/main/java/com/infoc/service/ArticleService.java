@@ -100,10 +100,10 @@ public class ArticleService {
 		List<Article> articleList = articlePage.getContent();
 
 		DateTime startTime = new DateTime(articleList.get(0).getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-		pubDateMap.put("start", startTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
+		pubDateMap.put("start", startTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd HH:mm")));
 
 		DateTime endTime = new DateTime(articleList.get(articleList.size() -1).getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-		pubDateMap.put("end", endTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
+		pubDateMap.put("end", endTime.toString(DateTimeFormat.forPattern("yyyy/MM/dd HH:mm")));
 
 		return pubDateMap;
 	}

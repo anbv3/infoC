@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="./includes.jsp"%>
 
-<c:if test="${end == true}">
-end
-</c:if>
+<c:if test="${end == true}">end</c:if>
 
 <c:forEach var="entry" items="${articleMap}" varStatus="loop">
 
@@ -41,7 +39,7 @@ end
 							<hr class="item_title-separator">
 						</c:if>
 
-						<div class="item_content col-xs-12"><span class="label label-primary article-sum-mark">요약</span>&nbsp;${row.mainContents}</div>
+						<div class="item_content col-xs-12"><span class="label label-primary article-sum-mark">${summary}</span>&nbsp;${row.mainContents}</div>
 
 
 
