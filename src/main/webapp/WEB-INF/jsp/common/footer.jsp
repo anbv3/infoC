@@ -10,7 +10,3 @@
 		</div>
 	</div>
 </div>
-
-<ul class="nav pull-right scroll-top">
-    <li><a href="#" title="Scroll to top"><i class="glyphicon glyphicon-chevron-up"></i></a></li>
-</ul>
