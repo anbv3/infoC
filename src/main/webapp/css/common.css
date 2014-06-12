@@ -47,21 +47,7 @@ button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng', sans-ser
     padding: 0 0 60px;
 }
 
-/* Set the fixed height of the footer here */
-.scroll-top {
-    height:60px;
-    position:fixed;
-    bottom:0;
-    right:6%;
-    z-index:100;
-    background: darkorange;
-    font-size:24px;
-    border-top-left-radius:3px;
-    border-top-right-radius:3px;
-}
-.scroll-top a:link,.scroll-top a:visited {
-    color:#222;
-}
+
 /* customize nav style */
 #nav {
     width: 100%;
