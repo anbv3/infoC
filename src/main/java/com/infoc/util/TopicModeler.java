@@ -13,14 +13,13 @@ import cc.mallet.types.IDSorter;
 import cc.mallet.types.InstanceList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -33,32 +32,33 @@ public class TopicModeler {
     private static final int NUM_ITERATIONS = 50;
     private static final int NUM_TOPIC = 1;
     private static final int NUM_TOPIC_WORDS = 6;
+    private static final String KR_STOP_LIST[] = {"이", "그", "저", "것", "수", "등", "들", "및", "에서", "그리고", "그래서", "또", "또는", "있습니다", "있다"};
 
-    // Begin by importing documents from text to feature sequences
-    private static ArrayList<Pipe> PIPE_LIST = new ArrayList<>();
+    public static synchronized Set<String> getMainTopics(String contents) throws IOException {
 
-    static {
+        ArrayList<Pipe> PIPE_LIST = new ArrayList<>();
         // Pipes: lowercase, tokenize, remove stopwords, map to features
         PIPE_LIST.add(new CharSequenceLowercase());
         PIPE_LIST.add(new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")));
 
-        File file = null;
-        try {
-            file = new ClassPathResource("stoplists/en.txt").getFile();
-        } catch (IOException e) {
-        }
-        PIPE_LIST.add(new TokenSequenceRemoveStopwords(file, "UTF-8", false, false, false));
+        TokenSequenceRemoveStopwords stopWords = new TokenSequenceRemoveStopwords(false, false);
+        stopWords.addStopWords(KR_STOP_LIST);
+
+        PIPE_LIST.add(stopWords);
         PIPE_LIST.add(new TokenSequence2FeatureSequence());
-    }
+
+        Pipe PIPE = new SerialPipes(PIPE_LIST);
 
 
-    public static synchronized Set<String> getMainTopics(String contents) throws IOException {
+        ///////////////////////////////////////////////////////////////
+
+
         Reader fileReader = new InputStreamReader(new ByteArrayInputStream(contents.getBytes()));
 
-        InstanceList instances = new InstanceList(new SerialPipes(PIPE_LIST));
+        InstanceList instances = new InstanceList(PIPE);
         instances.addThruPipe(new CsvIterator(fileReader, Pattern.compile("^(\\S*)[\\s,]*(\\S*)[\\s,]*(.*)$"), 3, 2, 1));
 
-        ParallelTopicModel model = new ParallelTopicModel(NUM_TOPIC, 1.0, 0.01);
+        ParallelTopicModel model = new ParallelTopicModel(NUM_TOPIC, 0.5, 0.01);
         model.addInstances(instances);
 
         model.setNumThreads(2);
@@ -93,7 +93,9 @@ public class TopicModeler {
 
         fileReader.close();
         instances.removeSources();
-        instances = null;
+        Object[] wordList = PIPE.getDataAlphabet().toArray();
+        Arrays.fill(wordList, null);
+        PIPE_LIST.clear();
         return keywordList;
     }
 }
