@@ -31,6 +31,7 @@ import java.util.Map;
 @RequestMapping(value = "/us")
 public class USNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(USNewsController.class);
+    private static final String SUM = "Summary";
 
 	@Autowired
 	ArticleService articleService;
@@ -68,6 +69,7 @@ public class USNewsController extends BaseController {
 		model.addAttribute("articleMap", articleListMap);
 		model.addAttribute("menu", menuName);
 		model.addAttribute("requestDay", reqTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+        model.addAttribute("summary", SUM);
 
 		return "/common/articles";
 	}
@@ -100,6 +102,7 @@ public class USNewsController extends BaseController {
         }
         
         model.addAttribute("menu", section);
+        model.addAttribute("summary", SUM);
         return "/us-main";
     }
 
@@ -133,7 +136,8 @@ public class USNewsController extends BaseController {
 		model.addAttribute("page", articleList);
 		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
 		model.addAttribute("menu", section);
-		
+        model.addAttribute("summary", SUM);
+
 		return "/common/searched-articles";
 	}
 	

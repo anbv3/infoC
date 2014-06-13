@@ -121,7 +121,7 @@ body {
   width: 10em;
   height: 1em;
   position: relative;
-  margin: 20px auto 40px;
+  margin: 30px auto 30px;
   border-radius: .5em;
   background: rgba(255,255,255,0.6);
   box-shadow: 0 0 0 .05em rgba(100,100,100,0.075),
@@ -131,7 +131,6 @@ body {
 }
 
 .loading-bar .bar:after {
-  content: "Please wait.";
   position: absolute;
   left: 25%;
   top: 150%;

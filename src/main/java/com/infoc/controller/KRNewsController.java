@@ -31,6 +31,7 @@ import java.util.Map;
 @RequestMapping(value = "/kr")
 public class KRNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(KRNewsController.class);
+    private static final String SUM = "요약";
 
 	@Autowired
 	ArticleService articleService;
@@ -66,6 +67,7 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("articleMap", articleListMap);
 		model.addAttribute("menu", menuName);
 		model.addAttribute("requestDay", reqTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+        model.addAttribute("summary", SUM);
 
 		return "/common/articles";
 	}
@@ -97,6 +99,7 @@ public class KRNewsController extends BaseController {
         }
 
         model.addAttribute("menu", section);
+        model.addAttribute("summary", SUM);
         return "/main";
     }
 
@@ -130,6 +133,7 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("page", articleList);
 		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
 		model.addAttribute("menu", section);
+        model.addAttribute("summary", SUM);
 
 		return "/common/searched-articles";
 	}

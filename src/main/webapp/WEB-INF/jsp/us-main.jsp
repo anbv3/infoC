@@ -2,7 +2,7 @@
 <%@ include file="./common/includes.jsp"%>
 
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 
 <head>
 <meta charset="utf-8">
@@ -113,7 +113,8 @@ width: 244px;
 				requestSent = true;
 				
 				$('#ajaxloader').removeClass('hide');
-				
+                $('#btn-get-more').addClass('hide');
+
 				var reqURL = "<c:url value="/us"/>" + "/" + "${menu}" + "/date/" + date.getTime() + "/page/" + page;
 				if (search) {
 					reqURL += "?q=";
@@ -126,6 +127,7 @@ width: 244px;
 				}).done(function(response) {
 					if (response.trim() == "end") {
 						$('#ajaxloader').remove();
+                        $('#btn-get-more').remove();
 						return;
 					} else if (response.trim() != "") {
                         if (page == 0) {
@@ -162,6 +164,7 @@ width: 244px;
 					alert("[ERROR] " + response.status + " : " + response.statusText);
 				}).always(function() {
 					$('#ajaxloader').addClass('hide');
+                    $('#btn-get-more').removeClass('hide');
 					$(window).data('ajaxready', true);
 					requestSent = false;
 				});
@@ -174,6 +177,7 @@ width: 244px;
 				requestSent = true;
 				
 				$('#ajaxloader').removeClass('hide');
+                $('#btn-get-more').addClass('hide');
 				
 				var reqURL = "<c:url value="/us/search"/>" + "/" + "${menu}";
 				if (search) {
@@ -191,6 +195,8 @@ width: 244px;
 					url : reqURL
 				}).done(function(response) {
 					if (response.trim() == "end") {
+                        $('#ajaxloader').remove();
+                        $('#btn-get-more').remove();
 						return;
 					} else if (response.trim() != "") {
 						if (page == 0) {
@@ -206,11 +212,20 @@ width: 244px;
 					alert("[ERROR] " + response.status + " : " + response.statusText);
 				}).always(function() {
 					$('#ajaxloader').addClass('hide');
+                    $('#btn-get-more').removeClass('hide');
 					$(window).data('ajaxready', true);
 					requestSent = false;
 				});
 			}
-		}
+		},
+
+        getSomeMore : function() {
+            if (search) {
+                control.getArticlesBySearch();
+            } else {
+                control.getArticlesByDateAndPage();
+            }
+        }
 	};
 
 	(function(yourcode) {
@@ -388,8 +403,6 @@ width: 244px;
 		</c:if>
 		</div>
 
-        <c:set var="summary" value="Summary" scope="request" />
-		
 		<div id="article-list-section">
 			<c:if test="${empty query}">
 				<jsp:include page="./common/articles.jsp" />
@@ -398,6 +411,14 @@ width: 244px;
 				<jsp:include page="./common/searched-articles.jsp" />
 			</c:if>	
 		</div>
+
+        <div id="btn-get-more" class="row">
+            <div class="col-sm-12 text-center">
+                <button class="btn btn-primary btn-lg btn-block" onclick="control.getSomeMore();" style="padding:10px 30px;">
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                </button>
+            </div>
+        </div>
 		
 		<div id="ajaxloader" class="row loading-bar bkg1">
 			<div class="bar">
