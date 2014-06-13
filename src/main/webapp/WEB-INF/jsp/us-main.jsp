@@ -300,12 +300,6 @@ width: 244px;
             /* highlight the top nav as scrolling occurs */
             $('body').scrollspy({ target: '#nav' })
 
-            /* smooth scrolling for nav sections */
-            $('#nav .navbar-nav li>a').click(function(){
-                var link = $(this).attr('href');
-                var posi = $(link).offset().top;
-                $('body,html').animate({scrollTop:posi},700);
-            });
 		});
 
 	}));
@@ -333,7 +327,7 @@ width: 244px;
 <body>
 
 <div id="wrap">
-    <header class="text-center">
+    <header class="hidden-xs">
         <h2 id="top-title">Skim Paper</h2>
         <h3 id="top-desc" style="font-family:'Gill Sans', Verdana">Quick and Simple: Skim the organized and summarized News!</h3>
     </header>

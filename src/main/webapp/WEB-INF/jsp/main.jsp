@@ -276,12 +276,6 @@
             /* highlight the top nav as scrolling occurs */
             $('body').scrollspy({ target: '#nav' })
 
-            /* smooth scrolling for nav sections 페이지내 특정 위치로 이동*/
-            $('#nav .navbar-nav li>a').click(function(){
-                var link = $(this).attr('href');
-                var posi = $(link).offset().top;
-                $('body,html').animate({scrollTop:posi},700);
-            });
 		});
 
 	}));
@@ -308,7 +302,7 @@
 <body>
 
     <div id="wrap">
-        <header class="text-center">
+        <header class="hidden-xs">
             <h2 id="top-title">Skim Paper</h2>
             <h3 id="top-desc">국내외 뉴스를 모아서 모아서 정리 및 요약해 드립니다!</h3>
         </header>
