@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/css/common.css"/>'/>
+<link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/css/common-mobile.css"/>'/>
 
 <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script type='text/javascript' src='<c:url value="/js/jquery/imagesloaded.pkgd.min.js"/>'></script>

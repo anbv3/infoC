@@ -13,51 +13,6 @@
 
 <jsp:include page="./common/resources.jsp" />
 
-<style type="text/css" media="only screen and (max-width : 768px)">
-.titem {
-	width: 100%;
-	font-size: 12px;
-	border-left: none;
-	border-right: none;
-}
-
-.item {
-	border-left: none;
-	border-right: none;
-}
-
-.item,.item_title {
-	width: 100%;
-}
-</style>
-
-<style type="text/css" media="only screen and (min-width : 769px) and (max-width: 1100px)">
-.titem {
-	font-size: 12px;
-	width: 180px;
-}
-
-.item {
-	width: 350px;
-}
-#top-section {
-    margin-top: 70px;
-}
-</style>
-
-<style type="text/css" media="only screen and (min-width : 1101px) and (max-width: 1220px)">
-.titem {
-	font-size: 12px;
-	width: 224px;
-}
-
-</style>
-
-<style type="text/css" media="only screen and (min-width : 1221px) and (max-width: 1620px)">
-.titem {
-	width: 244px;
-}
-</style>
 
 <script type="text/javascript">
 	var today = true;
