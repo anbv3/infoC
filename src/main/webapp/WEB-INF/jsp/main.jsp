@@ -233,6 +233,7 @@
 			
 			$('#search-btn').on('click', function() {
 				if ($('#search-input').val()) {
+                    $('#top-section').remove();
 					$('#article-list-section').empty();
 					
 					search = $('#search-input').val();
@@ -307,22 +308,23 @@
 <body>
 
     <div id="wrap">
-        <header class="masthead">
+        <header class="text-center">
+            <h2 id="top-title">Skim Paper</h2>
+            <h3 id="top-desc">국내외 뉴스를 모아서 모아서 정리 및 요약해 드립니다!</h3>
         </header>
 
 	<!-- header -->
-	<div class="navbar navbar-custom navbar-inverse navbar-static-top" role="navigation" id="nav">
+	<div class="navbar navbar-custom navbar-inverse navbar-static-top" role="navigation" id="nav" style="margin-bottom:0">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
-					<span style="color:#fff">Menu</span> 
+					<span style="color:#fff">Menu</span>
 				</button>
-				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
 			</div>
 			
 			<div class="collapse navbar-collapse mobile-nav-list">
-				<ul id="top-menu" class="nav navbar-nav">
+				<ul id="top-menu" class="nav navbar-nav navbar-left">
 					<li id="main-menu"><a href="/kr/main">주요</a></li>
 					<li id="politics-menu"><a href="/kr/politics">정치</a></li>
 					<li id="econ-menu"><a href="/kr/econ">경제</a></li>
@@ -336,7 +338,7 @@
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
 				</ul>
 
-				<div class="col-lg-3 nav-right">
+				<div class="col-md-3 navbar-right" >
 					<form class="navbar-form form-inline" onsubmit="return false">
 						<div class="input-group">
 							<input id="search-input" type="text" class="form-control"> 

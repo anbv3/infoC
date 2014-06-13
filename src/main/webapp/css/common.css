@@ -66,6 +66,7 @@ button { font-family: '나눔고딕', NanumGothic, ngwoff, ngeot, 'ng', sans-ser
     background-color: #2e2e2e;
     font-weight:700;
     border-width:0;
+    margin-bottom:0;
 }
 .navbar-custom  .navbar-nav>li>a {
     color: #ddd;
@@ -276,16 +277,12 @@ body {
   color: #000;
 }
 
-#top-section {
-  margin: 40px 0 0;
-}
-
 .bkg1 {
-  background-color: #000;
+  background-color: #000000;
 }
 
 .bkg2 {
-  background-color: #F8F8FF;
+  background-color: #ffffff;
 }
 
 .bkg3 {
@@ -357,3 +354,29 @@ body {
 .article-sum-mark {
   padding-top: 3px;
 }
+
+#top-title {
+    color: #8E0B00;
+    font-family: "Great Vibes", cursive;
+    font-size: 60px;
+    line-height: 55px;
+    font-weight: normal;
+    margin-bottom: 0px;
+    margin-top: 17px;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+}
+
+#top-desc {
+    color: #444;
+    font-family: NanumGothic, "Gill Sans", Verdana;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 45px;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+    padding-top: 10px;
+    margin: 0;
+    letter-spacing: 2px;
+}
+

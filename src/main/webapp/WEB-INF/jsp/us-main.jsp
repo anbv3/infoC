@@ -257,8 +257,9 @@ width: 244px;
 			
 			$('#search-btn').on('click', function() {
 				if ($('#search-input').val()) {
+                    $('#top-section').remove();
 					$('#article-list-section').empty();
-					
+
 					search = $('#search-input').val();
 					page = 0;					
 					date =  new Date('${initDay}');
@@ -332,24 +333,23 @@ width: 244px;
 <body>
 
 <div id="wrap">
-    <header class="masthead">
+    <header class="text-center">
+        <h2 id="top-title">Skim Paper</h2>
+        <h3 id="top-desc" style="font-family:'Gill Sans', Verdana">Quick and Simple: Skim the organized and summarized News!</h3>
     </header>
 
 	<!-- header -->
     <div class="navbar navbar-custom navbar-inverse navbar-static-top" role="navigation" id="nav">
 		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/main" style="color: #fff; font-weight: bold;">Skim Paper!</a>
-			</div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span style="color:#fff">Menu</span>
+                </button>
+            </div>
 			
 			<div class="collapse navbar-collapse mobile-nav-list">
-				<ul id="top-menu" class="nav navbar-nav">
+				<ul id="top-menu" class="nav navbar-nav navbar-left">
 					<li id="main-menu"><a href="/us/main">TOP</a></li>
 					<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>
 					<li id="econ-menu"><a href="/us/econ">BUSINESS</a></li>
@@ -361,7 +361,7 @@ width: 244px;
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">Log In</a></li>  -->
 				</ul>
 				
-				<div class="col-lg-3 nav-right">
+				<div class="col-lg-3 navbar-right">
 					<form class="navbar-form form-inline" onsubmit="return false">
 						<div class="input-group">
 							<input id="search-input" type="text" class="form-control"> 
