@@ -278,7 +278,7 @@ color: #444;
 
 <div id="wrap">
     <header class="hidden-xs">
-        <h2 id="top-title"><a href="/kr/main">Skim Paper</a></h2>
+        <h2 id="top-title"><a href="/us/main">Skim Paper</a></h2>
         <h3 id="top-desc" style="font-family:'Gill Sans', Verdana">Quick and Simple: Skim the organized and summarized News!</h3>
     </header>
 
@@ -301,7 +301,7 @@ color: #444;
 					<li id="ent-menu"><a href="/us/ent">ENT</a></li>
 					<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>
 					<li id="it-menu"><a href="/us/it">TECH</a></li>
-					<li id="us-menu"><a style="color:#83E01F" href="/kr/main">Korea</a></li>
+					<li id="us-menu"><a style="color:#83E01F" href="/kr/main">KOREA</a></li>
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">Log In</a></li>  -->
 				</ul>
 				
