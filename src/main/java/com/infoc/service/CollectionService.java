@@ -229,9 +229,10 @@ public class CollectionService {
                 // check if they are the same articles
                 if (curArticle.getTitle().equalsIgnoreCase(newArticle.getTitle()) ||
                     curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
+                	LOG.debug("{}", curArticle.getTitle());
                     return;
                 }
-            	
+                
                 if (isDuplicate(curArticle, newArticle)) {
                     articleService.update(curArticle);
                     return;
