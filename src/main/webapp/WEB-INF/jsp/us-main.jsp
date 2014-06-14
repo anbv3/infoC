@@ -278,7 +278,7 @@ color: #444;
 
 <div id="wrap">
     <header class="hidden-xs">
-        <h2 id="top-title">Skim Paper</h2>
+        <h2 id="top-title"><a href="/kr/main">Skim Paper</a></h2>
         <h3 id="top-desc" style="font-family:'Gill Sans', Verdana">Quick and Simple: Skim the organized and summarized News!</h3>
     </header>
 
