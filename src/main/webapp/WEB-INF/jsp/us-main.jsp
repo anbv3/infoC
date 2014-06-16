@@ -290,6 +290,7 @@ color: #444;
                     <span class="sr-only">Toggle navigation</span>
                     <span style="color:#fff">Menu</span>
                 </button>
+                <a class="navbar-brand visible-xs" href="/us/main" style="color:#8E0B00; font-weight: bold;">Skim Paper!</a>
             </div>
 			
 			<div class="collapse navbar-collapse mobile-nav-list">
