@@ -257,8 +257,8 @@
 <body>
 
     <div id="wrap">
-        <header class="hidden-xs">
-            <h2 id="top-title">Skim Paper</h2>
+        <header class="text-center hidden-xs">
+            <h2 id="top-title"><a href="/kr/main">Skim Paper</a></h2>
             <h3 id="top-desc">국내외 뉴스를 모아서 모아서 정리 및 요약해 드립니다!</h3>
         </header>
 
@@ -284,7 +284,7 @@
 					<li id="sport-menu"><a href="/kr/sport">스포츠</a></li>
 					<li id="it-menu"><a href="/kr/it">IT</a></li>
 					<li id="others-menu"><a href="/kr/others">기타</a></li>
-					<li id="us-menu"><a style="color: #83E01F" href="/us/main">USA</a></li>
+					<li id="us-menu"><a style="color: #83E01F" href="/us/main">해외</a></li>
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
 				</ul>
 

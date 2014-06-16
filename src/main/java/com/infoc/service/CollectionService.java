@@ -139,13 +139,6 @@ public class CollectionService {
     }
 
     public static boolean isDuplicate(Article curArticle, Article newArticle) {
-
-        // check if they are the same articles
-        if (curArticle.getTitle().equalsIgnoreCase(newArticle.getTitle()) ||
-            curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
-            return true;
-        }
-
         Set<String> curKeyWordList = curArticle.getKeyWordList();
         Set<String> newKeyWordList = newArticle.getKeyWordList();
 
@@ -233,6 +226,13 @@ public class CollectionService {
         // check the duplicated articles from the stored article.
         for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
             for (Article curArticle : entry.getValue()) {
+                // check if they are the same articles
+                if (curArticle.getTitle().equalsIgnoreCase(newArticle.getTitle()) ||
+                    curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
+                	LOG.debug("{}", curArticle.getTitle());
+                    return;
+                }
+                
                 if (isDuplicate(curArticle, newArticle)) {
                     articleService.update(curArticle);
                     return;

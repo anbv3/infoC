@@ -355,7 +355,7 @@ body {
   padding-top: 3px;
 }
 
-#top-title {
+#top-title > a {
     color: #8E0B00;
     font-family: "Great Vibes", cursive;
     font-size: 60px;
@@ -365,6 +365,7 @@ body {
     margin-top: 17px;
     text-align: center;
     text-shadow: 0 1px 1px #fff;
+	text-decoration: none;
 }
 
 #top-desc {
