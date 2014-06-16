@@ -4,11 +4,15 @@
 
 package com.infoc.crawler.us;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.ContentsAnalysisService;
+import com.infoc.service.USCollectionService;
+import com.infoc.service.USContentsAnalysisService;
+import com.infoc.util.RSSCrawler;
+import com.sun.syndication.feed.synd.SyndEntry;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
@@ -19,29 +23,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Strings;
-import com.infoc.crawler.NewsCrawler;
-import com.infoc.domain.Article;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.service.CollectionService;
-import com.infoc.service.ContentsAnalysisService;
-import com.infoc.service.USCollectionService;
-import com.infoc.service.USContentsAnalysisService;
-import com.infoc.util.RSSCrawler;
-import com.sun.syndication.feed.synd.SyndEntry;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
-public class BostonNewsCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(BostonNewsCrawler.class);
-	private static String TODAY = "http://feeds.boston.com/boston/topstories";
-	private static String POLITICS = "http://feeds.boston.com/boston/news/politics";
-	private static String ECON = "http://feeds.boston.com/boston/business";
-	private static String ENT = "http://feeds.boston.com/boston/ae";
-	private static String SPORT = "http://feeds.boston.com/boston/sports/news";
-	private static String IT = "http://feeds.boston.com/boston/business/technology";
+public class USATodayCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(USATodayCrawler.class);
+	private static String TODAY = "http://rssfeeds.usatoday.com/usatoday-NewsTopStories";
+	private static String POLITICS = "http://rssfeeds.usatoday.com/TP-OnPolitics";
+	private static String ECON = "http://rssfeeds.usatoday.com/UsatodaycomMoney-TopStories";
+	private static String ENT = "http://rssfeeds.usatoday.com/usatoday-LifeTopStories";
+	private static String SPORT = "http://rssfeeds.usatoday.com/UsatodaycomSports-TopStories";
+	private static String MLB = "http://rssfeeds.usatoday.com/UsatodaycomMlbNl-TopStories";
+	private static String IT = "http://rssfeeds.usatoday.com/usatoday-TechTopStories";
 	
-	private static String CULTURE_FOOD = "http://feeds.boston.com/boston/lifestyle/food";
-	private static String CULTURE_BOOKS = "http://feeds.boston.com/boston/ae/books";
+	private static String HEALTH = "http://rssfeeds.usatoday.com/UsatodaycomHealth-TopStories";
+	private static String TV = "http://rssfeeds.usatoday.com/UsatodaycomTelevision-TopStories";
+	private static String MOVIE = "http://rssfeeds.usatoday.com/UsatodaycomMovies-TopStories";
+	private static String MUSIC = "http://rssfeeds.usatoday.com/UsatodaycomMusic-TopStories";
 
 	private List<Article> articleList = new ArrayList<>();
 	
@@ -55,11 +56,15 @@ public class BostonNewsCrawler implements NewsCrawler {
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
 		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(CULTURE_FOOD, ArticleSection.CULTURE);
-		createListBySection(CULTURE_BOOKS, ArticleSection.CULTURE);
 		createListBySection(ENT, ArticleSection.ENT);
 		createListBySection(SPORT, ArticleSection.SPORT);
+		createListBySection(MLB, ArticleSection.SPORT);
 		createListBySection(IT, ArticleSection.IT);
+
+		createListBySection(HEALTH, ArticleSection.CULTURE);
+		createListBySection(TV, ArticleSection.CULTURE);
+		createListBySection(MOVIE, ArticleSection.CULTURE);
+		createListBySection(MUSIC, ArticleSection.CULTURE);
 
 		return this.articleList;
 	}
@@ -118,7 +123,7 @@ public class BostonNewsCrawler implements NewsCrawler {
 	
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
-		if(!rssLink.contains("boston")) {
+		if(!rssLink.contains("usatoday")) {
 			return;
 		}
 		
@@ -130,25 +135,10 @@ public class BostonNewsCrawler implements NewsCrawler {
 			return;
 		}
 		
-		String contentId = ".article-text";
+		String contentId = "div[itemprop=articleBody]";
 		Elements contentsArea = doc.select(contentId);
-		String contents = contentsArea.text();
-		
-		if (Strings.isNullOrEmpty(contents)) {
-			contentId = ".blogText";
-			contentsArea = doc.select(contentId);
-			contents = contentsArea.text();
-		}
-		
-		if (Strings.isNullOrEmpty(contents)) {
-			contentId = ".pic-story-content";
-			contentsArea = doc.select(contentId);
-			contents = contentsArea.text();
-		}
-		
-		article.setContents(contents);
-		
-		
+        article.setContents(contentsArea.text());
+
 		// extract the img link ////////////////////////////////////////////////////////
 		article.setImg(contentsArea.select("img").attr("src"));
 	}

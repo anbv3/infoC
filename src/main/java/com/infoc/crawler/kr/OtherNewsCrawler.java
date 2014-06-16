@@ -4,11 +4,14 @@
 
 package com.infoc.crawler.kr;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.CollectionService;
+import com.infoc.service.ContentsAnalysisService;
+import com.infoc.util.RSSCrawler;
+import com.sun.syndication.feed.synd.SyndEntry;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
@@ -19,14 +22,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Strings;
-import com.infoc.crawler.NewsCrawler;
-import com.infoc.domain.Article;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.service.CollectionService;
-import com.infoc.service.ContentsAnalysisService;
-import com.infoc.util.RSSCrawler;
-import com.sun.syndication.feed.synd.SyndEntry;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class OtherNewsCrawler implements NewsCrawler {
@@ -38,6 +37,7 @@ public class OtherNewsCrawler implements NewsCrawler {
 	private static String CLIEN_NEWS = "http://feeds.feedburner.com/Clien--news";
 	private static String SLOW_NEWS = "http://feeds.feedburner.com/slownews";
 	private static String PPSS = "http://feeds.feedburner.com/ppss";
+	private static String MEDIATODAY = "http://www.mediatoday.co.kr/rss/clickTop.xml";
 
 	private List<Article> articleList = new ArrayList<>();
 
@@ -53,7 +53,8 @@ public class OtherNewsCrawler implements NewsCrawler {
 		createListBySection(NEWSPEPPER, ArticleSection.OTHERS);
 		createListBySection(SLOW_NEWS, ArticleSection.OTHERS);
 		createListBySection(PPSS, ArticleSection.OTHERS);
-		
+		createListBySection(MEDIATODAY, ArticleSection.OTHERS);
+
 		createListBySection(CLIEN_NEWS, ArticleSection.IT);
 
 		return this.articleList;
@@ -159,7 +160,12 @@ public class OtherNewsCrawler implements NewsCrawler {
 
 			// extract the img link
 			article.setImg(contentsArea.select("img").attr("src"));
+        } else if (rssLink.contains("mediatoday")) {
 
+			contentsArea = doc.select("#media_body");
+
+			// extract the img link
+			article.setImg(contentsArea.select("img").attr("src"));
 		} else {
 			return;
 		}

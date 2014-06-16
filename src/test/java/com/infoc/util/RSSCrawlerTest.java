@@ -22,7 +22,7 @@ public class RSSCrawlerTest {
 
 	@Test
 	public void testLib() {
-		String url = "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
+		String url = "http://rssfeeds.usatoday.com/usatoday-NewsTopStories";
 
 		try {
 			URL feedUrl = new URL(url);
@@ -63,7 +63,7 @@ public class RSSCrawlerTest {
 
     @Test
     public void testLATimes() {
-        String url = "http://feeds.latimes.com/~r/latimes/news/~3/Eovh8FA43bg/la-na-nn-las-vegas-police-shootings-vigil-20140609-story.html";
+        String url = "http://rssfeeds.usatoday.com/~r/usatoday-NewsTopStories/~3/leL1PCPW3MI/";
 
         Document doc;
         try {
@@ -75,7 +75,7 @@ public class RSSCrawlerTest {
 
             LOG.debug("{}", doc.toString());
 
-            String contentId = ".trb_article_page";
+            String contentId = "div[itemprop=articleBody]";
             Elements contentsArea = doc.select(contentId);
             LOG.debug("{}", contentsArea.text());
         }

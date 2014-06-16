@@ -5,7 +5,7 @@ import com.infoc.crawler.kr.GoogleNewsCrawler;
 import com.infoc.crawler.kr.NaverNewsCrawler;
 import com.infoc.crawler.kr.OtherNewsCrawler;
 import com.infoc.crawler.us.BaseballNewsCrawler;
-import com.infoc.crawler.us.BostonNewsCrawler;
+import com.infoc.crawler.us.USATodayCrawler;
 import com.infoc.crawler.us.ChicagoTribuneCrawler;
 import com.infoc.crawler.us.LATimesCrawler;
 import com.infoc.crawler.us.NYTimesCrawler;
@@ -57,7 +57,7 @@ public class CrawlScheduler {
 	@Autowired
 	public ChicagoTribuneCrawler chicagoTribuneCrawler;
 	@Autowired
-	public BostonNewsCrawler bostonNewsCrawler;
+	public USATodayCrawler usaTodayCrawler;
 	@Autowired
 	public TimeCrawler timeCrawler;
 	@Autowired
@@ -76,11 +76,11 @@ public class CrawlScheduler {
 
         // impossible to parse RSS
         // newsCrawlerList.add(nyTimesCrawler);
-        // newsCrawlerList.add(bostonNewsCrawler);
 		// newsCrawlerList.add(chicagoTribuneCrawler);
 
 		// us
 		newsCrawlerList.add(timeCrawler);
+        newsCrawlerList.add(usaTodayCrawler);
 		newsCrawlerList.add(laTimesCrawler);
 		newsCrawlerList.add(baseballNewsCrawler);
 	}
