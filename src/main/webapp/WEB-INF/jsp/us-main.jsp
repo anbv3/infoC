@@ -279,7 +279,7 @@ color: #444;
 <div id="wrap">
     <header class="text-center hidden-xs">
         <h2 id="top-title"><a href="/us/main">Skim Paper</a></h2>
-        <h3 id="top-desc" style="font-family:'Gill Sans', Verdana">Quick and Simple: Skim the organized and summarized News!</h3>
+        <h3 id="top-desc" style="font-family:'Gill Sans', Verdana">Quick and Simple: the daily organized and summarized News!</h3>
     </header>
 
 	<!-- header -->

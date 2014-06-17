@@ -259,7 +259,7 @@
     <div id="wrap">
         <header class="text-center hidden-xs">
             <h2 id="top-title"><a href="/kr/main">Skim Paper</a></h2>
-            <h3 id="top-desc">국내외 뉴스를 모아서 모아서 정리 및 요약해 드립니다!</h3>
+            <h3 id="top-desc" style="font-family:'Gill Sans', Verdana">Quick and Simple: the daily organized and summarized News!</h3>
         </header>
 
 	<!-- header -->
