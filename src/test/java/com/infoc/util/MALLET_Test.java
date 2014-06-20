@@ -39,6 +39,7 @@ import java.io.Reader;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,26 +52,14 @@ public class MALLET_Test {
     private static final Logger LOG = LoggerFactory.getLogger(MALLET_Test.class);
 
     static String inData = "새누리당 신의진 의원이 '중독 예방 및 관리 및 치료를 위한 법률안'(이하 중독법)에서 인터넷 게임을 제외할 수 도 있다고 밝힌 것으로 알려져 2일 게임업계가 주목하고 있다.\n" +
-            "\n" +
-            "게임업계에 따르면 신 의원이 중독법에서 게임을 빼기로 한 것은 게임업계와 유저들 반발로 중독법의 입법이 쉽지 않기 때문인 것으로 알려졌다. 중독법은 2013년 보건복지 위원회 심사부터 '게임을 제외해야 한다'는 문화체육관광부의 반대에 부딪혔고 이후에 '게임을 마약과 동일시한다', '정확하게 검증되지 않은 게임에 중독낙인을 찍고 있다' 등 반발을 샀다. 게임 때문에 마약과 알코올, 도박 등 다른 중독물질에 대한 법안마저 통과에 어려움을 겪자 중독법 통과를 위해 게임을 중독법에서 제외하기로 결정한 셈이다.\n" +
-            "\n" +
+            "게임업계에 따르면 신 의원이 중독법에서 게임을 빼기로 한 것은 게임업계와 유저들 반발로 중독법의 입법이 쉽지 않기 때문인 것으로 알려졌다. 중독법은 2013년 보건복지 위원회 심사부터 '게임을 제외해야 한다'는 문화체육관광부의 반대에 부딪혔고 이후에 '게임을 마약과 동일시한다', '정확하게 검증되지 않은 게임에 중독낙인을 찍고 있다' 등 반발을 샀다. " +
+            "게임 때문에 마약과 알코올, 도박 등 다른 중독물질에 대한 법안마저 통과에 어려움을 겪자 중독법 통과를 위해 게임을 중독법에서 제외하기로 결정한 셈이다.\n" +
             "신 의원이 발의한 '중독법'은 알코올, 마약, 도박 같은 중독물질에 대해 국가 차원에서 중독 예방 및 치료 체계를 갖추고, 이를 위해 국무총리 소속 국가중독관리위원회와 중독관리센터를 설치하는 내용을 골자로 하고 있다.\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "\n" +
             "이 법안은 게임을 물리적, 정신적 중독 요소인 도박과 마약 등을 동급인 중독 물질로 취급해 게이머들과 많은 전문가에게 거센 반발을 불러오며 논란이 된 바 있다. 현재 해당 법안은 지난해 4월 발의 이후 국회 보건복지위원회 법안심사소위원회에 계류돼 있는 상태다.\n" +
-            "\n" +
             "새누리당의 손인춘 의원이 발의한 '인터넷 게임중독 예방 및 치유지원에 관한 법률(이른바 손인춘법)도 아직 국회에 계류된 상태이며 신 의원 또한 '게임 및 미디어 콘텐츠를 따로 떼어내 관리하는 방안을 검토 중'이라고 밝힌 바 있다.\n" +
-            "\n" +
             "신 의원은 지난 1일 머나투데이와 가진 인터뷰에서 \"중독법에서 인터넷 게임과 스마트폰 게임 등의 미디어 콘텐츠를 제외하고 이를 특별히 다루는 새로운 방안을 보건복지부와 협의 중\"이라고 밝혔다. 알코올, 마약, 도박 등 이미 그 사례가 입증된 중독 요소들을 이번 법안에 포함하고, 게임 및 미디어 콘텐츠에 대해서는 다음에 논의하겠다는 의미다.\n" +
-            "\n" +
             "신의원은 \"이번 법안에 반대하는 사람들은 게임과 마약이 같이 분류되어 화가 나는 것으로 생각한다. 이런 식으로 논란이 되면 법안이 입법되기 힘들다\"고 전했다.\n" +
-            "\n" +
             "이에 대한 논란이 이어지자 신 의원은 2일 \"중독법에서 게임 등 미디어 콘텐츠만을 분리시켜 별도 법안을 마련하는 방안을 논의 중\"이라며 \"입법화를 위한 과정으로 게임 중독에 대한 기본 입장에 변화가 없다\"는 입장을 밝혔다.\n" +
-            "\n" +
             "게임업계와 ICT산업에선일단 게임을 제외한 상태에서 중독법을 통과시킨 후 향후 게임에 대한 별도의 법안을 발의하는 것이 아니냐는 추측도 나오고 있다.";
 
     @Test
@@ -455,7 +444,6 @@ public class MALLET_Test {
 
         InstanceList instances = new InstanceList(new SerialPipes(pipeList));
 
-        String fileName = "";
         Reader fileReader = new InputStreamReader(new ByteArrayInputStream(inData.getBytes()));
 
 
@@ -464,8 +452,8 @@ public class MALLET_Test {
         // Create a model with 100 topics, alpha_t = 0.01, beta_w = 0.01
         //  Note that the first parameter is passed as the sum over topics, while
         //  the second is the parameter for a single dimension of the Dirichlet prior.
-        int numTopics = 100;
-        ParallelTopicModel model = new ParallelTopicModel(numTopics, 1.0, 0.01);
+        int numTopics = 3;
+        ParallelTopicModel model = new ParallelTopicModel(numTopics, 0.5, 0.01);
 
         model.addInstances(instances);
 
@@ -498,7 +486,7 @@ public class MALLET_Test {
 
         // Get an array of sorted sets of word ID/count pairs
         ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
-
+        Set<String> keywordList = new HashSet<>();
         // Show top 5 words in topics with proportions for the first document
         for (int topic = 0; topic < numTopics; topic++) {
             Iterator<IDSorter> iterator = topicSortedWords.get(topic).iterator();
@@ -507,17 +495,18 @@ public class MALLET_Test {
             out.format("%d\t%.3f\t", topic, topicDistribution[topic]);
 
             int rank = 0;
-            while (iterator.hasNext() && rank < 5) {
+            while (iterator.hasNext() && rank < 2) {
                 IDSorter idCountPair = iterator.next();
                 out.format("%s (%.0f) ", dataAlphabet.lookupObject(idCountPair.getID()), idCountPair.getWeight());
                 rank++;
+
+                String topicWord = (String) dataAlphabet.lookupObject(idCountPair.getID());
+                keywordList.add(topicWord);
             }
 
-            if (out.toString().contains("0.00")) {
-                continue;
-            }
             LOG.debug("{}", out);
         }
+        LOG.debug("{}", keywordList);
 
         // Create a new instance with high probability of topic 0
         StringBuilder topicZeroText = new StringBuilder();

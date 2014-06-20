@@ -5,17 +5,16 @@ import com.infoc.crawler.kr.GoogleNewsCrawler;
 import com.infoc.crawler.kr.NaverNewsCrawler;
 import com.infoc.crawler.kr.OtherNewsCrawler;
 import com.infoc.crawler.us.BaseballNewsCrawler;
-import com.infoc.crawler.us.USATodayCrawler;
 import com.infoc.crawler.us.ChicagoTribuneCrawler;
 import com.infoc.crawler.us.LATimesCrawler;
 import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.crawler.us.TimeCrawler;
+import com.infoc.crawler.us.USATodayCrawler;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
 import com.infoc.service.CollectionService;
 import com.infoc.service.USCollectionService;
-import com.infoc.util.EconInfoCrawler;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -69,25 +68,23 @@ public class CrawlScheduler {
 	
 	private void setUpCrawlerList() {
 		// kr
-		newsCrawlerList.add(daumNewsCrawler);
-		newsCrawlerList.add(naverNewsCrawler);
-		newsCrawlerList.add(googleNewsCrawler);
-		newsCrawlerList.add(otherNewsCrawler);
+//		newsCrawlerList.add(daumNewsCrawler);
+//		newsCrawlerList.add(naverNewsCrawler);
+//		newsCrawlerList.add(googleNewsCrawler);
+//		newsCrawlerList.add(otherNewsCrawler);
+//
+//		// us
+//		newsCrawlerList.add(timeCrawler);
+//        newsCrawlerList.add(usaTodayCrawler);
+//		newsCrawlerList.add(laTimesCrawler);
+//		newsCrawlerList.add(baseballNewsCrawler);
 
         // impossible to parse RSS
         // newsCrawlerList.add(nyTimesCrawler);
-		// newsCrawlerList.add(chicagoTribuneCrawler);
-
-		// us
-		newsCrawlerList.add(timeCrawler);
-        newsCrawlerList.add(usaTodayCrawler);
-		newsCrawlerList.add(laTimesCrawler);
-		newsCrawlerList.add(baseballNewsCrawler);
+        // newsCrawlerList.add(chicagoTribuneCrawler);
 	}
 
 	private void setUpSchedules() {
-//		scheduledExecutorService.scheduleWithFixedDelay(new EconCrawlTask(), 0, 5, TimeUnit.MINUTES);
-		
 		// After finished the task, wait for the delay and execute the task again
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 0, 5, TimeUnit.MINUTES);
 		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 30, 1, TimeUnit.MINUTES);
@@ -136,20 +133,6 @@ public class CrawlScheduler {
 			
 			LOG.info("********* [END] collect the articles from RSS at {} ***********",
 					new DateTime(DateTimeZone.forID("Asia/Seoul")));
-		}
-	}
-
-	private static class EconCrawlTask implements Runnable {
-		@Override
-		public void run() {
-			try {
-				LOG.info("run to crawl the econ indicators.");
-				
-				CollectionService.ECON_INFO.putAll(EconInfoCrawler.getStock());
-				CollectionService.ECON_INFO.putAll(EconInfoCrawler.getCurrency());
-			} catch (Exception e) {
-				LOG.error("", e);
-			}
 		}
 	}
 

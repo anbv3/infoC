@@ -33,6 +33,9 @@ public class ContentsAnalysisService {
         Set<String> keyWordList = createKeyWorkList(article);
         article.setKeyWordList(keyWordList);
 
+        // title 기반 keyword와 LDA 기반 keyword를 따로 분리해서
+        // createSentenceList에 넣고 matched point를 계산한다.
+
         // create key sentences
         List<SentenceInfo> sentenceList = createSentenceList(keyWordList, article.getContents());
         List<SentenceInfo> keySentenceList = createKeySentenceList(sentenceList);

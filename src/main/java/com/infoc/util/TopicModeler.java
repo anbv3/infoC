@@ -32,7 +32,8 @@ public class TopicModeler {
     private static final int NUM_ITERATIONS = 50;
     private static final int NUM_TOPIC = 1;
     private static final int NUM_TOPIC_WORDS = 6;
-    private static final String KR_STOP_LIST[] = {"이", "그", "저", "것", "수", "등", "들", "및", "에서", "그리고", "그래서", "또", "또는", "있습니다", "있다"};
+    private static final String KR_STOP_LIST[] =
+            {"이", "그", "저", "것", "수", "등", "들", "및", "에서", "그리고", "그래서", "또", "또는", "있습니다", "있다", "이었다", "되었다"};
 
     public static synchronized Set<String> getMainTopics(String contents) throws IOException {
 
@@ -58,7 +59,7 @@ public class TopicModeler {
         InstanceList instances = new InstanceList(PIPE);
         instances.addThruPipe(new CsvIterator(fileReader, Pattern.compile("^(\\S*)[\\s,]*(\\S*)[\\s,]*(.*)$"), 3, 2, 1));
 
-        ParallelTopicModel model = new ParallelTopicModel(NUM_TOPIC, 0.5, 0.01);
+        ParallelTopicModel model = new ParallelTopicModel(NUM_TOPIC, 0.1, 0.01);
         model.addInstances(instances);
 
         model.setNumThreads(2);

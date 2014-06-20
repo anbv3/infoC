@@ -41,7 +41,57 @@
 
 						<div class="item_content col-xs-12"><span class="label label-primary article-sum-mark">${summary}</span>&nbsp;${row.mainContents}</div>
 
-
+                        <!-- sharing buttons -->
+                        <div class="container-fluid">
+                            <ul class="nav navbar-nav row">
+                                <li class="col-xs-2">
+                                    <spring:url value="https://www.facebook.com/sharer/sharer.php" var="facebook">
+                                        <spring:param name="u" value="${row.link}"/>
+                                    </spring:url>
+                                    <a href="${facebook}" target="_blank" title="Facebook">
+                                        <img src="<c:url value="/img/social/Facebook.png"/>">
+                                    </a>
+                                </li>
+                                <li class="col-xs-2">
+                                    <spring:url value="https://twitter.com/intent/tweet" var="twitter">
+                                        <spring:param name="source" value="${row.link}"/>
+                                        <spring:param name="text" value="${row.title}: ${row.link}"/>
+                                    </spring:url>
+                                    <a href="${twitter}" target="_blank" title="Tweet">
+                                        <img src="<c:url value="/img/social/Twitter.png"/>">
+                                    </a>
+                                </li>
+                                <li class="col-xs-2">
+                                    <spring:url value="https://plus.google.com/share" var="google">
+                                        <spring:param name="url" value="${row.link}"/>
+                                    </spring:url>
+                                    <a href="${google}" target="_blank" title="Share on Google+">
+                                        <img src="<c:url value="/img/social/Google+.png"/>">
+                                    </a>
+                                </li>
+                                <li class="col-xs-2">
+                                    <spring:url value="http://www.tumblr.com/share" var="tumblr">
+                                        <spring:param name="v" value="3"/>
+                                        <spring:param name="u" value="http%3A%2F%2F${fn:replace(row.link,'http://','')}"/>
+                                        <spring:param name="t" value="${row.title}"/>
+                                        <spring:param name="s" value=" "/>
+                                    </spring:url>
+                                    <a href="${tumblr}" target="_blank" title="Post to Tumblr">
+                                        <img src="<c:url value="/img/social/Tumblr.png"/>">
+                                    </a>
+                                </li>
+                                <li class="col-xs-2">
+                                    <spring:url value="https://getpocket.com/save" var="getpocket">
+                                        <spring:param name="url" value="http%3A%2F%2F${fn:replace(row.link,'http://','')}"/>
+                                        <spring:param name="title" value="${row.title}"/>
+                                    </spring:url>
+                                    <a href="${getpocket}" target="_blank" title="Add to Pocket">
+                                        <img src="<c:url value="/img/social/Pocket.png"/>">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- // sharing buttons -->
 
 						<div class="row">
 							<div class="panel-group panel-group-sArt col-xs-12">
