@@ -42,7 +42,7 @@
 						<div class="item_content col-xs-12"><span class="label label-primary article-sum-mark">${summary}</span>&nbsp;${row.mainContents}</div>
 
                         <!-- sharing buttons -->
-                        <div class="container-fluid">
+                        <div class="container-fluid social-btn">
                             <ul class="nav navbar-nav row">
                                 <li class="col-xs-2">
                                     <spring:url value="https://www.facebook.com/sharer/sharer.php" var="facebook">

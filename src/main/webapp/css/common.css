@@ -21,8 +21,9 @@ button {
     font-size: 18px;
 }
 
-.nav > li > a {
-    padding: 15px 12px;
+.social-btn>.nav>li>a:hover, .social-btn>.nav>li>a:focus {
+text-decoration: none;
+background-color: none;
 }
 
 .navbar-inverse .nav > li > a {
