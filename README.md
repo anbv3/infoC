@@ -10,7 +10,9 @@
 
 * 요약 기능 개선 => corePt = (title * 1.5 + keyword * 2.0 + length * 0.5 + position * 1.0) / 4.0  
 => position: 맨앞 또는 맨뒤 문장이 중간보단 중요하다..ㅋ
- 
+  
+* medium 처럼 문장마다 사이드에 커멘트를 추가하자 (전체 본문보기 페이지부터 필요..ㅋㅋ)  
+  http://aroc.github.io/side-comments-demo/
   
 * 회원 가입 추가 => favorite 버튼 => 중요도에 반영 => 내 기사 보기 => 유사 기사 보기
   
