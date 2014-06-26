@@ -168,8 +168,8 @@ public class ParseTest {
 
 	@Test
 	public void testWordLength() {
-		LOG.debug("{}", "강원".length());
-		LOG.debug("{}", "강원".getBytes().length);
+		LOG.debug("{}", "강원".length()); // 2
+		LOG.debug("{}", "강원".getBytes().length); // 6
 		LOG.debug("{}", "&nbsp;".replaceAll( "([\\ud800-\\udbff\\udc00-\\udfff])", ""));
 	}
 

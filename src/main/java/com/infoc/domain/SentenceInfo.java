@@ -1,15 +1,15 @@
 package com.infoc.domain;
 
-import java.util.List;
-import java.util.Set;
-
 import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
+import java.util.List;
+import java.util.Set;
+
 public class SentenceInfo {
 	private Integer index;
-	private String sentance;
+	private String sentence;
 	private Integer length;
 	private Integer matchedWord; // the number of matched words with the keyword list
 
@@ -24,7 +24,7 @@ public class SentenceInfo {
 			Splitter.on(" ")
 				.omitEmptyStrings()
 				.trimResults()
-				.split(this.sentance)
+				.split(this.sentence)
 			);
 
 		for (String word : wList) {
@@ -38,12 +38,30 @@ public class SentenceInfo {
 		this.matchedWord = matchedCnt;
 	}
 
+    /**
+     * 본문에서 각 문장의 위치에 따라 추가 점수 부여..ㅋ
+     * @param totalNum 본문에서 전체 문장의 갯수
+     */
+    public void addPositionPnt(int totalNum) {
+        float pRatio = (float)index / (float)totalNum;
+
+        if (Float.compare(pRatio, (float) 0.3) <= 0) {
+            this.matchedWord += 1;
+            return;
+        }
+
+        if (Float.compare(pRatio, (float) 0.7) >= 0) {
+            this.matchedWord += 2;
+            return;
+        }
+    }
+
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
 			.add("index", this.index)
 			.add("matchedWord", this.matchedWord)
-			.add("sentance", this.sentance)
+			.add("sentence", this.sentence)
 			.add("length", this.length)
 			.toString();
 	}
@@ -64,12 +82,12 @@ public class SentenceInfo {
 		this.matchedWord = matchedWord;
 	}
 
-	public String getSentance() {
-		return sentance;
+	public String getSentence() {
+		return sentence;
 	}
 
-	public void setSentance(String sentance) {
-		this.sentance = sentance;
+	public void setSentence(String sentence) {
+		this.sentence = sentence;
 	}
 
 	public Integer getLength() {

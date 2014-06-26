@@ -43,7 +43,7 @@
 
                         <!-- sharing buttons -->
                         <div class="container-fluid social-btn">
-                            <ul class="nav navbar-nav row">
+                            <ul class="nav navbar-nav row social-btn-bar">
                                 <li class="col-xs-2">
                                     <spring:url value="https://www.facebook.com/sharer/sharer.php" var="facebook">
                                         <spring:param name="u" value="${row.link}"/>

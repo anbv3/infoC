@@ -18,8 +18,9 @@ import java.util.List;
 import java.util.Set;
 
 public class ContentsAnalysisService {
-	private static final Logger LOG = LoggerFactory.getLogger(ContentsAnalysisService.class);
-	
+    private static final Logger LOG = LoggerFactory.getLogger(ContentsAnalysisService.class);
+
+    private static final int MAX_CONTENTS_LENGTH = 400;
     private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
     public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 
@@ -42,20 +43,20 @@ public class ContentsAnalysisService {
 
         StringBuilder sb = new StringBuilder();
         for (SentenceInfo sentence : keySentenceList) {
-            sb.append(sentence.getSentance().trim()).append(" ");
+            sb.append(sentence.getSentence().trim()).append(" ");
         }
 
         article.setMainContents(sb.toString());
     }
 
-	private static Set<String> createKeyWorkList(Article article) {
+    private static Set<String> createKeyWorkList(Article article) {
         Set<String> keyWordList = new HashSet<>();
 
         StringBuilder sb = new StringBuilder(article.getTitle());
         sb.append(" ").append(article.getContents());
-        
+
         try {
-        	Set<String> topicKeywords = TopicModeler.getMainTopics(sb.toString());
+            Set<String> topicKeywords = TopicModeler.getMainTopics(sb.toString());
             for (String word : topicKeywords) {
                 if (!word.contains("@")) {
                     keyWordList.add(word);
@@ -64,7 +65,9 @@ public class ContentsAnalysisService {
 
             // eliminate special characters from title and split it
             Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.omitEmptyStrings()
-            		.trimResults().split(article.getTitle().replaceAll("[^\\p{L}\\p{Z}]", " ")));
+                                                                  .trimResults()
+                                                                  .split(article.getTitle()
+                                                                                .replaceAll("[^\\p{L}\\p{Z}]", " ")));
             for (String word : titleList) {
                 if (word.length() > 1) {
                     keyWordList.add(word);
@@ -73,9 +76,9 @@ public class ContentsAnalysisService {
 
             LOG.debug("{} => {}", article.getSection().getSection(), keyWordList);
         } catch (IOException e) {
-        	LOG.debug("", e);
+            LOG.debug("", e);
         }
-        
+
         return keyWordList;
     }
 
@@ -94,9 +97,11 @@ public class ContentsAnalysisService {
             SentenceInfo scInfo = new SentenceInfo();
             scInfo.setIndex(i);
             scInfo.setLength(sentence.length());
-            scInfo.setSentance(sentence);
-            // 각 문장에서 keyword 리스트와 비교하고 매칭되는 개수를 저장
+            scInfo.setSentence(sentence);
+
+            // 각 문장의 점수 부여
             scInfo.checkKeyword(keyWordList);
+            scInfo.addPositionPnt(sList.size());
 
             sentenceList.add(scInfo);
         }
@@ -110,8 +115,13 @@ public class ContentsAnalysisService {
         List<SentenceInfo> matchedOrderList = Article.matchedOrder.nullsLast().reverse().sortedCopy(sentenceList);
         int maxKeySentence = matchedOrderList.size() <= 3 ? matchedOrderList.size() : 3;
 
+        int totalSize = 0;
         for (int i = 0; i < maxKeySentence; i++) {
             keySentenceList.add(matchedOrderList.get(i));
+            totalSize += matchedOrderList.get(i).getSentence().length();
+            if (totalSize > MAX_CONTENTS_LENGTH) {
+                break;
+            }
         }
 
         Collections.sort(keySentenceList, Article.indexOrder.nullsFirst());
