@@ -31,18 +31,17 @@ import java.util.List;
 @Component
 public class USATodayCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(USATodayCrawler.class);
-	private static String TODAY = "http://rssfeeds.usatoday.com/usatoday-NewsTopStories";
-	private static String POLITICS = "http://rssfeeds.usatoday.com/TP-OnPolitics";
-	private static String ECON = "http://rssfeeds.usatoday.com/UsatodaycomMoney-TopStories";
-	private static String ENT = "http://rssfeeds.usatoday.com/usatoday-LifeTopStories";
-	private static String SPORT = "http://rssfeeds.usatoday.com/UsatodaycomSports-TopStories";
-	private static String MLB = "http://rssfeeds.usatoday.com/UsatodaycomMlbNl-TopStories";
-	private static String IT = "http://rssfeeds.usatoday.com/usatoday-TechTopStories";
+	private static String TODAY = "http://rssfeeds.usatoday.com/usatoday-newstopstories&x=1";
+	private static String POLITICS = "http://rssfeeds.usatoday.com/tp-onpolitics&x=1";
+	private static String ECON = "http://rssfeeds.usatoday.com/usatodaycommoney-topstories&x=1";
+	private static String ENT = "http://rssfeeds.usatoday.com/usatoday-lifetopstories&x=1";
+	private static String SPORT = "http://rssfeeds.usatoday.com/usatodaycomsports-topstories&x=1";
+	private static String MLB = "http://rssfeeds.usatoday.com/usatodaycommlbnl-topstories&x=1";
+	private static String IT = "http://rssfeeds.usatoday.com/usatoday-techtopstories&x=1";
 	
-	private static String HEALTH = "http://rssfeeds.usatoday.com/UsatodaycomHealth-TopStories";
-	private static String TV = "http://rssfeeds.usatoday.com/UsatodaycomTelevision-TopStories";
-	private static String MOVIE = "http://rssfeeds.usatoday.com/UsatodaycomMovies-TopStories";
-	private static String MUSIC = "http://rssfeeds.usatoday.com/UsatodaycomMusic-TopStories";
+	private static String TV = "http://rssfeeds.usatoday.com/usatodaycomtelevision-topstories&x=1";
+	private static String MOVIE = "http://rssfeeds.usatoday.com/usatodaycommovies-topstories&x=1";
+	private static String MUSIC = "http://rssfeeds.usatoday.com/usatodaycommusic-topstories&x=1";
 
 	private List<Article> articleList = new ArrayList<>();
 	
@@ -51,7 +50,7 @@ public class USATodayCrawler implements NewsCrawler {
 	
 	@Override
 	public List<Article> createArticleList() {
-		LOG.debug("get RSS from Boston.");
+		LOG.debug("get RSS from USAToday.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
@@ -61,7 +60,6 @@ public class USATodayCrawler implements NewsCrawler {
 		createListBySection(MLB, ArticleSection.SPORT);
 		createListBySection(IT, ArticleSection.IT);
 
-		createListBySection(HEALTH, ArticleSection.CULTURE);
 		createListBySection(TV, ArticleSection.CULTURE);
 		createListBySection(MOVIE, ArticleSection.CULTURE);
 		createListBySection(MUSIC, ArticleSection.CULTURE);

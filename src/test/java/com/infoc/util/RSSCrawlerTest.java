@@ -22,7 +22,7 @@ public class RSSCrawlerTest {
 
 	@Test
 	public void testLib() {
-		String url = "http://rssfeeds.usatoday.com/usatoday-NewsTopStories";
+		String url = "http://rssfeeds.usatoday.com/usatoday-newstopstories&x=1";
 
 		try {
 			URL feedUrl = new URL(url);
