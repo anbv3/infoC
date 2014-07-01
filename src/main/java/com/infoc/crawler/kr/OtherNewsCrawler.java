@@ -54,8 +54,7 @@ public class OtherNewsCrawler implements NewsCrawler {
 		createListBySection(SLOW_NEWS, ArticleSection.OTHERS);
 		createListBySection(PPSS, ArticleSection.OTHERS);
 		createListBySection(MEDIATODAY, ArticleSection.OTHERS);
-
-		createListBySection(CLIEN_NEWS, ArticleSection.IT);
+		createListBySection(CLIEN_NEWS, ArticleSection.OTHERS);
 
 		return this.articleList;
 	}
@@ -93,7 +92,13 @@ public class OtherNewsCrawler implements NewsCrawler {
 		Article article = new Article();
 		article.setSection(section);
 		article.setAuthor(rssItem.getAuthor());
-		article.setLink(rssItem.getLink());
+
+        if (rssItem.getLink().contains("likelink")) {
+            article.setLink(findLikeLink(rssItem.getLink()));
+        } else {
+            article.setLink(rssItem.getLink());
+        }
+
 		article.setCountry("KR");
 		
 		DateTime pubDate = new DateTime(rssItem.getPublishedDate(), DateTimeZone.forID("Asia/Seoul"));
@@ -113,14 +118,12 @@ public class OtherNewsCrawler implements NewsCrawler {
 		return article;
 	}
 
+    private String findLikeLink(String likeUrl) {
+        return "http://likelink.co.kr/" + likeUrl.substring(likeUrl.lastIndexOf("/") + 1);
+    }
+
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
-		
-		// likelink는 403 떠서 원문을 못 가져옴..ㅜㅜ
-		if (rssLink.contains("likelink")) {
-			article.setContents(Jsoup.parse(rssItem.getDescription().getValue()).select("ul").text());
-			return;
-		}
 
 		Document doc;
 		try {
@@ -132,6 +135,12 @@ public class OtherNewsCrawler implements NewsCrawler {
 			LOG.error(rssLink + "\n", e);
 			return;
 		}
+
+        if (rssLink.contains("likelink")) {
+            article.setLink(doc.select("iframe").attr("src"));
+            article.setContents(Jsoup.parse(rssItem.getDescription().getValue()).select("ul").text());
+            return;
+        }
 
 		Elements contentsArea;
 		if (rssLink.contains("newspeppermint")) {

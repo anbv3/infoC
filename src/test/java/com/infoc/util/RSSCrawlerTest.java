@@ -60,6 +60,27 @@ public class RSSCrawlerTest {
 		}
 	}
 
+    @Test
+    public void testLikeLink() {
+        String url = "http://likelink.co.kr/31696";
+
+        Document doc;
+        try {
+
+            doc = Jsoup.connect(url)
+                       .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                       .timeout(6000)
+                       .get();
+
+            LOG.debug("{}", doc.toString());
+
+            String contentId = "iframe";
+            LOG.debug("{}", doc.select(contentId).attr("src"));
+        }
+        catch (IOException e) {
+            LOG.debug("", e);
+        }
+    }
 
     @Test
     public void testLATimes() {
