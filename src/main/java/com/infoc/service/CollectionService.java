@@ -253,13 +253,13 @@ public class CollectionService {
     }
 
     public static void clearYesterday() {
+        DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+
         for (Map<Integer, List<Article>> cache : CACHE_LIST) {
             for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
                 Iterator<Article> article = entry.getValue().iterator();
                 while (article.hasNext()) {
-                    DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-
-                    if (article.next().getPubDate().before(currentTime.minusDays(1).minusHours(1).toDate())) {
+                    if (article.next().getPubDate().before(currentTime.minusDays(1).minusHours(1).minusMinutes(10).toDate())) {
                         article.remove();
                     }
                 }

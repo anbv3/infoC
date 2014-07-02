@@ -9,6 +9,8 @@ import com.infoc.service.CollectionService;
 import com.infoc.service.ContentsAnalysisService;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -185,4 +187,14 @@ public class ParseTest {
 		LOG.debug("{}", DateTime.now(DateTimeZone.forID("Asia/Seoul")).toDate());
 		
 	}
+
+
+    @Test
+    public void testClear() {
+        DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+        DateTime dt = formatter.parseDateTime("01/07/2014 13:17:00");
+
+        LOG.debug("{}", dt.toDate().before(currentTime.minusDays(1).minusHours(1).toDate()));
+    }
 }
