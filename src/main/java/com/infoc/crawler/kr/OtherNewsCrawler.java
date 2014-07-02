@@ -48,7 +48,9 @@ public class OtherNewsCrawler implements NewsCrawler {
 	public List<Article> createArticleList() {
 		LOG.debug("get RSS from USER.");
 
-		createListBySection(LIKELINK, ArticleSection.OTHERS);
+        // 403 Forbidden from the out side of korea...
+		// createListBySection(LIKELINK, ArticleSection.OTHERS);
+
 		createListBySection(NEWSTAPA, ArticleSection.OTHERS);
 		createListBySection(NEWSPEPPER, ArticleSection.OTHERS);
 		createListBySection(SLOW_NEWS, ArticleSection.OTHERS);
