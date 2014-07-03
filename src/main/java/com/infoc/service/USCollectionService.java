@@ -245,19 +245,18 @@ public class USCollectionService {
 	}
 
 	public static void clearYesterday() {
+        DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+
 		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
 			for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 				Iterator<Article> article = entry.getValue().iterator();
 				while (article.hasNext()) {
-					if (article
-							.next()
-							.getPubDate()
-							.before(
-									DateTime.now(
-											DateTimeZone.forID("Asia/Seoul"))
-											.minusDays(1).minusHours(1).toDate())) {
-						article.remove();
-					}
+                    if ( article.next().getPubMonth() <= currentTime.getMonthOfYear() &&
+                            article.next().getPubDay() < currentTime.getDayOfMonth() &&
+                            article.next().getPubHour() <= currentTime.getHourOfDay() ) {
+
+                        article.remove();
+                    }
 				}
 			}
 		}

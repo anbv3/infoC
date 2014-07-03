@@ -232,7 +232,7 @@ public class CollectionService {
                 	LOG.debug("{}", curArticle.getTitle());
                     return;
                 }
-                
+
                 if (isDuplicate(curArticle, newArticle)) {
                     articleService.update(curArticle);
                     return;
@@ -259,7 +259,10 @@ public class CollectionService {
             for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
                 Iterator<Article> article = entry.getValue().iterator();
                 while (article.hasNext()) {
-                    if (article.next().getPubDate().before(currentTime.minusDays(1).minusHours(1).minusMinutes(10).toDate())) {
+                    if ( article.next().getPubMonth() <= currentTime.getMonthOfYear() &&
+                            article.next().getPubDay() < currentTime.getDayOfMonth() &&
+                            article.next().getPubHour() <= currentTime.getHourOfDay() ) {
+
                         article.remove();
                     }
                 }

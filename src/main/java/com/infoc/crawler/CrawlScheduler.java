@@ -140,6 +140,7 @@ public class CrawlScheduler {
 		@Override
 		public void run() {
 			LOG.info("Clear articles one day before!");
+            // actually remove the articles published 25 hours ago
 			CollectionService.clearYesterday();
 			USCollectionService.clearYesterday();
 		}
