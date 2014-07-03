@@ -254,6 +254,7 @@ public class CollectionService {
 
     public static void clearYesterday() {
         DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+        LOG.debug("currentTime: {}", currentTime);
 
         for (Map<Integer, List<Article>> cache : CACHE_LIST) {
             for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
@@ -261,7 +262,7 @@ public class CollectionService {
                 while (article.hasNext()) {
                     if ( article.next().getPubMonth() <= currentTime.getMonthOfYear() &&
                             article.next().getPubDay() < currentTime.getDayOfMonth() &&
-                            article.next().getPubHour() <= currentTime.getHourOfDay() ) {
+                            article.next().getPubHour() <= (currentTime.getHourOfDay() + 1) ) {
 
                         article.remove();
                     }

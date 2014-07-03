@@ -139,7 +139,9 @@ public class CrawlScheduler {
 	private static class CrawlClearTask implements Runnable {
 		@Override
 		public void run() {
-			LOG.info("Clear articles one day before!");
+            DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+			LOG.info("Clear articles one day before! => CurrentTime: {}", currentTime);
+
             // actually remove the articles published 25 hours ago
 			CollectionService.clearYesterday();
 			USCollectionService.clearYesterday();

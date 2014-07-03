@@ -253,7 +253,7 @@ public class USCollectionService {
 				while (article.hasNext()) {
                     if ( article.next().getPubMonth() <= currentTime.getMonthOfYear() &&
                             article.next().getPubDay() < currentTime.getDayOfMonth() &&
-                            article.next().getPubHour() <= currentTime.getHourOfDay() ) {
+                            article.next().getPubHour() <= (currentTime.getHourOfDay() + 1) ) {
 
                         article.remove();
                     }
