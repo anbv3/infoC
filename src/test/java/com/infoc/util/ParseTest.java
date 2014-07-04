@@ -194,14 +194,10 @@ public class ParseTest {
     public void testClear() {
         DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-        DateTime dt = formatter.parseDateTime("02/07/2014 21:35:37");
+        DateTime dt = formatter.parseDateTime("03/07/2014 14:50:37");
 
-        if (dt.getMonthOfYear() <= currentTime.getMonthOfYear() &&
-                dt.getDayOfMonth() < currentTime.getDayOfMonth() &&
-                dt.getHourOfDay() <= (currentTime.getHourOfDay() + 1)) {
+        if (dt.isBefore(currentTime.minusDays(1).plusHours(1))) {
             LOG.debug("true");
-        } else {
-            LOG.debug("false");
         }
 
     }

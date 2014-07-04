@@ -251,10 +251,8 @@ public class USCollectionService {
 			for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 				Iterator<Article> article = entry.getValue().iterator();
 				while (article.hasNext()) {
-                    if ( article.next().getPubMonth() <= currentTime.getMonthOfYear() &&
-                            article.next().getPubDay() < currentTime.getDayOfMonth() &&
-                            article.next().getPubHour() <= (currentTime.getHourOfDay() + 1) ) {
-
+                    DateTime pubTime = new DateTime(article.next().getPubDate(), DateTimeZone.forID("Asia/Seoul"));
+                    if (pubTime.isBefore(currentTime.minusDays(1).plusHours(1))) {
                         article.remove();
                     }
 				}
