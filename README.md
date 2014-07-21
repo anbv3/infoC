@@ -148,3 +148,5 @@ for(각 page : 전체 web page) {
     4. 리펙토링 => 공통/중복 로직은 common class로~
     
 }
+
+<META NAME = GOOGLEBOT" CONTENT= "NOINDEX, NOFOLLOW">
