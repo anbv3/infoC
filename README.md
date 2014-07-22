@@ -17,12 +17,11 @@
   
 * 회원 가입 추가 => favorite 버튼 => 중요도에 반영 => 내 기사 보기 => 유사 기사 보기
   
-  1. 일단계는 이메일만 받고 이메일을 암호화해서 파라미터로 가지고 다니면서 ADD 기능에 사용하고
-      개인 페이지에서는 ADD한 기사를 시간순으로 출력~ 
-
-  2. 로그인 폼 암호화: http://www.jcryption.org
+  1. facebook, google 로그인
+  http://projects.spring.io/spring-social/core.html
+  http://maven-repository.com/artifact/org.springframework.social/spring-social-google/1.0.0.RELEASE
   
-  3. 관련기사 버튼을 빼로 저장 버튼을 넣는다. 관련기사는 무조건 밑에 추가한다.
+  3. 관련기사 버튼을 빼고 favorite 저장 버튼을 넣는다. 관련기사는 무조건 밑에 추가한다.
 
 
 
