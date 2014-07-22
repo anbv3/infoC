@@ -17,7 +17,7 @@
   
 * 회원 가입 추가 => favorite 버튼 => 중요도에 반영 => 내 기사 보기 => 유사 기사 보기
   
-  1. facebook, google 로그인
+  1. facebook, google 로그인  
   http://projects.spring.io/spring-social/core.html
   http://maven-repository.com/artifact/org.springframework.social/spring-social-google/1.0.0.RELEASE
   
