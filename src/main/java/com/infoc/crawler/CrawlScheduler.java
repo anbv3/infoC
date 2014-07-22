@@ -68,16 +68,16 @@ public class CrawlScheduler {
 	
 	private void setUpCrawlerList() {
 		// kr
-//		newsCrawlerList.add(daumNewsCrawler);
-//		newsCrawlerList.add(naverNewsCrawler);
-//		newsCrawlerList.add(googleNewsCrawler);
-//		newsCrawlerList.add(otherNewsCrawler);
+		newsCrawlerList.add(daumNewsCrawler);
+		newsCrawlerList.add(naverNewsCrawler);
+		newsCrawlerList.add(googleNewsCrawler);
+		newsCrawlerList.add(otherNewsCrawler);
 
 		// us
-//		newsCrawlerList.add(timeCrawler);
-//        newsCrawlerList.add(usaTodayCrawler);
-//		newsCrawlerList.add(laTimesCrawler);
-//		newsCrawlerList.add(baseballNewsCrawler);
+		newsCrawlerList.add(timeCrawler);
+        newsCrawlerList.add(usaTodayCrawler);
+		newsCrawlerList.add(laTimesCrawler);
+		newsCrawlerList.add(baseballNewsCrawler);
 
         // impossible to parse RSS
         // newsCrawlerList.add(nyTimesCrawler);
