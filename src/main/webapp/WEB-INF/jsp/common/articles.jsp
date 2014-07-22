@@ -24,7 +24,9 @@
 			<div id="story-${requestDay}-${entry.key}" class="story row">
 
 				<c:forEach var="row" items="${entry.value}" varStatus="cnt">
-					<div class="item">
+
+                    <c:if test="${row.numDups >= 3}"><div class="item" style="border: 2px solid #d2322d"></c:if>
+                    <c:if test="${row.numDups < 3}"><div class="item"></c:if>
 
 						<div class="item_title col-xs-12">
 							<a href="${row.link}" target="_blank">${row.title}</a>
