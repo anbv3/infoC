@@ -149,4 +149,4 @@ for(각 page : 전체 web page) {
     
 }
 
-<META NAME = GOOGLEBOT" CONTENT= "NOINDEX, NOFOLLOW">
+
