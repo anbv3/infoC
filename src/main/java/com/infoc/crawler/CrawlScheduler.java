@@ -5,11 +5,10 @@ import com.infoc.crawler.kr.GoogleNewsCrawler;
 import com.infoc.crawler.kr.NaverNewsCrawler;
 import com.infoc.crawler.kr.OtherNewsCrawler;
 import com.infoc.crawler.us.BaseballNewsCrawler;
-import com.infoc.crawler.us.ChicagoTribuneCrawler;
 import com.infoc.crawler.us.LATimesCrawler;
-import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.crawler.us.TimeCrawler;
 import com.infoc.crawler.us.USATodayCrawler;
+import com.infoc.crawler.us.WashingtonTimesCrawler;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
@@ -52,9 +51,7 @@ public class CrawlScheduler {
 	
 	// us
 	@Autowired
-	public NYTimesCrawler nyTimesCrawler;
-	@Autowired
-	public ChicagoTribuneCrawler chicagoTribuneCrawler;
+	public WashingtonTimesCrawler washingtonTimesCrawler;
 	@Autowired
 	public USATodayCrawler usaTodayCrawler;
 	@Autowired
@@ -76,12 +73,10 @@ public class CrawlScheduler {
 		// us
 		newsCrawlerList.add(timeCrawler);
         newsCrawlerList.add(usaTodayCrawler);
+        newsCrawlerList.add(washingtonTimesCrawler);
 		newsCrawlerList.add(laTimesCrawler);
 		newsCrawlerList.add(baseballNewsCrawler);
 
-        // impossible to parse RSS
-        // newsCrawlerList.add(nyTimesCrawler);
-        // newsCrawlerList.add(chicagoTribuneCrawler);
 	}
 
 	private void setUpSchedules() {

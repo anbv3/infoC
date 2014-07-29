@@ -31,7 +31,7 @@ import java.util.List;
 public class LATimesCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(LATimesCrawler.class);
 	private static String TODAY = "http://feeds.latimes.com/latimes/news";
-	private static String POLITICS = "http://feeds.latimes.com/latimes/news/politics/";
+	private static String POLITICS = "http://feeds.latimes.com/latimes/news/politics";
 	private static String ECON = "http://feeds.latimes.com/latimes/business";
 	private static String CULTURE = "http://feeds.feedburner.com/latimes/entertainment/news/arts";
 	private static String ENT = "http://feeds.feedburner.com/latimes/entertainment/news/";

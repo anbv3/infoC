@@ -22,7 +22,7 @@ public class RSSCrawlerTest {
 
 	@Test
 	public void testLib() {
-		String url = "http://rssfeeds.usatoday.com/usatoday-newstopstories&x=1";
+		String url = "http://www.washingtontimes.com/rss/headlines/news/politics";
 
 		try {
 			URL feedUrl = new URL(url);
@@ -84,7 +84,7 @@ public class RSSCrawlerTest {
 
     @Test
     public void testLATimes() {
-        String url = "http://rssfeeds.usatoday.com/~r/usatoday-NewsTopStories/~3/leL1PCPW3MI/";
+        String url = "http://www.washingtontimes.com/news/2014/jul/28/court-rejects-atheists-challenge-to-ground-zero-cr/";
 
         Document doc;
         try {
@@ -96,9 +96,11 @@ public class RSSCrawlerTest {
 
             LOG.debug("{}", doc.toString());
 
-            String contentId = "div[itemprop=articleBody]";
+            String contentId = ".story";
             Elements contentsArea = doc.select(contentId);
             LOG.debug("{}", contentsArea.text());
+
+            LOG.debug("{}", contentsArea.select("img").attr("src"));
         }
         catch (IOException e) {
             LOG.debug("", e);

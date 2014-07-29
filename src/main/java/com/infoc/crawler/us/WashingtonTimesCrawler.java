@@ -4,11 +4,15 @@
 
 package com.infoc.crawler.us;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.ContentsAnalysisService;
+import com.infoc.service.USCollectionService;
+import com.infoc.service.USContentsAnalysisService;
+import com.infoc.util.RSSCrawler;
+import com.sun.syndication.feed.synd.SyndEntry;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
@@ -19,26 +23,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Strings;
-import com.infoc.crawler.NewsCrawler;
-import com.infoc.domain.Article;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.service.ContentsAnalysisService;
-import com.infoc.service.USCollectionService;
-import com.infoc.service.USContentsAnalysisService;
-import com.infoc.util.RSSCrawler;
-import com.sun.syndication.feed.synd.SyndEntry;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
-public class ChicagoTribuneCrawler implements NewsCrawler {
-	private static final Logger LOG = LoggerFactory.getLogger(ChicagoTribuneCrawler.class);
-	private static String TODAY = "http://chicagotribune.feedsportal.com/c/34253/f/622809/index.rss";
-	private static String POLITICS = "http://chicagotribune.feedsportal.com/c/34253/f/669325/index.rss";
-	private static String ECON = "http://chicagotribune.feedsportal.com/c/34253/f/669329/index.rss";
-	private static String CULTURE = "http://chicagotribune.feedsportal.com/c/34253/f/669314/index.rss";
-	private static String ENT = "http://chicagotribune.feedsportal.com/c/34253/f/669302/index.rss";
-	private static String SPORT = "http://chicagotribune.feedsportal.com/c/34253/f/622872/index.rss";
-	private static String IT = "http://chicagotribune.feedsportal.com/c/34253/f/669330/index.rss";
+public class WashingtonTimesCrawler implements NewsCrawler {
+	private static final Logger LOG = LoggerFactory.getLogger(WashingtonTimesCrawler.class);
+	private static String TODAY = "http://www.washingtontimes.com/rss/headlines/news";
+	private static String POLITICS = "http://www.washingtontimes.com/rss/headlines/news/politics";
+	private static String ECON = "http://www.washingtontimes.com/rss/headlines/news/business-economy";
+	private static String CULTURE = "http://www.washingtontimes.com/rss/headlines/culture";
+	private static String ENT = "http://www.washingtontimes.com/rss/headlines/culture/entertainment";
+	private static String SPORT = "http://www.washingtontimes.com/rss/headlines/sports";
+	private static String IT = "http://www.washingtontimes.com/rss/headlines/culture/technology";
 
 	private List<Article> articleList = new ArrayList<>();
 	
@@ -47,7 +46,7 @@ public class ChicagoTribuneCrawler implements NewsCrawler {
 	
 	@Override
 	public List<Article> createArticleList() {
-		LOG.debug("get RSS from ChicagoTribune.");
+		LOG.debug("get RSS from WashingtonTimesCrawler.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
 		createListBySection(POLITICS, ArticleSection.POLITICS);
@@ -114,7 +113,7 @@ public class ChicagoTribuneCrawler implements NewsCrawler {
 	
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
-		if(!rssLink.contains("chicagotribune")) {
+		if(!rssLink.contains("washingtontimes")) {
 			return;
 		}
 		
@@ -126,7 +125,7 @@ public class ChicagoTribuneCrawler implements NewsCrawler {
 			return;
 		}
 		
-		String contentId = "#story-body";
+		String contentId = ".story";
 		Elements contentsArea = doc.select(contentId);
 		article.setContents(contentsArea.text());
 		
