@@ -83,8 +83,8 @@ public class RSSCrawlerTest {
     }
 
     @Test
-    public void testLATimes() {
-        String url = "http://www.washingtontimes.com/news/2014/jul/28/court-rejects-atheists-challenge-to-ground-zero-cr/";
+    public void testBasicParsing() {
+        String url = "http://www.washingtontimes.com/news/2014/jul/29/police-suspect-paid-hookers-with-bellagio-cash/?utm_source=RSS_Feed&utm_medium=RSS";
 
         Document doc;
         try {

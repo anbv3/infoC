@@ -130,7 +130,10 @@ public class WashingtonTimesCrawler implements NewsCrawler {
 		article.setContents(contentsArea.text());
 		
 		// extract the img link ////////////////////////////////////////////////////////
-		article.setImg(contentsArea.select("img").attr("src"));
+        String imgLink = contentsArea.select("img").attr("src");
+        if(imgLink.lastIndexOf("png") == -1) {
+		    article.setImg(imgLink);
+        }
 	}
 	
 }
