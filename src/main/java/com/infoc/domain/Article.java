@@ -16,8 +16,10 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +27,8 @@ import java.util.Set;
 /**
  * @author anbv3
  */
-@Entity(name="article")
+@Entity
+@Table(name = "article", uniqueConstraints = @UniqueConstraint(columnNames = {"pubYear", "pubMonth", "pubDay", "pubHour", "title"}))
 public class Article extends AbstractPersistable<Long> {
 	private static final long serialVersionUID = -4609133080342171773L;
 	private static final Logger LOG = LoggerFactory.getLogger(Article.class);

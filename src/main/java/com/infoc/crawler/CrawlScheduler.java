@@ -87,26 +87,35 @@ public class CrawlScheduler {
 	
 	private void setUpCache() {
 		DateTime today = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-		
+		DateTime yesterday = today.minusDays(1);
+
 		for (ArticleSection section : ArticleSection.values()) {
 			// kr
-			Map<Integer, List<Article>> cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", section);
-			for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+			Map<Integer, List<Article>> krCacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", section);
+			krCacheList.putAll(articleService.getArticlesByPubDateAndSection(yesterday.toDate(), "KR", section));
+
+			for (Entry<Integer, List<Article>> eachTime : krCacheList.entrySet()) {
 				if (eachTime.getValue().isEmpty()) {
 					continue;
 				}
 				
-				ArticleSection.findKRCache(section.getSection()).get(eachTime.getKey()).addAll(eachTime.getValue());
+				ArticleSection.findKRCache(section.getSection())
+                              .get(eachTime.getKey())
+                              .addAll(eachTime.getValue());
 			}
 			
 			// us
-			cacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "US", section);
-			for (Entry<Integer, List<Article>> eachTime : cacheList.entrySet()) {
+            Map<Integer, List<Article>> usCacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "US", section);
+            usCacheList.putAll(articleService.getArticlesByPubDateAndSection(yesterday.toDate(), "US", section));
+
+			for (Entry<Integer, List<Article>> eachTime : usCacheList.entrySet()) {
 				if (eachTime.getValue().isEmpty()) {
 					continue;
 				}
 				
-				ArticleSection.findUSCache(section.getSection()).get(eachTime.getKey()).addAll(eachTime.getValue());
+				ArticleSection.findUSCache(section.getSection())
+                              .get(eachTime.getKey())
+                              .addAll(eachTime.getValue());
 			}
     	}
 		
