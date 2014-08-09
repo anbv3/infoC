@@ -91,8 +91,7 @@ public class CrawlScheduler {
 
 		for (ArticleSection section : ArticleSection.values()) {
 			// kr
-			Map<Integer, List<Article>> krCacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "KR", section);
-			krCacheList.putAll(articleService.getArticlesByPubDateAndSection(yesterday.toDate(), "KR", section));
+			Map<Integer, List<Article>> krCacheList = articleService.getArticlesByPubDateAndSection(yesterday.toDate(), "KR", section);
 
 			for (Entry<Integer, List<Article>> eachTime : krCacheList.entrySet()) {
 				if (eachTime.getValue().isEmpty()) {
@@ -105,8 +104,7 @@ public class CrawlScheduler {
 			}
 			
 			// us
-            Map<Integer, List<Article>> usCacheList = articleService.getArticlesByPubDateAndSection(today.toDate(), "US", section);
-            usCacheList.putAll(articleService.getArticlesByPubDateAndSection(yesterday.toDate(), "US", section));
+            Map<Integer, List<Article>> usCacheList = articleService.getArticlesByPubDateAndSection(yesterday.toDate(), "US", section);
 
 			for (Entry<Integer, List<Article>> eachTime : usCacheList.entrySet()) {
 				if (eachTime.getValue().isEmpty()) {
