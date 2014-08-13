@@ -152,7 +152,7 @@ public class CrawlScheduler {
 
 	@PostConstruct
 	public void runSchedules() {
-		setUpCache();
+//		setUpCache();
 		setUpCrawlerList();
 		setUpSchedules();
 	}
