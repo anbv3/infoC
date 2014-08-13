@@ -18,4 +18,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Page<Article> findByCountryAndSectionAndMainContentsLike(String country, ArticleSection section, String query, Pageable pageable);
 
     List<Article> findByTitleAndLink(String title, String link);
+    List<Article> findByLink(String link);
 }

@@ -117,6 +117,10 @@ public class ArticleService {
         return articleRepository.findByTitleAndLink(title, link);
     }
 
+    @Transactional(readOnly = true)
+    public List<Article> getArticleByLink(String link) {
+        return articleRepository.findByLink(link);
+    }
 
 	@Transactional
 	public void delete(Long id) {
@@ -126,9 +130,8 @@ public class ArticleService {
 	@Transactional
 	public Article add(Article article) {
 		try {
-
-            List<Article> articleList = articleRepository.findByTitleAndLink(article.getTitle(), article.getLink());
-            if (articleList != null || !articleList.isEmpty()) {
+            List<Article> articleList = articleRepository.findByLink(article.getLink().trim());
+            if (!articleList.isEmpty()) {
                 return null;
             }
 
