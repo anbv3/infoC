@@ -126,6 +126,12 @@ public class ArticleService {
 	@Transactional
 	public Article add(Article article) {
 		try {
+
+            List<Article> articleList = articleRepository.findByTitleAndLink(article.getTitle(), article.getLink());
+            if (articleList != null || !articleList.isEmpty()) {
+                return null;
+            }
+
 			return articleRepository.save(article);
 		} catch(Exception e) {
 			LOG.error("ERROR: {} ==> {}", e.getCause(), article);

@@ -215,12 +215,6 @@ public class USCollectionService {
 	}
 
 	private void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
-        // check in DB
-        List<Article> articleList = articleService.getArticleByTitleAndLink(newArticle.getTitle(), newArticle.getLink());
-        if (articleList != null) {
-            return;
-        }
-
 		// check the duplicated articles from the stored article.
 		for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
 			for (Article curArticle : entry.getValue()) {
@@ -243,7 +237,6 @@ public class USCollectionService {
         // store in DB without contents
         newArticle.setContents("");
         Article storedArticle = articleService.add(newArticle);
-
 
         // get the hour of the time for the time section
         int hour = (new DateTime(storedArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
