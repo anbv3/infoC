@@ -16,4 +16,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByCountryAndSectionAndPubYearAndPubMonthAndPubDay(String country, ArticleSection section, int year, int month, int day, Sort sort);
 
     Page<Article> findByCountryAndSectionAndMainContentsLike(String country, ArticleSection section, String query, Pageable pageable);
+
+    List<Article> findByTitleAndLink(String title, String link);
 }

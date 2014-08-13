@@ -112,6 +112,12 @@ public class ArticleService {
 		return articleRepository.findOne(id);
 	}
 
+    @Transactional(readOnly = true)
+    public List<Article> getArticleByTitleAndLink(String title, String link) {
+        return articleRepository.findByTitleAndLink(title, link);
+    }
+
+
 	@Transactional
 	public void delete(Long id) {
 		articleRepository.delete(id);
@@ -120,7 +126,6 @@ public class ArticleService {
 	@Transactional
 	public Article add(Article article) {
 		try {
-            //article.setMainContents(convert(article.getMainContents(), "UTF-8"));
 			return articleRepository.save(article);
 		} catch(Exception e) {
 			LOG.error("ERROR: {} ==> {}", e.getCause(), article);

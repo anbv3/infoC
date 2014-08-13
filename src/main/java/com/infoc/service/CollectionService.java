@@ -223,6 +223,12 @@ public class CollectionService {
     }
 
     private void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
+        // check in DB
+        List<Article> articleList = articleService.getArticleByTitleAndLink(newArticle.getTitle(), newArticle.getLink());
+        if (articleList != null) {
+            return;
+        }
+
         // check the duplicated articles from the stored article.
         for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
             for (Article curArticle : entry.getValue()) {
