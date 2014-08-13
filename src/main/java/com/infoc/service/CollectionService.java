@@ -225,7 +225,7 @@ public class CollectionService {
     private void addNew(Article newArticle, Map<Integer, List<Article>> cache) {
         // check in DB
         List<Article> articleList = articleService.getArticleByTitleAndLink(newArticle.getTitle(), newArticle.getLink());
-        if (articleList != null) {
+        if (articleList != null || !articleList.isEmpty()) {
             return;
         }
 
