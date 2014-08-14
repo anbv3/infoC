@@ -236,11 +236,12 @@ public class USCollectionService {
 		
         // store in DB without contents
         newArticle.setContents("");
-        Article storedArticle = articleService.add(newArticle);
 
         // get the hour of the time for the time section
-        int hour = (new DateTime(storedArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
-        cache.get(hour).add(storedArticle);
+        int hour = (new DateTime(newArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
+        cache.get(hour).add(newArticle);
+
+        Article storedArticle = articleService.add(newArticle);
 	}
 
 	public static void clearYesterday() {
