@@ -238,8 +238,7 @@ public class USCollectionService {
         newArticle.setContents("");
 
         // get the hour of the time for the time section
-        int hour = (new DateTime(newArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
-        cache.get(hour).add(newArticle);
+        cache.get(newArticle.getPubHour()).add(newArticle);
 
         Article storedArticle = articleService.add(newArticle);
 	}

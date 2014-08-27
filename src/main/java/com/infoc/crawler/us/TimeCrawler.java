@@ -98,7 +98,8 @@ public class TimeCrawler implements NewsCrawler {
 		article.setPubMonth(pubDate.getMonthOfYear());
 		article.setPubDay(pubDate.getDayOfMonth());
 		article.setPubHour(pubDate.getHourOfDay());
-		
+        LOG.debug("date: {}, hour: {}", article.getPubDate(), article.getPubHour());
+
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
