@@ -32,7 +32,7 @@ import java.util.List;
 public class USATodayCrawler implements NewsCrawler {
 	private static final Logger LOG = LoggerFactory.getLogger(USATodayCrawler.class);
 	private static String TODAY = "http://rssfeeds.usatoday.com/usatoday-newstopstories&x=1";
-	private static String POLITICS = "http://rssfeeds.usatoday.com/tp-onpolitics&x=1";
+	private static String POLITICS = "http://rssfeeds.usatoday.com/usatodaycomwashington-topstories&x=1";
 	private static String ECON = "http://rssfeeds.usatoday.com/usatodaycommoney-topstories&x=1";
 	private static String ENT = "http://rssfeeds.usatoday.com/usatoday-lifetopstories&x=1";
 	private static String SPORT = "http://rssfeeds.usatoday.com/usatodaycomsports-topstories&x=1";

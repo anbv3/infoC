@@ -10,7 +10,7 @@
 
 [TODO] - 나와 다른 사람들에게도 도움이 되는 기능
 
-* ‘카드 스택(Card Stack)’ 및 ‘스토리 스트림(Story Stream)’ 도입 form http://www.vox.com/
+* ‘카드 스택(Card Stack)’ 및 ‘스토리 스트림(Story Stream)’ 도입 from http://www.vox.com/
   - 기존 기사를 요약해서 카드를 만든 후 일자 별로 연결
   - 사용자가 카드(키워드)를 등록하면 그에 맞는 기사를 일자별로 연결해 보여준다  
   - 독자가 원하는 건 단순한 기사의 연결이 아니라, 효율적으로 맥락을 이해  
