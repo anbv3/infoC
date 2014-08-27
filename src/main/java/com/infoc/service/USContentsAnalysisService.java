@@ -109,7 +109,7 @@ public class USContentsAnalysisService {
 		List<SentenceInfo> sentenceList = new ArrayList<>();
 
 		List<String> sList = Lists.newArrayList(
-			Splitter.onPattern("(?<=\\.\\s)|(?<=\\?\\s)|(?<=\\.\\”)|(?<=\\.\\\")")
+			Splitter.onPattern("(?<=\\.\\s)|(?<=\\?\\s)|(?<=\\.\\”)|(?<=\\.\\\")|(?<=\\. )")
 				.trimResults()
 				.omitEmptyStrings()
 				.split(contents)

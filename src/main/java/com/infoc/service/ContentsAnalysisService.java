@@ -66,8 +66,7 @@ public class ContentsAnalysisService {
             // eliminate special characters from title and split it
             Set<String> titleList = Sets.newHashSet(TITLE_SPLITTER.omitEmptyStrings()
                                                                   .trimResults()
-                                                                  .split(article.getTitle()
-                                                                                .replaceAll("[^\\p{L}\\p{Z}]", " ")));
+                                                                  .split(article.getTitle().replaceAll("[^\\p{L}\\p{Z}]", " ")));
             for (String word : titleList) {
                 if (word.length() > 1) {
                     keyWordList.add(word);
@@ -85,7 +84,7 @@ public class ContentsAnalysisService {
     private static List<SentenceInfo> createSentenceList(Set<String> keyWordList, String contents) {
         List<SentenceInfo> sentenceList = new ArrayList<>();
 
-        List<String> sList = Lists.newArrayList(Splitter.onPattern("(?<=\\.\\s)|(?<=\\?\\s)")
+        List<String> sList = Lists.newArrayList(Splitter.onPattern("(?<=\\.\\s)|(?<=\\?\\s)|(?<=\\. )")
                                                         .trimResults()
                                                         .omitEmptyStrings()
                                                         .split(contents)
