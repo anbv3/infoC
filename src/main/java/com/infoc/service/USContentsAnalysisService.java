@@ -25,8 +25,7 @@ public class USContentsAnalysisService {
 	private static final String TITLE_SPLIT_PATTERN = "\\s|\\,|\\[|\\]|\\;|\\'|\\·|\\…|\\!|\\\"|\\“|\\”|\\.\\.";
 	public static Splitter TITLE_SPLITTER = Splitter.onPattern(TITLE_SPLIT_PATTERN).trimResults().omitEmptyStrings();
 	private static final int MAX_KEY_SENTENCE = 3;
-	
-	
+
 	public static void createMainSentence(Article article) {
 		// create key words first
 		Set<String> keyWordList = createKeyWorkList(article);
@@ -42,7 +41,6 @@ public class USContentsAnalysisService {
 		}
 
 		article.setMainContents(sb.toString());
-		article.setContents("");
 	}
 
     private static Set<String> createKeyWorkList(Article article) {
