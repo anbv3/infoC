@@ -32,6 +32,9 @@ import java.util.Map;
 public class USNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(USNewsController.class);
     private static final String SUM = "Summary";
+    private static final String TRANS = "Translate";
+    private static final String MORE = "More";
+    private static final String RELATED = "Related";
 
 	@Autowired
 	ArticleService articleService;
@@ -69,7 +72,11 @@ public class USNewsController extends BaseController {
 		model.addAttribute("articleMap", articleListMap);
 		model.addAttribute("menu", menuName);
 		model.addAttribute("requestDay", reqTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+
         model.addAttribute("summary", SUM);
+        model.addAttribute("translate", TRANS);
+        model.addAttribute("more", MORE);
+        model.addAttribute("related", RELATED);
 
 		return "/common/articles";
 	}
@@ -102,7 +109,11 @@ public class USNewsController extends BaseController {
         }
         
         model.addAttribute("menu", section);
+
         model.addAttribute("summary", SUM);
+        model.addAttribute("translate", TRANS);
+        model.addAttribute("more", MORE);
+        model.addAttribute("related", RELATED);
         return "/us-main";
     }
 
@@ -136,7 +147,11 @@ public class USNewsController extends BaseController {
 		model.addAttribute("page", articleList);
 		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
 		model.addAttribute("menu", section);
+
         model.addAttribute("summary", SUM);
+        model.addAttribute("translate", TRANS);
+        model.addAttribute("more", MORE);
+        model.addAttribute("related", RELATED);
 
 		return "/common/searched-articles";
 	}

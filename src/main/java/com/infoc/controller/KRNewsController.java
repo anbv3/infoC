@@ -32,6 +32,9 @@ import java.util.Map;
 public class KRNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(KRNewsController.class);
     private static final String SUM = "요약";
+    private static final String TRANS = "번역";
+    private static final String MORE = "원문";
+    private static final String RELATED = "관련기사";
 
 	@Autowired
 	ArticleService articleService;
@@ -67,7 +70,11 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("articleMap", articleListMap);
 		model.addAttribute("menu", menuName);
 		model.addAttribute("requestDay", reqTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+
         model.addAttribute("summary", SUM);
+        model.addAttribute("translate", TRANS);
+        model.addAttribute("more", MORE);
+        model.addAttribute("related", RELATED);
 
 		return "/common/articles";
 	}
@@ -99,7 +106,12 @@ public class KRNewsController extends BaseController {
         }
 
         model.addAttribute("menu", section);
+
         model.addAttribute("summary", SUM);
+        model.addAttribute("translate", TRANS);
+        model.addAttribute("more", MORE);
+        model.addAttribute("related", RELATED);
+
         return "/main";
     }
 
@@ -133,7 +145,11 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("page", articleList);
 		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
 		model.addAttribute("menu", section);
+
         model.addAttribute("summary", SUM);
+        model.addAttribute("translate", TRANS);
+        model.addAttribute("more", MORE);
+        model.addAttribute("related", RELATED);
 
 		return "/common/searched-articles";
 	}
