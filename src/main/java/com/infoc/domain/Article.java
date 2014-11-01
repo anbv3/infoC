@@ -213,6 +213,16 @@ public class Article extends AbstractPersistable<Long> {
 			.toString() + "\n";
 	}
 
+    @Override
+    public Long getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Long id) {
+        super.setId(id);
+    }
+
 	public String getHashId() {
 		return hashId;
 	}
