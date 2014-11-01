@@ -234,9 +234,6 @@ public class USCollectionService {
 		// if it is the new one, then translate the main contents.
 		newArticle.translateMainContentsFromEnToKr();
 		
-        // store in DB without contents
-        newArticle.setContents("");
-
         // get the hour of the time for the time section
         cache.get(newArticle.getPubHour()).add(newArticle);
 

@@ -28,11 +28,6 @@ public class USContentsAnalysisService {
 	
 	
 	public static void createMainSentence(Article article) {
-		// 키워드 업데이트후 다시 요약문장을 만들어야 하는데 필요없을수도...
-		if (!Strings.isNullOrEmpty(article.getMainContents())) {
-			return;
-		}
-		
 		// create key words first
 		Set<String> keyWordList = createKeyWorkList(article);
 		article.setKeyWordList(keyWordList);

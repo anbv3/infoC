@@ -243,9 +243,6 @@ public class CollectionService {
         // if it is the new one, then translate the main contents.
         newArticle.translateMainContents();
 
-        // store in DB without contents
-        newArticle.setContents("");
-
         // get the hour of the time for the time section
         int hour = (new DateTime(newArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
         cache.get(hour).add(newArticle);
