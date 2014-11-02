@@ -48,7 +48,7 @@ public class Article extends AbstractPersistable<Long> {
 	private String img;
 
 	@Lob
-	@Column(length = 10000)
+	@Column(length = 15000)
 	private String contents;
 
 	@Index(name = "idx_country")

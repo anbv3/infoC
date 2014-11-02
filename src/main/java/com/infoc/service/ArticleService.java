@@ -135,6 +135,10 @@ public class ArticleService {
                 return null;
             }
 
+            if (article.getContents().length() > 14000) {
+                article.setContents(article.getContents().substring(0, 14000));
+            }
+
 			return articleRepository.save(article);
 		} catch(Exception e) {
 			LOG.error("ERROR: {} ==> {}", e.getCause(), article);

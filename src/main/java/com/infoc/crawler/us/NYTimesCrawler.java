@@ -4,11 +4,15 @@
 
 package com.infoc.crawler.us;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.ContentsAnalysisService;
+import com.infoc.service.USCollectionService;
+import com.infoc.service.USContentsAnalysisService;
+import com.infoc.util.RSSCrawler;
+import com.sun.syndication.feed.synd.SyndEntry;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
@@ -20,15 +24,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Strings;
-import com.infoc.crawler.NewsCrawler;
-import com.infoc.domain.Article;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.service.ContentsAnalysisService;
-import com.infoc.service.USCollectionService;
-import com.infoc.service.USContentsAnalysisService;
-import com.infoc.util.RSSCrawler;
-import com.sun.syndication.feed.synd.SyndEntry;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class NYTimesCrawler implements NewsCrawler {
@@ -103,7 +102,7 @@ public class NYTimesCrawler implements NewsCrawler {
 		article.setPubDay(pubDate.getDayOfMonth());
 		article.setPubHour(pubDate.getHourOfDay());
 		
-		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle().trim()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
@@ -138,6 +137,6 @@ public class NYTimesCrawler implements NewsCrawler {
 		article.setContents(sb.toString());
 		
 		// extract the img link ////////////////////////////////////////////////////////
-		article.setImg(contentsArea.select(".image > img").attr("src"));
+		article.setImg(contentsArea.select(".image > img").attr("src").trim());
 	}
 }

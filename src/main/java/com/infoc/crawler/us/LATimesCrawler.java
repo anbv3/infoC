@@ -100,7 +100,7 @@ public class LATimesCrawler implements NewsCrawler {
 		article.setPubDay(pubDate.getDayOfMonth());
 		article.setPubHour(pubDate.getHourOfDay());
 		
-		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle().trim()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
@@ -128,6 +128,6 @@ public class LATimesCrawler implements NewsCrawler {
 		article.setContents(doc.select(contentId).text());
 		
 		// extract the img link ////////////////////////////////////////////////////////
-		article.setImg(doc.select(".thumbnail").select("img").attr("src"));
+		article.setImg(doc.select(".thumbnail").select("img").attr("src").trim());
 	}
 }

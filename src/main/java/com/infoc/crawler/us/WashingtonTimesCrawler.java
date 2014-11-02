@@ -101,7 +101,7 @@ public class WashingtonTimesCrawler implements NewsCrawler {
 		article.setPubDay(pubDate.getDayOfMonth());
 		article.setPubHour(pubDate.getHourOfDay());
 		
-		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle().trim()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
@@ -127,7 +127,7 @@ public class WashingtonTimesCrawler implements NewsCrawler {
 		
 		String contentId = ".story";
 		Elements contentsArea = doc.select(contentId);
-		article.setContents(contentsArea.text());
+		article.setContents(contentsArea.text().trim());
 		
 		// extract the img link ////////////////////////////////////////////////////////
         String imgLink = contentsArea.select("img").attr("src");

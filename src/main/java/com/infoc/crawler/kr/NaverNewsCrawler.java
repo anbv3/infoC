@@ -1,10 +1,13 @@
 package com.infoc.crawler.kr;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.base.Strings;
+import com.infoc.crawler.NewsCrawler;
+import com.infoc.domain.Article;
+import com.infoc.enumeration.ArticleSection;
+import com.infoc.service.CollectionService;
+import com.infoc.service.ContentsAnalysisService;
+import com.infoc.util.RSSCrawler;
+import com.sun.syndication.feed.synd.SyndEntry;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.jsoup.Jsoup;
@@ -15,14 +18,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Strings;
-import com.infoc.crawler.NewsCrawler;
-import com.infoc.domain.Article;
-import com.infoc.enumeration.ArticleSection;
-import com.infoc.service.CollectionService;
-import com.infoc.service.ContentsAnalysisService;
-import com.infoc.util.RSSCrawler;
-import com.sun.syndication.feed.synd.SyndEntry;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class NaverNewsCrawler implements NewsCrawler {
@@ -104,7 +103,7 @@ public class NaverNewsCrawler implements NewsCrawler {
 		article.setPubDay(pubDate.getDayOfMonth());
 		article.setPubHour(pubDate.getHourOfDay());
 		
-		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle().trim()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
@@ -141,7 +140,7 @@ public class NaverNewsCrawler implements NewsCrawler {
 			article.setContents(contentsArea.text());
 		}
 		
-		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(article.getContents()));
+		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(article.getContents().trim()));
 		
 		// extract the img link ///////////////////////////////////////////////////
 		article.setImg(contentsArea.select("img").attr("src"));

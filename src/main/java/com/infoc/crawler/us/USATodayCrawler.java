@@ -109,7 +109,7 @@ public class USATodayCrawler implements NewsCrawler {
 		article.setPubDay(pubDate.getDayOfMonth());
 		article.setPubHour(pubDate.getHourOfDay());
 		
-		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle().trim()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
@@ -138,6 +138,6 @@ public class USATodayCrawler implements NewsCrawler {
         article.setContents(contentsArea.text());
 
 		// extract the img link ////////////////////////////////////////////////////////
-		article.setImg(contentsArea.select("img").attr("src"));
+		article.setImg(contentsArea.select("img").attr("src").trim());
 	}
 }

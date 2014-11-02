@@ -110,7 +110,7 @@ public class OtherNewsCrawler implements NewsCrawler {
 		article.setPubDay(pubDate.getDayOfMonth());
 		article.setPubHour(pubDate.getHourOfDay());
 		
-		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle()));
+		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle().trim()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
 			return null;
 		}
@@ -181,7 +181,7 @@ public class OtherNewsCrawler implements NewsCrawler {
 			return;
 		}
 
-		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(contentsArea.text()));
+		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(contentsArea.text().trim()));
 	}
 
 }

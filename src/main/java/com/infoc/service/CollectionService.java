@@ -150,7 +150,6 @@ public class CollectionService {
             }
 
             for (String tarWord : newKeyWordList) {
-
                 if (tarWord.length() <= 1) {
                     continue;
                 }
@@ -227,9 +226,8 @@ public class CollectionService {
         for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
             for (Article curArticle : entry.getValue()) {
                 // check if they are the same articles
-                if (curArticle.getTitle().equalsIgnoreCase(newArticle.getTitle()) ||
-                    curArticle.getLink().equalsIgnoreCase(newArticle.getLink())) {
-                	LOG.debug("{}", curArticle.getTitle());
+                if (newArticle.getTitle().equalsIgnoreCase(curArticle.getTitle()) &&
+                    newArticle.getAuthor().equalsIgnoreCase(curArticle.getAuthor())) {
                     return;
                 }
 

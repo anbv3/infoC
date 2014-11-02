@@ -176,7 +176,7 @@ public class GoogleNewsCrawler implements NewsCrawler {
 			return;
 		}
 		
-		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(contentsArea.text()));
+		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(contentsArea.text().trim()));
 
 
         // extract the link of a image
