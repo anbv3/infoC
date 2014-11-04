@@ -236,6 +236,9 @@ public class USCollectionService {
 		
         // store in DB
         Article storedArticle = articleService.add(newArticle);
+        if (storedArticle == null) {
+            return;
+        }
 
         // get the hour of the time for the time section
         cache.get(storedArticle.getPubHour()).add(storedArticle);

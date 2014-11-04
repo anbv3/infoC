@@ -130,9 +130,10 @@ public class ArticleService {
 	@Transactional
 	public Article add(Article article) {
 		try {
+            // TODO: DB에 저장된 기사인지 더 효율적으로 확인하는 방법이 필요
             List<Article> articleList = articleRepository.findByLink(article.getLink().trim());
             if (!articleList.isEmpty()) {
-                return null;
+                return articleList.get(0);
             }
 
             if (article.getContents().length() > 14000) {
