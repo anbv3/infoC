@@ -234,10 +234,11 @@ public class USCollectionService {
 		// if it is the new one, then translate the main contents.
 		newArticle.translateMainContentsFromEnToKr();
 		
-        // get the hour of the time for the time section
-        cache.get(newArticle.getPubHour()).add(newArticle);
-
+        // store in DB
         Article storedArticle = articleService.add(newArticle);
+
+        // get the hour of the time for the time section
+        cache.get(storedArticle.getPubHour()).add(storedArticle);
 	}
 
 	public static void clearYesterday() {
