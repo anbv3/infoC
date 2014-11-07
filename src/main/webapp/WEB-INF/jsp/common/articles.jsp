@@ -101,39 +101,37 @@
 
 								<div class="panel-heading panel-heading-sArt">
 									<h4 class="panel-title panel-${entry.key}">
-										<a class="btn btn-success pull-left" data-placement="top" data-toggle="collapse"
-											data-parent="#accordion" href="#collapse-trans-${entry.key}-${cnt.index}" articleId="${row.id}">
-											<span class="article-btn">${translate}</span>
+										<a class="btn btn-success pull-left" data-toggle="collapse"
+											data-parent="#accordion" href="#collapse-text-${entry.key}-${cnt.index}">
+											<span class="article-btn">${contents}</span>
 										</a>
-										<a class="btn btn-success" href="${row.link}" target="_blank" >
-											<span class="article-btn">${more}</span>
-										</a>
-										<a class="btn btn-success pull-right <c:if test="${empty row.similarTitle}"> disabled </c:if>" data-placement="top" data-toggle="collapse"
+                                        <a class="btn btn-success" href="${row.link}" target="_blank" >
+                                            <span class="article-btn">${more}</span>
+                                        </a>
+										<a class="btn btn-success pull-right <c:if test="${empty row.similarTitle}"> disabled </c:if>" data-toggle="collapse"
 											data-parent="#accordion" href="#collapse-${entry.key}-${cnt.index}"> 
 											<span class="article-btn">${related}</span>
 										</a>
 									</h4>
 								</div>
 
-									<c:if test="${not empty row.similarTitle}">
-										<div id="collapse-${entry.key}-${cnt.index}"
-											class="collapse-${requestDay}-${entry.key} panel-collapse collapse panel-collapse-sArt">
-											<div class="panel-body panel-body-sArt">
-											    ${row.similarSection}
-											</div>
-										</div>
-									</c:if>
+                                <div id="collapse-text-${entry.key}-${cnt.index}"
+                                     class="collapse-${requestDay}-${entry.key} panel-collapse collapse panel-collapse-sArt js-contents-${requestDay}-${entry.key}"
+                                     targetId="collapse-text-${entry.key}-${cnt.index}" articleId="${row.id}">
+                                    <div class="panel-body panel-body-sArt">
+                                        <div class="panel-article-info col-xs-12">
+                                        </div>
+                                    </div>
+                                </div>
 
-									<c:if test="${not empty row.transedContents}">
-										<div id="collapse-trans-${entry.key}-${cnt.index}"
-											class="collapse-${requestDay}-${entry.key} panel-collapse collapse panel-collapse-sArt">
-											<div class="panel-body panel-body-sArt">
-												<div class="panel-article-info col-xs-12">
-													${row.transedContents}
-												</div>
-											</div>
-										</div>
-									</c:if>
+                                <c:if test="${not empty row.transedContents}">
+                                <div id="collapse-${entry.key}-${cnt.index}"
+                                    class="collapse-${requestDay}-${entry.key} panel-collapse collapse panel-collapse-sArt">
+                                    <div class="panel-body panel-body-sArt">
+                                        ${row.similarSection}
+                                    </div>
+                                </div>
+                                </c:if>
 
 								</div>
 							</div>
@@ -150,6 +148,7 @@
 	</div>
 
 	<script type="text/javascript">
+        // align all articles
 		$('#story-${requestDay}-${entry.key}').each(function() {
 			var $container = $(this);
 			$container.imagesLoaded(function() {
@@ -160,20 +159,40 @@
 			});
 		});
 
-		$('.collapse-${requestDay}-${entry.key}').on('shown.bs.collapse hidden.bs.collapse',
-				function() {
-					$('#story-${requestDay}-${entry.key}').each(function() {
-						var $container = $(this);
-						$container.imagesLoaded(function() {
-							$container.packery({
-								itemSelector : '.item',
-								gutter : 5
-							});
-						});
-					});
-				});
+        // align articles for each time row
+        $('.collapse-${requestDay}-${entry.key}').on('shown.bs.collapse hidden.bs.collapse', function () {
+            $('#story-${requestDay}-${entry.key}').each(function () {
+                var $container = $(this);
+                $container.imagesLoaded(function () {
+                    $container.packery({
+                        itemSelector: '.item',
+                        gutter: 5
+                    });
+                });
+            });
+        });
 
-		$("[rel='tooltip']").tooltip();
+        // when clicking the btn, get the original text of the article
+        $('.js-contents-${requestDay}-${entry.key}').on('show.bs.collapse', function () {
+            var targetId = $(this).attr("targetId");
+            var articleId = $(this).attr("articleId");
+            var reqURL = "<c:url value="/kr/article/"/>" + articleId;
+
+            $.ajax({
+                type: "GET",
+                url: reqURL
+            }).done(function (json) {
+                if (json.status != "SUCCESS") {
+                    alert(json.cause);
+                }
+
+                $("#" + targetId).find(".panel-article-info").html(json.contents);
+            }).error(function (response) {
+                alert("[ERROR] " + response.status + " : " + response.statusText);
+            }).always(function () {
+            });
+
+        });
 
 	</script>
 </c:forEach>

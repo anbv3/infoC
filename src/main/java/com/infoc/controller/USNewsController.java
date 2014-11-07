@@ -32,12 +32,26 @@ import java.util.Map;
 public class USNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(USNewsController.class);
     private static final String SUM = "Summary";
-    private static final String TRANS = "Translate";
-    private static final String MORE = "More";
+    private static final String CONTENTS = "Original";
+    private static final String MORE = "Link";
     private static final String RELATED = "Related";
 
 	@Autowired
 	ArticleService articleService;
+
+    private void setCommonInfo(Model model) {
+        DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+        model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
+        model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
+        model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+    }
+
+    private void setLocaleWords(Model model) {
+        model.addAttribute("summary", SUM);
+        model.addAttribute("contents", CONTENTS);
+        model.addAttribute("more", MORE);
+        model.addAttribute("related", RELATED);
+    }
 
 	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
 		ArticleSection section, String menuName, int page, String search) throws Exception {
@@ -73,21 +87,9 @@ public class USNewsController extends BaseController {
 		model.addAttribute("menu", menuName);
 		model.addAttribute("requestDay", reqTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
 
-        model.addAttribute("summary", SUM);
-        model.addAttribute("translate", TRANS);
-        model.addAttribute("more", MORE);
-        model.addAttribute("related", RELATED);
-
+        setLocaleWords(model);
 		return "/common/articles";
 	}
-
-	private void getCommonInfo(Model model) {
-		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-		model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
-		model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
-		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
-	}
-	
 
     @RequestMapping(value = "/{section}")
     public String getNews(Model model, 
@@ -95,8 +97,6 @@ public class USNewsController extends BaseController {
     		@RequestParam(value = "q", required = false) String query) throws Exception {
     	LOG.debug("section:{}, query: {}", section, query);
     	
-        getCommonInfo(model);
-        
         if (Strings.isNullOrEmpty(query)) {
         	model.addAttribute("articleMap", 
         			USCollectionService.getArticlesByCurrentTime(ArticleSection.findUSCache(section)));
@@ -110,10 +110,8 @@ public class USNewsController extends BaseController {
         
         model.addAttribute("menu", section);
 
-        model.addAttribute("summary", SUM);
-        model.addAttribute("translate", TRANS);
-        model.addAttribute("more", MORE);
-        model.addAttribute("related", RELATED);
+        setCommonInfo(model);
+        setLocaleWords(model);
         return "/us-main";
     }
 
@@ -148,11 +146,7 @@ public class USNewsController extends BaseController {
 		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
 		model.addAttribute("menu", section);
 
-        model.addAttribute("summary", SUM);
-        model.addAttribute("translate", TRANS);
-        model.addAttribute("more", MORE);
-        model.addAttribute("related", RELATED);
-
+        setLocaleWords(model);
 		return "/common/searched-articles";
 	}
 	

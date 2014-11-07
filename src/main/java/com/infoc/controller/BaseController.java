@@ -27,5 +27,5 @@ public class BaseController {
 			.addObject("exception", e.getClass().getName())
 			.addObject("errMsg", Throwables.getRootCause(e).getMessage());
 	}
-	
+
 }

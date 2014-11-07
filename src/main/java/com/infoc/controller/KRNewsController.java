@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -32,12 +33,26 @@ import java.util.Map;
 public class KRNewsController extends BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(KRNewsController.class);
     private static final String SUM = "요약";
-    private static final String TRANS = "번역";
-    private static final String MORE = "원문";
-    private static final String RELATED = "관련기사";
+    private static final String CONTENTS = "원문 내용";
+    private static final String MORE = "출처";
+    private static final String RELATED = "관련 기사";
 
 	@Autowired
 	ArticleService articleService;
+
+    private void setCommonInfo(Model model) {
+        DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
+        model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
+        model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
+        model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
+    }
+
+    private void setLocaleWords(Model model) {
+        model.addAttribute("summary", SUM);
+        model.addAttribute("contents", CONTENTS);
+        model.addAttribute("more", MORE);
+        model.addAttribute("related", RELATED);
+    }
 
 	public String getArticlesByDate(Model model, Map<Integer, List<Article>> cacheMap, final String date,
 		ArticleSection section, String menuName, int page, String search) throws Exception {
@@ -71,19 +86,8 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("menu", menuName);
 		model.addAttribute("requestDay", reqTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
 
-        model.addAttribute("summary", SUM);
-        model.addAttribute("translate", TRANS);
-        model.addAttribute("more", MORE);
-        model.addAttribute("related", RELATED);
-
+        setLocaleWords(model);
 		return "/common/articles";
-	}
-
-	private void getCommonInfo(Model model) {
-		DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-		model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
-		model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
-		model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
 	}
 
     @RequestMapping(value = "/{section}")
@@ -91,8 +95,6 @@ public class KRNewsController extends BaseController {
     		@PathVariable("section") final String section,
     		@RequestParam(value = "q", required = false) String query) throws Exception {
     	LOG.debug("section:{}, query: {}", section, query);
-
-        getCommonInfo(model);
 
         if (Strings.isNullOrEmpty(query)) {
         	model.addAttribute("articleMap",
@@ -107,11 +109,8 @@ public class KRNewsController extends BaseController {
 
         model.addAttribute("menu", section);
 
-        model.addAttribute("summary", SUM);
-        model.addAttribute("translate", TRANS);
-        model.addAttribute("more", MORE);
-        model.addAttribute("related", RELATED);
-
+        setCommonInfo(model);
+        setLocaleWords(model);
         return "/main";
     }
 
@@ -146,11 +145,31 @@ public class KRNewsController extends BaseController {
 		model.addAttribute("pubDate", articleService.extractStartAndEndDate(articleList));
 		model.addAttribute("menu", section);
 
-        model.addAttribute("summary", SUM);
-        model.addAttribute("translate", TRANS);
-        model.addAttribute("more", MORE);
-        model.addAttribute("related", RELATED);
-
+        setLocaleWords(model);
 		return "/common/searched-articles";
 	}
+
+    @RequestMapping(value = "/article/{articleId}")
+    @ResponseBody
+    public Map<String, String> getArticleContents(@PathVariable("articleId") final Long articleId) {
+        LOG.debug("articleId: {}", articleId);
+
+        Map<String, String> json = new HashMap<>();
+        try {
+            Article article = articleService.getArticle(articleId);
+
+            StringBuilder text = new StringBuilder(article.getContents().trim());
+            text.append("<br><strong>")
+                .append("출처: ")
+                .append(article.getAuthor().trim())
+                .append("</strong>");
+
+            json.put("status", "SUCCESS");
+            json.put("contents", text.toString());
+        } catch (Exception e) {
+            json.put("status", "FAILED");
+        }
+
+        return json;
+    }
 }
