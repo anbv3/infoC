@@ -152,9 +152,9 @@ public class CrawlScheduler {
 
 	@PostConstruct
 	public void runSchedules() {
-//		setUpCache();
-//		setUpCrawlerList();
-//		setUpSchedules();
+		setUpCache();
+		setUpCrawlerList();
+		setUpSchedules();
 	}
 	
 	@PreDestroy
