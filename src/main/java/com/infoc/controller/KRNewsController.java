@@ -162,7 +162,7 @@ public class KRNewsController extends BaseController {
             if (article.getContents().isEmpty()) {
                 text.append("No data for the old articles.");
             } else {
-                text.append(article.getContents().isEmpty());
+                text.append(article.getContents().trim());
             }
 
             text.append("<br><strong>")
