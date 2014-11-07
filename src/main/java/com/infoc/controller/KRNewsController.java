@@ -158,9 +158,15 @@ public class KRNewsController extends BaseController {
         try {
             Article article = articleService.getArticle(articleId);
 
-            StringBuilder text = new StringBuilder(article.getContents().trim());
+            StringBuilder text = new StringBuilder();
+            if (article.getContents().isEmpty()) {
+                text.append("No data for the old articles.");
+            } else {
+                text.append(article.getContents().isEmpty());
+            }
+
             text.append("<br><strong>")
-                .append("출처: ")
+                .append("Source: ")
                 .append(article.getAuthor().trim())
                 .append("</strong>");
 

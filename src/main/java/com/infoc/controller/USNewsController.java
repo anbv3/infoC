@@ -149,5 +149,5 @@ public class USNewsController extends BaseController {
         setLocaleWords(model);
 		return "/common/searched-articles";
 	}
-	
+
 }

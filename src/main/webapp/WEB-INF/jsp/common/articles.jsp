@@ -119,8 +119,7 @@
                                      class="collapse-${requestDay}-${entry.key} panel-collapse collapse panel-collapse-sArt js-contents-${requestDay}-${entry.key}"
                                      targetId="collapse-text-${entry.key}-${cnt.index}" articleId="${row.id}">
                                     <div class="panel-body panel-body-sArt">
-                                        <div class="panel-article-info col-xs-12">
-                                        </div>
+                                        <div class="panel-article-info col-xs-12"></div>
                                     </div>
                                 </div>
 
@@ -135,7 +134,6 @@
 
 								</div>
 							</div>
-							<!-- panel -->
 						</div>
 
 					</div>
@@ -191,7 +189,6 @@
                 alert("[ERROR] " + response.status + " : " + response.statusText);
             }).always(function () {
             });
-
         });
 
 	</script>
