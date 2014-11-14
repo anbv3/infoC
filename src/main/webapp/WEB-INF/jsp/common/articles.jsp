@@ -174,7 +174,12 @@
         $('.js-contents-${requestDay}-${entry.key}').on('show.bs.collapse', function () {
             var targetId = $(this).attr("targetId");
             var articleId = $(this).attr("articleId");
-            var reqURL = "<c:url value="/kr/article/"/>" + articleId;
+
+            if (articleId == "") {
+                return;
+            }
+
+            var reqURL = "/kr/article/" + articleId;
 
             $.ajax({
                 type: "GET",

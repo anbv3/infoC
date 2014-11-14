@@ -284,7 +284,7 @@
 					<li id="sport-menu"><a href="/kr/sport">스포츠</a></li>
 					<li id="it-menu"><a href="/kr/it">IT</a></li>
 					<li id="others-menu"><a href="/kr/others">기타</a></li>
-					<li id="us-menu"><a style="color: #83E01F" href="/us/main">해외</a></li>
+					<li id="us-menu"><a style="color: #83E01F" href="/us/main">USA</a></li>
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
 				</ul>
 
