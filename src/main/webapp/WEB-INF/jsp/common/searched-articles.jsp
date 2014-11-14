@@ -179,7 +179,7 @@
                 return;
             }
 
-            var reqURL = "/kr/article/" + articleId;
+            var reqURL = "/article/" + articleId;
 
             $.ajax({
                 type: "GET",

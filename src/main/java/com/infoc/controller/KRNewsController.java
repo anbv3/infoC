@@ -40,13 +40,6 @@ public class KRNewsController extends BaseController {
 	@Autowired
 	ArticleService articleService;
 
-    private void setCommonInfo(Model model) {
-        DateTime dTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-        model.addAttribute("initDay", dTime.toString(DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss")));
-        model.addAttribute("currentDay", dTime.toString(DateTimeFormat.forPattern("yyyy.MM.dd")));
-        model.addAttribute("requestDay", dTime.toString(DateTimeFormat.forPattern("yyyy-dd-MM")));
-    }
-
     private void setLocaleWords(Model model) {
         model.addAttribute("summary", SUM);
         model.addAttribute("contents", CONTENTS);
