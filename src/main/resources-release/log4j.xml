@@ -9,11 +9,23 @@
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] (%F:%L)(%M()) %m%n" />
 		</layout>
 	</appender>
-	
+
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="../logs/infoc.log" />
+        <param name="Append" value="true" />
+        <param name="encoding" value="UTF-8" />
+        <param name="MaxFileSize" value="100MB" />
+        <param name="MaxBackupIndex" value="1000" />
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] (%F:%L:%M()) %m%n" />
+        </layout>
+    </appender>
+
 	<!-- Application Loggers -->
-	<logger name="com.infoc" additivity="false">
+	<logger name="com" additivity="false">
 		<level value="DEBUG" />
-		<appender-ref ref="console" />
+		<appender-ref ref="file" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -38,6 +50,7 @@
 	<root>
 		<level value="DEBUG" />
 		<appender-ref ref="console" />
+		<appender-ref ref="file" />
 	</root>
 	
 </log4j:configuration>
