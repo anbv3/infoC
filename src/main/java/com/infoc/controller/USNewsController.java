@@ -84,6 +84,11 @@ public class USNewsController extends BaseController {
 		return "/common/articles";
 	}
 
+    @RequestMapping
+    public String main() {
+        return "redirect:/us/main";
+    }
+
     @RequestMapping(value = "/{section}")
     public String getNews(Model model, 
     		@PathVariable("section") final String section,

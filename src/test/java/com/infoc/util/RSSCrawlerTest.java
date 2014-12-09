@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 
 public class RSSCrawlerTest {
@@ -155,4 +156,37 @@ public class RSSCrawlerTest {
 
 	}
 
+    @Test
+    public void testLATimes() {
+        String url = "http://www.latimes.com/business/technology/la-fi-tn-apple-ipod-antitrust-20141208-story.html?track=rss";
+
+        Document doc;
+        try {
+            doc = Jsoup.connect(url)
+                       .timeout(6000)
+                       .get();
+
+            Elements contentsArea = doc.getElementsByTag("meta");
+            Iterator<Element> itr = contentsArea.iterator();
+
+            String realURL = "";
+            while (itr.hasNext()) {
+                Element element = itr.next();
+                if (element.attr("property").equalsIgnoreCase("og:url")) {
+                    LOG.debug("URL: {}", element.attr("content"));
+                    realURL = element.attr("content");
+                }
+            }
+
+            doc = Jsoup.connect(realURL)
+                       .timeout(6000)
+                       .get();
+            String contentId = ".trb_article_page";
+            LOG.debug("{}", doc.select(contentId).text());
+        }
+        catch (IOException e) {
+            LOG.debug("", e);
+        }
+
+    }
 }
