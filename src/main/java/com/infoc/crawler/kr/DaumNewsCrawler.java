@@ -128,11 +128,11 @@ public class DaumNewsCrawler implements NewsCrawler {
 			return;
 		}
 		
-		String contentId = "#newsBodyShadow";
+		String contentId = "#harmonyContainer";
 		Elements contentsArea = doc.select(contentId);
 		
 		// remove the .image tag because the title is existed again as the caption of the img.
-		contentsArea.select(".image").remove();
+		contentsArea.select(".txt_caption").remove();
 		
 		article.setContents(ContentsAnalysisService.removeInvalidWordsForKR(contentsArea.text().trim()));
 		

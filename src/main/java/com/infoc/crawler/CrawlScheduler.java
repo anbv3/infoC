@@ -2,13 +2,10 @@ package com.infoc.crawler;
 
 import com.infoc.crawler.kr.DaumNewsCrawler;
 import com.infoc.crawler.kr.GoogleNewsCrawler;
-import com.infoc.crawler.kr.NaverNewsCrawler;
 import com.infoc.crawler.kr.OtherNewsCrawler;
 import com.infoc.crawler.us.BaseballNewsCrawler;
-import com.infoc.crawler.us.LATimesCrawler;
 import com.infoc.crawler.us.TimeCrawler;
 import com.infoc.crawler.us.USATodayCrawler;
-import com.infoc.crawler.us.WashingtonTimesCrawler;
 import com.infoc.domain.Article;
 import com.infoc.enumeration.ArticleSection;
 import com.infoc.service.ArticleService;
@@ -43,21 +40,15 @@ public class CrawlScheduler {
 	@Autowired
 	public DaumNewsCrawler daumNewsCrawler;
 	@Autowired
-	public NaverNewsCrawler naverNewsCrawler;
-	@Autowired
 	public GoogleNewsCrawler googleNewsCrawler;
 	@Autowired
 	public OtherNewsCrawler otherNewsCrawler;
 	
 	// us
 	@Autowired
-	public WashingtonTimesCrawler washingtonTimesCrawler;
-	@Autowired
 	public USATodayCrawler usaTodayCrawler;
 	@Autowired
 	public TimeCrawler timeCrawler;
-	@Autowired
-	public LATimesCrawler laTimesCrawler;
     @Autowired
 	public BaseballNewsCrawler baseballNewsCrawler;
 	
@@ -66,15 +57,12 @@ public class CrawlScheduler {
 	private void setUpCrawlerList() {
 		// kr
 		newsCrawlerList.add(daumNewsCrawler);
-		newsCrawlerList.add(naverNewsCrawler);
 		newsCrawlerList.add(googleNewsCrawler);
 		newsCrawlerList.add(otherNewsCrawler);
 
 		// us
 		newsCrawlerList.add(timeCrawler);
         newsCrawlerList.add(usaTodayCrawler);
-        newsCrawlerList.add(washingtonTimesCrawler);
-		newsCrawlerList.add(laTimesCrawler);
 		newsCrawlerList.add(baseballNewsCrawler);
 
 	}

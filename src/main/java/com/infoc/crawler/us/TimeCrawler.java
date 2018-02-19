@@ -59,6 +59,7 @@ public class TimeCrawler implements NewsCrawler {
 	
 	private void createListBySection(String rssUrl, ArticleSection section) {
 		for (SyndEntry item : RSSCrawler.getArticleList(rssUrl)) {
+		    LOG.debug("{}", item);
 			Article article = parseRSSItem(item, section);
 			
 			if (article == null) {
@@ -68,18 +69,19 @@ public class TimeCrawler implements NewsCrawler {
 			if (Strings.isNullOrEmpty(article.getContents())) {
 				continue;
 			}
-			
+
 			if (article.getContents().length() < 300) {
 				continue;
 			}
-			
+
 			if (article.getPubDate().before(DateTime.now(DateTimeZone.forID("Asia/Seoul")).minusDays(1).toDate())) {
 				return;
 			}
 			
 			// create the main contents
 			USContentsAnalysisService.createMainSentence(article);
-			
+            LOG.debug("{}", article);
+
 			// add to the store
 			collectionService.add(article);
 		}
@@ -98,7 +100,6 @@ public class TimeCrawler implements NewsCrawler {
 		article.setPubMonth(pubDate.getMonthOfYear());
 		article.setPubDay(pubDate.getDayOfMonth());
 		article.setPubHour(pubDate.getHourOfDay());
-        LOG.debug("date: {}, hour: {}", article.getPubDate(), article.getPubHour());
 
 		article.setTitle(ContentsAnalysisService.removeInvalidWordsForKR(rssItem.getTitle().trim()));
 		if (Strings.isNullOrEmpty(article.getTitle()) || article.getTitle().length() < 5) {
@@ -112,10 +113,7 @@ public class TimeCrawler implements NewsCrawler {
 	
 	private void parseContentsFromLink(SyndEntry rssItem, Article article) {
 		String rssLink = rssItem.getLink();
-		if(!rssLink.contains("time.com")) {
-			return;
-		}
-		
+
 		Document doc;
 		try {
 			doc = Jsoup.connect(rssLink).timeout(6000).get();
@@ -123,10 +121,10 @@ public class TimeCrawler implements NewsCrawler {
 			//LOG.error(rssLink + "\n", e);
 			return;
 		}
-		
-		String contentId = ".article-body";
-		Elements contentsArea = doc.select(contentId);
-		article.setContents(contentsArea.text());
+		String contentId = "#article-body";
+        Elements contentsArea = doc.select(contentId);
+
+        article.setContents(contentsArea.text());
 		
 		// extract the img link ////////////////////////////////////////////////////////
 		article.setImg(contentsArea.select("img").attr("src").trim());
