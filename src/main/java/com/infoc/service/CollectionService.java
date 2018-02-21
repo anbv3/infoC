@@ -238,9 +238,6 @@ public class CollectionService {
             }
         }
 
-        // if it is the new one, then translate the main contents.
-        newArticle.translateMainContents();
-
         // store in DB
         Article storedArticle = articleService.add(newArticle);
         if (storedArticle == null) {
