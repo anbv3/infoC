@@ -48,7 +48,6 @@ public class Article extends AbstractPersistable<Long> {
 	private String img;
 
 	@Lob
-	//@Column(length = 15000)
 	private String contents;
 
 	@Index(name = "idx_country")
@@ -87,11 +86,9 @@ public class Article extends AbstractPersistable<Long> {
 	@Column
 	private ArticleSection section;
 
-	//@Column(length=1024)
-        @Lob
+    @Lob
 	private String similarTitle = "";
 	
-	//@Column(length=8192)
 	@Lob
 	private String similarSection = "";
 
@@ -99,16 +96,13 @@ public class Article extends AbstractPersistable<Long> {
 
 	// 255 < length <=    65535  -->  `BLOB`
 	@Type(type = "serializable")
-	//@Column(length=1024) 
 	@Lob
 	private Set<String> keyWordList = new HashSet<>(); // use for summarization and duplication check
 
 	@Lob
-	//@Column(length = 10000)
 	private String mainContents;
 
 	@Lob
-	//@Column(length = 10000)
 	private String transedContents;
 	// /////////////////////////////////////////////////////////////////////////////
 

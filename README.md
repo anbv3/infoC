@@ -1,14 +1,53 @@
-뉴스 기사 정리, 요약, 번역 서비스  
-=====  
-심심풀이용으로 만들다 다른 사람들에게도 좀 도움이 되었으면 해서 계속 개발중임..ㅋ  
+# 뉴스 기사 정리, 요약, 번역 서비스  
+
+#### 심심풀이용으로 만들다 다른 사람들에게도 좀 도움이 되었으면 해서 계속 개발중임..ㅋ  
 
 
-라이센스는 연락바람..^^ 
-# contact: anbv333@gmail.com
+ 
+[contact]
+```
+anbv333@gmail.com
+```
+
+[Build]
+```
+mvn -Denv=release -Dmaven.test.skip=true clean package war:exploded
+```
+
+[DB]
+
+```
+[mysqld]
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+
+# memory for instance
+max_connections         = 100
+query_cache_size        = 16M
+query_cache_limit       = 1M
+max_allowed_packet      = 16M
+thread_cache_size       = 30
+table_open_cache        = 64
+thread_concurrency      = 8
+
+# innodb
+default-storage-engine          = InnoDB
+innodb_file_format              = barracuda
+innodb_large_prefix             = on
+innodb_buffer_pool_size         = 64M
+innodb_additional_mem_pool_size = 10M
+innodb_log_buffer_size          = 8M
+innodb_log_file_size            = 8M
+
+[mysql]
+default-character-set = utf8mb4
+
+```
+
 
 /////////////////////////////////////////////////////////////////////////
 
-[TODO] - 나와 다른 사람들에게도 도움이 되는 기능
+## TODO List
 
 * ‘카드 스택(Card Stack)’ 및 ‘스토리 스트림(Story Stream)’ 도입 from http://www.vox.com/
   - 기존 기사를 요약해서 카드를 만든 후 일자 별로 연결
