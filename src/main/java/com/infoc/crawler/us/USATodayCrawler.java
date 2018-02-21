@@ -135,6 +135,8 @@ public class USATodayCrawler implements NewsCrawler {
 		
 		String contentId = "div[itemprop=articleBody]";
 		Elements contentsArea = doc.select(contentId);
+        contentsArea.select(".ui-video-wrapper").remove();
+
         article.setContents(contentsArea.text());
 
 		// extract the img link ////////////////////////////////////////////////////////
