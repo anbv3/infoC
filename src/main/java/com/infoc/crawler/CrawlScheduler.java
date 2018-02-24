@@ -3,7 +3,7 @@ package com.infoc.crawler;
 import com.infoc.crawler.kr.DaumNewsCrawler;
 import com.infoc.crawler.kr.GoogleNewsCrawler;
 import com.infoc.crawler.kr.OtherNewsCrawler;
-import com.infoc.crawler.us.BaseballNewsCrawler;
+import com.infoc.crawler.us.NYTimesCrawler;
 import com.infoc.crawler.us.TimeCrawler;
 import com.infoc.crawler.us.USATodayCrawler;
 import com.infoc.domain.Article;
@@ -48,10 +48,10 @@ public class CrawlScheduler {
 	@Autowired
 	public USATodayCrawler usaTodayCrawler;
 	@Autowired
+	public NYTimesCrawler nyTimesCrawler;
+	@Autowired
 	public TimeCrawler timeCrawler;
-    @Autowired
-	public BaseballNewsCrawler baseballNewsCrawler;
-	
+
 	private static List<NewsCrawler> newsCrawlerList = new ArrayList<>();
 	
 	private void setUpCrawlerList() {
@@ -61,9 +61,9 @@ public class CrawlScheduler {
 		newsCrawlerList.add(otherNewsCrawler);
 
 		// us
-		newsCrawlerList.add(timeCrawler);
+        newsCrawlerList.add(timeCrawler);
         newsCrawlerList.add(usaTodayCrawler);
-		newsCrawlerList.add(baseballNewsCrawler);
+		newsCrawlerList.add(nyTimesCrawler);
 
 	}
 

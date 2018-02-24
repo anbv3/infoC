@@ -1,7 +1,7 @@
 package com.infoc.common;
 
 public enum Constant {
-    PAGE_SIZE(6);
+    PAGE_SIZE(4);
 
     private final int val;
 

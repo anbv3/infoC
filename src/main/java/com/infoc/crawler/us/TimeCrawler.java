@@ -48,11 +48,11 @@ public class TimeCrawler implements NewsCrawler {
 		LOG.debug("get RSS from Time.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
-		createListBySection(POLITICS, ArticleSection.POLITICS);
-		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(CULTURE, ArticleSection.CULTURE);
-		createListBySection(ENT, ArticleSection.ENT);
-		createListBySection(IT, ArticleSection.IT);
+//		createListBySection(POLITICS, ArticleSection.POLITICS);
+//		createListBySection(ECON, ArticleSection.ECON);
+//		createListBySection(CULTURE, ArticleSection.CULTURE);
+//		createListBySection(ENT, ArticleSection.ENT);
+		createListBySection(IT, ArticleSection.TODAY);
 
 		return this.articleList;
 	}

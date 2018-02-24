@@ -53,16 +53,16 @@ public class USATodayCrawler implements NewsCrawler {
 		LOG.debug("get RSS from USAToday.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
-		createListBySection(POLITICS, ArticleSection.POLITICS);
-		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(ENT, ArticleSection.ENT);
-		createListBySection(SPORT, ArticleSection.SPORT);
-		createListBySection(MLB, ArticleSection.SPORT);
-		createListBySection(IT, ArticleSection.IT);
+//		createListBySection(POLITICS, ArticleSection.POLITICS);
+//		createListBySection(ECON, ArticleSection.ECON);
+//		createListBySection(ENT, ArticleSection.ENT);
+//		createListBySection(SPORT, ArticleSection.SPORT);
+//		createListBySection(MLB, ArticleSection.SPORT);
+		createListBySection(IT, ArticleSection.TODAY);
 
-		createListBySection(TV, ArticleSection.CULTURE);
-		createListBySection(MOVIE, ArticleSection.CULTURE);
-		createListBySection(MUSIC, ArticleSection.CULTURE);
+		createListBySection(TV, ArticleSection.TODAY);
+		createListBySection(MOVIE, ArticleSection.TODAY);
+		createListBySection(MUSIC, ArticleSection.TODAY);
 
 		return this.articleList;
 	}

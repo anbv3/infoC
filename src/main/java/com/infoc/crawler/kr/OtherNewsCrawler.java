@@ -51,13 +51,13 @@ public class OtherNewsCrawler implements NewsCrawler {
         // 403 Forbidden from the out side of korea...
         // createListBySection(LIKELINK, ArticleSection.OTHERS);
 
-        createListBySection(NEWSTAPA, ArticleSection.OTHERS);
-        createListBySection(NEWSPEPPER, ArticleSection.OTHERS);
-        createListBySection(SLOW_NEWS, ArticleSection.OTHERS);
-        createListBySection(PPSS, ArticleSection.OTHERS);
-        createListBySection(CLIEN_NEWS1, ArticleSection.OTHERS);
-        createListBySection(CLIEN_NEWS2, ArticleSection.OTHERS);
-        createListBySection(CLIEN_NEWS3, ArticleSection.OTHERS);
+        createListBySection(NEWSTAPA, ArticleSection.TODAY);
+        createListBySection(NEWSPEPPER, ArticleSection.TODAY);
+        createListBySection(SLOW_NEWS, ArticleSection.TODAY);
+        createListBySection(PPSS, ArticleSection.TODAY);
+        createListBySection(CLIEN_NEWS1, ArticleSection.TODAY);
+        createListBySection(CLIEN_NEWS2, ArticleSection.TODAY);
+        createListBySection(CLIEN_NEWS3, ArticleSection.TODAY);
 
         return this.articleList;
     }

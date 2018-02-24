@@ -50,12 +50,12 @@ public class NYTimesCrawler implements NewsCrawler {
 		LOG.debug("get RSS from nytimes.");
 		
 		createListBySection(TODAY, ArticleSection.TODAY);
-		createListBySection(POLITICS, ArticleSection.POLITICS);
-		createListBySection(ECON, ArticleSection.ECON);
-		createListBySection(CULTURE, ArticleSection.CULTURE);
-		createListBySection(ENT, ArticleSection.ENT);
-		createListBySection(SPORT, ArticleSection.SPORT);
-		createListBySection(IT, ArticleSection.IT);
+//		createListBySection(POLITICS, ArticleSection.POLITICS);
+//		createListBySection(ECON, ArticleSection.ECON);
+//		createListBySection(CULTURE, ArticleSection.CULTURE);
+//		createListBySection(ENT, ArticleSection.ENT);
+//		createListBySection(SPORT, ArticleSection.SPORT);
+		createListBySection(IT, ArticleSection.TODAY);
 
 		return this.articleList;
 	}

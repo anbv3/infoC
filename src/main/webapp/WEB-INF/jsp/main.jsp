@@ -275,15 +275,15 @@
 			
 			<div class="collapse navbar-collapse mobile-nav-list">
 				<ul id="top-menu" class="nav navbar-nav navbar-left">
-					<li id="main-menu"><a href="/kr/main">주요</a></li>
-					<li id="politics-menu"><a href="/kr/politics">정치</a></li>
-					<li id="econ-menu"><a href="/kr/econ">경제</a></li>
-					<li id="society-menu"><a href="/kr/society">사회</a></li>
-					<li id="culture-menu"><a href="/kr/culture">문화</a></li>
-					<li id="ent-menu"><a href="/kr/ent">연예</a></li>
-					<li id="sport-menu"><a href="/kr/sport">스포츠</a></li>
-					<li id="it-menu"><a href="/kr/it">IT</a></li>
-					<li id="others-menu"><a href="/kr/others">기타</a></li>
+					<li id="main-menu"><a href="/kr/main">KOREA</a></li>
+					<%--<li id="politics-menu"><a href="/kr/politics">정치</a></li>--%>
+					<%--<li id="econ-menu"><a href="/kr/econ">경제</a></li>--%>
+					<%--<li id="society-menu"><a href="/kr/society">사회</a></li>--%>
+					<%--<li id="culture-menu"><a href="/kr/culture">문화</a></li>--%>
+					<%--<li id="ent-menu"><a href="/kr/ent">연예</a></li>--%>
+					<%--<li id="sport-menu"><a href="/kr/sport">스포츠</a></li>--%>
+					<%--<li id="it-menu"><a href="/kr/it">IT</a></li>--%>
+					<%--<li id="others-menu"><a href="/kr/others">기타</a></li>--%>
 					<li id="us-menu"><a style="color: #83E01F" href="/us/main">USA</a></li>
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">로그인</a></li>  -->
 				</ul>
