@@ -252,7 +252,7 @@ public class USCollectionService {
 				Iterator<Article> article = entry.getValue().iterator();
 				while (article.hasNext()) {
                     DateTime pubTime = new DateTime(article.next().getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-                    if (pubTime.isBefore(currentTime.minusDays(1).plusHours(1))) {
+                    if (pubTime.isBefore(currentTime.minusHours(7))) {
                         article.remove();
                     }
 				}

@@ -292,24 +292,25 @@ color: #444;
                 </button>
                 <a class="navbar-brand visible-xs" href="/us/main" style="color:#ffffff; font-weight: bold;">Skim Paper!</a>
             </div>
-			
-			<div class="collapse navbar-collapse mobile-nav-list">
-				<ul id="top-menu" class="nav navbar-nav navbar-left">
-					<li id="main-menu"><a href="/us/main">USA</a></li>
-					<%--<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>--%>
-					<%--<li id="econ-menu"><a href="/us/econ">BUSINESS</a></li>--%>
-					<%--<li id="culture-menu"><a href="/us/culture">LIFE</a></li>--%>
-					<%--<li id="ent-menu"><a href="/us/ent">ENT</a></li>--%>
-					<%--<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>--%>
-					<%--<li id="it-menu"><a href="/us/it">TECH</a></li>--%>
-					<li id="us-menu"><a style="color:#83E01F" href="/kr/main">KOREA</a></li>
+
+
+            <div class="collapse navbar-collapse mobile-nav-list">
+                <ul id="top-menu" class="nav navbar-nav navbar-left">
+                    <li id="us-menu"><a style="color:#83E01F" href="/kr/main">KOREA</a></li>
+                    <li id="main-menu"><a href="/us/main">USA</a></li>
+                <%--<li id="politics-menu"><a href="/us/politics">POLITICS</a></li>--%>
+                <%--<li id="econ-menu"><a href="/us/econ">BUSINESS</a></li>--%>
+                <%--<li id="culture-menu"><a href="/us/culture">LIFE</a></li>--%>
+                <%--<li id="ent-menu"><a href="/us/ent">ENT</a></li>--%>
+                <%--<li id="sport-menu"><a href="/us/sport">SPORTS</a></li>--%>
+                <%--<li id="it-menu"><a href="/us/it">TECH</a></li>--%>
 					<!-- <li id="us-menu"><a style="color:#ffde66" href="/login">Log In</a></li>  -->
 				</ul>
-				
+
 				<div class="col-lg-3 navbar-right">
 					<form class="navbar-form form-inline" onsubmit="return false">
 						<div class="input-group">
-							<input id="search-input" type="text" class="form-control"> 
+							<input id="search-input" type="text" class="form-control">
 							<span class="input-group-btn">
 								<button id="search-btn" class="btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i></button>
 							</span>
@@ -318,11 +319,11 @@ color: #444;
 					</form>
 				</div>
 				<!-- /.col-lg-6 -->
-			
-			
+
+
 			</div>
-			<!--/.nav-collapse -->
-			
+            <!--/.nav-collapse -->
+
 			
 		</div>
 		<!-- <div class="color-strip"></div> -->
