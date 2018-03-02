@@ -258,7 +258,7 @@ public class CollectionService {
                 Iterator<Article> article = entry.getValue().iterator();
                 while (article.hasNext()) {
                     DateTime pubTime = new DateTime(article.next().getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-                    if (pubTime.isBefore(currentTime.minusHours(6))) {
+                    if (pubTime.isBefore(currentTime.minusHours(2))) {
                         article.remove();
                     }
                 }
