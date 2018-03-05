@@ -133,8 +133,8 @@ public class CrawlScheduler {
 			LOG.info("Clear articles one day before! => CurrentTime: {}", currentTime);
 
             // actually remove the articles published 25 hours ago
-			CollectionService.clearYesterday();
-			USCollectionService.clearYesterday();
+			CollectionService.clearCache();
+			USCollectionService.clearCache();
 		}
 	}
 

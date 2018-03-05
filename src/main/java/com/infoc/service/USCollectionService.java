@@ -244,18 +244,23 @@ public class USCollectionService {
         cache.get(storedArticle.getPubHour()).add(storedArticle);
 	}
 
-	public static void clearYesterday() {
+	public static void clearCache() {
         DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
 
 		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
 			for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
-				Iterator<Article> article = entry.getValue().iterator();
-				while (article.hasNext()) {
-                    DateTime pubTime = new DateTime(article.next().getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-                    if (pubTime.isBefore(currentTime.minusHours(3))) {
-                        article.remove();
+                List<Article> articles = entry.getValue();
+                if (articles.size() > 20) {
+                    articles.subList(20, articles.size()).clear();
+                }
+
+                articles.removeIf(article -> {
+                    DateTime pubTime = new DateTime(article.getPubDate(), DateTimeZone.forID("Asia/Seoul"));
+                    if (pubTime.isBefore(currentTime.minusHours(9))) {
+                        return true;
                     }
-				}
+                    return false;
+                });
 			}
 		}
 
