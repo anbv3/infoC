@@ -257,19 +257,10 @@ public class CollectionService {
             for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
                 List<Article> articles = entry.getValue();
                 if (articles.size() > 20) {
-                    articles.subList(20, articles.size()).clear();
+                    articles.subList(0, 10).clear();
                 }
-
-                articles.removeIf(article -> {
-                    DateTime pubTime = new DateTime(article.getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-                    if (pubTime.isBefore(currentTime.minusHours(6))) {
-                        return true;
-                    }
-                    return false;
-                });
             }
         }
-
     }
 
     public static Map<Integer, List<Article>> getToday() {

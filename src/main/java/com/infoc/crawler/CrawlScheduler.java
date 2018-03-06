@@ -56,7 +56,7 @@ public class CrawlScheduler {
 	
 	private void setUpCrawlerList() {
 		// kr
-		newsCrawlerList.add(daumNewsCrawler);
+		//newsCrawlerList.add(daumNewsCrawler);
 		newsCrawlerList.add(googleNewsCrawler);
 		newsCrawlerList.add(otherNewsCrawler);
 
@@ -130,9 +130,8 @@ public class CrawlScheduler {
 		@Override
 		public void run() {
             DateTime currentTime = new DateTime(DateTimeZone.forID("Asia/Seoul"));
-			LOG.info("Clear articles one day before! => CurrentTime: {}", currentTime);
+			LOG.info("Clear articles before! => CurrentTime: {}", currentTime);
 
-            // actually remove the articles published 25 hours ago
 			CollectionService.clearCache();
 			USCollectionService.clearCache();
 		}
