@@ -244,7 +244,7 @@ public class CollectionService {
 
         // get the hour of the time for the time section
         int hour = (new DateTime(storedArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
-        //cache.get(hour).add(storedArticle);
+        cache.get(hour).add(storedArticle);
     }
 
     public static void clearCache() {

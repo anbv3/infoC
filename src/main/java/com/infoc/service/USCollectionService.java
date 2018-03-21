@@ -231,9 +231,6 @@ public class USCollectionService {
 			}
 		}
 
-		// if it is the new one, then translate the main contents.
-		newArticle.translateMainContentsFromEnToKr();
-		
         // store in DB
         Article storedArticle = articleService.add(newArticle);
         if (storedArticle == null) {

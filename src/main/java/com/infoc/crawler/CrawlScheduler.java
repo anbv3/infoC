@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class CrawlScheduler {
 	private static final Logger LOG = LoggerFactory.getLogger(CrawlScheduler.class);
-	private static final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);
+	private static final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
 	
 	@Autowired
 	ArticleService articleService;
@@ -56,7 +56,7 @@ public class CrawlScheduler {
 	
 	private void setUpCrawlerList() {
 		// kr
-		//newsCrawlerList.add(daumNewsCrawler);
+		newsCrawlerList.add(daumNewsCrawler);
 		newsCrawlerList.add(googleNewsCrawler);
 		newsCrawlerList.add(otherNewsCrawler);
 
@@ -69,8 +69,8 @@ public class CrawlScheduler {
 
 	private void setUpSchedules() {
 		// After finished the task, wait for the delay and execute the task again
-		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 1, 15, TimeUnit.MINUTES);
-		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 10, 10, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleWithFixedDelay(new CrawlTask(), 1, 10, TimeUnit.MINUTES);
+		scheduledExecutorService.scheduleWithFixedDelay(new CrawlClearTask(), 10, 20, TimeUnit.MINUTES);
 	}
 	
 	private void setUpCache() {
