@@ -35,7 +35,7 @@ public class OtherNewsCrawler implements NewsCrawler {
     private static String NEWSPEPPER = "http://newspeppermint.com/feed";
     private static String CLIEN_NEWS1 = "http://feeds.feedburner.com/c_news";
     private static String CLIEN_NEWS2 = "http://feeds.feedburner.com/c_use";
-    private static String CLIEN_NEWS3 = "http://feeds.feedburner.com/c_sho";
+    private static String CLIEN_NEWS3 = "http://feeds.feedburner.com/c_shop";
     private static String SLOW_NEWS = "http://feeds.feedburner.com/slownews";
     private static String PPSS = "http://feeds.feedburner.com/ppss";
 

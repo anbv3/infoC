@@ -27,8 +27,6 @@ public class CollectionService {
     private static final Logger LOG = LoggerFactory.getLogger(CollectionService.class);
     private static final Integer MAX_DUP_NUM = 5;
 
-    public static Map<String, String> ECON_INFO = new ConcurrentHashMap<String, String>();
-
     public static List<Map<Integer, List<Article>>> CACHE_LIST = new ArrayList<>();
     public static Map<Integer, List<Article>> TODAY_CACHE = new ConcurrentSkipListMap<Integer, List<Article>>(Collections
             .reverseOrder());
@@ -49,14 +47,14 @@ public class CollectionService {
 
     static {
         CACHE_LIST.add(TODAY_CACHE);
-        CACHE_LIST.add(POLITICS_CACHE);
-        CACHE_LIST.add(ECON_CACHE);
-        CACHE_LIST.add(SOCIETY_CACHE);
-        CACHE_LIST.add(CULTURE_CACHE);
-        CACHE_LIST.add(ENT_CACHE);
-        CACHE_LIST.add(SPORT_CACHE);
-        CACHE_LIST.add(IT_CACHE);
-        CACHE_LIST.add(OTHERS_CACHE);
+//        CACHE_LIST.add(POLITICS_CACHE);
+//        CACHE_LIST.add(ECON_CACHE);
+//        CACHE_LIST.add(SOCIETY_CACHE);
+//        CACHE_LIST.add(CULTURE_CACHE);
+//        CACHE_LIST.add(ENT_CACHE);
+//        CACHE_LIST.add(SPORT_CACHE);
+//        CACHE_LIST.add(IT_CACHE);
+//        CACHE_LIST.add(OTHERS_CACHE);
 
         for (Map<Integer, List<Article>> cache : CACHE_LIST) {
             for (int i = 0; i < 24; i++) {
@@ -246,7 +244,7 @@ public class CollectionService {
 
         // get the hour of the time for the time section
         int hour = (new DateTime(storedArticle.getPubDate(), DateTimeZone.forID("Asia/Seoul"))).getHourOfDay();
-        cache.get(hour).add(storedArticle);
+        //cache.get(hour).add(storedArticle);
     }
 
     public static void clearCache() {

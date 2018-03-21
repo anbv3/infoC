@@ -52,7 +52,7 @@ public class GoogleNewsCrawler implements NewsCrawler {
 //        createListBySection(CULTURE, ArticleSection.CULTURE);
 //        createListBySection(ENT, ArticleSection.ENT);
 //        createListBySection(SPORT, ArticleSection.SPORT);
-//        createListBySection(IT, ArticleSection.IT);
+        createListBySection(IT, ArticleSection.TODAY);
 
         return this.articleList;
     }
