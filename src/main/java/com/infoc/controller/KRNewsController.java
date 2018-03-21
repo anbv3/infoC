@@ -55,25 +55,19 @@ public class KRNewsController extends BaseController {
 
 		Map<Integer, List<Article>> articleListMap = new HashMap<Integer, List<Article>>();
 
-		if (reqTime.getDayOfMonth() == currTime.getDayOfMonth()) {
-			articleListMap = CollectionService.getArticlesByCurrentTime(cacheMap, page, search);
-			model.addAttribute("end", false);
-		} else {
-			// 전날 "뉴스" 가져오기
-			Map<Integer, List<Article>> oldArticleListMap =
-				articleService.getArticlesByPubDateAndSection(reqTime.toDate(), "KR", section);
+        Map<Integer, List<Article>> oldArticleListMap =
+                articleService.getArticlesByPubDateAndSection(reqTime.toDate(), "KR", section);
 
-			if (oldArticleListMap == null || oldArticleListMap.isEmpty()) {
-				model.addAttribute("end", true);
-			} else {
-				articleListMap = CollectionService.getArticlesByPage(oldArticleListMap, page, search);
-				if (articleListMap.isEmpty() && page == 0) {
-					model.addAttribute("end", true);
-				} else {
-					model.addAttribute("end", false);
-				}
-			}
-		}
+        if (oldArticleListMap == null || oldArticleListMap.isEmpty()) {
+            model.addAttribute("end", true);
+        } else {
+            articleListMap = CollectionService.getArticlesByPage(oldArticleListMap, page, search);
+            if (articleListMap.isEmpty() && page == 0) {
+                model.addAttribute("end", true);
+            } else {
+                model.addAttribute("end", false);
+            }
+        }
 
 		model.addAttribute("articleMap", articleListMap);
 		model.addAttribute("menu", menuName);
