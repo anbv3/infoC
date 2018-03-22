@@ -247,6 +247,14 @@ public class USCollectionService {
 		for (Map<Integer, List<Article>> cache : CACHE_LIST) {
 			for (Entry<Integer, List<Article>> entry : cache.entrySet()) {
                 List<Article> articles = entry.getValue();
+                articles.removeIf(article -> {
+                    DateTime pubTime = new DateTime(article.getPubDate(), DateTimeZone.forID("Asia/Seoul"));
+                    if (pubTime.isBefore(currentTime.minusHours(12))) {
+                        return true;
+                    }
+                    return false;
+                });
+
                 if (articles.size() > 20) {
                     articles.subList(0, 5).clear();
                 }
