@@ -249,14 +249,20 @@ public class USCollectionService {
                 List<Article> articles = entry.getValue();
                 articles.removeIf(article -> {
                     DateTime pubTime = new DateTime(article.getPubDate(), DateTimeZone.forID("Asia/Seoul"));
-                    if (pubTime.isBefore(currentTime.minusHours(12))) {
+                    DateTime dt = new DateTime(currentTime.getYear(), currentTime.getMonthOfYear(),
+                            currentTime.getDayOfMonth(), entry.getKey().intValue(), 0, 0, 0);
+
+                    if (pubTime.isBefore(dt)) {
                         return true;
                     }
                     return false;
                 });
 
-                if (articles.size() > 20) {
-                    articles.subList(0, 5).clear();
+                // sort
+                Collections.sort(articles, Article.dateOrder.reversed());
+
+                if (articles.size() > 15) {
+                    articles.subList(15, articles.size()).clear();
                 }
 			}
 		}
